@@ -1,6 +1,4 @@
-<html lang="en"><head><style>body {transition: opacity ease-in 0.2s; } 
-body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
-</style>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MS/PhD Student Database — Dept. of Electrical Engineering</title>
@@ -238,15 +236,15 @@ body.is-admin .admin-only-block{display:block}
   <!-- Students Tab -->
   <div id="tab-students">
     <div class="stats-grid" id="statsGrid">
-    <div class="stat-card"><div class="stat-label">Total</div><div class="stat-value sv-blue">12</div></div>
-    <div class="stat-card"><div class="stat-label">MS</div><div class="stat-value sv-purple">0</div></div>
-    <div class="stat-card"><div class="stat-label">PhD</div><div class="stat-value sv-teal">12</div></div>
-    <div class="stat-card"><div class="stat-label">Completed</div><div class="stat-value sv-green">6</div></div>
-    <div class="stat-card"><div class="stat-label">Enrolled</div><div class="stat-value sv-blue">5</div></div>
+    <div class="stat-card"><div class="stat-label">Total</div><div class="stat-value sv-blue">2</div></div>
+    <div class="stat-card"><div class="stat-label">MS</div><div class="stat-value sv-purple">2</div></div>
+    <div class="stat-card"><div class="stat-label">PhD</div><div class="stat-value sv-teal">0</div></div>
+    <div class="stat-card"><div class="stat-label">Completed</div><div class="stat-value sv-green">0</div></div>
+    <div class="stat-card"><div class="stat-label">Enrolled</div><div class="stat-value sv-blue">1</div></div>
     <div class="stat-card"><div class="stat-label">Left</div><div class="stat-value sv-coral">1</div></div>
-    <div class="stat-card"><div class="stat-label">PDE Done</div><div class="stat-value sv-teal">9</div></div>
-    <div class="stat-card"><div class="stat-label">PDE Pending</div><div class="stat-value sv-amber">3</div></div>
-    <div class="stat-card"><div class="stat-label">FDE Done</div><div class="stat-value sv-green">6</div></div>
+    <div class="stat-card"><div class="stat-label">PDE Done</div><div class="stat-value sv-teal">1</div></div>
+    <div class="stat-card"><div class="stat-label">PDE Pending</div><div class="stat-value sv-amber">1</div></div>
+    <div class="stat-card"><div class="stat-label">FDE Done</div><div class="stat-value sv-green">0</div></div>
   </div>
 
     <div class="filter-bar">
@@ -267,7 +265,7 @@ body.is-admin .admin-only-block{display:block}
         <select id="fFDE" onchange="applyFilters()"><option value="">All FDE</option><option value="Done">Done</option><option value="Pending">Pending</option></select>
         <button class="add-btn" id="addStudentBtn" style="display: flex;" onclick="openAddStudent()"><i class="ti ti-plus"></i>Add Student</button>
       </div>
-      <div class="count-info" id="countBar">Showing 12 of 53 students — click a row or use action buttons</div>
+      <div class="count-info" id="countBar">Showing 2 of 53 students — click a row or use action buttons</div>
     </div>
 
     <div class="table-wrap">
@@ -293,280 +291,50 @@ body.is-admin .admin-only-block{display:block}
             </tr>
           </thead>
           <tbody id="tBody"><tr>
-      <td onclick="openView(0)" style="cursor:pointer"><div class="name-cell">Amina Asif</div><div class="id-tag">181796</div></td>
-      <td onclick="openView(0)" style="cursor:pointer">PhD</td>
-      <td onclick="openView(0)" style="cursor:pointer">Fall-2018</td>
-      <td onclick="openView(0)" style="cursor:pointer"><div style="font-size:13px">Dr. Muhammad Zakwan</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Co: Dr. Muhammad Habib Mahmood</div></td>
-      <td onclick="openView(0)" style="cursor:pointer;font-size:13px">Dr. Waseem Khan Dr. Ashfaq Ahmad</td>
-      <td onclick="openView(0)" style="cursor:pointer;font-size:13px">Dr. Arsalan Shaukat (External) (NUST)</td>
-      <td onclick="openView(0)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal">Computer Vision/Deep Learning</div></td>
-      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">03 Jan, 2022</div></td>
-      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">16-12-2025</div></td>
-      <td><span class="badge b-completed">Completed</span></td>
-      <td style="white-space:nowrap">
-        <div style="font-size:12px"><a href="mailto:amina_aqali@yahoo.com" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>amina_aqali@yahoo.com</a></div>
-        
-        
-      </td>
-      <td onclick="openView(0)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td onclick="openView(0)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td onclick="openView(0)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(0)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(0)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(1)" style="cursor:pointer"><div class="name-cell">Bilal Ashraf</div><div class="id-tag">181791</div></td>
-      <td onclick="openView(1)" style="cursor:pointer">PhD</td>
-      <td onclick="openView(1)" style="cursor:pointer">Fall-2018</td>
-      <td onclick="openView(1)" style="cursor:pointer"><div style="font-size:13px">Dr. Husan Ali</div></td>
-      <td onclick="openView(1)" style="cursor:pointer;font-size:13px">Dr. Waseem Khan Dr. Tufail Muhammad (Co-Supervisor) (Co-Supervisor) Dr. Shahbaz Khan (EE. Deptt. AU Kamra Campus)</td>
-      <td onclick="openView(1)" style="cursor:pointer;font-size:13px">Dr. Dur-E-Zehra Baig (External Member) (GIKI)</td>
-      <td onclick="openView(1)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal">Cardiac Arrhythmia Classification for Imbalanced Data in the Presence of Noise Exploiting Deep Feature Embeddings</div></td>
-      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">27 Dec, 2021</div></td>
-      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">13 June, 2025</div></td>
-      <td><span class="badge b-completed">Completed</span></td>
-      <td style="white-space:nowrap">
-        <div style="font-size:12px"><a href="mailto:bilalawan14@gmail.com" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>bilalawan14@gmail.com</a></div>
-        
-        
-      </td>
-      <td onclick="openView(1)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td onclick="openView(1)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td onclick="openView(1)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(1)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(1)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(2)" style="cursor:pointer"><div class="name-cell">Muhammad Favad Qadir</div><div class="id-tag">181795</div></td>
-      <td onclick="openView(2)" style="cursor:pointer">PhD</td>
-      <td onclick="openView(2)" style="cursor:pointer">Fall-2018</td>
-      <td onclick="openView(2)" style="cursor:pointer"><div style="font-size:13px">Dr. Muhammad Zakwan</div></td>
-      <td onclick="openView(2)" style="cursor:pointer;font-size:13px">Dr. Waseem Khan (Co-Supervisor) Dr. Ahsan Sarwar Rana Dr. Rana Iqditar Shakoor</td>
-      <td onclick="openView(2)" style="cursor:pointer;font-size:13px">Dr. Taimoor Naeem (COMSATS)</td>
-      <td onclick="openView(2)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal">Design, Simulation and characterization of Silicon on Insulator (SoI) based Multi-Parameters Optical Sensing Systems</div></td>
-      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">20 Jan, 2022</div></td>
-      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">05 January, 2026</div></td>
-      <td><span class="badge b-completed">Completed</span></td>
-      <td style="white-space:nowrap">
-        <div style="font-size:12px"><a href="mailto:favad1dzr@gmail.com" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>favad1dzr@gmail.com</a></div>
-        
-        
-      </td>
-      <td onclick="openView(2)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td onclick="openView(2)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td onclick="openView(2)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(2)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(2)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(3)" style="cursor:pointer"><div class="name-cell">Atif Iftikhar</div><div class="id-tag">191834</div></td>
-      <td onclick="openView(3)" style="cursor:pointer">PhD</td>
-      <td onclick="openView(3)" style="cursor:pointer">Fall-2019</td>
-      <td onclick="openView(3)" style="cursor:pointer"><div style="font-size:13px">Dr. Ashfaq Ahmad</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Co: Dr. Usman Ali SEECS( NUST) Co-sup</div></td>
-      <td onclick="openView(3)" style="cursor:pointer;font-size:13px">Dr. Syed Ahmad Pasha Dr. Muhammad Adil Khan</td>
-      <td onclick="openView(3)" style="cursor:pointer;font-size:13px">Dr. Rasool Bakhsh (CUI)</td>
-      <td onclick="openView(3)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal">Geometric Control for Spacecraft Attitude Control</div></td>
-      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">28 Dec, 2022</div></td>
+      <td onclick="openView(13)" style="cursor:pointer"><div class="name-cell">Khushal Khan</div><div class="id-tag">211663</div></td>
+      <td onclick="openView(13)" style="cursor:pointer">MS</td>
+      <td onclick="openView(13)" style="cursor:pointer">Fall-2021</td>
+      <td onclick="openView(13)" style="cursor:pointer"><div style="font-size:13px">Dr. Muhammad Adil Khan</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Co: Dr. Saad Ullah Khan (Co)</div></td>
+      <td onclick="openView(13)" style="cursor:pointer;font-size:13px">Dr. Ashfaq Ahmed Dr. Jehanzeb Khan</td>
+      <td onclick="openView(13)" style="cursor:pointer;font-size:13px">Dr. Waqaruddin (NUST)</td>
+      <td onclick="openView(13)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal">Analyzing Modular Multilevel Power Convertes for Electric Vehicle Charging</div></td>
+      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">12 June, 2024</div></td>
       <td><div><span class="b-dash">—</span></div></td>
       <td><span class="badge b-left">Left</span></td>
       <td style="white-space:nowrap">
-        <div style="font-size:12px"><a href="mailto:atif19000@yahoo.com" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>atif19000@yahoo.com</a></div>
-        
-        
-      </td>
-      <td onclick="openView(3)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td onclick="openView(3)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td onclick="openView(3)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(3)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(3)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(4)" style="cursor:pointer"><div class="name-cell">Hussain Asif</div><div class="id-tag">191925</div></td>
-      <td onclick="openView(4)" style="cursor:pointer">PhD</td>
-      <td onclick="openView(4)" style="cursor:pointer">Fall-2019</td>
-      <td onclick="openView(4)" style="cursor:pointer"><div style="font-size:13px">Dr. Hafiz Ashiq Hussain</div></td>
-      <td onclick="openView(4)" style="cursor:pointer;font-size:13px">Dr. Jehanzeb Khan Dr. Bahman</td>
-      <td onclick="openView(4)" style="cursor:pointer;font-size:13px">Dr. Abraiz Khattak (NUST)</td>
-      <td onclick="openView(4)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal">A blockchain Enabled Energy Management for Electrical Vehicles in Smart Cities.</div></td>
-      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">18 Jan, 2023</div></td>
-      <td><div><span class="badge b-pending">Pending</span></div></td>
-      <td><span class="badge b-enrolled">Enrolled</span></td>
-      <td style="white-space:nowrap">
-        <div style="font-size:12px"><a href="mailto:hussain.asif@au.edu.pk" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>hussain.asif@au.edu.pk</a></div>
-        
+        <div style="font-size:12px"><a href="mailto:khushalkhan684@hotmail.com" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>khushalkhan684@hotmail.com</a></div>
+        <div style="font-size:12px;color:var(--text2);margin-top:2px"><i class="ti ti-phone" style="font-size:11px;margin-right:3px"></i>92 334-7820684</div>
         
       </td>
-      <td onclick="openView(4)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td onclick="openView(4)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td onclick="openView(4)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(13)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(13)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(13)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(4)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(4)"><i class="ti ti-trash"></i></button>
+        <button class="act-btn btn-edit" onclick="openEdit(13)"><i class="ti ti-pencil"></i>Edit</button>
+        <button class="act-btn btn-del" onclick="confirmDelete(13)"><i class="ti ti-trash"></i></button>
       </div></td>
     </tr><tr>
-      <td onclick="openView(5)" style="cursor:pointer"><div class="name-cell">Mubashir Rasool</div><div class="id-tag">191830</div></td>
-      <td onclick="openView(5)" style="cursor:pointer">PhD</td>
-      <td onclick="openView(5)" style="cursor:pointer">Fall-2019</td>
-      <td onclick="openView(5)" style="cursor:pointer"><div style="font-size:13px">Dr. Muhammad Adil Khan</div></td>
-      <td onclick="openView(5)" style="cursor:pointer;font-size:13px">Dr. Ashfaq Ahmad Dr.Saad Ullah khan</td>
-      <td onclick="openView(5)" style="cursor:pointer;font-size:13px">Dr. Muhammad Amir (Bharia)</td>
-      <td onclick="openView(5)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal">Optimal Energy Management and Control Strategies for Hybrid Electrical Vechicles</div></td>
-      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">21st Jan, 2022</div></td>
-      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">03 July, 2025</div></td>
-      <td><span class="badge b-completed">Completed</span></td>
-      <td style="white-space:nowrap">
-        <div style="font-size:12px"><a href="mailto:engr.mubashirrasool@gmail.com" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>engr.mubashirrasool@gmail.com</a></div>
-        
-        
-      </td>
-      <td onclick="openView(5)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td onclick="openView(5)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td onclick="openView(5)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(5)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(5)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(6)" style="cursor:pointer"><div class="name-cell">Waleed Manzoor</div><div class="id-tag">191829</div></td>
-      <td onclick="openView(6)" style="cursor:pointer">PhD</td>
-      <td onclick="openView(6)" style="cursor:pointer">Fall-2019</td>
-      <td onclick="openView(6)" style="cursor:pointer"><div style="font-size:13px">Dr. Nouman Naseer</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Co: Dr. Imran Fareed (Bahria University) Co-Sup</div></td>
-      <td onclick="openView(6)" style="cursor:pointer;font-size:13px">Dr. Muhamad Imran Fareed Dr. Syed Hammad Nazeer</td>
-      <td onclick="openView(6)" style="cursor:pointer;font-size:13px">Dr. Usman Akram (NUST)</td>
-      <td onclick="openView(6)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal">Mental Workload Detection and Assessment using Brain Signals</div></td>
-      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">22 June, 2022</div></td>
-      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">07 Nov, 2025</div></td>
-      <td><span class="badge b-completed">Completed</span></td>
-      <td style="white-space:nowrap">
-        <div style="font-size:12px"><a href="mailto:bilalawan14@gmail.com" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>bilalawan14@gmail.com</a></div>
-        
-        
-      </td>
-      <td onclick="openView(6)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td onclick="openView(6)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td onclick="openView(6)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(6)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(6)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(20)" style="cursor:pointer"><div class="name-cell">Imran Hussain</div><div class="id-tag">222522</div></td>
-      <td onclick="openView(20)" style="cursor:pointer">PhD</td>
-      <td onclick="openView(20)" style="cursor:pointer">Fall-2022</td>
-      <td onclick="openView(20)" style="cursor:pointer"><div style="font-size:13px">Dr. Hafiz Ashiq Hussain</div></td>
-      <td onclick="openView(20)" style="cursor:pointer;font-size:13px">Dr. Muhammad Adil Khan</td>
-      <td onclick="openView(20)" style="cursor:pointer;font-size:13px">Dr. Junaid Ali Khan (HITECH)</td>
-      <td onclick="openView(20)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal">Peer-to-Peer Energy Transactions via Blockchain</div></td>
-      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">27 Dec, 2023</div></td>
-      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">19 May, 2025</div></td>
-      <td><span class="badge b-completed">Completed</span></td>
-      <td style="white-space:nowrap">
-        <div style="font-size:12px"><a href="mailto:engr.imranhussain1@gmail.com" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>engr.imranhussain1@gmail.com</a></div>
-        
-        
-      </td>
-      <td onclick="openView(20)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td onclick="openView(20)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td onclick="openView(20)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(20)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(20)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(24)" style="cursor:pointer"><div class="name-cell">Bilal Idrees</div><div class="id-tag">232906</div></td>
-      <td onclick="openView(24)" style="cursor:pointer">PhD</td>
-      <td onclick="openView(24)" style="cursor:pointer">Fall-2023</td>
-      <td onclick="openView(24)" style="cursor:pointer"><div style="font-size:13px">Dr. Hafiz Ashiq Hussain</div></td>
-      <td onclick="openView(24)" style="cursor:pointer;font-size:13px">Dr. Ashfaq Ahmad Dr. Muhammad Adil Khan</td>
-      <td onclick="openView(24)" style="cursor:pointer;font-size:13px">Prof. Dr. Asad Waqar (Bahria University</td>
-      <td onclick="openView(24)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal"><span style="color:var(--text3)">—</span></div></td>
-      <td><div><span class="badge b-pending">Pending</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">-</div></td>
-      <td><div><span class="badge b-pending">Pending</span></div></td>
-      <td><span class="badge b-enrolled">Enrolled</span></td>
-      <td style="white-space:nowrap">
-        <div style="font-size:12px"><a href="mailto:bilalidrees1@yahoo.com" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>bilalidrees1@yahoo.com</a></div>
-        
-        
-      </td>
-      <td onclick="openView(24)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td onclick="openView(24)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td onclick="openView(24)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(24)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(24)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(29)" style="cursor:pointer"><div class="name-cell">Haji Ahmed</div><div class="id-tag">243441</div></td>
-      <td onclick="openView(29)" style="cursor:pointer">PhD</td>
-      <td onclick="openView(29)" style="cursor:pointer">Fall-2024</td>
-      <td onclick="openView(29)" style="cursor:pointer"><div style="font-size:13px">Dr. Muhammad Adil Khan</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Co: Dr. Ashfaq Ahmad</div></td>
-      <td onclick="openView(29)" style="cursor:pointer;font-size:13px">Dr. Hafiz Ashiq Hussain Dr. Saad Ullah Khan</td>
-      <td onclick="openView(29)" style="cursor:pointer;font-size:13px">Dr. Muhammad Aamir (PAF IAST)</td>
-      <td onclick="openView(29)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal"><span style="color:var(--text3)">—</span></div></td>
+      <td onclick="openView(41)" style="cursor:pointer"><div class="name-cell">Khushbakht Sajid</div><div class="id-tag">2504379</div></td>
+      <td onclick="openView(41)" style="cursor:pointer">MS</td>
+      <td onclick="openView(41)" style="cursor:pointer">Fall-2025</td>
+      <td onclick="openView(41)" style="cursor:pointer"><div style="font-size:13px">Dr. Ashfaq Ahmad</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Co: Dr. Muhammad Adil Khan</div></td>
+      <td onclick="openView(41)" style="cursor:pointer;font-size:13px">Dr. Ahsan Sarwar Rana</td>
+      <td onclick="openView(41)" style="cursor:pointer;font-size:13px">Dr. Rasool Bukhsh (COMSATS)</td>
+      <td onclick="openView(41)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal"><span style="color:var(--text3)">—</span></div></td>
       <td><div><span class="badge b-pending">Pending</span></div></td>
       <td><div><span class="badge b-pending">Pending</span></div></td>
       <td><span class="badge b-enrolled">Enrolled</span></td>
       <td style="white-space:nowrap">
-        <div style="font-size:12px"><a href="mailto:hajiahmed@nutech.edu.pk" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>hajiahmed@nutech.edu.pk</a></div>
         
         
+        <span style="color:var(--text3)">—</span>
       </td>
-      <td onclick="openView(29)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td onclick="openView(29)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td onclick="openView(29)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(41)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(41)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(41)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(29)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(29)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(33)" style="cursor:pointer"><div class="name-cell">Sharoze Sohail</div><div class="id-tag">249519</div></td>
-      <td onclick="openView(33)" style="cursor:pointer">PhD</td>
-      <td onclick="openView(33)" style="cursor:pointer">Fall-2024</td>
-      <td onclick="openView(33)" style="cursor:pointer"><div style="font-size:13px">Dr. Hafiz Ashiq Hussain</div></td>
-      <td onclick="openView(33)" style="cursor:pointer;font-size:13px">Dr. Saad Ullah Khan</td>
-      <td onclick="openView(33)" style="cursor:pointer;font-size:13px">Dr. Asad Waqar (BU)</td>
-      <td onclick="openView(33)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal"><span style="color:var(--text3)">—</span></div></td>
-      <td><div><span class="badge b-pending">Pending</span></div></td>
-      <td><div><span class="badge b-pending">Pending</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">Pending</div></td>
-      <td><span class="badge b-enrolled">Enrolled</span></td>
-      <td style="white-space:nowrap">
-        <div style="font-size:12px"><a href="mailto:sharozesohail7@gmail.com" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>sharozesohail7@gmail.com</a></div>
-        
-        
-      </td>
-      <td onclick="openView(33)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td onclick="openView(33)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td onclick="openView(33)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(33)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(33)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(48)" style="cursor:pointer"><div class="name-cell">Muhammad Ali Raza</div><div class="id-tag">210145</div></td>
-      <td onclick="openView(48)" style="cursor:pointer">PhD</td>
-      <td onclick="openView(48)" style="cursor:pointer">S-2021</td>
-      <td onclick="openView(48)" style="cursor:pointer"><div style="font-size:13px">Dr.Ahsan Sarwar Rana</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Co: Dr. Hafiz Ashiq Hussain (Co-Sup)</div></td>
-      <td onclick="openView(48)" style="cursor:pointer;font-size:13px">Dr. Sarah Saeed Dr. Saleem Shahid</td>
-      <td onclick="openView(48)" style="cursor:pointer;font-size:13px">Dr. Khurram Saleem</td>
-      <td onclick="openView(48)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal">Design and Investigation of Optical Metasurfaces for Energy Harvesting and Sensing Applications</div></td>
-      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">16 June, 2023</div></td>
-      <td><div><span class="badge b-pending">Pending</span></div></td>
-      <td><span class="badge b-enrolled">Enrolled</span></td>
-      <td style="white-space:nowrap">
-        <div style="font-size:12px"><a href="mailto:ali.raza@au.edu.pk" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>ali.raza@au.edu.pk</a></div>
-        
-        
-      </td>
-      <td onclick="openView(48)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td onclick="openView(48)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td onclick="openView(48)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(48)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(48)"><i class="ti ti-trash"></i></button>
+        <button class="act-btn btn-edit" onclick="openEdit(41)"><i class="ti ti-pencil"></i>Edit</button>
+        <button class="act-btn btn-del" onclick="confirmDelete(41)"><i class="ti ti-trash"></i></button>
       </div></td>
     </tr></tbody>
         </table>
@@ -764,8 +532,8 @@ body.is-admin .admin-only-block{display:block}
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · S-2023</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">22 Jan, 2025</span></td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">25 March , 2026</span></td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">25 March 2026</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-completed">Completed</span></td>
       </tr></tbody>
           </table>
         </div>
@@ -841,8 +609,8 @@ body.is-admin .admin-only-block{display:block}
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2022</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">21-01-2025</span></td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">7 March 2026</span></td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">7 May, 2026</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-completed">Completed</span></td>
       </tr>
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
@@ -1380,8 +1148,8 @@ body.is-admin .admin-only-block{display:block}
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhD · Fall-2019</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">28 Dec, 2022</span></td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="b-dash">—</span></td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-left">Left</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
       </tr>
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
@@ -1803,42 +1571,42 @@ body.is-admin .admin-only-block{display:block}
   <div class="modal-header">
     <button class="modal-close" onclick="closeModal()"><i class="ti ti-x"></i></button>
     <div class="modal-name">Edit Student</div>
-    <div class="modal-meta">191834 · PhD · Fall-2019</div>
+    <div class="modal-meta">211663 · MS · Fall-2021</div>
   </div>
   <div class="modal-body">
     <div class="edit-form">
       <div class="form-2col">
-        <div class="form-row"><label>Full Name *</label><input id="f-name" value="Atif Iftikhar" placeholder="e.g. Muhammad Ali"></div>
-        <div class="form-row"><label>Student ID *</label><input id="f-id" value="191834" placeholder="e.g. 222260"></div>
+        <div class="form-row"><label>Full Name *</label><input id="f-name" value="Khushal Khan" placeholder="e.g. Muhammad Ali"></div>
+        <div class="form-row"><label>Student ID *</label><input id="f-id" value="211663" placeholder="e.g. 222260"></div>
       </div>
       <div class="form-3col">
         <div class="form-row"><label>Degree *</label>
           <select id="f-degree">
-            <option value="PhD" selected="">PhD</option>
-            <option value="MS">MS</option>
+            <option value="PhD">PhD</option>
+            <option value="MS" selected="">MS</option>
           </select>
         </div>
-        <div class="form-row"><label>Session *</label><input id="f-session" value="Fall-2019" placeholder="e.g. Fall-2024"></div>
+        <div class="form-row"><label>Session *</label><input id="f-session" value="Fall-2021" placeholder="e.g. Fall-2024"></div>
         <div class="form-row"><label>Status *</label>
           <select id="f-status">
-            <option value="Enrolled" selected="">Enrolled</option>
+            <option value="Enrolled">Enrolled</option>
             <option value="Completed">Completed</option>
-            <option value="Left">Left</option>
+            <option value="Left" selected="">Left</option>
           </select>
         </div>
       </div>
-      <div class="form-row"><label>Supervisor</label><input id="f-sup" value="Dr. Ashfaq Ahmad" placeholder="e.g. Dr. Ashfaq Ahmad"></div>
-      <div class="form-row"><label>Co-Supervisor</label><input id="f-cosup" value="Dr. Usman Ali SEECS( NUST) Co-sup" placeholder="Optional"></div>
+      <div class="form-row"><label>Supervisor</label><input id="f-sup" value="Dr. Muhammad Adil Khan" placeholder="e.g. Dr. Ashfaq Ahmad"></div>
+      <div class="form-row"><label>Co-Supervisor</label><input id="f-cosup" value="Dr. Saad Ullah Khan (Co)" placeholder="Optional"></div>
       <div class="form-2col">
-        <div class="form-row"><label>GEC Internal Member</label><input id="f-gecInternal" value="Dr. Syed Ahmad Pasha Dr. Muhammad Adil Khan" placeholder="e.g. Dr. Name"></div>
-        <div class="form-row"><label>GEC External Member</label><input id="f-gecExternal" value="Dr. Rasool Bakhsh (CUI)" placeholder="e.g. Dr. Name (Institution)"></div>
+        <div class="form-row"><label>GEC Internal Member</label><input id="f-gecInternal" value="Dr. Ashfaq Ahmed Dr. Jehanzeb Khan" placeholder="e.g. Dr. Name"></div>
+        <div class="form-row"><label>GEC External Member</label><input id="f-gecExternal" value="Dr. Waqaruddin (NUST)" placeholder="e.g. Dr. Name (Institution)"></div>
       </div>
       <div class="form-3col">
         <div class="form-row"><label>GEC Formation (FBGS)</label><input id="f-gecFormation" value="" placeholder="Date or note"></div>
         <div class="form-row"><label>GEC Change (FBGS)</label><input id="f-gecChange" value="" placeholder="Date or note"></div>
         <div class="form-row"><label>Extension (FBGS)</label><input id="f-extension" value="" placeholder="Date or note"></div>
       </div>
-      <div class="form-row"><label>Thesis Topic</label><textarea id="f-topic">Geometric Control for Spacecraft Attitude Control</textarea></div>
+      <div class="form-row"><label>Thesis Topic</label><textarea id="f-topic">Analyzing Modular Multilevel Power Convertes for Electric Vehicle Charging</textarea></div>
       <div class="form-2col">
         <div class="form-row"><label>PDE Status</label>
           <select id="f-pde">
@@ -1849,7 +1617,7 @@ body.is-admin .admin-only-block{display:block}
             <option value="CW">CW</option>
           </select>
         </div>
-        <div class="form-row"><label>PDE Date</label><input id="f-pdeDate" value="28 Dec, 2022" placeholder="e.g. 15 Jan 2025"></div>
+        <div class="form-row"><label>PDE Date</label><input id="f-pdeDate" value="12 June, 2024" placeholder="e.g. 15 Jan 2025"></div>
       </div>
       <div class="form-2col">
         <div class="form-row"><label>FDE Status</label>
@@ -1863,14 +1631,14 @@ body.is-admin .admin-only-block{display:block}
         <div class="form-row"><label>FDE Date</label><input id="f-fdeDate" value="" placeholder="e.g. 20 June 2025"></div>
       </div>
       <div class="form-2col">
-        <div class="form-row"><label>Email</label><input id="f-email" type="email" value="atif19000@yahoo.com" placeholder="student@example.com"></div>
-        <div class="form-row"><label>Cell</label><input id="f-cell" value="" placeholder="92 300-0000000"></div>
+        <div class="form-row"><label>Email</label><input id="f-email" type="email" value="khushalkhan684@hotmail.com" placeholder="student@example.com"></div>
+        <div class="form-row"><label>Cell</label><input id="f-cell" value="92 334-7820684" placeholder="92 300-0000000"></div>
       </div>
     </div>
   </div>
   <div class="modal-footer">
     <button class="btn-cancel" onclick="closeModal()">Cancel</button>
-    <button class="btn-save" onclick="saveStudent(3)"><i class="ti ti-device-floppy" style="margin-right:4px"></i>Save Changes</button>
+    <button class="btn-save" onclick="saveStudent(13)"><i class="ti ti-device-floppy" style="margin-right:4px"></i>Save Changes</button>
   </div></div>
 </div>
 
@@ -1979,23 +1747,23 @@ let STUDENTS = [
   {
     "name": "Atif Iftikhar",
     "id": "191834",
-    "degree": "PhD",
     "session": "Fall-2019",
-    "status": "Left",
+    "degree": "PhD",
     "sup": "Dr. Ashfaq Ahmad",
     "cosup": "Dr. Usman Ali SEECS( NUST) Co-sup",
     "gecInternal": "Dr. Syed Ahmad Pasha Dr. Muhammad Adil Khan",
     "gecExternal": "Dr. Rasool Bakhsh (CUI)",
-    "gecFormation": "",
-    "gecChange": "",
-    "extension": "",
     "topic": "Geometric Control for Spacecraft Attitude Control",
     "pde": "Done",
     "pdeDate": "28 Dec, 2022",
-    "fde": "",
+    "fde": "Pending",
     "fdeDate": "",
+    "status": "Enrolled",
     "email": "atif19000@yahoo.com",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Hussain Asif",
@@ -2275,7 +2043,7 @@ let STUDENTS = [
     "id": "222263",
     "degree": "MS",
     "session": "Fall-2022",
-    "status": "Enrolled",
+    "status": "Completed",
     "sup": "Dr. Imran Farid",
     "cosup": "",
     "gecInternal": "Dr. Muhammad Adil Khan Dr. Ashfaq Ahmad",
@@ -2287,7 +2055,7 @@ let STUDENTS = [
     "pde": "Done",
     "pdeDate": "21-01-2025",
     "fde": "Done",
-    "fdeDate": "7 March 2026",
+    "fdeDate": "7 May, 2026",
     "email": "asif5581@gmail.com",
     "cell": "92 321-2200611"
   },
@@ -2968,7 +2736,7 @@ let STUDENTS = [
     "id": "230247",
     "degree": "MS",
     "session": "S-2023",
-    "status": "Enrolled",
+    "status": "Completed",
     "sup": "Dr. Syed Ahmed Pasha",
     "cosup": "",
     "gecInternal": "Dr. Ashfaq Ahmad",
@@ -2980,7 +2748,7 @@ let STUDENTS = [
     "pde": "Done",
     "pdeDate": "22 Jan, 2025",
     "fde": "Done",
-    "fdeDate": "25 March , 2026",
+    "fdeDate": "25 March 2026",
     "email": "naimasakhawat098@hotmail.com",
     "cell": "92 320-0253971"
   },
@@ -3482,6 +3250,7 @@ function openEdit(idx){
 }
 
 function openAddStudent(){
+  if(!isAdmin){showToast("Admin access required","error");return;}
   document.getElementById("modalBox").innerHTML=studentForm(null)+`
   <div class="modal-footer">
     <button class="btn-cancel" onclick="closeModal()">Cancel</button>
@@ -3526,6 +3295,7 @@ function saveStudent(idx){
 }
 
 function addStudent(){
+  if(!isAdmin){showToast("Admin access required","error");return;}
   const d=getFormData();
   if(!d.name||!d.id){showToast("Name and ID are required","error");return;}
   STUDENTS.push(d);
@@ -3891,4 +3661,4 @@ buildSupervisors();
 </script>
 
 
-<veepn-lock-screen><style>@font-face{font-family:FigtreeVF;src:url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"),url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");font-weight:100 1000;font-display:swap}</style></veepn-lock-screen></body></html>
+</body></html>
