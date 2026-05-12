@@ -205,7 +205,7 @@ body.is-admin .admin-only-block{display:block}
 @media(max-width:640px){
   .stats-grid{grid-template-columns:repeat(3,1fr)}
   .sup-stats{grid-template-columns:repeat(3,1fr)}
-  th:nth-child(n+5),td:nth-child(n+5){display:none}
+  th:nth-child(n+5):not(:nth-child(10)):not(:nth-child(11)):not(:nth-child(12)),td:nth-child(n+5):not(:nth-child(10)):not(:nth-child(11)):not(:nth-child(12)){display:none}
   .form-2col,.form-3col{grid-template-columns:1fr}
 }
 </style>
@@ -276,6 +276,9 @@ body.is-admin .admin-only-block{display:block}
               <th>FDE</th>
               <th>Status</th>
               <th>Contact</th>
+              <th>GEC Formation (FBGS)</th>
+              <th>GEC Change (FBGS)</th>
+              <th>Extension (FBGS)</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -358,7 +361,10 @@ let STUDENTS = [
     "fdeDate": "16-12-2025",
     "status": "Completed",
     "email": "amina_aqali@yahoo.com",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Bilal Ashraf",
@@ -376,7 +382,10 @@ let STUDENTS = [
     "fdeDate": "13 June, 2025",
     "status": "Completed",
     "email": "bilalawan14@gmail.com",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Muhammad Favad Qadir",
@@ -394,7 +403,10 @@ let STUDENTS = [
     "fdeDate": "05 January, 2026",
     "status": "Completed",
     "email": "favad1dzr@gmail.com",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Atif Iftikhar",
@@ -412,7 +424,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Enrolled",
     "email": "atif19000@yahoo.com",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Hussain Asif",
@@ -430,7 +445,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Enrolled",
     "email": "hussain.asif@au.edu.pk",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Mubashir Rasool",
@@ -448,7 +466,10 @@ let STUDENTS = [
     "fdeDate": "03 July, 2025",
     "status": "Completed",
     "email": "engr.mubashirrasool@gmail.com",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Waleed Manzoor",
@@ -466,7 +487,10 @@ let STUDENTS = [
     "fdeDate": "07 Nov, 2025",
     "status": "Completed",
     "email": "bilalawan14@gmail.com",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Hassan Farooq",
@@ -484,7 +508,10 @@ let STUDENTS = [
     "fdeDate": "17-Jan-2025",
     "status": "Completed",
     "email": "hassanfarooq947@gmail.com",
-    "cell": "92 321-5698763"
+    "cell": "92 321-5698763",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Danish Zahoor",
@@ -502,7 +529,10 @@ let STUDENTS = [
     "fdeDate": "12 June, 2025",
     "status": "Completed",
     "email": "danishzahoor.esin@gmail.com",
-    "cell": "92 310-9373329"
+    "cell": "92 310-9373329",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Fatima Humayun",
@@ -520,7 +550,10 @@ let STUDENTS = [
     "fdeDate": "CW Done",
     "status": "Completed",
     "email": "",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Haseeb Rustam",
@@ -538,7 +571,10 @@ let STUDENTS = [
     "fdeDate": "22 May, 2025",
     "status": "Completed",
     "email": "haseebrustam3@gmail.com",
-    "cell": "92 305-8640039"
+    "cell": "92 305-8640039",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Iqra Nawaz",
@@ -556,7 +592,10 @@ let STUDENTS = [
     "fdeDate": "06-11-2024",
     "status": "Completed",
     "email": "nawaziqra890@gmail.com",
-    "cell": "92 303-6927978"
+    "cell": "92 303-6927978",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Jawad Bahadur Khan",
@@ -574,7 +613,10 @@ let STUDENTS = [
     "fdeDate": "04-11-2024",
     "status": "Completed",
     "email": "jawad84bahadur@gmail.com",
-    "cell": "92 312-8079499"
+    "cell": "92 312-8079499",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Khushal Khan",
@@ -592,7 +634,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Left",
     "email": "khushalkhan684@hotmail.com",
-    "cell": "92 334-7820684"
+    "cell": "92 334-7820684",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Maham Imran",
@@ -610,7 +655,10 @@ let STUDENTS = [
     "fdeDate": "CW Done",
     "status": "Completed",
     "email": "",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Syed Muhammad Qamar Ali Bukhari",
@@ -628,7 +676,10 @@ let STUDENTS = [
     "fdeDate": "28-04-2025",
     "status": "Completed",
     "email": "55555bukhari@gmail.com",
-    "cell": "92 336-5776187"
+    "cell": "92 336-5776187",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Tayyaba Riasat",
@@ -646,7 +697,10 @@ let STUDENTS = [
     "fdeDate": "12 June, 2025",
     "status": "Completed",
     "email": "tayyabariasat12@gmail.com",
-    "cell": "92 312-9663667"
+    "cell": "92 312-9663667",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Asif Habib",
@@ -664,7 +718,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Enrolled",
     "email": "asif5581@gmail.com",
-    "cell": "92 321-2200611"
+    "cell": "92 321-2200611",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Ayesha Qaiser Hashmi",
@@ -682,7 +739,10 @@ let STUDENTS = [
     "fdeDate": "21-01-2025",
     "status": "Completed",
     "email": "ayeshaqaiser99@gmail.com",
-    "cell": "92 332-5966617"
+    "cell": "92 332-5966617",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Ikhlaq Hussain",
@@ -700,7 +760,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Enrolled",
     "email": "ikhlaqhussainsada14@gmail.com",
-    "cell": "92 314-3142184"
+    "cell": "92 314-3142184",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Imran Hussain",
@@ -718,7 +781,10 @@ let STUDENTS = [
     "fdeDate": "19 May, 2025",
     "status": "Completed",
     "email": "engr.imranhussain1@gmail.com",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Muhammad Hamza Waris",
@@ -736,7 +802,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Enrolled",
     "email": "hamzawaris888@gmail.com",
-    "cell": "92 301-5166072"
+    "cell": "92 301-5166072",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Muhammad Jawad Iqbal",
@@ -754,7 +823,10 @@ let STUDENTS = [
     "fdeDate": "CW Done",
     "status": "Completed",
     "email": "ijawad62@gmail.com",
-    "cell": "92 331-9922450"
+    "cell": "92 331-9922450",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Ahsan Islam",
@@ -772,7 +844,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Enrolled",
     "email": "ahsanislamm@hotmail.com",
-    "cell": "92 336-2045207"
+    "cell": "92 336-2045207",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Bilal Idrees",
@@ -790,7 +865,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Enrolled",
     "email": "bilalidrees1@yahoo.com",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Bushra Batool",
@@ -808,7 +886,10 @@ let STUDENTS = [
     "fdeDate": "20 March, 2025",
     "status": "Completed",
     "email": "eebushra905@gmail.com",
-    "cell": "92 334-5775489"
+    "cell": "92 334-5775489",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Izza Jamal",
@@ -826,7 +907,10 @@ let STUDENTS = [
     "fdeDate": "18 June, 2025",
     "status": "Completed",
     "email": "izzajamal@gmail.com",
-    "cell": "92 318-5656296"
+    "cell": "92 318-5656296",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Wajeeha Sajid",
@@ -844,7 +928,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Enrolled",
     "email": "wajeehasajid98@gmail.com",
-    "cell": "92 315-5396087"
+    "cell": "92 315-5396087",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Fahad Naseer",
@@ -862,7 +949,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Enrolled",
     "email": "fahad.bsee2341@gmail.com",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Haji Ahmed",
@@ -880,7 +970,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Enrolled",
     "email": "hajiahmed@nutech.edu.pk",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Muhammad Naveed Kiyani",
@@ -898,7 +991,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Left",
     "email": "naveedkiyani1101@gmail.com",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Saniya Mubasher",
@@ -916,7 +1012,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Left",
     "email": "saniyamubasher2001@gmail.com",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Shah Zaib Sawal",
@@ -934,7 +1033,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Enrolled",
     "email": "electricdomain3@gmail.com",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Sharoze Sohail",
@@ -952,7 +1054,10 @@ let STUDENTS = [
     "fdeDate": "Pending",
     "status": "Enrolled",
     "email": "sharozesohail7@gmail.com",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Syed Taha Ahmed Zaidi",
@@ -970,7 +1075,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Enrolled",
     "email": "",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Taha",
@@ -988,7 +1096,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Enrolled",
     "email": "soomrotaha07@gmail.com",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Abdul Rahman Liaqat Ch",
@@ -1006,7 +1117,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Enrolled",
     "email": "",
-    "cell": "92 331-9930373"
+    "cell": "92 331-9930373",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Badar Mahmood",
@@ -1024,7 +1138,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Enrolled",
     "email": "",
-    "cell": "92 321-9610627"
+    "cell": "92 321-9610627",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Haseeb Hussain",
@@ -1042,7 +1159,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Left",
     "email": "",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Humaira",
@@ -1060,7 +1180,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Enrolled",
     "email": "",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Khizar Humayun",
@@ -1078,7 +1201,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Enrolled",
     "email": "",
-    "cell": "92 348-9343862"
+    "cell": "92 348-9343862",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Khushbakht Sajid",
@@ -1096,7 +1222,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Enrolled",
     "email": "",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Maha Masood Abbasi",
@@ -1114,7 +1243,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Enrolled",
     "email": "",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Mohib Ali Khan",
@@ -1132,7 +1264,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Enrolled",
     "email": "",
-    "cell": "92 316-8118036"
+    "cell": "92 316-8118036",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Muhammad Aqib Javed",
@@ -1150,7 +1285,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Enrolled",
     "email": "",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Muhammad Rayan Zafar",
@@ -1168,7 +1306,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Left",
     "email": "",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Rizwan Ahmad",
@@ -1186,7 +1327,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Enrolled",
     "email": "",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Syed Muhammad Tayyab",
@@ -1204,7 +1348,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Left",
     "email": "",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Muhammad Ali Raza",
@@ -1222,7 +1369,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Enrolled",
     "email": "ali.raza@au.edu.pk",
-    "cell": ""
+    "cell": "",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Muhammad Luqman",
@@ -1240,7 +1390,10 @@ let STUDENTS = [
     "fdeDate": "15 August, 2025",
     "status": "Completed",
     "email": "luqman.5544@gmail.com",
-    "cell": "92 333-0547144"
+    "cell": "92 333-0547144",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Naima Sakhawat",
@@ -1258,7 +1411,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Enrolled",
     "email": "naimasakhawat098@hotmail.com",
-    "cell": "92 320-0253971"
+    "cell": "92 320-0253971",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Meerub Khalil",
@@ -1276,7 +1432,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Enrolled",
     "email": "meerubbintekhalil437@gmail.com",
-    "cell": "92 311-5163681"
+    "cell": "92 311-5163681",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   },
   {
     "name": "Usama Iftikhar",
@@ -1294,7 +1453,10 @@ let STUDENTS = [
     "fdeDate": "",
     "status": "Left",
     "email": "usamasatti720@gmail.com",
-    "cell": "92 312-5031085"
+    "cell": "92 312-5031085",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": ""
   }
 ];
 
@@ -1439,13 +1601,16 @@ function renderTable(data){
         ${s.cell?`<div style="font-size:12px;color:var(--text2);margin-top:2px"><i class="ti ti-phone" style="font-size:11px;margin-right:3px"></i>${s.cell}</div>`:''}
         ${!s.email&&!s.cell?`<span style="color:var(--text3)">—</span>`:''}
       </td>
+      <td onclick="openView(${i})" style="cursor:pointer;font-size:12px;color:var(--text2)">${s.gecFormation||'<span style="color:var(--text3)">—</span>'}</td>
+      <td onclick="openView(${i})" style="cursor:pointer;font-size:12px;color:var(--text2)">${s.gecChange||'<span style="color:var(--text3)">—</span>'}</td>
+      <td onclick="openView(${i})" style="cursor:pointer;font-size:12px;color:var(--text2)">${s.extension||'<span style="color:var(--text3)">—</span>'}</td>
       <td><div class="actions-cell">
         ${isAdmin?`<button class="act-btn btn-edit" onclick="openEdit(${i})"><i class="ti ti-pencil"></i>Edit</button>
         <button class="act-btn btn-del" onclick="confirmDelete(${i})"><i class="ti ti-trash"></i></button>`:`<span style="font-size:12px;color:var(--text3)">—</span>`}
       </div></td>
     </tr>`;
   }).join("");
-  document.getElementById("tBody").innerHTML=rows||'<tr><td colspan="12" class="no-results"><i class="ti ti-search-off" style="font-size:32px;display:block;margin-bottom:8px;opacity:0.4"></i>No students match the current filters</td></tr>';
+  document.getElementById("tBody").innerHTML=rows||'<tr><td colspan="15" class="no-results"><i class="ti ti-search-off" style="font-size:32px;display:block;margin-bottom:8px;opacity:0.4"></i>No students match the current filters</td></tr>';
 }
 
 // ─── View Modal ───────────────────────────────────────────────────────────────
@@ -1467,6 +1632,9 @@ function openView(idx){
         ${s.cosup?fRow("Co-supervisor",s.cosup):""}
         ${s.gecInternal?fRow("GEC Internal",s.gecInternal):""}
         ${s.gecExternal?fRow("GEC External",s.gecExternal):""}
+        ${s.gecFormation?fRow("GEC Formation (FBGS)",s.gecFormation):""}
+        ${s.gecChange?fRow("GEC Change (FBGS)",s.gecChange):""}
+        ${s.extension?fRow("Extension (FBGS)",s.extension):""}
       </div>
       ${s.topic?`<div class="section-title" style="margin-top:12px"><i class="ti ti-book"></i>Thesis</div><div class="topic-box">${s.topic}</div>`:""}
       <div class="divider"></div>
@@ -1515,6 +1683,11 @@ function studentForm(s){
       <div class="form-2col">
         <div class="form-row"><label>GEC Internal Member</label><input id="f-gecInternal" value="${s?esc(s.gecInternal||''):''}" placeholder="e.g. Dr. Name"></div>
         <div class="form-row"><label>GEC External Member</label><input id="f-gecExternal" value="${s?esc(s.gecExternal||''):''}" placeholder="e.g. Dr. Name (Institution)"></div>
+      </div>
+      <div class="form-3col">
+        <div class="form-row"><label>GEC Formation (FBGS)</label><input id="f-gecFormation" value="${s?esc(s.gecFormation||''):''}" placeholder="Date or note"></div>
+        <div class="form-row"><label>GEC Change (FBGS)</label><input id="f-gecChange" value="${s?esc(s.gecChange||''):''}" placeholder="Date or note"></div>
+        <div class="form-row"><label>Extension (FBGS)</label><input id="f-extension" value="${s?esc(s.extension||''):''}" placeholder="Date or note"></div>
       </div>
       <div class="form-row"><label>Thesis Topic</label><textarea id="f-topic">${s?esc(s.topic||''):''}</textarea></div>
       <div class="form-2col">
@@ -1580,6 +1753,9 @@ function getFormData(){
     cosup:document.getElementById("f-cosup").value.trim(),
     gecInternal:document.getElementById("f-gecInternal").value.trim(),
     gecExternal:document.getElementById("f-gecExternal").value.trim(),
+    gecFormation:document.getElementById("f-gecFormation").value.trim(),
+    gecChange:document.getElementById("f-gecChange").value.trim(),
+    extension:document.getElementById("f-extension").value.trim(),
     topic:document.getElementById("f-topic").value.trim(),
     pde:document.getElementById("f-pde").value,
     pdeDate:document.getElementById("f-pdeDate").value.trim(),
@@ -1864,13 +2040,13 @@ function _doExcelExport(){
     "Name","ID","Degree","Session","Supervisor","Co-Supervisor",
     "GEC Internal","GEC External","Thesis Topic",
     "PDE Status","PDE Date","FDE Status","FDE Date",
-    "Status","Email","Cell"
+    "Status","Email","Cell","GEC Formation (FBGS)","GEC Change (FBGS)","Extension (FBGS)"
   ];
   const rows = STUDENTS.map(s=>[
     s.name, s.id, s.degree, s.session, s.sup, s.cosup,
     s.gecInternal, s.gecExternal, s.topic,
     s.pde, s.pdeDate, s.fde, s.fdeDate,
-    s.status, s.email, s.cell
+    s.status, s.email, s.cell, s.gecFormation, s.gecChange, s.extension
   ]);
 
   const wb = XLSX.utils.book_new();
@@ -1884,7 +2060,7 @@ function _doExcelExport(){
     {wch:28},{wch:10},{wch:7},{wch:12},{wch:24},{wch:24},
     {wch:36},{wch:32},{wch:50},
     {wch:10},{wch:16},{wch:10},{wch:16},
-    {wch:12},{wch:28},{wch:18}
+    {wch:12},{wch:28},{wch:18},{wch:20},{wch:18},{wch:16}
   ];
 
   // Bold header row
@@ -1908,7 +2084,7 @@ function _doExcelExport(){
 }
 
 // ─── Admin Auth ───────────────────────────────────────────────────────────────
-const ADMIN_PASSWORD = "EE@Admin2024"; // Change this password as needed
+const ADMIN_PASSWORD = "pg2026"; // Change this password as needed
 let isAdmin = false;
 
 function showAdminLogin(){
