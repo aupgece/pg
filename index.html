@@ -1,9 +1,11 @@
-<html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MS/PhD Student Database — Dept. of Electrical Engineering</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'IBM Plex Sans',sans-serif;background:#f0f2f5;color:#1a1a2e;min-height:100vh}
@@ -208,20 +210,21 @@ body.is-admin .admin-only-block{display:block}
 }
 </style>
 </head>
-<body class="is-admin">
+<body>
 
 <div class="top-bar">
   <div class="top-inner">
     <div>
       <div class="top-title"><i class="ti ti-school" style="margin-right:8px"></i>MS/PhD Student Database</div>
-      <div class="top-sub">Department of Electrical Engineering — Editable Student Records</div>
+      <div class="top-sub">Department of Electrical Engineering &mdash; Editable Student Records</div>
     </div>
     <div class="top-badges">
-      <span class="top-badge" id="topBadge"><i class="ti ti-users" style="margin-right:4px"></i><span id="badgeCount">53</span> Students · 15 Supervisors</span>
-      <span class="admin-badge" id="adminBadge" style="display: flex;"><i class="ti ti-shield-check"></i>Admin</span>
+      <span class="top-badge" id="topBadge"><i class="ti ti-users" style="margin-right:4px"></i><span id="badgeCount">57</span> Students &middot; 15 Supervisors</span>
+      <span class="admin-badge" id="adminBadge" style="display:none"><i class="ti ti-shield-check"></i>Admin</span>
       <button class="btn-export" onclick="exportHTML()"><i class="ti ti-download" style="margin-right:4px"></i>Export HTML</button>
-      <button class="btn-logout" id="logoutBtn" style="display: flex;" onclick="adminLogout()"><i class="ti ti-logout"></i>Sign out</button>
-      <button class="btn-export" id="adminLoginBtn" onclick="showAdminLogin()" style="display: none;"><i class="ti ti-lock" style="margin-right:4px"></i>Admin Login</button>
+      <button class="btn-export" onclick="exportExcel()" style="background:rgba(74,222,128,0.15);border-color:rgba(74,222,128,0.35)"><i class="ti ti-table-export" style="margin-right:4px"></i>Export Excel</button>
+      <button class="btn-logout" id="logoutBtn" style="display:none" onclick="adminLogout()"><i class="ti ti-logout"></i>Sign out</button>
+      <button class="btn-export" id="adminLoginBtn" onclick="showAdminLogin()"><i class="ti ti-lock" style="margin-right:4px"></i>Admin Login</button>
     </div>
   </div>
 </div>
@@ -234,17 +237,7 @@ body.is-admin .admin-only-block{display:block}
 
   <!-- Students Tab -->
   <div id="tab-students">
-    <div class="stats-grid" id="statsGrid">
-    <div class="stat-card"><div class="stat-label">Total</div><div class="stat-value sv-blue">41</div></div>
-    <div class="stat-card"><div class="stat-label">MS</div><div class="stat-value sv-purple">41</div></div>
-    <div class="stat-card"><div class="stat-label">PhD</div><div class="stat-value sv-teal">0</div></div>
-    <div class="stat-card"><div class="stat-label">Completed</div><div class="stat-value sv-green">15</div></div>
-    <div class="stat-card"><div class="stat-label">Enrolled</div><div class="stat-value sv-blue">19</div></div>
-    <div class="stat-card"><div class="stat-label">Left</div><div class="stat-value sv-coral">7</div></div>
-    <div class="stat-card"><div class="stat-label">PDE Done</div><div class="stat-value sv-teal">17</div></div>
-    <div class="stat-card"><div class="stat-label">PDE Pending</div><div class="stat-value sv-amber">15</div></div>
-    <div class="stat-card"><div class="stat-label">FDE Done</div><div class="stat-value sv-green">12</div></div>
-  </div>
+    <div class="stats-grid" id="statsGrid"></div>
 
     <div class="filter-bar">
       <div class="filter-row">
@@ -257,13 +250,14 @@ body.is-admin .admin-only-block{display:block}
           <option value="MS">MS</option>
           <option value="PhD">PhD</option>
         </select>
-        <select id="fSession" onchange="applyFilters()"><option value="">All sessions</option><option value="Fall-2018">Fall-2018</option><option value="Fall-2019">Fall-2019</option><option value="Fall-2020">Fall-2020</option><option value="Fall-2021">Fall-2021</option><option value="Fall-2022">Fall-2022</option><option value="Fall-2023">Fall-2023</option><option value="Fall-2024">Fall-2024</option><option value="Fall-2025">Fall-2025</option><option value="S-2021">S-2021</option><option value="S-2023">S-2023</option><option value="S-2024">S-2024</option></select>
-        <select id="fStatus" onchange="applyFilters()"><option value="">All statuses</option><option value="Completed">Completed</option><option value="Enrolled">Enrolled</option><option value="Left">Left</option></select>
-        <select id="fPDE" onchange="applyFilters()"><option value="">All PDE</option><option value="Done">Done</option><option value="Pending">Pending</option></select>
-        <select id="fFDE" onchange="applyFilters()"><option value="">All FDE</option><option value="Done">Done</option><option value="Pending">Pending</option></select>
-        <button class="add-btn admin-only" onclick="openAddStudent()"><i class="ti ti-plus"></i>Add Student</button>
+        <select id="fSession" onchange="applyFilters()"><option value="">All sessions</option></select>
+        <select id="fSupervisor" onchange="applyFilters()"><option value="">All supervisors</option></select>
+        <select id="fStatus" onchange="applyFilters()"><option value="">All statuses</option></select>
+        <select id="fPDE" onchange="applyFilters()"><option value="">All PDE</option></select>
+        <select id="fFDE" onchange="applyFilters()"><option value="">All FDE</option></select>
+        <button class="add-btn" id="addStudentBtn" style="display:none" onclick="openAddStudent()"><i class="ti ti-plus"></i>Add Student</button>
       </div>
-      <div class="count-info" id="countBar">Showing 41 of 53 students — click a row or use action buttons</div>
+      <div class="count-info" id="countBar"></div>
     </div>
 
     <div class="table-wrap">
@@ -275,505 +269,17 @@ body.is-admin .admin-only-block{display:block}
               <th>Degree</th>
               <th>Session</th>
               <th>Supervisor</th>
+              <th>GEC Internal</th>
+              <th>GEC External</th>
+              <th>Thesis Topic</th>
               <th>PDE</th>
               <th>FDE</th>
               <th>Status</th>
+              <th>Contact</th>
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody id="tBody"><tr>
-      <td onclick="openView(7)" style="cursor:pointer"><div class="name-cell">Hassan Farooq</div><div class="id-tag">201619</div></td>
-      <td onclick="openView(7)" style="cursor:pointer">MS</td>
-      <td onclick="openView(7)" style="cursor:pointer">Fall-2020</td>
-      <td onclick="openView(7)" style="cursor:pointer">Dr. Ashfaq Ahmad</td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-completed">Completed</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(7)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(7)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(8)" style="cursor:pointer"><div class="name-cell">Danish Zahoor</div><div class="id-tag">211668</div></td>
-      <td onclick="openView(8)" style="cursor:pointer">MS</td>
-      <td onclick="openView(8)" style="cursor:pointer">Fall-2021</td>
-      <td onclick="openView(8)" style="cursor:pointer">Dr. Imran Farid</td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-completed">Completed</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(8)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(8)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(9)" style="cursor:pointer"><div class="name-cell">Fatima Humayun</div><div class="id-tag">211861</div></td>
-      <td onclick="openView(9)" style="cursor:pointer">MS</td>
-      <td onclick="openView(9)" style="cursor:pointer">Fall-2021</td>
-      <td onclick="openView(9)" style="cursor:pointer">Course Work</td>
-      <td><span class="badge b-cw">CW</span></td>
-      <td><span class="b-dash">—</span></td>
-      <td><span class="badge b-completed">Completed</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(9)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(9)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(10)" style="cursor:pointer"><div class="name-cell">Haseeb Rustam</div><div class="id-tag">211677</div></td>
-      <td onclick="openView(10)" style="cursor:pointer">MS</td>
-      <td onclick="openView(10)" style="cursor:pointer">Fall-2021</td>
-      <td onclick="openView(10)" style="cursor:pointer">Dr. Muhammad Adil Khan</td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-completed">Completed</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(10)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(10)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(11)" style="cursor:pointer"><div class="name-cell">Iqra Nawaz</div><div class="id-tag">211679</div></td>
-      <td onclick="openView(11)" style="cursor:pointer">MS</td>
-      <td onclick="openView(11)" style="cursor:pointer">Fall-2021</td>
-      <td onclick="openView(11)" style="cursor:pointer">Dr. Hafiz Ashiq Hussain</td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-completed">Completed</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(11)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(11)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(12)" style="cursor:pointer"><div class="name-cell">Jawad Bahadur Khan</div><div class="id-tag">211665</div></td>
-      <td onclick="openView(12)" style="cursor:pointer">MS</td>
-      <td onclick="openView(12)" style="cursor:pointer">Fall-2021</td>
-      <td onclick="openView(12)" style="cursor:pointer">Dr. Hafiz Ashiq Hussain</td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-completed">Completed</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(12)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(12)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(13)" style="cursor:pointer"><div class="name-cell">Khushal Khan</div><div class="id-tag">211663</div></td>
-      <td onclick="openView(13)" style="cursor:pointer">MS</td>
-      <td onclick="openView(13)" style="cursor:pointer">Fall-2021</td>
-      <td onclick="openView(13)" style="cursor:pointer">Dr. Muhammad Adil Khan</td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-left">Left</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(13)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(13)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(14)" style="cursor:pointer"><div class="name-cell">Maham Imran</div><div class="id-tag">211671</div></td>
-      <td onclick="openView(14)" style="cursor:pointer">MS</td>
-      <td onclick="openView(14)" style="cursor:pointer">Fall-2021</td>
-      <td onclick="openView(14)" style="cursor:pointer">Course Work</td>
-      <td><span class="badge b-cw">CW</span></td>
-      <td><span class="b-dash">—</span></td>
-      <td><span class="badge b-completed">Completed</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(14)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(14)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(15)" style="cursor:pointer"><div class="name-cell">Syed Muhammad Qamar Ali Bukhari</div><div class="id-tag">211664</div></td>
-      <td onclick="openView(15)" style="cursor:pointer">MS</td>
-      <td onclick="openView(15)" style="cursor:pointer">Fall-2021</td>
-      <td onclick="openView(15)" style="cursor:pointer">Dr. Hafiz Ashiq Hussain</td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-completed">Completed</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(15)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(15)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(16)" style="cursor:pointer"><div class="name-cell">Tayyaba Riasat</div><div class="id-tag">211660</div></td>
-      <td onclick="openView(16)" style="cursor:pointer">MS</td>
-      <td onclick="openView(16)" style="cursor:pointer">Fall-2021</td>
-      <td onclick="openView(16)" style="cursor:pointer">Dr. Imran Farid</td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-completed">Completed</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(16)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(16)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(17)" style="cursor:pointer"><div class="name-cell">Asif Habib</div><div class="id-tag">222263</div></td>
-      <td onclick="openView(17)" style="cursor:pointer">MS</td>
-      <td onclick="openView(17)" style="cursor:pointer">Fall-2022</td>
-      <td onclick="openView(17)" style="cursor:pointer">Dr. Imran Farid</td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-completed">Completed</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(17)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(17)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(18)" style="cursor:pointer"><div class="name-cell">Ayesha Qaiser Hashmi</div><div class="id-tag">222255</div></td>
-      <td onclick="openView(18)" style="cursor:pointer">MS</td>
-      <td onclick="openView(18)" style="cursor:pointer">Fall-2022</td>
-      <td onclick="openView(18)" style="cursor:pointer">Dr. Muhammad Zaheer</td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-completed">Completed</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(18)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(18)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(19)" style="cursor:pointer"><div class="name-cell">Ikhlaq Hussain</div><div class="id-tag">222260</div></td>
-      <td onclick="openView(19)" style="cursor:pointer">MS</td>
-      <td onclick="openView(19)" style="cursor:pointer">Fall-2022</td>
-      <td onclick="openView(19)" style="cursor:pointer">Dr. Ashfaq Ahmad</td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-enrolled">Enrolled</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(19)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(19)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(21)" style="cursor:pointer"><div class="name-cell">Muhammad Hamza Waris</div><div class="id-tag">222259</div></td>
-      <td onclick="openView(21)" style="cursor:pointer">MS</td>
-      <td onclick="openView(21)" style="cursor:pointer">Fall-2022</td>
-      <td onclick="openView(21)" style="cursor:pointer">Dr. Ashfaq Ahmad</td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-enrolled">Enrolled</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(21)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(21)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(22)" style="cursor:pointer"><div class="name-cell">Muhammad Jawad Iqbal</div><div class="id-tag">222261</div></td>
-      <td onclick="openView(22)" style="cursor:pointer">MS</td>
-      <td onclick="openView(22)" style="cursor:pointer">Fall-2022</td>
-      <td onclick="openView(22)" style="cursor:pointer">Dr. Saad Ullah Khan</td>
-      <td><span class="badge b-cw">CW</span></td>
-      <td><span class="badge b-cw">CW Done</span></td>
-      <td><span class="badge b-completed">Completed</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(22)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(22)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(23)" style="cursor:pointer"><div class="name-cell">Ahsan Islam</div><div class="id-tag">232671</div></td>
-      <td onclick="openView(23)" style="cursor:pointer">MS</td>
-      <td onclick="openView(23)" style="cursor:pointer">Fall-2023</td>
-      <td onclick="openView(23)" style="cursor:pointer">Dr. Mumajid</td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-enrolled">Enrolled</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(23)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(23)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(25)" style="cursor:pointer"><div class="name-cell">Bushra Batool</div><div class="id-tag">232670</div></td>
-      <td onclick="openView(25)" style="cursor:pointer">MS</td>
-      <td onclick="openView(25)" style="cursor:pointer">Fall-2023</td>
-      <td onclick="openView(25)" style="cursor:pointer">Dr. Bahman R. Alyaei</td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-completed">Completed</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(25)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(25)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(26)" style="cursor:pointer"><div class="name-cell">Izza Jamal</div><div class="id-tag">232672</div></td>
-      <td onclick="openView(26)" style="cursor:pointer">MS</td>
-      <td onclick="openView(26)" style="cursor:pointer">Fall-2023</td>
-      <td onclick="openView(26)" style="cursor:pointer">Dr. Hafiz Ashiq Hussain</td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-completed">Completed</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(26)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(26)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(27)" style="cursor:pointer"><div class="name-cell">Wajeeha Sajid</div><div class="id-tag">232668</div></td>
-      <td onclick="openView(27)" style="cursor:pointer">MS</td>
-      <td onclick="openView(27)" style="cursor:pointer">Fall-2023</td>
-      <td onclick="openView(27)" style="cursor:pointer">Dr. Ashfaq Ahmad</td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-enrolled">Enrolled</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(27)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(27)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(28)" style="cursor:pointer"><div class="name-cell">Fahad Naseer</div><div class="id-tag">243068</div></td>
-      <td onclick="openView(28)" style="cursor:pointer">MS</td>
-      <td onclick="openView(28)" style="cursor:pointer">Fall-2024</td>
-      <td onclick="openView(28)" style="cursor:pointer">Dr. Waseem Khan</td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-enrolled">Enrolled</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(28)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(28)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(30)" style="cursor:pointer"><div class="name-cell">Muhammad Naveed Kiyani</div><div class="id-tag">243065</div></td>
-      <td onclick="openView(30)" style="cursor:pointer">MS</td>
-      <td onclick="openView(30)" style="cursor:pointer">Fall-2024</td>
-      <td onclick="openView(30)" style="cursor:pointer">Dr. Mumajid</td>
-      <td><span class="b-dash">—</span></td>
-      <td><span class="b-dash">—</span></td>
-      <td><span class="badge b-left">Left</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(30)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(30)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(31)" style="cursor:pointer"><div class="name-cell">Saniya Mubasher</div><div class="id-tag">249521</div></td>
-      <td onclick="openView(31)" style="cursor:pointer">MS</td>
-      <td onclick="openView(31)" style="cursor:pointer">Fall-2024</td>
-      <td onclick="openView(31)" style="cursor:pointer">Dr. Mumajid</td>
-      <td><span class="b-dash">—</span></td>
-      <td><span class="b-dash">—</span></td>
-      <td><span class="badge b-left">Left</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(31)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(31)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(32)" style="cursor:pointer"><div class="name-cell">Shah Zaib Sawal</div><div class="id-tag">243066</div></td>
-      <td onclick="openView(32)" style="cursor:pointer">MS</td>
-      <td onclick="openView(32)" style="cursor:pointer">Fall-2024</td>
-      <td onclick="openView(32)" style="cursor:pointer">Dr. Ashfaq Ahmad</td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-enrolled">Enrolled</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(32)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(32)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(34)" style="cursor:pointer"><div class="name-cell">Syed Taha Ahmed Zaidi</div><div class="id-tag">2504372</div></td>
-      <td onclick="openView(34)" style="cursor:pointer">MS</td>
-      <td onclick="openView(34)" style="cursor:pointer">Fall-2024</td>
-      <td onclick="openView(34)" style="cursor:pointer">Dr. Muhammad Adil Khan</td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-enrolled">Enrolled</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(34)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(34)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(35)" style="cursor:pointer"><div class="name-cell">Taha</div><div class="id-tag">243069</div></td>
-      <td onclick="openView(35)" style="cursor:pointer">MS</td>
-      <td onclick="openView(35)" style="cursor:pointer">Fall-2024</td>
-      <td onclick="openView(35)" style="cursor:pointer">Dr. Mumajid</td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-enrolled">Enrolled</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(35)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(35)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(36)" style="cursor:pointer"><div class="name-cell">Abdul Rahman Liaqat Ch</div><div class="id-tag">2504383</div></td>
-      <td onclick="openView(36)" style="cursor:pointer">MS</td>
-      <td onclick="openView(36)" style="cursor:pointer">Fall-2025</td>
-      <td onclick="openView(36)" style="cursor:pointer">Dr. Mumajid</td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-enrolled">Enrolled</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(36)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(36)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(37)" style="cursor:pointer"><div class="name-cell">Badar Mahmood</div><div class="id-tag">2504382</div></td>
-      <td onclick="openView(37)" style="cursor:pointer">MS</td>
-      <td onclick="openView(37)" style="cursor:pointer">Fall-2025</td>
-      <td onclick="openView(37)" style="cursor:pointer">Dr. Sher Ali</td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-enrolled">Enrolled</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(37)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(37)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(38)" style="cursor:pointer"><div class="name-cell">Haseeb Hussain</div><div class="id-tag">2504377</div></td>
-      <td onclick="openView(38)" style="cursor:pointer">MS</td>
-      <td onclick="openView(38)" style="cursor:pointer">Fall-2025</td>
-      <td onclick="openView(38)" style="cursor:pointer">—</td>
-      <td><span class="b-dash">—</span></td>
-      <td><span class="b-dash">—</span></td>
-      <td><span class="badge b-left">Left</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(38)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(38)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(39)" style="cursor:pointer"><div class="name-cell">Humaira</div><div class="id-tag">2504375</div></td>
-      <td onclick="openView(39)" style="cursor:pointer">MS</td>
-      <td onclick="openView(39)" style="cursor:pointer">Fall-2025</td>
-      <td onclick="openView(39)" style="cursor:pointer">Dr. Sher Ali</td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-enrolled">Enrolled</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(39)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(39)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(40)" style="cursor:pointer"><div class="name-cell">Khizar Humayun</div><div class="id-tag">2504380</div></td>
-      <td onclick="openView(40)" style="cursor:pointer">MS</td>
-      <td onclick="openView(40)" style="cursor:pointer">Fall-2025</td>
-      <td onclick="openView(40)" style="cursor:pointer">Dr. Ashfaq Ahmad</td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-enrolled">Enrolled</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(40)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(40)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(41)" style="cursor:pointer"><div class="name-cell">Khushbakht Sajid</div><div class="id-tag">2504379</div></td>
-      <td onclick="openView(41)" style="cursor:pointer">MS</td>
-      <td onclick="openView(41)" style="cursor:pointer">Fall-2025</td>
-      <td onclick="openView(41)" style="cursor:pointer">Dr. Ashfaq Ahmad</td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-enrolled">Enrolled</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(41)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(41)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(42)" style="cursor:pointer"><div class="name-cell">Maha Masood Abbasi</div><div class="id-tag">2504376</div></td>
-      <td onclick="openView(42)" style="cursor:pointer">MS</td>
-      <td onclick="openView(42)" style="cursor:pointer">Fall-2025</td>
-      <td onclick="openView(42)" style="cursor:pointer">Dr. Muhammad Adil Khan</td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-enrolled">Enrolled</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(42)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(42)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(43)" style="cursor:pointer"><div class="name-cell">Mohib Ali Khan</div><div class="id-tag">2504381</div></td>
-      <td onclick="openView(43)" style="cursor:pointer">MS</td>
-      <td onclick="openView(43)" style="cursor:pointer">Fall-2025</td>
-      <td onclick="openView(43)" style="cursor:pointer">Dr. Jehanzeb Khan</td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-enrolled">Enrolled</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(43)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(43)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(44)" style="cursor:pointer"><div class="name-cell">Muhammad Aqib Javed</div><div class="id-tag">2504374</div></td>
-      <td onclick="openView(44)" style="cursor:pointer">MS</td>
-      <td onclick="openView(44)" style="cursor:pointer">Fall-2025</td>
-      <td onclick="openView(44)" style="cursor:pointer">Dr. Mumajid</td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-enrolled">Enrolled</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(44)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(44)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(45)" style="cursor:pointer"><div class="name-cell">Muhammad Rayan Zafar</div><div class="id-tag">2504378</div></td>
-      <td onclick="openView(45)" style="cursor:pointer">MS</td>
-      <td onclick="openView(45)" style="cursor:pointer">Fall-2025</td>
-      <td onclick="openView(45)" style="cursor:pointer">—</td>
-      <td><span class="b-dash">—</span></td>
-      <td><span class="b-dash">—</span></td>
-      <td><span class="badge b-left">Left</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(45)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(45)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(46)" style="cursor:pointer"><div class="name-cell">Rizwan Ahmad</div><div class="id-tag">2504384</div></td>
-      <td onclick="openView(46)" style="cursor:pointer">MS</td>
-      <td onclick="openView(46)" style="cursor:pointer">Fall-2025</td>
-      <td onclick="openView(46)" style="cursor:pointer">Dr. Muhammad Adil Khan</td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-enrolled">Enrolled</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(46)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(46)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(47)" style="cursor:pointer"><div class="name-cell">Syed Muhammad Tayyab</div><div class="id-tag">2504373</div></td>
-      <td onclick="openView(47)" style="cursor:pointer">MS</td>
-      <td onclick="openView(47)" style="cursor:pointer">Fall-2025</td>
-      <td onclick="openView(47)" style="cursor:pointer">—</td>
-      <td><span class="b-dash">—</span></td>
-      <td><span class="b-dash">—</span></td>
-      <td><span class="badge b-left">Left</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(47)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(47)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(49)" style="cursor:pointer"><div class="name-cell">Muhammad Luqman</div><div class="id-tag">230393</div></td>
-      <td onclick="openView(49)" style="cursor:pointer">MS</td>
-      <td onclick="openView(49)" style="cursor:pointer">S-2023</td>
-      <td onclick="openView(49)" style="cursor:pointer">Dr. Imran Farid</td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-completed">Completed</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(49)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(49)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(50)" style="cursor:pointer"><div class="name-cell">Naima Sakhawat</div><div class="id-tag">230247</div></td>
-      <td onclick="openView(50)" style="cursor:pointer">MS</td>
-      <td onclick="openView(50)" style="cursor:pointer">S-2023</td>
-      <td onclick="openView(50)" style="cursor:pointer">Dr. Syed Ahmed Pasha</td>
-      <td><span class="badge b-done">Done</span></td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-enrolled">Enrolled</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(50)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(50)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(51)" style="cursor:pointer"><div class="name-cell">Meerub Khalil</div><div class="id-tag">240325</div></td>
-      <td onclick="openView(51)" style="cursor:pointer">MS</td>
-      <td onclick="openView(51)" style="cursor:pointer">S-2024</td>
-      <td onclick="openView(51)" style="cursor:pointer">Dr. Ashfaq Ahmad</td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-pending">Pending</span></td>
-      <td><span class="badge b-enrolled">Enrolled</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(51)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(51)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr><tr>
-      <td onclick="openView(52)" style="cursor:pointer"><div class="name-cell">Usama Iftikhar</div><div class="id-tag">240323</div></td>
-      <td onclick="openView(52)" style="cursor:pointer">MS</td>
-      <td onclick="openView(52)" style="cursor:pointer">S-2024</td>
-      <td onclick="openView(52)" style="cursor:pointer">Dr. Muhammad Adil Khan</td>
-      <td><span class="b-dash">—</span></td>
-      <td><span class="b-dash">—</span></td>
-      <td><span class="badge b-left">Left</span></td>
-      <td><div class="actions-cell">
-        <button class="act-btn btn-edit" onclick="openEdit(52)"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(52)"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr></tbody>
+          <tbody id="tBody"></tbody>
         </table>
       </div>
     </div>
@@ -783,426 +289,18 @@ body.is-admin .admin-only-block{display:block}
   <div id="tab-supervisors" style="display:none">
     <div class="slots-summary">
       <div class="slot-left">
-        <div class="slot-total"><strong class="ms" id="totalFMS">91</strong>Free MS slots available</div>
-        <div class="slot-total"><strong class="phd" id="totalFPhD">70</strong>Free PhD slots available</div>
+        <div class="slot-total"><strong class="ms" id="totalFMS">—</strong>Free MS slots available</div>
+        <div class="slot-total"><strong class="phd" id="totalFPhD">—</strong>Free PhD slots available</div>
       </div>
       <button class="add-btn admin-only" onclick="openAddSupervisor()"><i class="ti ti-plus"></i>Add Supervisor</button>
     </div>
-    <div class="sup-grid" id="supGrid"><div class="sup-card">
-      <div class="sup-header">
-        <div>
-          <div class="sup-name">Dr. Hafiz Ashiq Hussain</div>
-          <div class="sup-desg">Professor · PhD 2011</div>
-          <div class="sup-area">Optical Networks, Fiber Communication</div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-          <span class="hec-badge hec-approved">HEC Approved</span>
-          <div style="display:flex;gap:6px">
-            <button class="act-btn btn-edit" onclick="openEditSupervisor(0)"><i class="ti ti-pencil"></i>Edit</button>
-            <button class="act-btn btn-del" onclick="confirmDelete(0,'supervisor')"><i class="ti ti-trash"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">3</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">2</div><div class="sup-stat-l">Free PhD</div></div>
-      </div>
-    </div><div class="sup-card">
-      <div class="sup-header">
-        <div>
-          <div class="sup-name">Dr. Syed Ahmed Pasha</div>
-          <div class="sup-desg">Associate Professor · PhD 2009</div>
-          <div class="sup-area">Controls / Machine Learning</div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-          <span class="hec-badge hec-approved">HEC Approved</span>
-          <div style="display:flex;gap:6px">
-            <button class="act-btn btn-edit" onclick="openEditSupervisor(1)"><i class="ti ti-pencil"></i>Edit</button>
-            <button class="act-btn btn-del" onclick="confirmDelete(1,'supervisor')"><i class="ti ti-trash"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">6</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
-      </div>
-    </div><div class="sup-card">
-      <div class="sup-header">
-        <div>
-          <div class="sup-name">Dr. Imran Farid</div>
-          <div class="sup-desg">Assistant Professor · PhD 2015</div>
-          <div class="sup-area">Image Processing</div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-          <span class="hec-badge hec-approved">HEC Approved</span>
-          <div style="display:flex;gap:6px">
-            <button class="act-btn btn-edit" onclick="openEditSupervisor(2)"><i class="ti ti-pencil"></i>Edit</button>
-            <button class="act-btn btn-del" onclick="confirmDelete(2,'supervisor')"><i class="ti ti-trash"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">6</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
-      </div>
-    </div><div class="sup-card">
-      <div class="sup-header">
-        <div>
-          <div class="sup-name">Dr. Waseem Khan</div>
-          <div class="sup-desg">Assistant Professor · PhD 2015</div>
-          <div class="sup-area">Communication / RF Microwave</div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-          <span class="hec-badge hec-approved">HEC Approved</span>
-          <div style="display:flex;gap:6px">
-            <button class="act-btn btn-edit" onclick="openEditSupervisor(3)"><i class="ti ti-pencil"></i>Edit</button>
-            <button class="act-btn btn-del" onclick="confirmDelete(3,'supervisor')"><i class="ti ti-trash"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">6</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
-      </div>
-    </div><div class="sup-card">
-      <div class="sup-header">
-        <div>
-          <div class="sup-name">Dr. Sara Saeed</div>
-          <div class="sup-desg">Assistant Professor · PhD Aug 2016</div>
-          <div class="sup-area">RF/Microwave Antenna System</div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-          <span class="hec-badge hec-approved">HEC Approved</span>
-          <div style="display:flex;gap:6px">
-            <button class="act-btn btn-edit" onclick="openEditSupervisor(4)"><i class="ti ti-pencil"></i>Edit</button>
-            <button class="act-btn btn-del" onclick="confirmDelete(4,'supervisor')"><i class="ti ti-trash"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
-      </div>
-    </div><div class="sup-card">
-      <div class="sup-header">
-        <div>
-          <div class="sup-name">Dr. Ayesha Salman</div>
-          <div class="sup-desg">Assistant Professor · PhD Oct 2017</div>
-          <div class="sup-area">Digital Signal Processing</div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-          <span class="hec-badge hec-applied">Applied</span>
-          <div style="display:flex;gap:6px">
-            <button class="act-btn btn-edit" onclick="openEditSupervisor(5)"><i class="ti ti-pencil"></i>Edit</button>
-            <button class="act-btn btn-del" onclick="confirmDelete(5,'supervisor')"><i class="ti ti-trash"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
-      </div>
-    </div><div class="sup-card">
-      <div class="sup-header">
-        <div>
-          <div class="sup-name">Dr. Muhammad Adil Khan</div>
-          <div class="sup-desg">Assistant Professor · PhD Aug 2018</div>
-          <div class="sup-area">Power Transmission System</div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-          <span class="hec-badge hec-approved">HEC Approved</span>
-          <div style="display:flex;gap:6px">
-            <button class="act-btn btn-edit" onclick="openEditSupervisor(6)"><i class="ti ti-pencil"></i>Edit</button>
-            <button class="act-btn btn-del" onclick="confirmDelete(6,'supervisor')"><i class="ti ti-trash"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">3</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">2</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">4</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">4</div><div class="sup-stat-l">Free PhD</div></div>
-      </div>
-    </div><div class="sup-card">
-      <div class="sup-header">
-        <div>
-          <div class="sup-name">Dr. Muhammad Zaheer</div>
-          <div class="sup-desg">Assistant Professor · PhD Mar 2018</div>
-          <div class="sup-area">Steganography / Communication</div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-          <span class="hec-badge hec-applied">Applied</span>
-          <div style="display:flex;gap:6px">
-            <button class="act-btn btn-edit" onclick="openEditSupervisor(7)"><i class="ti ti-pencil"></i>Edit</button>
-            <button class="act-btn btn-del" onclick="confirmDelete(7,'supervisor')"><i class="ti ti-trash"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
-      </div>
-    </div><div class="sup-card">
-      <div class="sup-header">
-        <div>
-          <div class="sup-name">Dr. Saad Ullah Khan</div>
-          <div class="sup-desg">Assistant Professor · PhD 2019</div>
-          <div class="sup-area">Power System Component Modelling</div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-          <span class="hec-badge hec-approved">HEC Approved</span>
-          <div style="display:flex;gap:6px">
-            <button class="act-btn btn-edit" onclick="openEditSupervisor(8)"><i class="ti ti-pencil"></i>Edit</button>
-            <button class="act-btn btn-del" onclick="confirmDelete(8,'supervisor')"><i class="ti ti-trash"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">6</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
-      </div>
-    </div><div class="sup-card">
-      <div class="sup-header">
-        <div>
-          <div class="sup-name">Dr. Ahsan Sarwar Rana</div>
-          <div class="sup-desg">Assistant Professor · PhD 2021</div>
-          <div class="sup-area">Optoelectronics</div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-          <span class="hec-badge hec-approved">HEC Approved</span>
-          <div style="display:flex;gap:6px">
-            <button class="act-btn btn-edit" onclick="openEditSupervisor(9)"><i class="ti ti-pencil"></i>Edit</button>
-            <button class="act-btn btn-del" onclick="confirmDelete(9,'supervisor')"><i class="ti ti-trash"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">4</div><div class="sup-stat-l">Free PhD</div></div>
-      </div>
-    </div><div class="sup-card">
-      <div class="sup-header">
-        <div>
-          <div class="sup-name">Dr. Ashfaq Ahmad</div>
-          <div class="sup-desg">Assistant Professor · PhD 2020</div>
-          <div class="sup-area">Power System &amp; Machine Learning</div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-          <span class="hec-badge hec-approved">HEC Approved</span>
-          <div style="display:flex;gap:6px">
-            <button class="act-btn btn-edit" onclick="openEditSupervisor(10)"><i class="ti ti-pencil"></i>Edit</button>
-            <button class="act-btn btn-del" onclick="confirmDelete(10,'supervisor')"><i class="ti ti-trash"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">6</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">1</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
-      </div>
-    </div><div class="sup-card">
-      <div class="sup-header">
-        <div>
-          <div class="sup-name">Dr. Mumajid</div>
-          <div class="sup-desg">Assistant Professor · PhD 2022</div>
-          <div class="sup-area">Internet of Things (IoT)</div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-          <span class="hec-badge hec-approved">HEC Approved</span>
-          <div style="display:flex;gap:6px">
-            <button class="act-btn btn-edit" onclick="openEditSupervisor(11)"><i class="ti ti-pencil"></i>Edit</button>
-            <button class="act-btn btn-del" onclick="confirmDelete(11,'supervisor')"><i class="ti ti-trash"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">6</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
-      </div>
-    </div><div class="sup-card">
-      <div class="sup-header">
-        <div>
-          <div class="sup-name">Dr. Sher Ali</div>
-          <div class="sup-desg">Assistant Professor · PhD 2019</div>
-          <div class="sup-area">Wireless Communication</div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-          <span class="hec-badge hec-approved">HEC Approved</span>
-          <div style="display:flex;gap:6px">
-            <button class="act-btn btn-edit" onclick="openEditSupervisor(12)"><i class="ti ti-pencil"></i>Edit</button>
-            <button class="act-btn btn-del" onclick="confirmDelete(12,'supervisor')"><i class="ti ti-trash"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
-      </div>
-    </div><div class="sup-card">
-      <div class="sup-header">
-        <div>
-          <div class="sup-name">Dr. Jehanzeb Khan</div>
-          <div class="sup-desg">Assistant Professor · PhD 2020</div>
-          <div class="sup-area">Micro-Electro-Mechanical Systems (MEMS)</div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-          <span class="hec-badge hec-not">Not Approved</span>
-          <div style="display:flex;gap:6px">
-            <button class="act-btn btn-edit" onclick="openEditSupervisor(13)"><i class="ti ti-pencil"></i>Edit</button>
-            <button class="act-btn btn-del" onclick="confirmDelete(13,'supervisor')"><i class="ti ti-trash"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
-      </div>
-    </div><div class="sup-card">
-      <div class="sup-header">
-        <div>
-          <div class="sup-name">Dr. Shahzad</div>
-          <div class="sup-desg">Assistant Professor</div>
-          
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-          
-          <div style="display:flex;gap:6px">
-            <button class="act-btn btn-edit" onclick="openEditSupervisor(14)"><i class="ti ti-pencil"></i>Edit</button>
-            <button class="act-btn btn-del" onclick="confirmDelete(14,'supervisor')"><i class="ti ti-trash"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
-      </div>
-    </div></div>
+    <div class="sup-grid" id="supGrid"></div>
   </div>
 </div>
 
 <!-- View/Edit Student Modal -->
 <div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
-  <div class="modal-box" id="modalBox">
-  <div class="modal-header">
-    <button class="modal-close" onclick="closeModal()"><i class="ti ti-x"></i></button>
-    <div class="modal-name">Add New Student</div>
-    <div class="modal-meta">Fill in the details below</div>
-  </div>
-  <div class="modal-body">
-    <div class="edit-form">
-      <div class="form-2col">
-        <div class="form-row"><label>Full Name *</label><input id="f-name" value="" placeholder="e.g. Muhammad Ali"></div>
-        <div class="form-row"><label>Student ID *</label><input id="f-id" value="" placeholder="e.g. 222260"></div>
-      </div>
-      <div class="form-3col">
-        <div class="form-row"><label>Degree *</label>
-          <select id="f-degree">
-            <option value="PhD">PhD</option>
-            <option value="MS">MS</option>
-          </select>
-        </div>
-        <div class="form-row"><label>Session *</label><input id="f-session" value="" placeholder="e.g. Fall-2024"></div>
-        <div class="form-row"><label>Status *</label>
-          <select id="f-status">
-            <option value="Enrolled">Enrolled</option>
-            <option value="Completed">Completed</option>
-            <option value="Left">Left</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-row"><label>Supervisor</label><input id="f-sup" value="" placeholder="e.g. Dr. Ashfaq Ahmad"></div>
-      <div class="form-row"><label>Co-Supervisor</label><input id="f-cosup" value="" placeholder="Optional"></div>
-      <div class="form-row"><label>Thesis Topic</label><textarea id="f-topic"></textarea></div>
-      <div class="form-2col">
-        <div class="form-row"><label>PDE Status</label>
-          <select id="f-pde">
-            <option value="">—</option>
-            <option value="Done">Done</option>
-            <option value="Pending">Pending</option>
-            <option value="CW Done">CW Done</option>
-            <option value="CW">CW</option>
-          </select>
-        </div>
-        <div class="form-row"><label>PDE Date</label><input id="f-pdeDate" value="" placeholder="e.g. 15 Jan 2025"></div>
-      </div>
-      <div class="form-2col">
-        <div class="form-row"><label>FDE Status</label>
-          <select id="f-fde">
-            <option value="">—</option>
-            <option value="Done">Done</option>
-            <option value="Pending">Pending</option>
-            <option value="CW Done">CW Done</option>
-          </select>
-        </div>
-        <div class="form-row"><label>FDE Date</label><input id="f-fdeDate" value="" placeholder="e.g. 20 June 2025"></div>
-      </div>
-      <div class="form-2col">
-        <div class="form-row"><label>Email</label><input id="f-email" type="email" value="" placeholder="student@example.com"></div>
-        <div class="form-row"><label>Cell</label><input id="f-cell" value="" placeholder="92 300-0000000"></div>
-      </div>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <button class="btn-cancel" onclick="closeModal()">Cancel</button>
-    <button class="btn-save" onclick="addStudent()"><i class="ti ti-plus" style="margin-right:4px"></i>Add Student</button>
-  </div></div>
+  <div class="modal-box" id="modalBox"></div>
 </div>
 
 <!-- Confirm Delete Modal -->
@@ -1219,7 +317,7 @@ body.is-admin .admin-only-block{display:block}
 </div>
 
 <!-- Admin Login Modal -->
-<div class="admin-login-overlay" id="adminLoginOverlay" style="display: none;">
+<div class="admin-login-overlay" id="adminLoginOverlay" style="display:none">
   <div class="admin-login-box">
     <div class="admin-login-header">
       <div class="admin-login-icon"><i class="ti ti-shield-lock"></i></div>
@@ -1229,8 +327,8 @@ body.is-admin .admin-only-block{display:block}
     <div class="admin-login-body">
       <label class="admin-login-label" for="adminPwInput">Password</label>
       <div class="admin-login-input-wrap">
-        <input class="admin-login-input" type="text" id="adminPwInput" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doAdminLogin()">
-        <button class="admin-toggle-pw" onclick="togglePwVisibility()" tabindex="-1" id="togglePwBtn"><i class="ti ti-eye-off" id="eyeIcon"></i></button>
+        <input class="admin-login-input" type="password" id="adminPwInput" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doAdminLogin()">
+        <button class="admin-toggle-pw" onclick="togglePwVisibility()" tabindex="-1" id="togglePwBtn"><i class="ti ti-eye" id="eyeIcon"></i></button>
       </div>
       <div class="admin-error-msg" id="adminErrMsg"><i class="ti ti-alert-circle"></i><span>Incorrect password. Please try again.</span></div>
       <button class="admin-login-btn" onclick="doAdminLogin()"><i class="ti ti-shield-check"></i>Sign in as Admin</button>
@@ -1240,7 +338,7 @@ body.is-admin .admin-only-block{display:block}
 </div>
 
 <!-- Toast -->
-<div class="toast success" id="toast"><i class="ti ti-check-circle"></i><span id="toastMsg">Student updated successfully</span></div>
+<div class="toast" id="toast"><i class="ti ti-check-circle"></i><span id="toastMsg"></span></div>
 
 <script>
 let STUDENTS = [
@@ -1251,9 +349,11 @@ let STUDENTS = [
     "degree": "PhD",
     "sup": "Dr. Muhammad Zakwan",
     "cosup": "Dr. Muhammad Habib Mahmood",
-    "topic": "Computer Vision / Deep Learning",
+    "gecInternal": "Dr. Waseem Khan Dr. Ashfaq Ahmad",
+    "gecExternal": "Dr. Arsalan Shaukat (External) (NUST)",
+    "topic": "Computer Vision/Deep Learning",
     "pde": "Done",
-    "pdeDate": "03 Jan 2022",
+    "pdeDate": "03 Jan, 2022",
     "fde": "Done",
     "fdeDate": "16-12-2025",
     "status": "Completed",
@@ -1267,11 +367,13 @@ let STUDENTS = [
     "degree": "PhD",
     "sup": "Dr. Husan Ali",
     "cosup": "",
+    "gecInternal": "Dr. Waseem Khan Dr. Tufail Muhammad (Co-Supervisor) (Co-Supervisor) Dr. Shahbaz Khan (EE. Deptt. AU Kamra Campus)",
+    "gecExternal": "Dr. Dur-E-Zehra Baig (External Member) (GIKI)",
     "topic": "Cardiac Arrhythmia Classification for Imbalanced Data in the Presence of Noise Exploiting Deep Feature Embeddings",
     "pde": "Done",
-    "pdeDate": "27 Dec 2021",
+    "pdeDate": "27 Dec, 2021",
     "fde": "Done",
-    "fdeDate": "13 June 2025",
+    "fdeDate": "13 June, 2025",
     "status": "Completed",
     "email": "bilalawan14@gmail.com",
     "cell": ""
@@ -1283,11 +385,13 @@ let STUDENTS = [
     "degree": "PhD",
     "sup": "Dr. Muhammad Zakwan",
     "cosup": "",
-    "topic": "Design, Simulation and Characterization of Silicon on Insulator (SoI) based Multi-Parameters Optical Sensing Systems",
+    "gecInternal": "Dr. Waseem Khan (Co-Supervisor) Dr. Ahsan Sarwar Rana Dr. Rana Iqditar Shakoor",
+    "gecExternal": "Dr. Taimoor Naeem (COMSATS)",
+    "topic": "Design, Simulation and characterization of Silicon on Insulator (SoI) based Multi-Parameters Optical Sensing Systems",
     "pde": "Done",
-    "pdeDate": "20 Jan 2022",
+    "pdeDate": "20 Jan, 2022",
     "fde": "Done",
-    "fdeDate": "05 January 2026",
+    "fdeDate": "05 January, 2026",
     "status": "Completed",
     "email": "favad1dzr@gmail.com",
     "cell": ""
@@ -1298,10 +402,12 @@ let STUDENTS = [
     "session": "Fall-2019",
     "degree": "PhD",
     "sup": "Dr. Ashfaq Ahmad",
-    "cosup": "Dr. Usman Ali (SEECS, NUST)",
+    "cosup": "Dr. Usman Ali SEECS( NUST) Co-sup",
+    "gecInternal": "Dr. Syed Ahmad Pasha Dr. Muhammad Adil Khan",
+    "gecExternal": "Dr. Rasool Bakhsh (CUI)",
     "topic": "Geometric Control for Spacecraft Attitude Control",
     "pde": "Done",
-    "pdeDate": "28 Dec 2022",
+    "pdeDate": "28 Dec, 2022",
     "fde": "Pending",
     "fdeDate": "",
     "status": "Enrolled",
@@ -1315,9 +421,11 @@ let STUDENTS = [
     "degree": "PhD",
     "sup": "Dr. Hafiz Ashiq Hussain",
     "cosup": "",
-    "topic": "A Blockchain Enabled Energy Management for Electrical Vehicles in Smart Cities",
+    "gecInternal": "Dr. Jehanzeb Khan Dr. Bahman",
+    "gecExternal": "Dr. Abraiz Khattak (NUST)",
+    "topic": "A blockchain Enabled Energy Management for Electrical Vehicles in Smart Cities.",
     "pde": "Done",
-    "pdeDate": "18 Jan 2023",
+    "pdeDate": "18 Jan, 2023",
     "fde": "Pending",
     "fdeDate": "",
     "status": "Enrolled",
@@ -1331,11 +439,13 @@ let STUDENTS = [
     "degree": "PhD",
     "sup": "Dr. Muhammad Adil Khan",
     "cosup": "",
-    "topic": "Optimal Energy Management and Control Strategies for Hybrid Electrical Vehicles",
+    "gecInternal": "Dr. Ashfaq Ahmad Dr.Saad Ullah khan",
+    "gecExternal": "Dr. Muhammad Amir (Bharia)",
+    "topic": "Optimal Energy Management and Control Strategies for Hybrid Electrical Vechicles",
     "pde": "Done",
-    "pdeDate": "21 Jan 2022",
+    "pdeDate": "21st Jan, 2022",
     "fde": "Done",
-    "fdeDate": "03 July 2025",
+    "fdeDate": "03 July, 2025",
     "status": "Completed",
     "email": "engr.mubashirrasool@gmail.com",
     "cell": ""
@@ -1346,12 +456,14 @@ let STUDENTS = [
     "session": "Fall-2019",
     "degree": "PhD",
     "sup": "Dr. Nouman Naseer",
-    "cosup": "Dr. Imran Fareed (Bahria University)",
+    "cosup": "Dr. Imran Fareed (Bahria University) Co-Sup",
+    "gecInternal": "Dr. Muhamad Imran Fareed Dr. Syed Hammad Nazeer",
+    "gecExternal": "Dr. Usman Akram (NUST)",
     "topic": "Mental Workload Detection and Assessment using Brain Signals",
     "pde": "Done",
-    "pdeDate": "22 June 2022",
+    "pdeDate": "22 June, 2022",
     "fde": "Done",
-    "fdeDate": "07 Nov 2025",
+    "fdeDate": "07 Nov, 2025",
     "status": "Completed",
     "email": "bilalawan14@gmail.com",
     "cell": ""
@@ -1359,208 +471,234 @@ let STUDENTS = [
   {
     "name": "Hassan Farooq",
     "id": "201619",
-    "degree": "MS",
     "session": "Fall-2020",
-    "status": "Completed",
+    "degree": "MS",
     "sup": "Dr. Ashfaq Ahmad",
-    "cosup": "Dr. Jehanzeb Khan",
+    "cosup": "Dr. Jehanzeb Khan (Co)",
+    "gecInternal": "Dr. Ahsan Sarwar Rana Dr. Muntazir Hussain",
+    "gecExternal": "Dr. Rasool Bukhsh (Comsats)",
     "topic": "Investigating Hierarchical Neighbourhood Influence for Managing Electric Vehicles in Power Systems",
     "pde": "Done",
-    "pdeDate": "17 Jan 2023",
+    "pdeDate": "17 Jan, 2023",
     "fde": "Done",
-    "fdeDate": "17 Jan 2025",
+    "fdeDate": "17-Jan-2025",
+    "status": "Completed",
     "email": "hassanfarooq947@gmail.com",
     "cell": "92 321-5698763"
   },
   {
     "name": "Danish Zahoor",
     "id": "211668",
-    "degree": "MS",
     "session": "Fall-2021",
-    "status": "Completed",
+    "degree": "MS",
     "sup": "Dr. Imran Farid",
-    "cosup": "Dr. Mehdi Hassan",
-    "topic": "Auxiliary Learning for Multi-task Deep Neural Network",
+    "cosup": "Dr. Mehdi Hassan (Co)",
+    "gecInternal": "Dr. Syed Ahmed Pasha Dr. Najam Dar",
+    "gecExternal": "Dr. Arsalan Shukat (NUST)",
+    "topic": "Auxiliary Learning for Multi-task Deep Neural Network",
     "pde": "Done",
-    "pdeDate": "4 Jan 2024",
+    "pdeDate": "4th Jan, 2024",
     "fde": "Done",
-    "fdeDate": "12 June 2025",
+    "fdeDate": "12 June, 2025",
+    "status": "Completed",
     "email": "danishzahoor.esin@gmail.com",
     "cell": "92 310-9373329"
   },
   {
     "name": "Fatima Humayun",
     "id": "211861",
-    "degree": "MS",
     "session": "Fall-2021",
-    "status": "Completed",
+    "degree": "MS",
     "sup": "Course Work",
     "cosup": "",
+    "gecInternal": "",
+    "gecExternal": "",
     "topic": "",
-    "pde": "CW Done",
+    "pde": "",
     "pdeDate": "",
     "fde": "",
-    "fdeDate": "",
+    "fdeDate": "CW Done",
+    "status": "Completed",
     "email": "",
     "cell": ""
   },
   {
     "name": "Haseeb Rustam",
     "id": "211677",
-    "degree": "MS",
     "session": "Fall-2021",
-    "status": "Completed",
+    "degree": "MS",
     "sup": "Dr. Muhammad Adil Khan",
     "cosup": "",
+    "gecInternal": "Dr. Saad Ullah Khan Dr. Ashfaq Ahmad",
+    "gecExternal": "Dr. Kamran (NUST)",
     "topic": "Optimal Demand Response Air Conditioning",
     "pde": "Done",
-    "pdeDate": "1 Nov 2023",
+    "pdeDate": "1st Nov, 2023",
     "fde": "Done",
-    "fdeDate": "22 May 2025",
+    "fdeDate": "22 May, 2025",
+    "status": "Completed",
     "email": "haseebrustam3@gmail.com",
     "cell": "92 305-8640039"
   },
   {
     "name": "Iqra Nawaz",
     "id": "211679",
-    "degree": "MS",
     "session": "Fall-2021",
-    "status": "Completed",
+    "degree": "MS",
     "sup": "Dr. Hafiz Ashiq Hussain",
     "cosup": "",
+    "gecInternal": "Dr. Muhammad Adil Khan",
+    "gecExternal": "Dr. Shafiq Haider (UET Taxila)",
     "topic": "Robust Distributed Control of Nonlinear Time Delay Systems Under Input Saturation",
     "pde": "Done",
-    "pdeDate": "21 Dec 2023",
+    "pdeDate": "21 Dec, 2023",
     "fde": "Done",
     "fdeDate": "06-11-2024",
+    "status": "Completed",
     "email": "nawaziqra890@gmail.com",
     "cell": "92 303-6927978"
   },
   {
     "name": "Jawad Bahadur Khan",
     "id": "211665",
-    "degree": "MS",
     "session": "Fall-2021",
-    "status": "Completed",
+    "degree": "MS",
     "sup": "Dr. Hafiz Ashiq Hussain",
     "cosup": "",
-    "topic": "Consensus Control of Nonlinear Multi-Agents Systems with Time Delay",
+    "gecInternal": "Dr. Muhammad Adil",
+    "gecExternal": "Dr. M.Rehan (PIEAS)",
+    "topic": "Consensus control of nonlinear Multi- Agents systems with Time Delay",
     "pde": "Done",
-    "pdeDate": "22 June 2023",
+    "pdeDate": "22 June, 2023",
     "fde": "Done",
     "fdeDate": "04-11-2024",
+    "status": "Completed",
     "email": "jawad84bahadur@gmail.com",
     "cell": "92 312-8079499"
   },
   {
     "name": "Khushal Khan",
     "id": "211663",
-    "degree": "MS",
     "session": "Fall-2021",
-    "status": "Left",
+    "degree": "MS",
     "sup": "Dr. Muhammad Adil Khan",
-    "cosup": "Dr. Saad Ullah Khan",
-    "topic": "Analyzing Modular Multilevel Power Converters for Electric Vehicle Charging",
+    "cosup": "Dr. Saad Ullah Khan (Co)",
+    "gecInternal": "Dr. Ashfaq Ahmed Dr. Jehanzeb Khan",
+    "gecExternal": "Dr. Waqaruddin (NUST)",
+    "topic": "Analyzing Modular Multilevel Power Convertes for Electric Vehicle Charging",
     "pde": "Done",
-    "pdeDate": "12 June 2024",
+    "pdeDate": "12 June, 2024",
     "fde": "Pending",
     "fdeDate": "",
+    "status": "Left",
     "email": "khushalkhan684@hotmail.com",
     "cell": "92 334-7820684"
   },
   {
     "name": "Maham Imran",
     "id": "211671",
-    "degree": "MS",
     "session": "Fall-2021",
-    "status": "Completed",
+    "degree": "MS",
     "sup": "Course Work",
     "cosup": "",
+    "gecInternal": "",
+    "gecExternal": "",
     "topic": "",
-    "pde": "CW Done",
+    "pde": "",
     "pdeDate": "",
     "fde": "",
-    "fdeDate": "",
+    "fdeDate": "CW Done",
+    "status": "Completed",
     "email": "",
     "cell": ""
   },
   {
     "name": "Syed Muhammad Qamar Ali Bukhari",
     "id": "211664",
-    "degree": "MS",
     "session": "Fall-2021",
-    "status": "Completed",
+    "degree": "MS",
     "sup": "Dr. Hafiz Ashiq Hussain",
     "cosup": "",
-    "topic": "Predicting Transformer Health using Oil Quality Parameters with Artificial Neural Networks",
+    "gecInternal": "Dr. Muhammad Adil Khan",
+    "gecExternal": "Dr. Muhammad Ali Mughal (HITECH)",
+    "topic": "Predicting Transformer Health using Oil Quality Paramenters with Artificial Neural Networks in Python",
     "pde": "Done",
-    "pdeDate": "16 May 2024",
+    "pdeDate": "16 May, 2024",
     "fde": "Done",
     "fdeDate": "28-04-2025",
+    "status": "Completed",
     "email": "55555bukhari@gmail.com",
     "cell": "92 336-5776187"
   },
   {
     "name": "Tayyaba Riasat",
     "id": "211660",
-    "degree": "MS",
     "session": "Fall-2021",
-    "status": "Completed",
+    "degree": "MS",
     "sup": "Dr. Imran Farid",
-    "cosup": "Dr. Mehdi Hassan",
+    "cosup": "Dr. Mehdi Hassan (Co)",
+    "gecInternal": "Dr. M. Zaheer",
+    "gecExternal": "Dr. Zartasha Mustansar (NUST)",
     "topic": "Deep Convolutional Generative Adversarial Networks for Skin Cancer Application",
     "pde": "Done",
-    "pdeDate": "4 Jan 2024",
+    "pdeDate": "4th Jan, 2024",
     "fde": "Done",
-    "fdeDate": "12 June 2025",
+    "fdeDate": "12 June, 2025",
+    "status": "Completed",
     "email": "tayyabariasat12@gmail.com",
     "cell": "92 312-9663667"
   },
   {
     "name": "Asif Habib",
     "id": "222263",
-    "degree": "MS",
     "session": "Fall-2022",
-    "status": "Completed",
+    "degree": "MS",
     "sup": "Dr. Imran Farid",
     "cosup": "",
+    "gecInternal": "Dr. Muhammad Adil Khan Dr. Ashfaq Ahmad",
+    "gecExternal": "Dr. Arsalan Shaukat (NUST)",
     "topic": "Multivariate Time-series Earthquake Forecasting",
     "pde": "Done",
     "pdeDate": "21-01-2025",
-    "fde": "Done",
-    "fdeDate": "7 May, 2026",
+    "fde": "Pending",
+    "fdeDate": "",
+    "status": "Enrolled",
     "email": "asif5581@gmail.com",
     "cell": "92 321-2200611"
   },
   {
     "name": "Ayesha Qaiser Hashmi",
     "id": "222255",
-    "degree": "MS",
     "session": "Fall-2022",
-    "status": "Completed",
+    "degree": "MS",
     "sup": "Dr. Muhammad Zaheer",
-    "cosup": "Dr. Ahsan Sarwar Rana",
+    "cosup": "Dr. Ahsan Sarwar Rana (Co)",
+    "gecInternal": "Dr. Imran Farid",
+    "gecExternal": "Dr. Usman Hashmi (Iqra University)",
     "topic": "Optimization of Embedding Locations for Capacity Enhancement in Image Steganography",
     "pde": "Done",
-    "pdeDate": "25 April 2024",
+    "pdeDate": "25th April, 2024",
     "fde": "Done",
     "fdeDate": "21-01-2025",
+    "status": "Completed",
     "email": "ayeshaqaiser99@gmail.com",
     "cell": "92 332-5966617"
   },
   {
     "name": "Ikhlaq Hussain",
     "id": "222260",
-    "degree": "MS",
     "session": "Fall-2022",
-    "status": "Enrolled",
+    "degree": "MS",
     "sup": "Dr. Ashfaq Ahmad",
     "cosup": "Dr. Muhammad Adil Khan",
+    "gecInternal": "Dr. Ahsan Sarwar",
+    "gecExternal": "Dr. Syed Ali Abbas Kazmi (NUST)",
     "topic": "",
     "pde": "Done",
-    "pdeDate": "",
+    "pdeDate": "2025-01-28 00:00:00",
     "fde": "Pending",
     "fdeDate": "",
+    "status": "Enrolled",
     "email": "ikhlaqhussainsada14@gmail.com",
     "cell": "92 314-3142184"
   },
@@ -1571,11 +709,13 @@ let STUDENTS = [
     "degree": "PhD",
     "sup": "Dr. Hafiz Ashiq Hussain",
     "cosup": "",
+    "gecInternal": "Dr. Muhammad Adil Khan",
+    "gecExternal": "Dr. Junaid Ali Khan (HITECH)",
     "topic": "Peer-to-Peer Energy Transactions via Blockchain",
     "pde": "Done",
-    "pdeDate": "27 Dec 2023",
+    "pdeDate": "27 Dec, 2023",
     "fde": "Done",
-    "fdeDate": "19 May 2025",
+    "fdeDate": "19 May, 2025",
     "status": "Completed",
     "email": "engr.imranhussain1@gmail.com",
     "cell": ""
@@ -1583,48 +723,54 @@ let STUDENTS = [
   {
     "name": "Muhammad Hamza Waris",
     "id": "222259",
-    "degree": "MS",
     "session": "Fall-2022",
-    "status": "Enrolled",
+    "degree": "MS",
     "sup": "Dr. Ashfaq Ahmad",
     "cosup": "Dr. Saad Ullah Khan",
-    "topic": "Robust Estimation and Detection of Attacks for Cyber-Physical Non-linear Power System",
+    "gecInternal": "Dr. Muhammad Adil Khan",
+    "gecExternal": "Dr. Rasool Bukhsh (CUI)",
+    "topic": "Robust estimation and detection of attacks for Cyber-Physical non-linear power system",
     "pde": "Done",
-    "pdeDate": "",
+    "pdeDate": "2025-01-24 00:00:00",
     "fde": "Pending",
     "fdeDate": "",
+    "status": "Enrolled",
     "email": "hamzawaris888@gmail.com",
     "cell": "92 301-5166072"
   },
   {
     "name": "Muhammad Jawad Iqbal",
     "id": "222261",
-    "degree": "MS",
     "session": "Fall-2022",
-    "status": "Completed",
-    "sup": "Dr. Saad Ullah Khan",
+    "degree": "MS",
+    "sup": "Dr.Saad Ullah Khan",
     "cosup": "",
+    "gecInternal": "Dr. Muntazir Hussain Dr. Ashfaq Ahmad",
+    "gecExternal": "Dr. Syed Ali Abbas Kazmi (NUST)",
     "topic": "",
-    "pde": "CW",
+    "pde": "Course work",
     "pdeDate": "",
-    "fde": "CW Done",
-    "fdeDate": "",
+    "fde": "",
+    "fdeDate": "CW Done",
+    "status": "Completed",
     "email": "ijawad62@gmail.com",
     "cell": "92 331-9922450"
   },
   {
     "name": "Ahsan Islam",
     "id": "232671",
-    "degree": "MS",
     "session": "Fall-2023",
-    "status": "Enrolled",
+    "degree": "MS",
     "sup": "Dr. Mumajid",
     "cosup": "",
+    "gecInternal": "Dr. Imran Farid",
+    "gecExternal": "Dr. Adil Ali Raja",
     "topic": "",
     "pde": "Done",
-    "pdeDate": "08 July 2025",
+    "pdeDate": "08 July, 2025",
     "fde": "Pending",
     "fdeDate": "",
+    "status": "Enrolled",
     "email": "ahsanislamm@hotmail.com",
     "cell": "92 336-2045207"
   },
@@ -1635,9 +781,11 @@ let STUDENTS = [
     "degree": "PhD",
     "sup": "Dr. Hafiz Ashiq Hussain",
     "cosup": "",
+    "gecInternal": "Dr. Ashfaq Ahmad Dr. Muhammad Adil Khan",
+    "gecExternal": "Prof. Dr. Asad Waqar (Bahria University",
     "topic": "",
     "pde": "Pending",
-    "pdeDate": "",
+    "pdeDate": "-",
     "fde": "Pending",
     "fdeDate": "",
     "status": "Enrolled",
@@ -1647,64 +795,72 @@ let STUDENTS = [
   {
     "name": "Bushra Batool",
     "id": "232670",
-    "degree": "MS",
     "session": "Fall-2023",
-    "status": "Completed",
+    "degree": "MS",
     "sup": "Dr. Bahman R. Alyaei",
     "cosup": "",
+    "gecInternal": "Dr. Sara Saeed Dr. Ayesha Salman",
+    "gecExternal": "Dr. Awais Ahmed (QAU)",
     "topic": "Mobility Management in 5G Network",
     "pde": "Done",
-    "pdeDate": "4 Dec 2024",
+    "pdeDate": "4 Dec, 2024",
     "fde": "Done",
-    "fdeDate": "20 March 2025",
+    "fdeDate": "20 March, 2025",
+    "status": "Completed",
     "email": "eebushra905@gmail.com",
     "cell": "92 334-5775489"
   },
   {
     "name": "Izza Jamal",
     "id": "232672",
-    "degree": "MS",
     "session": "Fall-2023",
-    "status": "Completed",
+    "degree": "MS",
     "sup": "Dr. Hafiz Ashiq Hussain",
     "cosup": "",
+    "gecInternal": "Dr. Saad Ullah Khan Dr. Muhammad Adil Khan",
+    "gecExternal": "Dr. Sohaira Ahmad (University of Wah)",
     "topic": "",
     "pde": "Done",
-    "pdeDate": "13 December 2024",
+    "pdeDate": "13 December, 2024",
     "fde": "Done",
-    "fdeDate": "18 June 2025",
+    "fdeDate": "18 June, 2025",
+    "status": "Completed",
     "email": "izzajamal@gmail.com",
     "cell": "92 318-5656296"
   },
   {
     "name": "Wajeeha Sajid",
     "id": "232668",
-    "degree": "MS",
     "session": "Fall-2023",
-    "status": "Enrolled",
+    "degree": "MS",
     "sup": "Dr. Ashfaq Ahmad",
     "cosup": "Dr. Muhammad Adil Khan",
+    "gecInternal": "Dr. Ahsan Sarwar Rana",
+    "gecExternal": "Dr. Rasool Bukhsh (CUI)",
     "topic": "",
     "pde": "Pending",
-    "pdeDate": "",
+    "pdeDate": "Pending",
     "fde": "Pending",
     "fdeDate": "",
+    "status": "Enrolled",
     "email": "wajeehasajid98@gmail.com",
     "cell": "92 315-5396087"
   },
   {
     "name": "Fahad Naseer",
     "id": "243068",
-    "degree": "MS",
     "session": "Fall-2024",
-    "status": "Enrolled",
+    "degree": "MS",
     "sup": "Dr. Waseem Khan",
     "cosup": "",
+    "gecInternal": "Dr. Muhammad Zaheer Dr. Ashfaq Ahmad",
+    "gecExternal": "Dr. Adil Ali Raja (BU)",
     "topic": "",
     "pde": "Pending",
     "pdeDate": "",
     "fde": "Pending",
     "fdeDate": "",
+    "status": "Enrolled",
     "email": "fahad.bsee2341@gmail.com",
     "cell": ""
   },
@@ -1715,6 +871,8 @@ let STUDENTS = [
     "degree": "PhD",
     "sup": "Dr. Muhammad Adil Khan",
     "cosup": "Dr. Ashfaq Ahmad",
+    "gecInternal": "Dr. Hafiz Ashiq Hussain Dr. Saad Ullah Khan",
+    "gecExternal": "Dr. Muhammad Aamir (PAF IAST)",
     "topic": "",
     "pde": "Pending",
     "pdeDate": "",
@@ -1727,48 +885,54 @@ let STUDENTS = [
   {
     "name": "Muhammad Naveed Kiyani",
     "id": "243065",
-    "degree": "MS",
     "session": "Fall-2024",
-    "status": "Left",
+    "degree": "MS",
     "sup": "Dr. Mumajid",
     "cosup": "",
+    "gecInternal": "Dr. Adil Khan",
+    "gecExternal": "Dr. Adil Ali Raja (BU)",
     "topic": "",
     "pde": "",
     "pdeDate": "",
     "fde": "",
     "fdeDate": "",
+    "status": "Left",
     "email": "naveedkiyani1101@gmail.com",
     "cell": ""
   },
   {
     "name": "Saniya Mubasher",
     "id": "249521",
-    "degree": "MS",
     "session": "Fall-2024",
-    "status": "Left",
+    "degree": "MS",
     "sup": "Dr. Mumajid",
-    "cosup": "",
+    "cosup": "LEFT",
+    "gecInternal": "Dr. Bahman R .A",
+    "gecExternal": "Dr. Adil Ali Raja (BU)",
     "topic": "",
     "pde": "",
     "pdeDate": "",
     "fde": "",
     "fdeDate": "",
+    "status": "Left",
     "email": "saniyamubasher2001@gmail.com",
     "cell": ""
   },
   {
     "name": "Shah Zaib Sawal",
     "id": "243066",
-    "degree": "MS",
     "session": "Fall-2024",
-    "status": "Enrolled",
+    "degree": "MS",
     "sup": "Dr. Ashfaq Ahmad",
     "cosup": "Dr. Adil Khan",
+    "gecInternal": "Dr. Ahsan Sarwar Rana",
+    "gecExternal": "Dr. Rasool Bukhsh (CUI",
     "topic": "",
     "pde": "Pending",
     "pdeDate": "",
     "fde": "Pending",
     "fdeDate": "",
+    "status": "Enrolled",
     "email": "electricdomain3@gmail.com",
     "cell": ""
   },
@@ -1779,11 +943,13 @@ let STUDENTS = [
     "degree": "PhD",
     "sup": "Dr. Hafiz Ashiq Hussain",
     "cosup": "",
+    "gecInternal": "Dr. Saad Ullah Khan",
+    "gecExternal": "Dr. Asad Waqar (BU)",
     "topic": "",
     "pde": "Pending",
     "pdeDate": "",
     "fde": "Pending",
-    "fdeDate": "",
+    "fdeDate": "Pending",
     "status": "Enrolled",
     "email": "sharozesohail7@gmail.com",
     "cell": ""
@@ -1791,224 +957,252 @@ let STUDENTS = [
   {
     "name": "Syed Taha Ahmed Zaidi",
     "id": "2504372",
-    "degree": "MS",
     "session": "Fall-2024",
-    "status": "Enrolled",
+    "degree": "MS",
     "sup": "Dr. Muhammad Adil Khan",
     "cosup": "Dr. Ashfaq Ahmad",
+    "gecInternal": "Dr. Jehanzeb Khan",
+    "gecExternal": "Dr. Kamran Zeb (NUST)",
     "topic": "",
     "pde": "Pending",
     "pdeDate": "",
     "fde": "Pending",
     "fdeDate": "",
+    "status": "Enrolled",
     "email": "",
     "cell": ""
   },
   {
     "name": "Taha",
     "id": "243069",
-    "degree": "MS",
     "session": "Fall-2024",
-    "status": "Enrolled",
+    "degree": "MS",
     "sup": "Dr. Mumajid",
     "cosup": "",
+    "gecInternal": "Dr. Muhammad Zaheer",
+    "gecExternal": "Dr. Adil Ali Raja (BU)",
     "topic": "",
     "pde": "Pending",
     "pdeDate": "",
     "fde": "Pending",
     "fdeDate": "",
+    "status": "Enrolled",
     "email": "soomrotaha07@gmail.com",
     "cell": ""
   },
   {
     "name": "Abdul Rahman Liaqat Ch",
     "id": "2504383",
-    "degree": "MS",
     "session": "Fall-2025",
-    "status": "Enrolled",
+    "degree": "MS",
     "sup": "Dr. Mumajid",
-    "cosup": "",
+    "cosup": "-",
+    "gecInternal": "Dr. Imran Farid Dr. Muhammad Zaheer",
+    "gecExternal": "Dr. Adil Ali (BU)",
     "topic": "",
     "pde": "Pending",
     "pdeDate": "",
     "fde": "Pending",
     "fdeDate": "",
+    "status": "Enrolled",
     "email": "",
     "cell": "92 331-9930373"
   },
   {
     "name": "Badar Mahmood",
     "id": "2504382",
-    "degree": "MS",
     "session": "Fall-2025",
-    "status": "Enrolled",
+    "degree": "MS",
     "sup": "Dr. Sher Ali",
-    "cosup": "",
+    "cosup": "-",
+    "gecInternal": "Dr. Jehanzeb Khan",
+    "gecExternal": "Dr. Awais Shahid (CUST)",
     "topic": "",
     "pde": "Pending",
     "pdeDate": "",
     "fde": "Pending",
     "fdeDate": "",
+    "status": "Enrolled",
     "email": "",
     "cell": "92 321-9610627"
   },
   {
     "name": "Haseeb Hussain",
     "id": "2504377",
-    "degree": "MS",
     "session": "Fall-2025",
-    "status": "Left",
+    "degree": "MS",
     "sup": "",
     "cosup": "",
+    "gecInternal": "",
+    "gecExternal": "",
     "topic": "",
     "pde": "",
     "pdeDate": "",
     "fde": "",
     "fdeDate": "",
+    "status": "Left",
     "email": "",
     "cell": ""
   },
   {
     "name": "Humaira",
     "id": "2504375",
-    "degree": "MS",
     "session": "Fall-2025",
-    "status": "Enrolled",
+    "degree": "MS",
     "sup": "Dr. Sher Ali",
-    "cosup": "",
+    "cosup": "-",
+    "gecInternal": "Dr. Amina Asif",
+    "gecExternal": "Dr. Muhammad Sohail (NUST)",
     "topic": "",
     "pde": "Pending",
     "pdeDate": "",
     "fde": "Pending",
     "fdeDate": "",
+    "status": "Enrolled",
     "email": "",
     "cell": ""
   },
   {
     "name": "Khizar Humayun",
     "id": "2504380",
-    "degree": "MS",
     "session": "Fall-2025",
-    "status": "Enrolled",
+    "degree": "MS",
     "sup": "Dr. Ashfaq Ahmad",
     "cosup": "Dr. Ahsan Sarwar Rana",
+    "gecInternal": "Dr. Muhammad Zaheer Dr. Jehanzeb Khan",
+    "gecExternal": "Dr. Rasool Bukhsh (COMSATS)",
     "topic": "",
     "pde": "Pending",
     "pdeDate": "",
     "fde": "Pending",
     "fdeDate": "",
+    "status": "Enrolled",
     "email": "",
     "cell": "92 348-9343862"
   },
   {
     "name": "Khushbakht Sajid",
     "id": "2504379",
-    "degree": "MS",
     "session": "Fall-2025",
-    "status": "Enrolled",
+    "degree": "MS",
     "sup": "Dr. Ashfaq Ahmad",
     "cosup": "Dr. Muhammad Adil Khan",
+    "gecInternal": "Dr. Ahsan Sarwar Rana",
+    "gecExternal": "Dr. Rasool Bukhsh (COMSATS)",
     "topic": "",
     "pde": "Pending",
     "pdeDate": "",
     "fde": "Pending",
     "fdeDate": "",
+    "status": "Enrolled",
     "email": "",
     "cell": ""
   },
   {
     "name": "Maha Masood Abbasi",
     "id": "2504376",
-    "degree": "MS",
     "session": "Fall-2025",
-    "status": "Enrolled",
+    "degree": "MS",
     "sup": "Dr. Muhammad Adil Khan",
     "cosup": "Dr. Ashfaq Ahmad",
+    "gecInternal": "Dr. Ahsan Sarwar Rana",
+    "gecExternal": "Dr. Kamran Zeb (NUST)",
     "topic": "",
     "pde": "Pending",
     "pdeDate": "",
     "fde": "Pending",
     "fdeDate": "",
+    "status": "Enrolled",
     "email": "",
     "cell": ""
   },
   {
     "name": "Mohib Ali Khan",
     "id": "2504381",
-    "degree": "MS",
     "session": "Fall-2025",
-    "status": "Enrolled",
+    "degree": "MS",
     "sup": "Dr. Jehanzeb Khan",
-    "cosup": "",
+    "cosup": "-",
+    "gecInternal": "Dr. Sher Ali",
+    "gecExternal": "Dr. Awais Shahid (CUST)",
     "topic": "",
     "pde": "Pending",
     "pdeDate": "",
     "fde": "Pending",
     "fdeDate": "",
+    "status": "Enrolled",
     "email": "",
     "cell": "92 316-8118036"
   },
   {
     "name": "Muhammad Aqib Javed",
     "id": "2504374",
-    "degree": "MS",
     "session": "Fall-2025",
-    "status": "Enrolled",
+    "degree": "MS",
     "sup": "Dr. Mumajid",
-    "cosup": "",
+    "cosup": "-",
+    "gecInternal": "Dr. Muhammad Zaheer Dr. M.Imran Farid",
+    "gecExternal": "Dr. Adil Ali (BU)",
     "topic": "",
     "pde": "Pending",
     "pdeDate": "",
     "fde": "Pending",
     "fdeDate": "",
+    "status": "Enrolled",
     "email": "",
     "cell": ""
   },
   {
     "name": "Muhammad Rayan Zafar",
     "id": "2504378",
-    "degree": "MS",
     "session": "Fall-2025",
-    "status": "Left",
+    "degree": "MS",
     "sup": "",
     "cosup": "",
+    "gecInternal": "",
+    "gecExternal": "",
     "topic": "",
     "pde": "",
     "pdeDate": "",
     "fde": "",
     "fdeDate": "",
+    "status": "Left",
     "email": "",
     "cell": ""
   },
   {
     "name": "Rizwan Ahmad",
     "id": "2504384",
-    "degree": "MS",
     "session": "Fall-2025",
-    "status": "Enrolled",
+    "degree": "MS",
     "sup": "Dr. Muhammad Adil Khan",
     "cosup": "Dr. Ashfaq Ahmad",
+    "gecInternal": "Dr. Shahzad Ahmad",
+    "gecExternal": "Dr. Kamran Zeb (NUST)",
     "topic": "",
     "pde": "Pending",
     "pdeDate": "",
     "fde": "Pending",
     "fdeDate": "",
+    "status": "Enrolled",
     "email": "",
     "cell": ""
   },
   {
     "name": "Syed Muhammad Tayyab",
     "id": "2504373",
-    "degree": "MS",
     "session": "Fall-2025",
-    "status": "Left",
+    "degree": "MS",
     "sup": "",
     "cosup": "",
+    "gecInternal": "",
+    "gecExternal": "",
     "topic": "",
     "pde": "",
     "pdeDate": "",
     "fde": "",
     "fdeDate": "",
+    "status": "Left",
     "email": "",
     "cell": ""
   },
@@ -2017,11 +1211,13 @@ let STUDENTS = [
     "id": "210145",
     "session": "S-2021",
     "degree": "PhD",
-    "sup": "Dr. Ahsan Sarwar Rana",
-    "cosup": "Dr. Hafiz Ashiq Hussain",
+    "sup": "Dr.Ahsan Sarwar Rana",
+    "cosup": "Dr. Hafiz Ashiq Hussain (Co-Sup)",
+    "gecInternal": "Dr. Sarah Saeed Dr. Saleem Shahid",
+    "gecExternal": "Dr. Khurram Saleem",
     "topic": "Design and Investigation of Optical Metasurfaces for Energy Harvesting and Sensing Applications",
     "pde": "Done",
-    "pdeDate": "16 June 2023",
+    "pdeDate": "16 June, 2023",
     "fde": "Pending",
     "fdeDate": "",
     "status": "Enrolled",
@@ -2035,11 +1231,13 @@ let STUDENTS = [
     "degree": "MS",
     "sup": "Dr. Imran Farid",
     "cosup": "",
-    "topic": "Human Brain Tumor Hyperspectral Data Segmentation using Graph Neural Network",
+    "gecInternal": "Dr. Syed Ahmad Pasha",
+    "gecExternal": "Dr. Zartasha Mustansar (NUST)",
+    "topic": "Human Brain Tumor Hyperspectral Data Segmentation using Graph Neutral Network",
     "pde": "Done",
-    "pdeDate": "19 Dec 2024",
+    "pdeDate": "19 Dec, 2024",
     "fde": "Done",
-    "fdeDate": "15 August 2025",
+    "fdeDate": "15 August, 2025",
     "status": "Completed",
     "email": "luqman.5544@gmail.com",
     "cell": "92 333-0547144"
@@ -2051,9 +1249,11 @@ let STUDENTS = [
     "degree": "MS",
     "sup": "Dr. Syed Ahmed Pasha",
     "cosup": "",
+    "gecInternal": "Dr. Ashfaq Ahmad",
+    "gecExternal": "Dr. Usman Ali (NUST)",
     "topic": "System Identification of Contagion Models using Physics-Informed Neural Networks",
     "pde": "Done",
-    "pdeDate": "22 Jan 2025",
+    "pdeDate": "22 Jan, 2025",
     "fde": "Pending",
     "fdeDate": "",
     "status": "Enrolled",
@@ -2067,6 +1267,8 @@ let STUDENTS = [
     "degree": "MS",
     "sup": "Dr. Ashfaq Ahmad",
     "cosup": "Dr. Adil Khan",
+    "gecInternal": "Dr. Muhammad Zahee",
+    "gecExternal": "Dr. Rasool Bukhsh (CUI",
     "topic": "",
     "pde": "Pending",
     "pdeDate": "",
@@ -2083,6 +1285,8 @@ let STUDENTS = [
     "degree": "MS",
     "sup": "Dr. Muhammad Adil Khan",
     "cosup": "",
+    "gecInternal": "Dr. Ashfaq Ahmad Dr. Saad Ullah Khan",
+    "gecExternal": "Dr. Waqar uddin (NUTECH)",
     "topic": "",
     "pde": "",
     "pdeDate": "",
@@ -2095,201 +1299,21 @@ let STUDENTS = [
 ];
 
 let SUPERVISORS = [
-  {
-    "name": "Dr. Hafiz Ashiq Hussain",
-    "desg": "Professor",
-    "phd": "2011",
-    "status": "HEC Approved",
-    "area": "Optical Networks, Fiber Communication",
-    "ms": 0,
-    "phds": 3,
-    "coms": 0,
-    "cophd": 1,
-    "fms": 7,
-    "fphd": 2
-  },
-  {
-    "name": "Dr. Syed Ahmed Pasha",
-    "desg": "Associate Professor",
-    "phd": "2009",
-    "status": "HEC Approved",
-    "area": "Controls / Machine Learning",
-    "ms": 1,
-    "phds": 0,
-    "coms": 0,
-    "cophd": 0,
-    "fms": 6,
-    "fphd": 5
-  },
-  {
-    "name": "Dr. Imran Farid",
-    "desg": "Assistant Professor",
-    "phd": "2015",
-    "status": "HEC Approved",
-    "area": "Image Processing",
-    "ms": 1,
-    "phds": 0,
-    "coms": 0,
-    "cophd": 0,
-    "fms": 6,
-    "fphd": 5
-  },
-  {
-    "name": "Dr. Waseem Khan",
-    "desg": "Assistant Professor",
-    "phd": "2015",
-    "status": "HEC Approved",
-    "area": "Communication / RF Microwave",
-    "ms": 1,
-    "phds": 0,
-    "coms": 0,
-    "cophd": 0,
-    "fms": 6,
-    "fphd": 5
-  },
-  {
-    "name": "Dr. Sara Saeed",
-    "desg": "Assistant Professor",
-    "phd": "Aug 2016",
-    "status": "HEC Approved",
-    "area": "RF/Microwave Antenna System",
-    "ms": 0,
-    "phds": 0,
-    "coms": 0,
-    "cophd": 0,
-    "fms": 7,
-    "fphd": 5
-  },
-  {
-    "name": "Dr. Ayesha Salman",
-    "desg": "Assistant Professor",
-    "phd": "Oct 2017",
-    "status": "Applied",
-    "area": "Digital Signal Processing",
-    "ms": 0,
-    "phds": 0,
-    "coms": 0,
-    "cophd": 0,
-    "fms": 7,
-    "fphd": 5
-  },
-  {
-    "name": "Dr. Muhammad Adil Khan",
-    "desg": "Assistant Professor",
-    "phd": "Aug 2018",
-    "status": "HEC Approved",
-    "area": "Power Transmission System",
-    "ms": 3,
-    "phds": 1,
-    "coms": 2,
-    "cophd": 0,
-    "fms": 4,
-    "fphd": 4
-  },
-  {
-    "name": "Dr. Muhammad Zaheer",
-    "desg": "Assistant Professor",
-    "phd": "Mar 2018",
-    "status": "Applied",
-    "area": "Steganography / Communication",
-    "ms": 0,
-    "phds": 0,
-    "coms": 0,
-    "cophd": 0,
-    "fms": 7,
-    "fphd": 5
-  },
-  {
-    "name": "Dr. Saad Ullah Khan",
-    "desg": "Assistant Professor",
-    "phd": "2019",
-    "status": "HEC Approved",
-    "area": "Power System Component Modelling",
-    "ms": 1,
-    "phds": 0,
-    "coms": 0,
-    "cophd": 0,
-    "fms": 6,
-    "fphd": 5
-  },
-  {
-    "name": "Dr. Ahsan Sarwar Rana",
-    "desg": "Assistant Professor",
-    "phd": "2021",
-    "status": "HEC Approved",
-    "area": "Optoelectronics",
-    "ms": 0,
-    "phds": 1,
-    "coms": 0,
-    "cophd": 0,
-    "fms": 7,
-    "fphd": 4
-  },
-  {
-    "name": "Dr. Ashfaq Ahmad",
-    "desg": "Assistant Professor",
-    "phd": "2020",
-    "status": "HEC Approved",
-    "area": "Power System & Machine Learning",
-    "ms": 6,
-    "phds": 0,
-    "coms": 0,
-    "cophd": 1,
-    "fms": 1,
-    "fphd": 5
-  },
-  {
-    "name": "Dr. Mumajid",
-    "desg": "Assistant Professor",
-    "phd": "2022",
-    "status": "HEC Approved",
-    "area": "Internet of Things (IoT)",
-    "ms": 1,
-    "phds": 0,
-    "coms": 0,
-    "cophd": 0,
-    "fms": 6,
-    "fphd": 5
-  },
-  {
-    "name": "Dr. Sher Ali",
-    "desg": "Assistant Professor",
-    "phd": "2019",
-    "status": "HEC Approved",
-    "area": "Wireless Communication",
-    "ms": 0,
-    "phds": 0,
-    "coms": 0,
-    "cophd": 0,
-    "fms": 7,
-    "fphd": 5
-  },
-  {
-    "name": "Dr. Jehanzeb Khan",
-    "desg": "Assistant Professor",
-    "phd": "2020",
-    "status": "Not Approved",
-    "area": "Micro-Electro-Mechanical Systems (MEMS)",
-    "ms": 0,
-    "phds": 0,
-    "coms": 1,
-    "cophd": 0,
-    "fms": 7,
-    "fphd": 5
-  },
-  {
-    "name": "Dr. Shahzad",
-    "desg": "Assistant Professor",
-    "phd": "",
-    "status": "",
-    "area": "",
-    "ms": 0,
-    "phds": 0,
-    "coms": 0,
-    "cophd": 0,
-    "fms": 7,
-    "fphd": 5
-  }
+  {name:"Dr. Hafiz Ashiq Hussain",desg:"Professor",phd:"2011",status:"HEC Approved",area:"Optical Networks, Fiber Communication",ms:0,phds:3,coms:0,cophd:1,fms:7,fphd:2},
+  {name:"Dr. Syed Ahmed Pasha",desg:"Associate Professor",phd:"2009",status:"HEC Approved",area:"Controls / Machine Learning",ms:1,phds:0,coms:0,cophd:0,fms:6,fphd:5},
+  {name:"Dr. Imran Farid",desg:"Assistant Professor",phd:"2015",status:"HEC Approved",area:"Image Processing",ms:1,phds:0,coms:0,cophd:0,fms:6,fphd:5},
+  {name:"Dr. Waseem Khan",desg:"Assistant Professor",phd:"2015",status:"HEC Approved",area:"Communication / RF Microwave",ms:1,phds:0,coms:0,cophd:0,fms:6,fphd:5},
+  {name:"Dr. Sara Saeed",desg:"Assistant Professor",phd:"Aug 2016",status:"HEC Approved",area:"RF/Microwave Antenna System",ms:0,phds:0,coms:0,cophd:0,fms:7,fphd:5},
+  {name:"Dr. Ayesha Salman",desg:"Assistant Professor",phd:"Oct 2017",status:"Applied",area:"Digital Signal Processing",ms:0,phds:0,coms:0,cophd:0,fms:7,fphd:5},
+  {name:"Dr. Muhammad Adil Khan",desg:"Assistant Professor",phd:"Aug 2018",status:"HEC Approved",area:"Power Transmission System",ms:3,phds:1,coms:2,cophd:0,fms:4,fphd:4},
+  {name:"Dr. Muhammad Zaheer",desg:"Assistant Professor",phd:"Mar 2018",status:"Applied",area:"Steganography / Communication",ms:0,phds:0,coms:0,cophd:0,fms:7,fphd:5},
+  {name:"Dr. Saad Ullah Khan",desg:"Assistant Professor",phd:"2019",status:"HEC Approved",area:"Power System Component Modelling",ms:1,phds:0,coms:0,cophd:0,fms:6,fphd:5},
+  {name:"Dr. Ahsan Sarwar Rana",desg:"Assistant Professor",phd:"2021",status:"HEC Approved",area:"Optoelectronics",ms:0,phds:1,coms:0,cophd:0,fms:7,fphd:4},
+  {name:"Dr. Ashfaq Ahmad",desg:"Assistant Professor",phd:"2020",status:"HEC Approved",area:"Power System & Machine Learning",ms:6,phds:0,coms:0,cophd:1,fms:1,fphd:5},
+  {name:"Dr. Mumajid",desg:"Assistant Professor",phd:"2022",status:"HEC Approved",area:"Internet of Things (IoT)",ms:1,phds:0,coms:0,cophd:0,fms:6,fphd:5},
+  {name:"Dr. Sher Ali",desg:"Assistant Professor",phd:"2019",status:"HEC Approved",area:"Wireless Communication",ms:0,phds:0,coms:0,cophd:0,fms:7,fphd:5},
+  {name:"Dr. Jehanzeb Khan",desg:"Assistant Professor",phd:"2020",status:"Not Approved",area:"Micro-Electro-Mechanical Systems (MEMS)",ms:0,phds:0,coms:1,cophd:0,fms:7,fphd:5},
+  {name:"Dr. Shahzad",desg:"Assistant Professor",phd:"",status:"",area:"",ms:0,phds:0,coms:0,cophd:0,fms:7,fphd:5},
 ];
 
 // ─── Utilities ───────────────────────────────────────────────────────────────
@@ -2354,6 +1378,13 @@ function populateFilters(){
   const sel=document.getElementById("fSession");
   sel.innerHTML='<option value="">All sessions</option>';
   sessions.forEach(s=>{const o=document.createElement("option");o.value=s;o.text=s;sel.appendChild(o);});
+
+  // Supervisor filter — all unique supervisors from student data
+  const sups=[...new Set(STUDENTS.map(s=>s.sup).filter(Boolean))].sort();
+  const fSup=document.getElementById("fSupervisor");
+  fSup.innerHTML='<option value="">All supervisors</option>';
+  sups.forEach(s=>{const o=document.createElement("option");o.value=s;o.text=s;fSup.appendChild(o);});
+
   const fst=document.getElementById("fStatus");
   fst.innerHTML='<option value="">All statuses</option>';
   ["Completed","Enrolled","Left"].forEach(s=>{const o=document.createElement("option");o.value=s;o.text=s;fst.appendChild(o);});
@@ -2369,13 +1400,15 @@ function applyFilters(){
   const q=(document.getElementById("search").value||"").toLowerCase();
   const deg=document.getElementById("fDegree").value;
   const ses=document.getElementById("fSession").value;
+  const supF=document.getElementById("fSupervisor").value;
   const st=document.getElementById("fStatus").value;
   const pde=document.getElementById("fPDE").value;
   const fde=document.getElementById("fFDE").value;
   filtered=STUDENTS.filter(s=>{
-    if(q&&!((s.name+" "+s.id+" "+(s.sup||"")+" "+(s.topic||"")).toLowerCase().includes(q)))return false;
+    if(q&&!((s.name+" "+s.id+" "+(s.sup||"")+" "+(s.topic||"")+" "+(s.gecInternal||"")+" "+(s.gecExternal||"")).toLowerCase().includes(q)))return false;
     if(deg&&s.degree!==deg)return false;
     if(ses&&s.session!==ses)return false;
+    if(supF&&s.sup!==supF)return false;
     if(st&&!s.status.includes(st))return false;
     if(pde&&s.pde!==pde)return false;
     if(fde&&s.fde!==fde)return false;
@@ -2394,17 +1427,25 @@ function renderTable(data){
       <td onclick="openView(${i})" style="cursor:pointer"><div class="name-cell">${s.name}</div><div class="id-tag">${s.id}</div></td>
       <td onclick="openView(${i})" style="cursor:pointer">${s.degree}</td>
       <td onclick="openView(${i})" style="cursor:pointer">${s.session}</td>
-      <td onclick="openView(${i})" style="cursor:pointer">${s.sup||'—'}</td>
-      <td>${badge(s.pde,"pde")}</td>
-      <td>${badge(s.fde,"fde")}</td>
+      <td onclick="openView(${i})" style="cursor:pointer"><div style="font-size:13px">${s.sup||'—'}</div>${s.cosup?`<div style="font-size:11px;color:var(--text3);margin-top:2px">Co: ${s.cosup}</div>`:''}</td>
+      <td onclick="openView(${i})" style="cursor:pointer;font-size:13px">${s.gecInternal||'<span style="color:var(--text3)">—</span>'}</td>
+      <td onclick="openView(${i})" style="cursor:pointer;font-size:13px">${s.gecExternal||'<span style="color:var(--text3)">—</span>'}</td>
+      <td onclick="openView(${i})" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal">${s.topic||'<span style="color:var(--text3)">—</span>'}</div></td>
+      <td><div>${badge(s.pde,"pde")}</div>${s.pdeDate?`<div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">${s.pdeDate}</div>`:''}</td>
+      <td><div>${badge(s.fde,"fde")}</div>${s.fdeDate?`<div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">${s.fdeDate}</div>`:''}</td>
       <td>${badge(s.status,"status")}</td>
+      <td style="white-space:nowrap">
+        ${s.email?`<div style="font-size:12px"><a href="mailto:${s.email}" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>${s.email}</a></div>`:''}
+        ${s.cell?`<div style="font-size:12px;color:var(--text2);margin-top:2px"><i class="ti ti-phone" style="font-size:11px;margin-right:3px"></i>${s.cell}</div>`:''}
+        ${!s.email&&!s.cell?`<span style="color:var(--text3)">—</span>`:''}
+      </td>
       <td><div class="actions-cell">
         ${isAdmin?`<button class="act-btn btn-edit" onclick="openEdit(${i})"><i class="ti ti-pencil"></i>Edit</button>
         <button class="act-btn btn-del" onclick="confirmDelete(${i})"><i class="ti ti-trash"></i></button>`:`<span style="font-size:12px;color:var(--text3)">—</span>`}
       </div></td>
     </tr>`;
   }).join("");
-  document.getElementById("tBody").innerHTML=rows||'<tr><td colspan="8" class="no-results"><i class="ti ti-search-off" style="font-size:32px;display:block;margin-bottom:8px;opacity:0.4"></i>No students match the current filters</td></tr>';
+  document.getElementById("tBody").innerHTML=rows||'<tr><td colspan="12" class="no-results"><i class="ti ti-search-off" style="font-size:32px;display:block;margin-bottom:8px;opacity:0.4"></i>No students match the current filters</td></tr>';
 }
 
 // ─── View Modal ───────────────────────────────────────────────────────────────
@@ -2424,6 +1465,8 @@ function openView(idx){
       <div class="field-grid">
         ${fRow("Supervisor",s.sup||"—")}
         ${s.cosup?fRow("Co-supervisor",s.cosup):""}
+        ${s.gecInternal?fRow("GEC Internal",s.gecInternal):""}
+        ${s.gecExternal?fRow("GEC External",s.gecExternal):""}
       </div>
       ${s.topic?`<div class="section-title" style="margin-top:12px"><i class="ti ti-book"></i>Thesis</div><div class="topic-box">${s.topic}</div>`:""}
       <div class="divider"></div>
@@ -2469,6 +1512,10 @@ function studentForm(s){
       </div>
       <div class="form-row"><label>Supervisor</label><input id="f-sup" value="${s?esc(s.sup||''):''}" placeholder="e.g. Dr. Ashfaq Ahmad"></div>
       <div class="form-row"><label>Co-Supervisor</label><input id="f-cosup" value="${s?esc(s.cosup||''):''}" placeholder="Optional"></div>
+      <div class="form-2col">
+        <div class="form-row"><label>GEC Internal Member</label><input id="f-gecInternal" value="${s?esc(s.gecInternal||''):''}" placeholder="e.g. Dr. Name"></div>
+        <div class="form-row"><label>GEC External Member</label><input id="f-gecExternal" value="${s?esc(s.gecExternal||''):''}" placeholder="e.g. Dr. Name (Institution)"></div>
+      </div>
       <div class="form-row"><label>Thesis Topic</label><textarea id="f-topic">${s?esc(s.topic||''):''}</textarea></div>
       <div class="form-2col">
         <div class="form-row"><label>PDE Status</label>
@@ -2531,6 +1578,8 @@ function getFormData(){
     status:document.getElementById("f-status").value,
     sup:document.getElementById("f-sup").value.trim(),
     cosup:document.getElementById("f-cosup").value.trim(),
+    gecInternal:document.getElementById("f-gecInternal").value.trim(),
+    gecExternal:document.getElementById("f-gecExternal").value.trim(),
     topic:document.getElementById("f-topic").value.trim(),
     pde:document.getElementById("f-pde").value,
     pdeDate:document.getElementById("f-pdeDate").value.trim(),
@@ -2590,10 +1639,26 @@ function buildSupervisors(){
   document.getElementById("totalFPhD").textContent=totalFPhD;
   document.getElementById("supGrid").innerHTML=SUPERVISORS.map((s,i)=>{
     const sc=s.status==="HEC Approved"?"hec-approved":s.status==="Applied"?"hec-applied":s.status?"hec-not":"";
+    // Students under this supervisor (primary or co)
+    const myStudents=STUDENTS.filter(st=>st.sup===s.name||st.cosup===s.name);
+    const stuRows=myStudents.length?myStudents.map(st=>`
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">${st.name}</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">${st.id}</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">${st.degree} &middot; ${st.session}</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">${st.sup===s.name?'Primary':'Co-sup'}</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">${badge(st.pde,"pde")}${st.pdeDate?`<span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">${st.pdeDate}</span>`:''}</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">${badge(st.fde,"fde")}${st.fdeDate?`<span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">${st.fdeDate}</span>`:''}</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">${badge(st.status,"status")}</td>
+      </tr>`).join("")
+    :`<tr><td colspan="6" style="padding:12px 10px;color:var(--text3);font-size:12px;text-align:center">No students assigned</td></tr>`;
+
     return`<div class="sup-card">
       <div class="sup-header">
         <div>
-          <div class="sup-name">${s.name}</div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('${s.name.replace(/'/g,"\\'")}')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>${s.name}</div>
           <div class="sup-desg">${s.desg}${s.phd?" &middot; PhD "+s.phd:""}</div>
           ${s.area?`<div class="sup-area">${s.area}</div>`:""}
         </div>
@@ -2613,8 +1678,37 @@ function buildSupervisors(){
         <div class="sup-stat"><div class="sup-stat-n free-ms">${s.fms}</div><div class="sup-stat-l">Free MS</div></div>
         <div class="sup-stat"><div class="sup-stat-n free-phd">${s.fphd}</div><div class="sup-stat-l">Free PhD</div></div>
       </div>
+      <!-- Student list collapsible -->
+      <div style="margin-top:10px">
+        <button onclick="toggleSupStudents(this)" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--rm);padding:6px 12px;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;width:100%">
+          <i class="ti ti-users" style="font-size:14px"></i>
+          <span>Students (${myStudents.length})</span>
+          <i class="ti ti-chevron-down" style="margin-left:auto;font-size:14px;transition:transform 0.2s"></i>
+        </button>
+        <div class="sup-student-list" style="display:none;margin-top:6px;border:1px solid var(--border);border-radius:var(--rm);overflow:hidden">
+          <table style="width:100%;border-collapse:collapse">
+            <thead><tr style="background:#f8f9fb">
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Name / ID</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Degree</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Role</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">PDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">FDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Status</th>
+            </tr></thead>
+            <tbody>${stuRows}</tbody>
+          </table>
+        </div>
+      </div>
     </div>`;
   }).join("");
+}
+
+function toggleSupStudents(btn){
+  const list=btn.parentElement.querySelector(".sup-student-list");
+  const icon=btn.querySelector(".ti-chevron-down");
+  const open=list.style.display==="none";
+  list.style.display=open?"":"none";
+  icon.style.transform=open?"rotate(180deg)":"";
 }
 
 function supervisorForm(s){
@@ -2710,6 +1804,23 @@ function addSupervisor(){
   showToast("Supervisor added successfully");
 }
 
+// ─── Quick supervisor filter from supervisor tab ──────────────────────────────
+function filterBySupervisor(name){
+  // Switch to students tab
+  document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+  document.querySelectorAll(".tab-btn")[0].classList.add("active");
+  document.getElementById("tab-students").style.display="";
+  document.getElementById("tab-supervisors").style.display="none";
+  // Set the supervisor filter and apply
+  const sel=document.getElementById("fSupervisor");
+  // Make sure the option exists (repopulate first)
+  populateFilters();
+  sel.value=name;
+  applyFilters();
+  window.scrollTo({top:0,behavior:"smooth"});
+  showToast("Showing students under "+name);
+}
+
 // ─── Tabs ─────────────────────────────────────────────────────────────────────
 function switchTab(tab,btn){
   document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
@@ -2723,19 +1834,81 @@ function exportHTML(){
   const sData=JSON.stringify(STUDENTS,null,2);
   const svData=JSON.stringify(SUPERVISORS,null,2);
   let html=document.documentElement.outerHTML;
-  // Replace the STUDENTS and SUPERVISORS arrays in the exported file
   html=html.replace(/let STUDENTS = \[[\s\S]*?\];/, `let STUDENTS = ${sData};`);
   html=html.replace(/let SUPERVISORS = \[[\s\S]*?\];/, `let SUPERVISORS = ${svData};`);
-  const blob=new Blob([html],{type:"text/html"});
+  const encoded = 'data:text/html;charset=utf-8,' + encodeURIComponent(html);
   const a=document.createElement("a");
-  a.href=URL.createObjectURL(blob);
+  a.href=encoded;
   a.download="MS_PhD_Student_Database_"+new Date().toISOString().slice(0,10)+".html";
+  document.body.appendChild(a);
   a.click();
+  document.body.removeChild(a);
   showToast("Database exported as HTML file");
 }
 
+// ─── Export Excel ─────────────────────────────────────────────────────────────
+function exportExcel(){
+  // Load SheetJS if not already loaded
+  if(typeof XLSX === 'undefined'){
+    const s=document.createElement('script');
+    s.src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+    s.onload=()=>_doExcelExport();
+    document.head.appendChild(s);
+  } else {
+    _doExcelExport();
+  }
+}
+
+function _doExcelExport(){
+  const headers = [
+    "Name","ID","Degree","Session","Supervisor","Co-Supervisor",
+    "GEC Internal","GEC External","Thesis Topic",
+    "PDE Status","PDE Date","FDE Status","FDE Date",
+    "Status","Email","Cell"
+  ];
+  const rows = STUDENTS.map(s=>[
+    s.name, s.id, s.degree, s.session, s.sup, s.cosup,
+    s.gecInternal, s.gecExternal, s.topic,
+    s.pde, s.pdeDate, s.fde, s.fdeDate,
+    s.status, s.email, s.cell
+  ]);
+
+  const wb = XLSX.utils.book_new();
+
+  // ── Students sheet ──
+  const wsData = [headers, ...rows];
+  const ws = XLSX.utils.aoa_to_sheet(wsData);
+
+  // Column widths
+  ws['!cols'] = [
+    {wch:28},{wch:10},{wch:7},{wch:12},{wch:24},{wch:24},
+    {wch:36},{wch:32},{wch:50},
+    {wch:10},{wch:16},{wch:10},{wch:16},
+    {wch:12},{wch:28},{wch:18}
+  ];
+
+  // Bold header row
+  const range = XLSX.utils.decode_range(ws['!ref']);
+  for(let C=range.s.c; C<=range.e.c; C++){
+    const cell = ws[XLSX.utils.encode_cell({r:0,c:C})];
+    if(cell) cell.s = {font:{bold:true},fill:{fgColor:{rgb:"1A1A2E"}},alignment:{horizontal:"center"}};
+  }
+
+  XLSX.utils.book_append_sheet(wb, ws, "Students");
+
+  // ── Supervisors sheet ──
+  const supHeaders = ["Name","Designation","PhD Year","HEC Status","Research Area","MS","PhD","Co-MS","Co-PhD","Free MS","Free PhD"];
+  const supRows = SUPERVISORS.map(s=>[s.name,s.desg,s.phd,s.status,s.area,s.ms,s.phds,s.coms,s.cophd,s.fms,s.fphd]);
+  const ws2 = XLSX.utils.aoa_to_sheet([supHeaders,...supRows]);
+  ws2['!cols']=[{wch:28},{wch:22},{wch:10},{wch:14},{wch:36},{wch:5},{wch:5},{wch:7},{wch:7},{wch:8},{wch:8}];
+  XLSX.utils.book_append_sheet(wb, ws2, "Supervisors");
+
+  XLSX.writeFile(wb, "MS_PhD_Student_Database_"+new Date().toISOString().slice(0,10)+".xlsx");
+  showToast("Exported to Excel successfully");
+}
+
 // ─── Admin Auth ───────────────────────────────────────────────────────────────
-const ADMIN_PASSWORD = "pg2026"; // Change this password as needed
+const ADMIN_PASSWORD = "EE@Admin2024"; // Change this password as needed
 let isAdmin = false;
 
 function showAdminLogin(){
@@ -2762,6 +1935,7 @@ function doAdminLogin(){
     document.getElementById("adminBadge").style.display="flex";
     document.getElementById("logoutBtn").style.display="flex";
     document.getElementById("adminLoginBtn").style.display="none";
+    document.getElementById("addStudentBtn").style.display="flex";
     hideAdminLogin();
     applyFilters();
     buildSupervisors();
@@ -2779,6 +1953,7 @@ function adminLogout(){
   document.getElementById("adminBadge").style.display="none";
   document.getElementById("logoutBtn").style.display="none";
   document.getElementById("adminLoginBtn").style.display="";
+  document.getElementById("addStudentBtn").style.display="none";
   applyFilters();
   buildSupervisors();
   showToast("Signed out of Admin");
@@ -2790,6 +1965,5 @@ buildStats(STUDENTS);
 renderTable(STUDENTS);
 buildSupervisors();
 </script>
-
-
-</body></html>
+</body>
+</html>
