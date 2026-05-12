@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head><style>body {transition: opacity ease-in 0.2s; } 
+body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
+</style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MS/PhD Student Database — Dept. of Electrical Engineering</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'IBM Plex Sans',sans-serif;background:#f0f2f5;color:#1a1a2e;min-height:100vh}
@@ -210,21 +210,21 @@ body.is-admin .admin-only-block{display:block}
 }
 </style>
 </head>
-<body>
+<body class="is-admin">
 
 <div class="top-bar">
   <div class="top-inner">
     <div>
       <div class="top-title"><i class="ti ti-school" style="margin-right:8px"></i>MS/PhD Student Database</div>
-      <div class="top-sub">Department of Electrical Engineering &mdash; Editable Student Records</div>
+      <div class="top-sub">Department of Electrical Engineering — Editable Student Records</div>
     </div>
     <div class="top-badges">
-      <span class="top-badge" id="topBadge"><i class="ti ti-users" style="margin-right:4px"></i><span id="badgeCount">57</span> Students &middot; 15 Supervisors</span>
-      <span class="admin-badge" id="adminBadge" style="display:none"><i class="ti ti-shield-check"></i>Admin</span>
+      <span class="top-badge" id="topBadge"><i class="ti ti-users" style="margin-right:4px"></i><span id="badgeCount">53</span> Students · 15 Supervisors</span>
+      <span class="admin-badge" id="adminBadge" style="display: flex;"><i class="ti ti-shield-check"></i>Admin</span>
       <button class="btn-export" onclick="exportHTML()"><i class="ti ti-download" style="margin-right:4px"></i>Export HTML</button>
       <button class="btn-export" onclick="exportExcel()" style="background:rgba(74,222,128,0.15);border-color:rgba(74,222,128,0.35)"><i class="ti ti-table-export" style="margin-right:4px"></i>Export Excel</button>
-      <button class="btn-logout" id="logoutBtn" style="display:none" onclick="adminLogout()"><i class="ti ti-logout"></i>Sign out</button>
-      <button class="btn-export" id="adminLoginBtn" onclick="showAdminLogin()"><i class="ti ti-lock" style="margin-right:4px"></i>Admin Login</button>
+      <button class="btn-logout" id="logoutBtn" style="display: flex;" onclick="adminLogout()"><i class="ti ti-logout"></i>Sign out</button>
+      <button class="btn-export" id="adminLoginBtn" onclick="showAdminLogin()" style="display: none;"><i class="ti ti-lock" style="margin-right:4px"></i>Admin Login</button>
     </div>
   </div>
 </div>
@@ -237,7 +237,17 @@ body.is-admin .admin-only-block{display:block}
 
   <!-- Students Tab -->
   <div id="tab-students">
-    <div class="stats-grid" id="statsGrid"></div>
+    <div class="stats-grid" id="statsGrid">
+    <div class="stat-card"><div class="stat-label">Total</div><div class="stat-value sv-blue">12</div></div>
+    <div class="stat-card"><div class="stat-label">MS</div><div class="stat-value sv-purple">0</div></div>
+    <div class="stat-card"><div class="stat-label">PhD</div><div class="stat-value sv-teal">12</div></div>
+    <div class="stat-card"><div class="stat-label">Completed</div><div class="stat-value sv-green">6</div></div>
+    <div class="stat-card"><div class="stat-label">Enrolled</div><div class="stat-value sv-blue">5</div></div>
+    <div class="stat-card"><div class="stat-label">Left</div><div class="stat-value sv-coral">1</div></div>
+    <div class="stat-card"><div class="stat-label">PDE Done</div><div class="stat-value sv-teal">9</div></div>
+    <div class="stat-card"><div class="stat-label">PDE Pending</div><div class="stat-value sv-amber">3</div></div>
+    <div class="stat-card"><div class="stat-label">FDE Done</div><div class="stat-value sv-green">6</div></div>
+  </div>
 
     <div class="filter-bar">
       <div class="filter-row">
@@ -250,14 +260,14 @@ body.is-admin .admin-only-block{display:block}
           <option value="MS">MS</option>
           <option value="PhD">PhD</option>
         </select>
-        <select id="fSession" onchange="applyFilters()"><option value="">All sessions</option></select>
-        <select id="fSupervisor" onchange="applyFilters()"><option value="">All supervisors</option></select>
-        <select id="fStatus" onchange="applyFilters()"><option value="">All statuses</option></select>
-        <select id="fPDE" onchange="applyFilters()"><option value="">All PDE</option></select>
-        <select id="fFDE" onchange="applyFilters()"><option value="">All FDE</option></select>
-        <button class="add-btn" id="addStudentBtn" style="display:none" onclick="openAddStudent()"><i class="ti ti-plus"></i>Add Student</button>
+        <select id="fSession" onchange="applyFilters()"><option value="">All sessions</option><option value="Fall-2018">Fall-2018</option><option value="Fall-2019">Fall-2019</option><option value="Fall-2020">Fall-2020</option><option value="Fall-2021">Fall-2021</option><option value="Fall-2022">Fall-2022</option><option value="Fall-2023">Fall-2023</option><option value="Fall-2024">Fall-2024</option><option value="Fall-2025">Fall-2025</option><option value="S-2021">S-2021</option><option value="S-2023">S-2023</option><option value="S-2024">S-2024</option></select>
+        <select id="fSupervisor" onchange="applyFilters()"><option value="">All supervisors</option><option value="Course Work">Course Work</option><option value="Dr. Ashfaq Ahmad">Dr. Ashfaq Ahmad</option><option value="Dr. Bahman R. Alyaei">Dr. Bahman R. Alyaei</option><option value="Dr. Hafiz Ashiq Hussain">Dr. Hafiz Ashiq Hussain</option><option value="Dr. Husan Ali">Dr. Husan Ali</option><option value="Dr. Imran Farid">Dr. Imran Farid</option><option value="Dr. Jehanzeb Khan">Dr. Jehanzeb Khan</option><option value="Dr. Muhammad Adil Khan">Dr. Muhammad Adil Khan</option><option value="Dr. Muhammad Zaheer">Dr. Muhammad Zaheer</option><option value="Dr. Muhammad Zakwan">Dr. Muhammad Zakwan</option><option value="Dr. Mumajid">Dr. Mumajid</option><option value="Dr. Nouman Naseer">Dr. Nouman Naseer</option><option value="Dr. Sher Ali">Dr. Sher Ali</option><option value="Dr. Syed Ahmed Pasha">Dr. Syed Ahmed Pasha</option><option value="Dr. Waseem Khan">Dr. Waseem Khan</option><option value="Dr.Ahsan Sarwar Rana">Dr.Ahsan Sarwar Rana</option><option value="Dr.Saad Ullah Khan">Dr.Saad Ullah Khan</option></select>
+        <select id="fStatus" onchange="applyFilters()"><option value="">All statuses</option><option value="Completed">Completed</option><option value="Enrolled">Enrolled</option><option value="Left">Left</option></select>
+        <select id="fPDE" onchange="applyFilters()"><option value="">All PDE</option><option value="Done">Done</option><option value="Pending">Pending</option></select>
+        <select id="fFDE" onchange="applyFilters()"><option value="">All FDE</option><option value="Done">Done</option><option value="Pending">Pending</option></select>
+        <button class="add-btn" id="addStudentBtn" style="display: flex;" onclick="openAddStudent()"><i class="ti ti-plus"></i>Add Student</button>
       </div>
-      <div class="count-info" id="countBar"></div>
+      <div class="count-info" id="countBar">Showing 12 of 53 students — click a row or use action buttons</div>
     </div>
 
     <div class="table-wrap">
@@ -282,7 +292,283 @@ body.is-admin .admin-only-block{display:block}
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody id="tBody"></tbody>
+          <tbody id="tBody"><tr>
+      <td onclick="openView(0)" style="cursor:pointer"><div class="name-cell">Amina Asif</div><div class="id-tag">181796</div></td>
+      <td onclick="openView(0)" style="cursor:pointer">PhD</td>
+      <td onclick="openView(0)" style="cursor:pointer">Fall-2018</td>
+      <td onclick="openView(0)" style="cursor:pointer"><div style="font-size:13px">Dr. Muhammad Zakwan</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Co: Dr. Muhammad Habib Mahmood</div></td>
+      <td onclick="openView(0)" style="cursor:pointer;font-size:13px">Dr. Waseem Khan Dr. Ashfaq Ahmad</td>
+      <td onclick="openView(0)" style="cursor:pointer;font-size:13px">Dr. Arsalan Shaukat (External) (NUST)</td>
+      <td onclick="openView(0)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal">Computer Vision/Deep Learning</div></td>
+      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">03 Jan, 2022</div></td>
+      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">16-12-2025</div></td>
+      <td><span class="badge b-completed">Completed</span></td>
+      <td style="white-space:nowrap">
+        <div style="font-size:12px"><a href="mailto:amina_aqali@yahoo.com" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>amina_aqali@yahoo.com</a></div>
+        
+        
+      </td>
+      <td onclick="openView(0)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(0)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(0)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td><div class="actions-cell">
+        <button class="act-btn btn-edit" onclick="openEdit(0)"><i class="ti ti-pencil"></i>Edit</button>
+        <button class="act-btn btn-del" onclick="confirmDelete(0)"><i class="ti ti-trash"></i></button>
+      </div></td>
+    </tr><tr>
+      <td onclick="openView(1)" style="cursor:pointer"><div class="name-cell">Bilal Ashraf</div><div class="id-tag">181791</div></td>
+      <td onclick="openView(1)" style="cursor:pointer">PhD</td>
+      <td onclick="openView(1)" style="cursor:pointer">Fall-2018</td>
+      <td onclick="openView(1)" style="cursor:pointer"><div style="font-size:13px">Dr. Husan Ali</div></td>
+      <td onclick="openView(1)" style="cursor:pointer;font-size:13px">Dr. Waseem Khan Dr. Tufail Muhammad (Co-Supervisor) (Co-Supervisor) Dr. Shahbaz Khan (EE. Deptt. AU Kamra Campus)</td>
+      <td onclick="openView(1)" style="cursor:pointer;font-size:13px">Dr. Dur-E-Zehra Baig (External Member) (GIKI)</td>
+      <td onclick="openView(1)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal">Cardiac Arrhythmia Classification for Imbalanced Data in the Presence of Noise Exploiting Deep Feature Embeddings</div></td>
+      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">27 Dec, 2021</div></td>
+      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">13 June, 2025</div></td>
+      <td><span class="badge b-completed">Completed</span></td>
+      <td style="white-space:nowrap">
+        <div style="font-size:12px"><a href="mailto:bilalawan14@gmail.com" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>bilalawan14@gmail.com</a></div>
+        
+        
+      </td>
+      <td onclick="openView(1)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(1)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(1)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td><div class="actions-cell">
+        <button class="act-btn btn-edit" onclick="openEdit(1)"><i class="ti ti-pencil"></i>Edit</button>
+        <button class="act-btn btn-del" onclick="confirmDelete(1)"><i class="ti ti-trash"></i></button>
+      </div></td>
+    </tr><tr>
+      <td onclick="openView(2)" style="cursor:pointer"><div class="name-cell">Muhammad Favad Qadir</div><div class="id-tag">181795</div></td>
+      <td onclick="openView(2)" style="cursor:pointer">PhD</td>
+      <td onclick="openView(2)" style="cursor:pointer">Fall-2018</td>
+      <td onclick="openView(2)" style="cursor:pointer"><div style="font-size:13px">Dr. Muhammad Zakwan</div></td>
+      <td onclick="openView(2)" style="cursor:pointer;font-size:13px">Dr. Waseem Khan (Co-Supervisor) Dr. Ahsan Sarwar Rana Dr. Rana Iqditar Shakoor</td>
+      <td onclick="openView(2)" style="cursor:pointer;font-size:13px">Dr. Taimoor Naeem (COMSATS)</td>
+      <td onclick="openView(2)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal">Design, Simulation and characterization of Silicon on Insulator (SoI) based Multi-Parameters Optical Sensing Systems</div></td>
+      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">20 Jan, 2022</div></td>
+      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">05 January, 2026</div></td>
+      <td><span class="badge b-completed">Completed</span></td>
+      <td style="white-space:nowrap">
+        <div style="font-size:12px"><a href="mailto:favad1dzr@gmail.com" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>favad1dzr@gmail.com</a></div>
+        
+        
+      </td>
+      <td onclick="openView(2)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(2)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(2)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td><div class="actions-cell">
+        <button class="act-btn btn-edit" onclick="openEdit(2)"><i class="ti ti-pencil"></i>Edit</button>
+        <button class="act-btn btn-del" onclick="confirmDelete(2)"><i class="ti ti-trash"></i></button>
+      </div></td>
+    </tr><tr>
+      <td onclick="openView(3)" style="cursor:pointer"><div class="name-cell">Atif Iftikhar</div><div class="id-tag">191834</div></td>
+      <td onclick="openView(3)" style="cursor:pointer">PhD</td>
+      <td onclick="openView(3)" style="cursor:pointer">Fall-2019</td>
+      <td onclick="openView(3)" style="cursor:pointer"><div style="font-size:13px">Dr. Ashfaq Ahmad</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Co: Dr. Usman Ali SEECS( NUST) Co-sup</div></td>
+      <td onclick="openView(3)" style="cursor:pointer;font-size:13px">Dr. Syed Ahmad Pasha Dr. Muhammad Adil Khan</td>
+      <td onclick="openView(3)" style="cursor:pointer;font-size:13px">Dr. Rasool Bakhsh (CUI)</td>
+      <td onclick="openView(3)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal">Geometric Control for Spacecraft Attitude Control</div></td>
+      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">28 Dec, 2022</div></td>
+      <td><div><span class="b-dash">—</span></div></td>
+      <td><span class="badge b-left">Left</span></td>
+      <td style="white-space:nowrap">
+        <div style="font-size:12px"><a href="mailto:atif19000@yahoo.com" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>atif19000@yahoo.com</a></div>
+        
+        
+      </td>
+      <td onclick="openView(3)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(3)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(3)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td><div class="actions-cell">
+        <button class="act-btn btn-edit" onclick="openEdit(3)"><i class="ti ti-pencil"></i>Edit</button>
+        <button class="act-btn btn-del" onclick="confirmDelete(3)"><i class="ti ti-trash"></i></button>
+      </div></td>
+    </tr><tr>
+      <td onclick="openView(4)" style="cursor:pointer"><div class="name-cell">Hussain Asif</div><div class="id-tag">191925</div></td>
+      <td onclick="openView(4)" style="cursor:pointer">PhD</td>
+      <td onclick="openView(4)" style="cursor:pointer">Fall-2019</td>
+      <td onclick="openView(4)" style="cursor:pointer"><div style="font-size:13px">Dr. Hafiz Ashiq Hussain</div></td>
+      <td onclick="openView(4)" style="cursor:pointer;font-size:13px">Dr. Jehanzeb Khan Dr. Bahman</td>
+      <td onclick="openView(4)" style="cursor:pointer;font-size:13px">Dr. Abraiz Khattak (NUST)</td>
+      <td onclick="openView(4)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal">A blockchain Enabled Energy Management for Electrical Vehicles in Smart Cities.</div></td>
+      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">18 Jan, 2023</div></td>
+      <td><div><span class="badge b-pending">Pending</span></div></td>
+      <td><span class="badge b-enrolled">Enrolled</span></td>
+      <td style="white-space:nowrap">
+        <div style="font-size:12px"><a href="mailto:hussain.asif@au.edu.pk" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>hussain.asif@au.edu.pk</a></div>
+        
+        
+      </td>
+      <td onclick="openView(4)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(4)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(4)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td><div class="actions-cell">
+        <button class="act-btn btn-edit" onclick="openEdit(4)"><i class="ti ti-pencil"></i>Edit</button>
+        <button class="act-btn btn-del" onclick="confirmDelete(4)"><i class="ti ti-trash"></i></button>
+      </div></td>
+    </tr><tr>
+      <td onclick="openView(5)" style="cursor:pointer"><div class="name-cell">Mubashir Rasool</div><div class="id-tag">191830</div></td>
+      <td onclick="openView(5)" style="cursor:pointer">PhD</td>
+      <td onclick="openView(5)" style="cursor:pointer">Fall-2019</td>
+      <td onclick="openView(5)" style="cursor:pointer"><div style="font-size:13px">Dr. Muhammad Adil Khan</div></td>
+      <td onclick="openView(5)" style="cursor:pointer;font-size:13px">Dr. Ashfaq Ahmad Dr.Saad Ullah khan</td>
+      <td onclick="openView(5)" style="cursor:pointer;font-size:13px">Dr. Muhammad Amir (Bharia)</td>
+      <td onclick="openView(5)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal">Optimal Energy Management and Control Strategies for Hybrid Electrical Vechicles</div></td>
+      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">21st Jan, 2022</div></td>
+      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">03 July, 2025</div></td>
+      <td><span class="badge b-completed">Completed</span></td>
+      <td style="white-space:nowrap">
+        <div style="font-size:12px"><a href="mailto:engr.mubashirrasool@gmail.com" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>engr.mubashirrasool@gmail.com</a></div>
+        
+        
+      </td>
+      <td onclick="openView(5)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(5)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(5)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td><div class="actions-cell">
+        <button class="act-btn btn-edit" onclick="openEdit(5)"><i class="ti ti-pencil"></i>Edit</button>
+        <button class="act-btn btn-del" onclick="confirmDelete(5)"><i class="ti ti-trash"></i></button>
+      </div></td>
+    </tr><tr>
+      <td onclick="openView(6)" style="cursor:pointer"><div class="name-cell">Waleed Manzoor</div><div class="id-tag">191829</div></td>
+      <td onclick="openView(6)" style="cursor:pointer">PhD</td>
+      <td onclick="openView(6)" style="cursor:pointer">Fall-2019</td>
+      <td onclick="openView(6)" style="cursor:pointer"><div style="font-size:13px">Dr. Nouman Naseer</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Co: Dr. Imran Fareed (Bahria University) Co-Sup</div></td>
+      <td onclick="openView(6)" style="cursor:pointer;font-size:13px">Dr. Muhamad Imran Fareed Dr. Syed Hammad Nazeer</td>
+      <td onclick="openView(6)" style="cursor:pointer;font-size:13px">Dr. Usman Akram (NUST)</td>
+      <td onclick="openView(6)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal">Mental Workload Detection and Assessment using Brain Signals</div></td>
+      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">22 June, 2022</div></td>
+      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">07 Nov, 2025</div></td>
+      <td><span class="badge b-completed">Completed</span></td>
+      <td style="white-space:nowrap">
+        <div style="font-size:12px"><a href="mailto:bilalawan14@gmail.com" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>bilalawan14@gmail.com</a></div>
+        
+        
+      </td>
+      <td onclick="openView(6)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(6)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(6)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td><div class="actions-cell">
+        <button class="act-btn btn-edit" onclick="openEdit(6)"><i class="ti ti-pencil"></i>Edit</button>
+        <button class="act-btn btn-del" onclick="confirmDelete(6)"><i class="ti ti-trash"></i></button>
+      </div></td>
+    </tr><tr>
+      <td onclick="openView(20)" style="cursor:pointer"><div class="name-cell">Imran Hussain</div><div class="id-tag">222522</div></td>
+      <td onclick="openView(20)" style="cursor:pointer">PhD</td>
+      <td onclick="openView(20)" style="cursor:pointer">Fall-2022</td>
+      <td onclick="openView(20)" style="cursor:pointer"><div style="font-size:13px">Dr. Hafiz Ashiq Hussain</div></td>
+      <td onclick="openView(20)" style="cursor:pointer;font-size:13px">Dr. Muhammad Adil Khan</td>
+      <td onclick="openView(20)" style="cursor:pointer;font-size:13px">Dr. Junaid Ali Khan (HITECH)</td>
+      <td onclick="openView(20)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal">Peer-to-Peer Energy Transactions via Blockchain</div></td>
+      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">27 Dec, 2023</div></td>
+      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">19 May, 2025</div></td>
+      <td><span class="badge b-completed">Completed</span></td>
+      <td style="white-space:nowrap">
+        <div style="font-size:12px"><a href="mailto:engr.imranhussain1@gmail.com" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>engr.imranhussain1@gmail.com</a></div>
+        
+        
+      </td>
+      <td onclick="openView(20)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(20)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(20)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td><div class="actions-cell">
+        <button class="act-btn btn-edit" onclick="openEdit(20)"><i class="ti ti-pencil"></i>Edit</button>
+        <button class="act-btn btn-del" onclick="confirmDelete(20)"><i class="ti ti-trash"></i></button>
+      </div></td>
+    </tr><tr>
+      <td onclick="openView(24)" style="cursor:pointer"><div class="name-cell">Bilal Idrees</div><div class="id-tag">232906</div></td>
+      <td onclick="openView(24)" style="cursor:pointer">PhD</td>
+      <td onclick="openView(24)" style="cursor:pointer">Fall-2023</td>
+      <td onclick="openView(24)" style="cursor:pointer"><div style="font-size:13px">Dr. Hafiz Ashiq Hussain</div></td>
+      <td onclick="openView(24)" style="cursor:pointer;font-size:13px">Dr. Ashfaq Ahmad Dr. Muhammad Adil Khan</td>
+      <td onclick="openView(24)" style="cursor:pointer;font-size:13px">Prof. Dr. Asad Waqar (Bahria University</td>
+      <td onclick="openView(24)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal"><span style="color:var(--text3)">—</span></div></td>
+      <td><div><span class="badge b-pending">Pending</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">-</div></td>
+      <td><div><span class="badge b-pending">Pending</span></div></td>
+      <td><span class="badge b-enrolled">Enrolled</span></td>
+      <td style="white-space:nowrap">
+        <div style="font-size:12px"><a href="mailto:bilalidrees1@yahoo.com" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>bilalidrees1@yahoo.com</a></div>
+        
+        
+      </td>
+      <td onclick="openView(24)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(24)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(24)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td><div class="actions-cell">
+        <button class="act-btn btn-edit" onclick="openEdit(24)"><i class="ti ti-pencil"></i>Edit</button>
+        <button class="act-btn btn-del" onclick="confirmDelete(24)"><i class="ti ti-trash"></i></button>
+      </div></td>
+    </tr><tr>
+      <td onclick="openView(29)" style="cursor:pointer"><div class="name-cell">Haji Ahmed</div><div class="id-tag">243441</div></td>
+      <td onclick="openView(29)" style="cursor:pointer">PhD</td>
+      <td onclick="openView(29)" style="cursor:pointer">Fall-2024</td>
+      <td onclick="openView(29)" style="cursor:pointer"><div style="font-size:13px">Dr. Muhammad Adil Khan</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Co: Dr. Ashfaq Ahmad</div></td>
+      <td onclick="openView(29)" style="cursor:pointer;font-size:13px">Dr. Hafiz Ashiq Hussain Dr. Saad Ullah Khan</td>
+      <td onclick="openView(29)" style="cursor:pointer;font-size:13px">Dr. Muhammad Aamir (PAF IAST)</td>
+      <td onclick="openView(29)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal"><span style="color:var(--text3)">—</span></div></td>
+      <td><div><span class="badge b-pending">Pending</span></div></td>
+      <td><div><span class="badge b-pending">Pending</span></div></td>
+      <td><span class="badge b-enrolled">Enrolled</span></td>
+      <td style="white-space:nowrap">
+        <div style="font-size:12px"><a href="mailto:hajiahmed@nutech.edu.pk" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>hajiahmed@nutech.edu.pk</a></div>
+        
+        
+      </td>
+      <td onclick="openView(29)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(29)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(29)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td><div class="actions-cell">
+        <button class="act-btn btn-edit" onclick="openEdit(29)"><i class="ti ti-pencil"></i>Edit</button>
+        <button class="act-btn btn-del" onclick="confirmDelete(29)"><i class="ti ti-trash"></i></button>
+      </div></td>
+    </tr><tr>
+      <td onclick="openView(33)" style="cursor:pointer"><div class="name-cell">Sharoze Sohail</div><div class="id-tag">249519</div></td>
+      <td onclick="openView(33)" style="cursor:pointer">PhD</td>
+      <td onclick="openView(33)" style="cursor:pointer">Fall-2024</td>
+      <td onclick="openView(33)" style="cursor:pointer"><div style="font-size:13px">Dr. Hafiz Ashiq Hussain</div></td>
+      <td onclick="openView(33)" style="cursor:pointer;font-size:13px">Dr. Saad Ullah Khan</td>
+      <td onclick="openView(33)" style="cursor:pointer;font-size:13px">Dr. Asad Waqar (BU)</td>
+      <td onclick="openView(33)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal"><span style="color:var(--text3)">—</span></div></td>
+      <td><div><span class="badge b-pending">Pending</span></div></td>
+      <td><div><span class="badge b-pending">Pending</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">Pending</div></td>
+      <td><span class="badge b-enrolled">Enrolled</span></td>
+      <td style="white-space:nowrap">
+        <div style="font-size:12px"><a href="mailto:sharozesohail7@gmail.com" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>sharozesohail7@gmail.com</a></div>
+        
+        
+      </td>
+      <td onclick="openView(33)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(33)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(33)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td><div class="actions-cell">
+        <button class="act-btn btn-edit" onclick="openEdit(33)"><i class="ti ti-pencil"></i>Edit</button>
+        <button class="act-btn btn-del" onclick="confirmDelete(33)"><i class="ti ti-trash"></i></button>
+      </div></td>
+    </tr><tr>
+      <td onclick="openView(48)" style="cursor:pointer"><div class="name-cell">Muhammad Ali Raza</div><div class="id-tag">210145</div></td>
+      <td onclick="openView(48)" style="cursor:pointer">PhD</td>
+      <td onclick="openView(48)" style="cursor:pointer">S-2021</td>
+      <td onclick="openView(48)" style="cursor:pointer"><div style="font-size:13px">Dr.Ahsan Sarwar Rana</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Co: Dr. Hafiz Ashiq Hussain (Co-Sup)</div></td>
+      <td onclick="openView(48)" style="cursor:pointer;font-size:13px">Dr. Sarah Saeed Dr. Saleem Shahid</td>
+      <td onclick="openView(48)" style="cursor:pointer;font-size:13px">Dr. Khurram Saleem</td>
+      <td onclick="openView(48)" style="cursor:pointer;max-width:220px"><div style="font-size:12px;color:var(--text2);line-height:1.4;white-space:normal">Design and Investigation of Optical Metasurfaces for Energy Harvesting and Sensing Applications</div></td>
+      <td><div><span class="badge b-done">Done</span></div><div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">16 June, 2023</div></td>
+      <td><div><span class="badge b-pending">Pending</span></div></td>
+      <td><span class="badge b-enrolled">Enrolled</span></td>
+      <td style="white-space:nowrap">
+        <div style="font-size:12px"><a href="mailto:ali.raza@au.edu.pk" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>ali.raza@au.edu.pk</a></div>
+        
+        
+      </td>
+      <td onclick="openView(48)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(48)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td onclick="openView(48)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td><div class="actions-cell">
+        <button class="act-btn btn-edit" onclick="openEdit(48)"><i class="ti ti-pencil"></i>Edit</button>
+        <button class="act-btn btn-del" onclick="confirmDelete(48)"><i class="ti ti-trash"></i></button>
+      </div></td>
+    </tr></tbody>
         </table>
       </div>
     </div>
@@ -292,18 +578,1300 @@ body.is-admin .admin-only-block{display:block}
   <div id="tab-supervisors" style="display:none">
     <div class="slots-summary">
       <div class="slot-left">
-        <div class="slot-total"><strong class="ms" id="totalFMS">—</strong>Free MS slots available</div>
-        <div class="slot-total"><strong class="phd" id="totalFPhD">—</strong>Free PhD slots available</div>
+        <div class="slot-total"><strong class="ms" id="totalFMS">91</strong>Free MS slots available</div>
+        <div class="slot-total"><strong class="phd" id="totalFPhD">70</strong>Free PhD slots available</div>
       </div>
       <button class="add-btn admin-only" onclick="openAddSupervisor()"><i class="ti ti-plus"></i>Add Supervisor</button>
     </div>
-    <div class="sup-grid" id="supGrid"></div>
+    <div class="sup-grid" id="supGrid"><div class="sup-card">
+      <div class="sup-header">
+        <div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Hafiz Ashiq Hussain')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Hafiz Ashiq Hussain</div>
+          <div class="sup-desg">Professor · PhD 2011</div>
+          <div class="sup-area">Optical Networks, Fiber Communication</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+          <span class="hec-badge hec-approved">HEC Approved</span>
+          <div style="display:flex;gap:6px">
+            <button class="act-btn btn-edit" onclick="openEditSupervisor(0)"><i class="ti ti-pencil"></i>Edit</button>
+            <button class="act-btn btn-del" onclick="confirmDelete(0,'supervisor')"><i class="ti ti-trash"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="sup-stats">
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">3</div><div class="sup-stat-l">PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">Co-PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">2</div><div class="sup-stat-l">Free PhD</div></div>
+      </div>
+      <!-- Student list collapsible -->
+      <div style="margin-top:10px">
+        <button onclick="toggleSupStudents(this)" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--rm);padding:6px 12px;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;width:100%">
+          <i class="ti ti-users" style="font-size:14px"></i>
+          <span>Students (8)</span>
+          <i class="ti ti-chevron-down" style="margin-left:auto;font-size:14px;transition:transform 0.2s"></i>
+        </button>
+        <div class="sup-student-list" style="display:none;margin-top:6px;border:1px solid var(--border);border-radius:var(--rm);overflow:hidden">
+          <table style="width:100%;border-collapse:collapse">
+            <thead><tr style="background:#f8f9fb">
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Name / ID</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Degree</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Role</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">PDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">FDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Status</th>
+            </tr></thead>
+            <tbody>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Hussain Asif</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">191925</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhD · Fall-2019</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">18 Jan, 2023</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Iqra Nawaz</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">211679</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2021</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">21 Dec, 2023</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">06-11-2024</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-completed">Completed</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Jawad Bahadur Khan</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">211665</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2021</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">22 June, 2023</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">04-11-2024</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-completed">Completed</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Syed Muhammad Qamar Ali Bukhari</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">211664</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2021</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">16 May, 2024</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">28-04-2025</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-completed">Completed</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Imran Hussain</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">222522</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhD · Fall-2022</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">27 Dec, 2023</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">19 May, 2025</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-completed">Completed</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Bilal Idrees</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">232906</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhD · Fall-2023</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">-</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Izza Jamal</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">232672</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2023</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">13 December, 2024</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">18 June, 2025</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-completed">Completed</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Sharoze Sohail</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">249519</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhD · Fall-2024</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div><div class="sup-card">
+      <div class="sup-header">
+        <div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Syed Ahmed Pasha')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Syed Ahmed Pasha</div>
+          <div class="sup-desg">Associate Professor · PhD 2009</div>
+          <div class="sup-area">Controls / Machine Learning</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+          <span class="hec-badge hec-approved">HEC Approved</span>
+          <div style="display:flex;gap:6px">
+            <button class="act-btn btn-edit" onclick="openEditSupervisor(1)"><i class="ti ti-pencil"></i>Edit</button>
+            <button class="act-btn btn-del" onclick="confirmDelete(1,'supervisor')"><i class="ti ti-trash"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="sup-stats">
+        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">6</div><div class="sup-stat-l">Free MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
+      </div>
+      <!-- Student list collapsible -->
+      <div style="margin-top:10px">
+        <button onclick="toggleSupStudents(this)" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--rm);padding:6px 12px;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;width:100%">
+          <i class="ti ti-users" style="font-size:14px"></i>
+          <span>Students (1)</span>
+          <i class="ti ti-chevron-down" style="margin-left:auto;font-size:14px;transition:transform 0.2s"></i>
+        </button>
+        <div class="sup-student-list" style="display:none;margin-top:6px;border:1px solid var(--border);border-radius:var(--rm);overflow:hidden">
+          <table style="width:100%;border-collapse:collapse">
+            <thead><tr style="background:#f8f9fb">
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Name / ID</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Degree</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Role</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">PDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">FDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Status</th>
+            </tr></thead>
+            <tbody>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Naima Sakhawat</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">230247</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · S-2023</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">22 Jan, 2025</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">25 March , 2026</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div><div class="sup-card">
+      <div class="sup-header">
+        <div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Imran Farid')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Imran Farid</div>
+          <div class="sup-desg">Assistant Professor · PhD 2015</div>
+          <div class="sup-area">Image Processing</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+          <span class="hec-badge hec-approved">HEC Approved</span>
+          <div style="display:flex;gap:6px">
+            <button class="act-btn btn-edit" onclick="openEditSupervisor(2)"><i class="ti ti-pencil"></i>Edit</button>
+            <button class="act-btn btn-del" onclick="confirmDelete(2,'supervisor')"><i class="ti ti-trash"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="sup-stats">
+        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">6</div><div class="sup-stat-l">Free MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
+      </div>
+      <!-- Student list collapsible -->
+      <div style="margin-top:10px">
+        <button onclick="toggleSupStudents(this)" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--rm);padding:6px 12px;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;width:100%">
+          <i class="ti ti-users" style="font-size:14px"></i>
+          <span>Students (4)</span>
+          <i class="ti ti-chevron-down" style="margin-left:auto;font-size:14px;transition:transform 0.2s"></i>
+        </button>
+        <div class="sup-student-list" style="display:none;margin-top:6px;border:1px solid var(--border);border-radius:var(--rm);overflow:hidden">
+          <table style="width:100%;border-collapse:collapse">
+            <thead><tr style="background:#f8f9fb">
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Name / ID</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Degree</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Role</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">PDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">FDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Status</th>
+            </tr></thead>
+            <tbody>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Danish Zahoor</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">211668</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2021</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">4th Jan, 2024</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">12 June, 2025</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-completed">Completed</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Tayyaba Riasat</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">211660</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2021</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">4th Jan, 2024</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">12 June, 2025</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-completed">Completed</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Asif Habib</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">222263</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2022</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">21-01-2025</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">7 March 2026</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Muhammad Luqman</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">230393</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · S-2023</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">19 Dec, 2024</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">15 August, 2025</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-completed">Completed</span></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div><div class="sup-card">
+      <div class="sup-header">
+        <div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Waseem Khan')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Waseem Khan</div>
+          <div class="sup-desg">Assistant Professor · PhD 2015</div>
+          <div class="sup-area">Communication / RF Microwave</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+          <span class="hec-badge hec-approved">HEC Approved</span>
+          <div style="display:flex;gap:6px">
+            <button class="act-btn btn-edit" onclick="openEditSupervisor(3)"><i class="ti ti-pencil"></i>Edit</button>
+            <button class="act-btn btn-del" onclick="confirmDelete(3,'supervisor')"><i class="ti ti-trash"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="sup-stats">
+        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">6</div><div class="sup-stat-l">Free MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
+      </div>
+      <!-- Student list collapsible -->
+      <div style="margin-top:10px">
+        <button onclick="toggleSupStudents(this)" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--rm);padding:6px 12px;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;width:100%">
+          <i class="ti ti-users" style="font-size:14px"></i>
+          <span>Students (1)</span>
+          <i class="ti ti-chevron-down" style="margin-left:auto;font-size:14px;transition:transform 0.2s"></i>
+        </button>
+        <div class="sup-student-list" style="display:none;margin-top:6px;border:1px solid var(--border);border-radius:var(--rm);overflow:hidden">
+          <table style="width:100%;border-collapse:collapse">
+            <thead><tr style="background:#f8f9fb">
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Name / ID</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Degree</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Role</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">PDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">FDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Status</th>
+            </tr></thead>
+            <tbody>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Fahad Naseer</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">243068</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2024</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div><div class="sup-card">
+      <div class="sup-header">
+        <div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Sara Saeed')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Sara Saeed</div>
+          <div class="sup-desg">Assistant Professor · PhD Aug 2016</div>
+          <div class="sup-area">RF/Microwave Antenna System</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+          <span class="hec-badge hec-approved">HEC Approved</span>
+          <div style="display:flex;gap:6px">
+            <button class="act-btn btn-edit" onclick="openEditSupervisor(4)"><i class="ti ti-pencil"></i>Edit</button>
+            <button class="act-btn btn-del" onclick="confirmDelete(4,'supervisor')"><i class="ti ti-trash"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="sup-stats">
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
+      </div>
+      <!-- Student list collapsible -->
+      <div style="margin-top:10px">
+        <button onclick="toggleSupStudents(this)" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--rm);padding:6px 12px;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;width:100%">
+          <i class="ti ti-users" style="font-size:14px"></i>
+          <span>Students (0)</span>
+          <i class="ti ti-chevron-down" style="margin-left:auto;font-size:14px;transition:transform 0.2s"></i>
+        </button>
+        <div class="sup-student-list" style="display:none;margin-top:6px;border:1px solid var(--border);border-radius:var(--rm);overflow:hidden">
+          <table style="width:100%;border-collapse:collapse">
+            <thead><tr style="background:#f8f9fb">
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Name / ID</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Degree</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Role</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">PDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">FDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Status</th>
+            </tr></thead>
+            <tbody><tr><td colspan="6" style="padding:12px 10px;color:var(--text3);font-size:12px;text-align:center">No students assigned</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div><div class="sup-card">
+      <div class="sup-header">
+        <div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Ayesha Salman')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Ayesha Salman</div>
+          <div class="sup-desg">Assistant Professor · PhD Oct 2017</div>
+          <div class="sup-area">Digital Signal Processing</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+          <span class="hec-badge hec-applied">Applied</span>
+          <div style="display:flex;gap:6px">
+            <button class="act-btn btn-edit" onclick="openEditSupervisor(5)"><i class="ti ti-pencil"></i>Edit</button>
+            <button class="act-btn btn-del" onclick="confirmDelete(5,'supervisor')"><i class="ti ti-trash"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="sup-stats">
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
+      </div>
+      <!-- Student list collapsible -->
+      <div style="margin-top:10px">
+        <button onclick="toggleSupStudents(this)" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--rm);padding:6px 12px;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;width:100%">
+          <i class="ti ti-users" style="font-size:14px"></i>
+          <span>Students (0)</span>
+          <i class="ti ti-chevron-down" style="margin-left:auto;font-size:14px;transition:transform 0.2s"></i>
+        </button>
+        <div class="sup-student-list" style="display:none;margin-top:6px;border:1px solid var(--border);border-radius:var(--rm);overflow:hidden">
+          <table style="width:100%;border-collapse:collapse">
+            <thead><tr style="background:#f8f9fb">
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Name / ID</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Degree</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Role</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">PDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">FDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Status</th>
+            </tr></thead>
+            <tbody><tr><td colspan="6" style="padding:12px 10px;color:var(--text3);font-size:12px;text-align:center">No students assigned</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div><div class="sup-card">
+      <div class="sup-header">
+        <div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Muhammad Adil Khan')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Muhammad Adil Khan</div>
+          <div class="sup-desg">Assistant Professor · PhD Aug 2018</div>
+          <div class="sup-area">Power Transmission System</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+          <span class="hec-badge hec-approved">HEC Approved</span>
+          <div style="display:flex;gap:6px">
+            <button class="act-btn btn-edit" onclick="openEditSupervisor(6)"><i class="ti ti-pencil"></i>Edit</button>
+            <button class="act-btn btn-del" onclick="confirmDelete(6,'supervisor')"><i class="ti ti-trash"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="sup-stats">
+        <div class="sup-stat"><div class="sup-stat-n">3</div><div class="sup-stat-l">MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">2</div><div class="sup-stat-l">Co-MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">4</div><div class="sup-stat-l">Free MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">4</div><div class="sup-stat-l">Free PhD</div></div>
+      </div>
+      <!-- Student list collapsible -->
+      <div style="margin-top:10px">
+        <button onclick="toggleSupStudents(this)" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--rm);padding:6px 12px;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;width:100%">
+          <i class="ti ti-users" style="font-size:14px"></i>
+          <span>Students (11)</span>
+          <i class="ti ti-chevron-down" style="margin-left:auto;font-size:14px;transition:transform 0.2s"></i>
+        </button>
+        <div class="sup-student-list" style="display:none;margin-top:6px;border:1px solid var(--border);border-radius:var(--rm);overflow:hidden">
+          <table style="width:100%;border-collapse:collapse">
+            <thead><tr style="background:#f8f9fb">
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Name / ID</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Degree</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Role</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">PDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">FDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Status</th>
+            </tr></thead>
+            <tbody>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Mubashir Rasool</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">191830</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhD · Fall-2019</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">21st Jan, 2022</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">03 July, 2025</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-completed">Completed</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Haseeb Rustam</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">211677</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2021</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">1st Nov, 2023</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">22 May, 2025</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-completed">Completed</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Khushal Khan</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">211663</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2021</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">12 June, 2024</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="b-dash">—</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-left">Left</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Ikhlaq Hussain</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">222260</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2022</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">2025-01-28 00:00:00</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Wajeeha Sajid</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">232668</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2023</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Haji Ahmed</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">243441</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhD · Fall-2024</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Syed Taha Ahmed Zaidi</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504372</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2024</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Khushbakht Sajid</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504379</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Maha Masood Abbasi</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504376</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Rizwan Ahmad</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504384</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Usama Iftikhar</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">240323</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · S-2024</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="b-dash">—</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="b-dash">—</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-left">Left</span></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div><div class="sup-card">
+      <div class="sup-header">
+        <div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Muhammad Zaheer')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Muhammad Zaheer</div>
+          <div class="sup-desg">Assistant Professor · PhD Mar 2018</div>
+          <div class="sup-area">Steganography / Communication</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+          <span class="hec-badge hec-applied">Applied</span>
+          <div style="display:flex;gap:6px">
+            <button class="act-btn btn-edit" onclick="openEditSupervisor(7)"><i class="ti ti-pencil"></i>Edit</button>
+            <button class="act-btn btn-del" onclick="confirmDelete(7,'supervisor')"><i class="ti ti-trash"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="sup-stats">
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
+      </div>
+      <!-- Student list collapsible -->
+      <div style="margin-top:10px">
+        <button onclick="toggleSupStudents(this)" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--rm);padding:6px 12px;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;width:100%">
+          <i class="ti ti-users" style="font-size:14px"></i>
+          <span>Students (1)</span>
+          <i class="ti ti-chevron-down" style="margin-left:auto;font-size:14px;transition:transform 0.2s"></i>
+        </button>
+        <div class="sup-student-list" style="display:none;margin-top:6px;border:1px solid var(--border);border-radius:var(--rm);overflow:hidden">
+          <table style="width:100%;border-collapse:collapse">
+            <thead><tr style="background:#f8f9fb">
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Name / ID</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Degree</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Role</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">PDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">FDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Status</th>
+            </tr></thead>
+            <tbody>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Ayesha Qaiser Hashmi</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">222255</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2022</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">25th April, 2024</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">21-01-2025</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-completed">Completed</span></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div><div class="sup-card">
+      <div class="sup-header">
+        <div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Saad Ullah Khan')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Saad Ullah Khan</div>
+          <div class="sup-desg">Assistant Professor · PhD 2019</div>
+          <div class="sup-area">Power System Component Modelling</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+          <span class="hec-badge hec-approved">HEC Approved</span>
+          <div style="display:flex;gap:6px">
+            <button class="act-btn btn-edit" onclick="openEditSupervisor(8)"><i class="ti ti-pencil"></i>Edit</button>
+            <button class="act-btn btn-del" onclick="confirmDelete(8,'supervisor')"><i class="ti ti-trash"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="sup-stats">
+        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">6</div><div class="sup-stat-l">Free MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
+      </div>
+      <!-- Student list collapsible -->
+      <div style="margin-top:10px">
+        <button onclick="toggleSupStudents(this)" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--rm);padding:6px 12px;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;width:100%">
+          <i class="ti ti-users" style="font-size:14px"></i>
+          <span>Students (1)</span>
+          <i class="ti ti-chevron-down" style="margin-left:auto;font-size:14px;transition:transform 0.2s"></i>
+        </button>
+        <div class="sup-student-list" style="display:none;margin-top:6px;border:1px solid var(--border);border-radius:var(--rm);overflow:hidden">
+          <table style="width:100%;border-collapse:collapse">
+            <thead><tr style="background:#f8f9fb">
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Name / ID</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Degree</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Role</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">PDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">FDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Status</th>
+            </tr></thead>
+            <tbody>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Muhammad Hamza Waris</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">222259</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2022</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">2025-01-24 00:00:00</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div><div class="sup-card">
+      <div class="sup-header">
+        <div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Ahsan Sarwar Rana')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Ahsan Sarwar Rana</div>
+          <div class="sup-desg">Assistant Professor · PhD 2021</div>
+          <div class="sup-area">Optoelectronics</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+          <span class="hec-badge hec-approved">HEC Approved</span>
+          <div style="display:flex;gap:6px">
+            <button class="act-btn btn-edit" onclick="openEditSupervisor(9)"><i class="ti ti-pencil"></i>Edit</button>
+            <button class="act-btn btn-del" onclick="confirmDelete(9,'supervisor')"><i class="ti ti-trash"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="sup-stats">
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">4</div><div class="sup-stat-l">Free PhD</div></div>
+      </div>
+      <!-- Student list collapsible -->
+      <div style="margin-top:10px">
+        <button onclick="toggleSupStudents(this)" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--rm);padding:6px 12px;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;width:100%">
+          <i class="ti ti-users" style="font-size:14px"></i>
+          <span>Students (1)</span>
+          <i class="ti ti-chevron-down" style="margin-left:auto;font-size:14px;transition:transform 0.2s"></i>
+        </button>
+        <div class="sup-student-list" style="display:none;margin-top:6px;border:1px solid var(--border);border-radius:var(--rm);overflow:hidden">
+          <table style="width:100%;border-collapse:collapse">
+            <thead><tr style="background:#f8f9fb">
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Name / ID</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Degree</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Role</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">PDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">FDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Status</th>
+            </tr></thead>
+            <tbody>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Khizar Humayun</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504380</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div><div class="sup-card">
+      <div class="sup-header">
+        <div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Ashfaq Ahmad')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Ashfaq Ahmad</div>
+          <div class="sup-desg">Assistant Professor · PhD 2020</div>
+          <div class="sup-area">Power System &amp; Machine Learning</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+          <span class="hec-badge hec-approved">HEC Approved</span>
+          <div style="display:flex;gap:6px">
+            <button class="act-btn btn-edit" onclick="openEditSupervisor(10)"><i class="ti ti-pencil"></i>Edit</button>
+            <button class="act-btn btn-del" onclick="confirmDelete(10,'supervisor')"><i class="ti ti-trash"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="sup-stats">
+        <div class="sup-stat"><div class="sup-stat-n">6</div><div class="sup-stat-l">MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">Co-PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">1</div><div class="sup-stat-l">Free MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
+      </div>
+      <!-- Student list collapsible -->
+      <div style="margin-top:10px">
+        <button onclick="toggleSupStudents(this)" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--rm);padding:6px 12px;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;width:100%">
+          <i class="ti ti-users" style="font-size:14px"></i>
+          <span>Students (13)</span>
+          <i class="ti ti-chevron-down" style="margin-left:auto;font-size:14px;transition:transform 0.2s"></i>
+        </button>
+        <div class="sup-student-list" style="display:none;margin-top:6px;border:1px solid var(--border);border-radius:var(--rm);overflow:hidden">
+          <table style="width:100%;border-collapse:collapse">
+            <thead><tr style="background:#f8f9fb">
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Name / ID</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Degree</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Role</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">PDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">FDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Status</th>
+            </tr></thead>
+            <tbody>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Atif Iftikhar</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">191834</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhD · Fall-2019</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">28 Dec, 2022</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="b-dash">—</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-left">Left</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Hassan Farooq</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">201619</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2020</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">17 Jan, 2023</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">17-Jan-2025</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-completed">Completed</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Ikhlaq Hussain</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">222260</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2022</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">2025-01-28 00:00:00</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Muhammad Hamza Waris</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">222259</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2022</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">2025-01-24 00:00:00</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Wajeeha Sajid</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">232668</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2023</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Haji Ahmed</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">243441</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhD · Fall-2024</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Shah Zaib Sawal</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">243066</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2024</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Syed Taha Ahmed Zaidi</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504372</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2024</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Khizar Humayun</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504380</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Khushbakht Sajid</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504379</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Maha Masood Abbasi</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504376</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Rizwan Ahmad</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504384</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Meerub Khalil</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">240325</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · S-2024</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div><div class="sup-card">
+      <div class="sup-header">
+        <div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Mumajid')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Mumajid</div>
+          <div class="sup-desg">Assistant Professor · PhD 2022</div>
+          <div class="sup-area">Internet of Things (IoT)</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+          <span class="hec-badge hec-approved">HEC Approved</span>
+          <div style="display:flex;gap:6px">
+            <button class="act-btn btn-edit" onclick="openEditSupervisor(11)"><i class="ti ti-pencil"></i>Edit</button>
+            <button class="act-btn btn-del" onclick="confirmDelete(11,'supervisor')"><i class="ti ti-trash"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="sup-stats">
+        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">6</div><div class="sup-stat-l">Free MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
+      </div>
+      <!-- Student list collapsible -->
+      <div style="margin-top:10px">
+        <button onclick="toggleSupStudents(this)" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--rm);padding:6px 12px;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;width:100%">
+          <i class="ti ti-users" style="font-size:14px"></i>
+          <span>Students (6)</span>
+          <i class="ti ti-chevron-down" style="margin-left:auto;font-size:14px;transition:transform 0.2s"></i>
+        </button>
+        <div class="sup-student-list" style="display:none;margin-top:6px;border:1px solid var(--border);border-radius:var(--rm);overflow:hidden">
+          <table style="width:100%;border-collapse:collapse">
+            <thead><tr style="background:#f8f9fb">
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Name / ID</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Degree</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Role</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">PDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">FDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Status</th>
+            </tr></thead>
+            <tbody>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Ahsan Islam</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">232671</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2023</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">08 July, 2025</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Muhammad Naveed Kiyani</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">243065</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2024</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="b-dash">—</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="b-dash">—</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-left">Left</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Saniya Mubasher</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">249521</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2024</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="b-dash">—</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="b-dash">—</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-left">Left</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Taha</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">243069</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2024</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Abdul Rahman Liaqat Ch</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504383</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Muhammad Aqib Javed</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504374</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div><div class="sup-card">
+      <div class="sup-header">
+        <div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Sher Ali')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Sher Ali</div>
+          <div class="sup-desg">Assistant Professor · PhD 2019</div>
+          <div class="sup-area">Wireless Communication</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+          <span class="hec-badge hec-approved">HEC Approved</span>
+          <div style="display:flex;gap:6px">
+            <button class="act-btn btn-edit" onclick="openEditSupervisor(12)"><i class="ti ti-pencil"></i>Edit</button>
+            <button class="act-btn btn-del" onclick="confirmDelete(12,'supervisor')"><i class="ti ti-trash"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="sup-stats">
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
+      </div>
+      <!-- Student list collapsible -->
+      <div style="margin-top:10px">
+        <button onclick="toggleSupStudents(this)" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--rm);padding:6px 12px;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;width:100%">
+          <i class="ti ti-users" style="font-size:14px"></i>
+          <span>Students (2)</span>
+          <i class="ti ti-chevron-down" style="margin-left:auto;font-size:14px;transition:transform 0.2s"></i>
+        </button>
+        <div class="sup-student-list" style="display:none;margin-top:6px;border:1px solid var(--border);border-radius:var(--rm);overflow:hidden">
+          <table style="width:100%;border-collapse:collapse">
+            <thead><tr style="background:#f8f9fb">
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Name / ID</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Degree</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Role</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">PDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">FDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Status</th>
+            </tr></thead>
+            <tbody>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Badar Mahmood</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504382</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Humaira</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504375</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div><div class="sup-card">
+      <div class="sup-header">
+        <div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Jehanzeb Khan')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Jehanzeb Khan</div>
+          <div class="sup-desg">Assistant Professor · PhD 2020</div>
+          <div class="sup-area">Micro-Electro-Mechanical Systems (MEMS)</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+          <span class="hec-badge hec-not">Not Approved</span>
+          <div style="display:flex;gap:6px">
+            <button class="act-btn btn-edit" onclick="openEditSupervisor(13)"><i class="ti ti-pencil"></i>Edit</button>
+            <button class="act-btn btn-del" onclick="confirmDelete(13,'supervisor')"><i class="ti ti-trash"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="sup-stats">
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">Co-MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
+      </div>
+      <!-- Student list collapsible -->
+      <div style="margin-top:10px">
+        <button onclick="toggleSupStudents(this)" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--rm);padding:6px 12px;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;width:100%">
+          <i class="ti ti-users" style="font-size:14px"></i>
+          <span>Students (1)</span>
+          <i class="ti ti-chevron-down" style="margin-left:auto;font-size:14px;transition:transform 0.2s"></i>
+        </button>
+        <div class="sup-student-list" style="display:none;margin-top:6px;border:1px solid var(--border);border-radius:var(--rm);overflow:hidden">
+          <table style="width:100%;border-collapse:collapse">
+            <thead><tr style="background:#f8f9fb">
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Name / ID</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Degree</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Role</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">PDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">FDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Status</th>
+            </tr></thead>
+            <tbody>
+      <tr style="font-size:12px">
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600">Mohib Ali Khan</div>
+          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504381</div>
+        </td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-enrolled">Enrolled</span></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div><div class="sup-card">
+      <div class="sup-header">
+        <div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Shahzad')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Shahzad</div>
+          <div class="sup-desg">Assistant Professor</div>
+          
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+          
+          <div style="display:flex;gap:6px">
+            <button class="act-btn btn-edit" onclick="openEditSupervisor(14)"><i class="ti ti-pencil"></i>Edit</button>
+            <button class="act-btn btn-del" onclick="confirmDelete(14,'supervisor')"><i class="ti ti-trash"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="sup-stats">
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
+      </div>
+      <!-- Student list collapsible -->
+      <div style="margin-top:10px">
+        <button onclick="toggleSupStudents(this)" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--rm);padding:6px 12px;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;width:100%">
+          <i class="ti ti-users" style="font-size:14px"></i>
+          <span>Students (0)</span>
+          <i class="ti ti-chevron-down" style="margin-left:auto;font-size:14px;transition:transform 0.2s"></i>
+        </button>
+        <div class="sup-student-list" style="display:none;margin-top:6px;border:1px solid var(--border);border-radius:var(--rm);overflow:hidden">
+          <table style="width:100%;border-collapse:collapse">
+            <thead><tr style="background:#f8f9fb">
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Name / ID</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Degree</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Role</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">PDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">FDE</th>
+              <th style="padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);border-bottom:1px solid var(--border)">Status</th>
+            </tr></thead>
+            <tbody><tr><td colspan="6" style="padding:12px 10px;color:var(--text3);font-size:12px;text-align:center">No students assigned</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div></div>
   </div>
 </div>
 
 <!-- View/Edit Student Modal -->
 <div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
-  <div class="modal-box" id="modalBox"></div>
+  <div class="modal-box" id="modalBox">
+  <div class="modal-header">
+    <button class="modal-close" onclick="closeModal()"><i class="ti ti-x"></i></button>
+    <div class="modal-name">Edit Student</div>
+    <div class="modal-meta">191834 · PhD · Fall-2019</div>
+  </div>
+  <div class="modal-body">
+    <div class="edit-form">
+      <div class="form-2col">
+        <div class="form-row"><label>Full Name *</label><input id="f-name" value="Atif Iftikhar" placeholder="e.g. Muhammad Ali"></div>
+        <div class="form-row"><label>Student ID *</label><input id="f-id" value="191834" placeholder="e.g. 222260"></div>
+      </div>
+      <div class="form-3col">
+        <div class="form-row"><label>Degree *</label>
+          <select id="f-degree">
+            <option value="PhD" selected="">PhD</option>
+            <option value="MS">MS</option>
+          </select>
+        </div>
+        <div class="form-row"><label>Session *</label><input id="f-session" value="Fall-2019" placeholder="e.g. Fall-2024"></div>
+        <div class="form-row"><label>Status *</label>
+          <select id="f-status">
+            <option value="Enrolled" selected="">Enrolled</option>
+            <option value="Completed">Completed</option>
+            <option value="Left">Left</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row"><label>Supervisor</label><input id="f-sup" value="Dr. Ashfaq Ahmad" placeholder="e.g. Dr. Ashfaq Ahmad"></div>
+      <div class="form-row"><label>Co-Supervisor</label><input id="f-cosup" value="Dr. Usman Ali SEECS( NUST) Co-sup" placeholder="Optional"></div>
+      <div class="form-2col">
+        <div class="form-row"><label>GEC Internal Member</label><input id="f-gecInternal" value="Dr. Syed Ahmad Pasha Dr. Muhammad Adil Khan" placeholder="e.g. Dr. Name"></div>
+        <div class="form-row"><label>GEC External Member</label><input id="f-gecExternal" value="Dr. Rasool Bakhsh (CUI)" placeholder="e.g. Dr. Name (Institution)"></div>
+      </div>
+      <div class="form-3col">
+        <div class="form-row"><label>GEC Formation (FBGS)</label><input id="f-gecFormation" value="" placeholder="Date or note"></div>
+        <div class="form-row"><label>GEC Change (FBGS)</label><input id="f-gecChange" value="" placeholder="Date or note"></div>
+        <div class="form-row"><label>Extension (FBGS)</label><input id="f-extension" value="" placeholder="Date or note"></div>
+      </div>
+      <div class="form-row"><label>Thesis Topic</label><textarea id="f-topic">Geometric Control for Spacecraft Attitude Control</textarea></div>
+      <div class="form-2col">
+        <div class="form-row"><label>PDE Status</label>
+          <select id="f-pde">
+            <option value="">—</option>
+            <option value="Done" selected="">Done</option>
+            <option value="Pending">Pending</option>
+            <option value="CW Done">CW Done</option>
+            <option value="CW">CW</option>
+          </select>
+        </div>
+        <div class="form-row"><label>PDE Date</label><input id="f-pdeDate" value="28 Dec, 2022" placeholder="e.g. 15 Jan 2025"></div>
+      </div>
+      <div class="form-2col">
+        <div class="form-row"><label>FDE Status</label>
+          <select id="f-fde">
+            <option value="">—</option>
+            <option value="Done">Done</option>
+            <option value="Pending" selected="">Pending</option>
+            <option value="CW Done">CW Done</option>
+          </select>
+        </div>
+        <div class="form-row"><label>FDE Date</label><input id="f-fdeDate" value="" placeholder="e.g. 20 June 2025"></div>
+      </div>
+      <div class="form-2col">
+        <div class="form-row"><label>Email</label><input id="f-email" type="email" value="atif19000@yahoo.com" placeholder="student@example.com"></div>
+        <div class="form-row"><label>Cell</label><input id="f-cell" value="" placeholder="92 300-0000000"></div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+    <button class="btn-save" onclick="saveStudent(3)"><i class="ti ti-device-floppy" style="margin-right:4px"></i>Save Changes</button>
+  </div></div>
 </div>
 
 <!-- Confirm Delete Modal -->
@@ -320,7 +1888,7 @@ body.is-admin .admin-only-block{display:block}
 </div>
 
 <!-- Admin Login Modal -->
-<div class="admin-login-overlay" id="adminLoginOverlay" style="display:none">
+<div class="admin-login-overlay" id="adminLoginOverlay" style="display: none;">
   <div class="admin-login-box">
     <div class="admin-login-header">
       <div class="admin-login-icon"><i class="ti ti-shield-lock"></i></div>
@@ -341,7 +1909,7 @@ body.is-admin .admin-only-block{display:block}
 </div>
 
 <!-- Toast -->
-<div class="toast" id="toast"><i class="ti ti-check-circle"></i><span id="toastMsg"></span></div>
+<div class="toast success" id="toast"><i class="ti ti-check-circle"></i><span id="toastMsg">Student updated successfully</span></div>
 
 <script>
 let STUDENTS = [
@@ -411,23 +1979,23 @@ let STUDENTS = [
   {
     "name": "Atif Iftikhar",
     "id": "191834",
-    "session": "Fall-2019",
     "degree": "PhD",
+    "session": "Fall-2019",
+    "status": "Left",
     "sup": "Dr. Ashfaq Ahmad",
     "cosup": "Dr. Usman Ali SEECS( NUST) Co-sup",
     "gecInternal": "Dr. Syed Ahmad Pasha Dr. Muhammad Adil Khan",
     "gecExternal": "Dr. Rasool Bakhsh (CUI)",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": "",
     "topic": "Geometric Control for Spacecraft Attitude Control",
     "pde": "Done",
     "pdeDate": "28 Dec, 2022",
-    "fde": "Pending",
+    "fde": "",
     "fdeDate": "",
-    "status": "Enrolled",
     "email": "atif19000@yahoo.com",
-    "cell": "",
-    "gecFormation": "",
-    "gecChange": "",
-    "extension": ""
+    "cell": ""
   },
   {
     "name": "Hussain Asif",
@@ -621,23 +2189,23 @@ let STUDENTS = [
   {
     "name": "Khushal Khan",
     "id": "211663",
-    "session": "Fall-2021",
     "degree": "MS",
+    "session": "Fall-2021",
+    "status": "Left",
     "sup": "Dr. Muhammad Adil Khan",
     "cosup": "Dr. Saad Ullah Khan (Co)",
     "gecInternal": "Dr. Ashfaq Ahmed Dr. Jehanzeb Khan",
     "gecExternal": "Dr. Waqaruddin (NUST)",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": "",
     "topic": "Analyzing Modular Multilevel Power Convertes for Electric Vehicle Charging",
     "pde": "Done",
     "pdeDate": "12 June, 2024",
-    "fde": "Pending",
+    "fde": "",
     "fdeDate": "",
-    "status": "Left",
     "email": "khushalkhan684@hotmail.com",
-    "cell": "92 334-7820684",
-    "gecFormation": "",
-    "gecChange": "",
-    "extension": ""
+    "cell": "92 334-7820684"
   },
   {
     "name": "Maham Imran",
@@ -705,23 +2273,23 @@ let STUDENTS = [
   {
     "name": "Asif Habib",
     "id": "222263",
-    "session": "Fall-2022",
     "degree": "MS",
+    "session": "Fall-2022",
+    "status": "Enrolled",
     "sup": "Dr. Imran Farid",
     "cosup": "",
     "gecInternal": "Dr. Muhammad Adil Khan Dr. Ashfaq Ahmad",
     "gecExternal": "Dr. Arsalan Shaukat (NUST)",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": "",
     "topic": "Multivariate Time-series Earthquake Forecasting",
     "pde": "Done",
     "pdeDate": "21-01-2025",
-    "fde": "Pending",
-    "fdeDate": "",
-    "status": "Enrolled",
+    "fde": "Done",
+    "fdeDate": "7 March 2026",
     "email": "asif5581@gmail.com",
-    "cell": "92 321-2200611",
-    "gecFormation": "",
-    "gecChange": "",
-    "extension": ""
+    "cell": "92 321-2200611"
   },
   {
     "name": "Ayesha Qaiser Hashmi",
@@ -1398,23 +2966,23 @@ let STUDENTS = [
   {
     "name": "Naima Sakhawat",
     "id": "230247",
-    "session": "S-2023",
     "degree": "MS",
+    "session": "S-2023",
+    "status": "Enrolled",
     "sup": "Dr. Syed Ahmed Pasha",
     "cosup": "",
     "gecInternal": "Dr. Ashfaq Ahmad",
     "gecExternal": "Dr. Usman Ali (NUST)",
+    "gecFormation": "",
+    "gecChange": "",
+    "extension": "",
     "topic": "System Identification of Contagion Models using Physics-Informed Neural Networks",
     "pde": "Done",
     "pdeDate": "22 Jan, 2025",
-    "fde": "Pending",
-    "fdeDate": "",
-    "status": "Enrolled",
+    "fde": "Done",
+    "fdeDate": "25 March , 2026",
     "email": "naimasakhawat098@hotmail.com",
-    "cell": "92 320-0253971",
-    "gecFormation": "",
-    "gecChange": "",
-    "extension": ""
+    "cell": "92 320-0253971"
   },
   {
     "name": "Meerub Khalil",
@@ -1461,21 +3029,201 @@ let STUDENTS = [
 ];
 
 let SUPERVISORS = [
-  {name:"Dr. Hafiz Ashiq Hussain",desg:"Professor",phd:"2011",status:"HEC Approved",area:"Optical Networks, Fiber Communication",ms:0,phds:3,coms:0,cophd:1,fms:7,fphd:2},
-  {name:"Dr. Syed Ahmed Pasha",desg:"Associate Professor",phd:"2009",status:"HEC Approved",area:"Controls / Machine Learning",ms:1,phds:0,coms:0,cophd:0,fms:6,fphd:5},
-  {name:"Dr. Imran Farid",desg:"Assistant Professor",phd:"2015",status:"HEC Approved",area:"Image Processing",ms:1,phds:0,coms:0,cophd:0,fms:6,fphd:5},
-  {name:"Dr. Waseem Khan",desg:"Assistant Professor",phd:"2015",status:"HEC Approved",area:"Communication / RF Microwave",ms:1,phds:0,coms:0,cophd:0,fms:6,fphd:5},
-  {name:"Dr. Sara Saeed",desg:"Assistant Professor",phd:"Aug 2016",status:"HEC Approved",area:"RF/Microwave Antenna System",ms:0,phds:0,coms:0,cophd:0,fms:7,fphd:5},
-  {name:"Dr. Ayesha Salman",desg:"Assistant Professor",phd:"Oct 2017",status:"Applied",area:"Digital Signal Processing",ms:0,phds:0,coms:0,cophd:0,fms:7,fphd:5},
-  {name:"Dr. Muhammad Adil Khan",desg:"Assistant Professor",phd:"Aug 2018",status:"HEC Approved",area:"Power Transmission System",ms:3,phds:1,coms:2,cophd:0,fms:4,fphd:4},
-  {name:"Dr. Muhammad Zaheer",desg:"Assistant Professor",phd:"Mar 2018",status:"Applied",area:"Steganography / Communication",ms:0,phds:0,coms:0,cophd:0,fms:7,fphd:5},
-  {name:"Dr. Saad Ullah Khan",desg:"Assistant Professor",phd:"2019",status:"HEC Approved",area:"Power System Component Modelling",ms:1,phds:0,coms:0,cophd:0,fms:6,fphd:5},
-  {name:"Dr. Ahsan Sarwar Rana",desg:"Assistant Professor",phd:"2021",status:"HEC Approved",area:"Optoelectronics",ms:0,phds:1,coms:0,cophd:0,fms:7,fphd:4},
-  {name:"Dr. Ashfaq Ahmad",desg:"Assistant Professor",phd:"2020",status:"HEC Approved",area:"Power System & Machine Learning",ms:6,phds:0,coms:0,cophd:1,fms:1,fphd:5},
-  {name:"Dr. Mumajid",desg:"Assistant Professor",phd:"2022",status:"HEC Approved",area:"Internet of Things (IoT)",ms:1,phds:0,coms:0,cophd:0,fms:6,fphd:5},
-  {name:"Dr. Sher Ali",desg:"Assistant Professor",phd:"2019",status:"HEC Approved",area:"Wireless Communication",ms:0,phds:0,coms:0,cophd:0,fms:7,fphd:5},
-  {name:"Dr. Jehanzeb Khan",desg:"Assistant Professor",phd:"2020",status:"Not Approved",area:"Micro-Electro-Mechanical Systems (MEMS)",ms:0,phds:0,coms:1,cophd:0,fms:7,fphd:5},
-  {name:"Dr. Shahzad",desg:"Assistant Professor",phd:"",status:"",area:"",ms:0,phds:0,coms:0,cophd:0,fms:7,fphd:5},
+  {
+    "name": "Dr. Hafiz Ashiq Hussain",
+    "desg": "Professor",
+    "phd": "2011",
+    "status": "HEC Approved",
+    "area": "Optical Networks, Fiber Communication",
+    "ms": 0,
+    "phds": 3,
+    "coms": 0,
+    "cophd": 1,
+    "fms": 7,
+    "fphd": 2
+  },
+  {
+    "name": "Dr. Syed Ahmed Pasha",
+    "desg": "Associate Professor",
+    "phd": "2009",
+    "status": "HEC Approved",
+    "area": "Controls / Machine Learning",
+    "ms": 1,
+    "phds": 0,
+    "coms": 0,
+    "cophd": 0,
+    "fms": 6,
+    "fphd": 5
+  },
+  {
+    "name": "Dr. Imran Farid",
+    "desg": "Assistant Professor",
+    "phd": "2015",
+    "status": "HEC Approved",
+    "area": "Image Processing",
+    "ms": 1,
+    "phds": 0,
+    "coms": 0,
+    "cophd": 0,
+    "fms": 6,
+    "fphd": 5
+  },
+  {
+    "name": "Dr. Waseem Khan",
+    "desg": "Assistant Professor",
+    "phd": "2015",
+    "status": "HEC Approved",
+    "area": "Communication / RF Microwave",
+    "ms": 1,
+    "phds": 0,
+    "coms": 0,
+    "cophd": 0,
+    "fms": 6,
+    "fphd": 5
+  },
+  {
+    "name": "Dr. Sara Saeed",
+    "desg": "Assistant Professor",
+    "phd": "Aug 2016",
+    "status": "HEC Approved",
+    "area": "RF/Microwave Antenna System",
+    "ms": 0,
+    "phds": 0,
+    "coms": 0,
+    "cophd": 0,
+    "fms": 7,
+    "fphd": 5
+  },
+  {
+    "name": "Dr. Ayesha Salman",
+    "desg": "Assistant Professor",
+    "phd": "Oct 2017",
+    "status": "Applied",
+    "area": "Digital Signal Processing",
+    "ms": 0,
+    "phds": 0,
+    "coms": 0,
+    "cophd": 0,
+    "fms": 7,
+    "fphd": 5
+  },
+  {
+    "name": "Dr. Muhammad Adil Khan",
+    "desg": "Assistant Professor",
+    "phd": "Aug 2018",
+    "status": "HEC Approved",
+    "area": "Power Transmission System",
+    "ms": 3,
+    "phds": 1,
+    "coms": 2,
+    "cophd": 0,
+    "fms": 4,
+    "fphd": 4
+  },
+  {
+    "name": "Dr. Muhammad Zaheer",
+    "desg": "Assistant Professor",
+    "phd": "Mar 2018",
+    "status": "Applied",
+    "area": "Steganography / Communication",
+    "ms": 0,
+    "phds": 0,
+    "coms": 0,
+    "cophd": 0,
+    "fms": 7,
+    "fphd": 5
+  },
+  {
+    "name": "Dr. Saad Ullah Khan",
+    "desg": "Assistant Professor",
+    "phd": "2019",
+    "status": "HEC Approved",
+    "area": "Power System Component Modelling",
+    "ms": 1,
+    "phds": 0,
+    "coms": 0,
+    "cophd": 0,
+    "fms": 6,
+    "fphd": 5
+  },
+  {
+    "name": "Dr. Ahsan Sarwar Rana",
+    "desg": "Assistant Professor",
+    "phd": "2021",
+    "status": "HEC Approved",
+    "area": "Optoelectronics",
+    "ms": 0,
+    "phds": 1,
+    "coms": 0,
+    "cophd": 0,
+    "fms": 7,
+    "fphd": 4
+  },
+  {
+    "name": "Dr. Ashfaq Ahmad",
+    "desg": "Assistant Professor",
+    "phd": "2020",
+    "status": "HEC Approved",
+    "area": "Power System & Machine Learning",
+    "ms": 6,
+    "phds": 0,
+    "coms": 0,
+    "cophd": 1,
+    "fms": 1,
+    "fphd": 5
+  },
+  {
+    "name": "Dr. Mumajid",
+    "desg": "Assistant Professor",
+    "phd": "2022",
+    "status": "HEC Approved",
+    "area": "Internet of Things (IoT)",
+    "ms": 1,
+    "phds": 0,
+    "coms": 0,
+    "cophd": 0,
+    "fms": 6,
+    "fphd": 5
+  },
+  {
+    "name": "Dr. Sher Ali",
+    "desg": "Assistant Professor",
+    "phd": "2019",
+    "status": "HEC Approved",
+    "area": "Wireless Communication",
+    "ms": 0,
+    "phds": 0,
+    "coms": 0,
+    "cophd": 0,
+    "fms": 7,
+    "fphd": 5
+  },
+  {
+    "name": "Dr. Jehanzeb Khan",
+    "desg": "Assistant Professor",
+    "phd": "2020",
+    "status": "Not Approved",
+    "area": "Micro-Electro-Mechanical Systems (MEMS)",
+    "ms": 0,
+    "phds": 0,
+    "coms": 1,
+    "cophd": 0,
+    "fms": 7,
+    "fphd": 5
+  },
+  {
+    "name": "Dr. Shahzad",
+    "desg": "Assistant Professor",
+    "phd": "",
+    "status": "",
+    "area": "",
+    "ms": 0,
+    "phds": 0,
+    "coms": 0,
+    "cophd": 0,
+    "fms": 7,
+    "fphd": 5
+  }
 ];
 
 // ─── Utilities ───────────────────────────────────────────────────────────────
@@ -2141,5 +3889,6 @@ buildStats(STUDENTS);
 renderTable(STUDENTS);
 buildSupervisors();
 </script>
-</body>
-</html>
+
+
+<veepn-lock-screen><style>@font-face{font-family:FigtreeVF;src:url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"),url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");font-weight:100 1000;font-display:swap}</style></veepn-lock-screen></body></html>
