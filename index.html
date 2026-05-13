@@ -224,7 +224,7 @@ body.is-admin .admin-only-block{display:block}
       <span class="top-badge" id="topBadge"><i class="ti ti-users" style="margin-right:4px"></i><span id="badgeCount">53</span> Students · 15 Supervisors</span>
       <span class="admin-badge" id="adminBadge" style="display:none;"><i class="ti ti-shield-check"></i>Admin</span>
       <button class="btn-export" onclick="exportHTML()"><i class="ti ti-download" style="margin-right:4px"></i>Export HTML</button>
-      <button class="btn-export" id="reloadBtn" onclick="forceReload()" title="Pull latest data from GitHub"><i class="ti ti-cloud-download" style="margin-right:4px"></i>Reload</button>
+      <button class="btn-export" id="reloadBtn" onclick="forceReload()" title="Pull latest data from Firebase"><i class="ti ti-cloud-download" style="margin-right:4px"></i>Reload</button>
       <button class="btn-export" onclick="exportExcel()" style="background:rgba(74,222,128,0.15);border-color:rgba(74,222,128,0.35)"><i class="ti ti-table-export" style="margin-right:4px"></i>Export Excel</button>
       <button class="btn-logout" id="logoutBtn" style="display:none;" onclick="adminLogout()"><i class="ti ti-logout"></i>Sign out</button>
       <button class="btn-export" id="adminLoginBtn" onclick="showAdminLogin()" style="display:inline-flex;"><i class="ti ti-lock" style="margin-right:4px"></i>Admin Login</button>
@@ -4132,54 +4132,94 @@ function adminLogout(){
 
 
 // ═══════════════════════════════════════════════════════════════════════════
-// GITHUB PERSISTENT STORAGE
-// Every add/edit/delete commits data.json to your repo.
-// On every page load, data.json is fetched fresh from GitHub API.
+// FIREBASE FIRESTORE PERSISTENT STORAGE
+// Every add/edit/delete saves to Firestore in real-time.
+// On every page load, data is fetched fresh from Firestore.
 // ═══════════════════════════════════════════════════════════════════════════
 
-const GH = {
-  token:  "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",
-  owner:  "aupgece",
-  repo:   "pg",
-  branch: "main",
-  file:   "data.json"
+const FIREBASE_CONFIG = {
+  apiKey:            "AIzaSyCnh-N-ARUPbbkFxXnKstrP9XPkuncjpfz",
+  authDomain:        "augpece-ie114.firebaseapp.com",
+  projectId:         "augpece-ie114",
+  storageBucket:     "augpece-ie114.firebasestorage.app",
+  messagingSenderId: "218338617739",
+  appId:             "1:218338617739:web:9ab15f78B4cd98883a2eae",
+  measurementId:     "G-VHBB86W83T"
 };
 
-// ── Get SHA of data.json (required for updating an existing file) ──────────
-async function getSHA(){
-  try{
-    const r = await fetch(
-      `https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/${GH.file}`,
-      { headers:{ "Authorization":"token "+GH.token, "Accept":"application/vnd.github+json" } }
-    );
-    if(!r.ok) return null;
-    const d = await r.json();
-    return d.sha || null;
-  } catch(e){ return null; }
+// Firestore REST API base URL
+const FS_BASE = `https://firestore.googleapis.com/v1/projects/${FIREBASE_CONFIG.projectId}/databases/(default)/documents`;
+
+// ── Helper: convert Firestore document → plain JS object ──────────────────
+function fsDocToObj(doc){
+  const fields = doc.fields || {};
+  const obj = {};
+  for(const key in fields){
+    const v = fields[key];
+    if(v.stringValue  !== undefined) obj[key] = v.stringValue;
+    else if(v.integerValue !== undefined) obj[key] = parseInt(v.integerValue);
+    else if(v.booleanValue !== undefined) obj[key] = v.booleanValue;
+    else if(v.nullValue   !== undefined) obj[key] = null;
+    else if(v.arrayValue  !== undefined){
+      obj[key] = (v.arrayValue.values||[]).map(item =>
+        item.mapValue ? fsMapToObj(item.mapValue.fields||{}) :
+        (item.stringValue ?? item.integerValue ?? item.booleanValue ?? null)
+      );
+    } else if(v.mapValue !== undefined) obj[key] = fsMapToObj(v.mapValue.fields||{});
+    else obj[key] = null;
+  }
+  return obj;
+}
+function fsMapToObj(fields){
+  const obj={};
+  for(const k in fields){
+    const v=fields[k];
+    if(v.stringValue!==undefined) obj[k]=v.stringValue;
+    else if(v.integerValue!==undefined) obj[k]=parseInt(v.integerValue);
+    else if(v.booleanValue!==undefined) obj[k]=v.booleanValue;
+    else if(v.arrayValue!==undefined) obj[k]=(v.arrayValue.values||[]).map(i=>i.stringValue??i.integerValue??null);
+    else obj[k]=null;
+  }
+  return obj;
 }
 
-// ── Save STUDENTS + SUPERVISORS to data.json in repo ─────────────────────
+// ── Helper: convert plain JS object → Firestore fields ────────────────────
+function objToFsFields(obj){
+  const fields={};
+  for(const key in obj){
+    const val=obj[key];
+    if(val===null||val===undefined) fields[key]={nullValue:null};
+    else if(typeof val==="boolean") fields[key]={booleanValue:val};
+    else if(typeof val==="number"&&Number.isInteger(val)) fields[key]={integerValue:String(val)};
+    else if(typeof val==="string") fields[key]={stringValue:val};
+    else if(Array.isArray(val)){
+      fields[key]={arrayValue:{values:val.map(item=>{
+        if(typeof item==="string") return {stringValue:item};
+        if(typeof item==="object"&&item!==null) return {mapValue:{fields:objToFsFields(item)}};
+        return {nullValue:null};
+      })}};
+    } else if(typeof val==="object") fields[key]={mapValue:{fields:objToFsFields(val)}};
+    else fields[key]={stringValue:String(val)};
+  }
+  return fields;
+}
+
+// ── Save STUDENTS + SUPERVISORS to Firestore ──────────────────────────────
 async function persistData(){
   try{
     setSyncStatus("saving");
-    const sha = await getSHA();
-    const payload = JSON.stringify({ students: STUDENTS, supervisors: SUPERVISORS }, null, 2);
-    const encoded = btoa(unescape(encodeURIComponent(payload)));
-    const body = {
-      message: "db update " + new Date().toISOString().slice(0,19),
-      content: encoded,
-      branch:  GH.branch
-    };
-    if(sha) body.sha = sha;
-    const r = await fetch(
-      `https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/${GH.file}`,
-      {
-        method: "PUT",
-        headers:{ "Authorization":"token "+GH.token, "Accept":"application/vnd.github+json", "Content-Type":"application/json" },
-        body: JSON.stringify(body)
-      }
-    );
-    if(!r.ok){ const e=await r.json(); throw new Error(e.message||r.status); }
+    // Save students array as one document
+    await fetch(`${FS_BASE}/appdata/students`, {
+      method:"PATCH",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({fields:{list:{arrayValue:{values:STUDENTS.map(s=>({mapValue:{fields:objToFsFields(s)}}))}}}})
+    });
+    // Save supervisors array as one document
+    await fetch(`${FS_BASE}/appdata/supervisors`, {
+      method:"PATCH",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({fields:{list:{arrayValue:{values:SUPERVISORS.map(s=>({mapValue:{fields:objToFsFields(s)}}))}}}})
+    });
     setSyncStatus("saved");
   } catch(e){
     setSyncStatus("error", e.message);
@@ -4187,20 +4227,24 @@ async function persistData(){
   }
 }
 
-// ── Load data.json from repo on page load ─────────────────────────────────
+// ── Load data from Firestore on page load ─────────────────────────────────
 async function loadFromStorage(){
   try{
     setSyncStatus("loading");
-    const r = await fetch(
-      `https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/${GH.file}`,
-      { headers:{ "Authorization":"token "+GH.token, "Accept":"application/vnd.github+json", "Cache-Control":"no-cache" } }
-    );
-    if(!r.ok) throw new Error("HTTP "+r.status);
-    const d = await r.json();
-    const text = decodeURIComponent(escape(atob(d.content.replace(/\n/g,""))));
-    const json = JSON.parse(text);
-    if(Array.isArray(json.students)    && json.students.length)    STUDENTS    = json.students;
-    if(Array.isArray(json.supervisors) && json.supervisors.length) SUPERVISORS = json.supervisors;
+    const [rsStudents, rsSupervisors] = await Promise.all([
+      fetch(`${FS_BASE}/appdata/students`),
+      fetch(`${FS_BASE}/appdata/supervisors`)
+    ]);
+    if(rsStudents.ok){
+      const d = await rsStudents.json();
+      const arr = (d.fields?.list?.arrayValue?.values||[]).map(v=>fsMapToObj(v.mapValue?.fields||{}));
+      if(arr.length) STUDENTS = arr;
+    }
+    if(rsSupervisors.ok){
+      const d = await rsSupervisors.json();
+      const arr = (d.fields?.list?.arrayValue?.values||[]).map(v=>fsMapToObj(v.mapValue?.fields||{}));
+      if(arr.length) SUPERVISORS = arr;
+    }
     setSyncStatus("loaded");
   } catch(e){
     setSyncStatus("error", e.message);
