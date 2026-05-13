@@ -226,6 +226,7 @@ body.is-admin .admin-only-block{display:block}
       <button class="btn-export" onclick="exportHTML()"><i class="ti ti-download" style="margin-right:4px"></i>Export HTML</button>
       <button class="btn-export" onclick="exportExcel()" style="background:rgba(74,222,128,0.15);border-color:rgba(74,222,128,0.35)"><i class="ti ti-table-export" style="margin-right:4px"></i>Export Excel</button>
       <button class="btn-logout" id="logoutBtn" style="display: none;" onclick="adminLogout()"><i class="ti ti-logout"></i>Sign out</button>
+      <button class="btn-export" onclick="forceReload()" title="Reload data from GitHub"><i class="ti ti-cloud-download" style="margin-right:4px"></i>Reload Data</button>
       <button class="btn-export" onclick="showGitHubSettings()" title="Configure GitHub sync"><i class="ti ti-brand-github" style="margin-right:4px"></i>GitHub Settings</button>
       <button class="btn-export" id="adminLoginBtn" onclick="showAdminLogin()" style="display: inline-flex;"><i class="ti ti-lock" style="margin-right:4px"></i>Admin Login</button>
     </div>
@@ -4222,21 +4223,33 @@ async function persistData(){
 
 // ─── Load from GitHub ─────────────────────────────────────────────────────────
 async function loadFromStorage(){
-  if(!isGitHubConfigured()) return; // use hardcoded defaults
+  if(!isGitHubConfigured()) return;
   try{
     showSyncBadge("⏳ Loading from GitHub…");
-    // Use raw URL to avoid caching — always gets latest committed file
-    const rawUrl = `https://raw.githubusercontent.com/${ghGet("owner")}/${ghGet("repo")}/${ghGet("branch")||"main"}/${DATA_PATH}?t=${Date.now()}`;
-    const res = await fetch(rawUrl);
-    if(!res.ok) throw new Error("HTTP " + res.status + " fetching data.json");
-    const json = await res.json();
+    // Use GitHub API with cache-busting header — always returns latest commit
+    const res = await fetch(
+      `${GH_API}/repos/${ghGet("owner")}/${ghGet("repo")}/contents/${DATA_PATH}`,
+      {
+        headers:{
+          "Authorization": "token " + ghGet("token"),
+          "Accept": "application/vnd.github+json",
+          "Cache-Control": "no-cache",
+          "If-None-Match": ""
+        }
+      }
+    );
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    const file = await res.json();
+    // Decode base64 content returned by GitHub API
+    const text = decodeURIComponent(escape(atob(file.content.replace(/
+/g,""))));
+    const json = JSON.parse(text);
     if(json.students    && json.students.length)    STUDENTS    = json.students;
     if(json.supervisors && json.supervisors.length) SUPERVISORS = json.supervisors;
     showSyncBadge("✓ Loaded from GitHub");
   } catch(e){
     console.warn("GitHub load failed:", e);
     showToast("Load failed: " + e.message, "error");
-    // Fall back to hardcoded defaults — page still works
   }
 }
 
@@ -4367,6 +4380,16 @@ function showSyncBadge(msg){
   t.className="toast success";
   t.classList.add("show");
   setTimeout(()=>t.classList.remove("show"),2500);
+}
+
+// ─── Force reload from GitHub ────────────────────────────────────────────────
+async function forceReload(){
+  await loadFromStorage();
+  populateFilters();
+  buildStats(STUDENTS);
+  renderTable(STUDENTS);
+  buildSupervisors();
+  showToast("Data reloaded from GitHub");
 }
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
