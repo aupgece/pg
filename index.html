@@ -605,8 +605,8 @@ body.is-admin .admin-only-block{display:block}
   <div id="tab-supervisors" style="display:none">
     <div class="slots-summary">
       <div class="slot-left">
-        <div class="slot-total"><strong class="ms" id="totalFMS">91</strong>Free MSEE slots available</div>
-        <div class="slot-total"><strong class="phd" id="totalFPhD">70</strong>Free PhDEE slots available</div>
+        <div class="slot-total"><strong class="ms" id="totalFMS">0</strong>Free MS slots available</div>
+        <div class="slot-total"><strong class="phd" id="totalFPhD">0</strong>Free PhD slots available</div>
       </div>
       <div style="display:flex;gap:8px;align-items:center">
         <button class="btn-export" onclick="exportSupervisorsExcel()" style="background:rgba(74,222,128,0.15);border-color:rgba(74,222,128,0.35)"><i class="ti ti-table-export" style="margin-right:4px"></i>Export Excel</button>
@@ -2593,14 +2593,19 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();closeC
 
 // ─── Supervisors ──────────────────────────────────────────────────────────────
 function buildSupervisors(){
+  const MS_DEGS=['MSEE','MSCE'], PHD_DEGS=['PhDEE','PhDCE'];
   const totalFMS=SUPERVISORS.reduce((a,s)=>{
     if(s.active==='Inactive') return a;
-    const enrolled=STUDENTS.filter(st=>st.sup===s.name&&st.degree==="MSEE"&&(st.status||'').toLowerCase().includes('enrolled')).length;
+    const degs=s.degrees&&s.degrees.length?s.degrees:[...MS_DEGS,...PHD_DEGS];
+    if(!degs.some(d=>MS_DEGS.includes(d))) return a;
+    const enrolled=STUDENTS.filter(st=>st.sup===s.name&&MS_DEGS.includes(st.degree)&&(st.status||'').toLowerCase().includes('enrolled')).length;
     return a+Math.max(0,7-enrolled);
   },0);
   const totalFPhD=SUPERVISORS.reduce((a,s)=>{
     if(s.active==='Inactive') return a;
-    const enrolled=STUDENTS.filter(st=>st.sup===s.name&&st.degree==="PhDEE"&&(st.status||'').toLowerCase().includes('enrolled')).length;
+    const degs=s.degrees&&s.degrees.length?s.degrees:[...MS_DEGS,...PHD_DEGS];
+    if(!degs.some(d=>PHD_DEGS.includes(d))) return a;
+    const enrolled=STUDENTS.filter(st=>st.sup===s.name&&PHD_DEGS.includes(st.degree)&&(st.status||'').toLowerCase().includes('enrolled')).length;
     return a+Math.max(0,5-enrolled);
   },0);
   document.getElementById("totalFMS").textContent=totalFMS;
@@ -2629,6 +2634,7 @@ function buildSupervisors(){
           <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('${s.name.replace(/'/g,"\\'")}')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>${s.name}</div>
           <div class="sup-desg">${s.desg}${s.phd?" &middot; PhD "+s.phd:""}</div>
           ${s.area?`<div class="sup-area">${s.area}</div>`:""}
+          ${s.degrees&&s.degrees.length?`<div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:4px">${s.degrees.map(d=>`<span style="background:var(--blue-l);color:var(--blue-d);font-size:10px;font-weight:600;padding:2px 7px;border-radius:9999px">${d}</span>`).join('')}</div>`:``}
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
           ${s.active==='Inactive'?`<span class="hec-badge" style="background:#fee2e2;color:#991b1b">Not Active</span>`:`<span class="hec-badge" style="background:#dcfce7;color:#166534">Active</span>`}
@@ -2640,16 +2646,30 @@ function buildSupervisors(){
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n sv-blue" style="color:var(--blue)">${myStudents.filter(st=>st.sup===s.name&&st.degree==="MSEE"&&(st.status||'').toLowerCase().includes('enrolled')).length}</div><div class="sup-stat-l">MS Under Sup.</div></div>
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">${myStudents.filter(st=>st.sup===s.name&&st.degree==="PhDEE"&&(st.status||'').toLowerCase().includes('enrolled')).length}</div><div class="sup-stat-l">PhD Under Sup.</div></div>
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">${myStudents.filter(st=>st.sup===s.name&&st.degree==="MSEE"&&(st.status||'').toLowerCase().includes('completed')).length}</div><div class="sup-stat-l">MS Supervised</div></div>
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">${myStudents.filter(st=>st.sup===s.name&&st.degree==="PhDEE"&&(st.status||'').toLowerCase().includes('completed')).length}</div><div class="sup-stat-l">PhD Supervised</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">${s.active==="Inactive"?0:Math.max(0,7-myStudents.filter(st=>st.sup===s.name&&st.degree==="MSEE"&&(st.status||"").toLowerCase().includes("enrolled")).length)}</div><div class="sup-stat-l">Free MSEE</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">${s.active==="Inactive"?0:Math.max(0,5-myStudents.filter(st=>st.sup===s.name&&st.degree==="PhDEE"&&(st.status||"").toLowerCase().includes("enrolled")).length)}</div><div class="sup-stat-l">Free PhDEE</div></div>
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--purple)">${myStudents.filter(st=>st.cosup===s.name&&st.degree==="MSEE").length}</div><div class="sup-stat-l">MS Co-Sup</div></div>
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--purple)">${myStudents.filter(st=>st.cosup===s.name&&st.degree==="PhDEE").length}</div><div class="sup-stat-l">PhD Co-Sup</div></div>
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">${myStudents.filter(st=>st.sup===s.name&&(st.status||'').toLowerCase().includes('completed')).length}</div><div class="sup-stat-l">Supervised</div></div>
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">${myStudents.filter(st=>st.sup===s.name&&(st.status||'').toLowerCase().includes('enrolled')).length}</div><div class="sup-stat-l">Under Sup.</div></div>
+        ${(()=>{
+          const degs = s.degrees&&s.degrees.length ? s.degrees : ['MSEE','MSCE','PhDEE','PhDCE'];
+          const msDegs  = degs.filter(d=>d==='MSEE'||d==='MSCE');
+          const phdDegs = degs.filter(d=>d==='PhDEE'||d==='PhDCE');
+          const inactive = s.active==='Inactive';
+          let html = '';
+          if(msDegs.length){
+            const enrolled = myStudents.filter(st=>st.sup===s.name&&msDegs.includes(st.degree)&&(st.status||'').toLowerCase().includes('enrolled')).length;
+            const free = inactive ? 0 : Math.max(0,7-enrolled);
+            html += `<div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">${enrolled}</div><div class="sup-stat-l">MS Enrolled</div></div>`;
+            html += `<div class="sup-stat"><div class="sup-stat-n free-ms">${free}</div><div class="sup-stat-l">Free MS</div></div>`;
+          }
+          if(phdDegs.length){
+            const enrolled = myStudents.filter(st=>st.sup===s.name&&phdDegs.includes(st.degree)&&(st.status||'').toLowerCase().includes('enrolled')).length;
+            const free = inactive ? 0 : Math.max(0,5-enrolled);
+            html += `<div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">${enrolled}</div><div class="sup-stat-l">PhD Enrolled</div></div>`;
+            html += `<div class="sup-stat"><div class="sup-stat-n free-phd">${free}</div><div class="sup-stat-l">Free PhD</div></div>`;
+          }
+          const completed = myStudents.filter(st=>st.sup===s.name&&(st.status||'').toLowerCase().includes('completed')).length;
+          const underSup  = myStudents.filter(st=>st.sup===s.name&&(st.status||'').toLowerCase().includes('enrolled')).length;
+          html += `<div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">${completed}</div><div class="sup-stat-l">Supervised</div></div>`;
+          html += `<div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">${underSup}</div><div class="sup-stat-l">Under Sup.</div></div>`;
+          return html;
+        })()}
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -2717,17 +2737,16 @@ function supervisorForm(s){
           </select>
         </div>
       </div>
-      <div class="section-title" style="margin-top:4px"><i class="ti ti-hash"></i>Student Counts</div>
-      <div class="form-3col">
-        <div class="form-row"><label>MS Students</label><input id="sf-ms" type="number" min="0" value="${s?s.ms:0}"></div>
-        <div class="form-row"><label>PhD Students</label><input id="sf-phds" type="number" min="0" value="${s?s.phds:0}"></div>
-        <div class="form-row"><label>Co-MSEE</label><input id="sf-coms" type="number" min="0" value="${s?s.coms:0}"></div>
+      <div class="form-row"><label>Can Supervise</label>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;padding:8px 0">
+          ${['MSEE','MSCE','PhDEE','PhDCE'].map(d=>`
+          <label style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer">
+            <input type="checkbox" id="sf-deg-${d}" value="${d}" ${(!s||!s.degrees||s.degrees.length===0||s.degrees.includes(d))?'checked':''}>
+            ${d}
+          </label>`).join('')}
+        </div>
       </div>
-      <div class="form-3col">
-        <div class="form-row"><label>Co-PhDEE</label><input id="sf-cophd" type="number" min="0" value="${s?s.cophd:0}"></div>
-        <div class="form-row"><label>Free MS Slots</label><input id="sf-fms" type="number" min="0" value="${s?s.fms:7}"></div>
-        <div class="form-row"><label>Free PhD Slots</label><input id="sf-fphd" type="number" min="0" value="${s?s.fphd:5}"></div>
-      </div>
+      <div class="section-title" style="margin-top:4px;background:var(--blue-l);border-radius:var(--rm);padding:8px 12px;color:var(--blue-d)"><i class="ti ti-info-circle"></i>MS &amp; PhD enrolled counts and free slots are computed automatically from student records.</div>
     </div>
   </div>`;
 }
@@ -2759,12 +2778,7 @@ function getSupervisorForm(){
     status:document.getElementById("sf-status").value,
     area:document.getElementById("sf-area").value.trim(),
     active:document.getElementById("sf-active").value,
-    ms:parseInt(document.getElementById("sf-ms").value)||0,
-    phds:parseInt(document.getElementById("sf-phds").value)||0,
-    coms:parseInt(document.getElementById("sf-coms").value)||0,
-    cophd:parseInt(document.getElementById("sf-cophd").value)||0,
-    fms:parseInt(document.getElementById("sf-fms").value)||0,
-    fphd:parseInt(document.getElementById("sf-fphd").value)||0,
+    degrees:['MSEE','MSCE','PhDEE','PhDCE'].filter(d=>document.getElementById('sf-deg-'+d)?.checked),
   };
 }
 
