@@ -201,6 +201,7 @@ tbody tr:hover td{background:#f8fbff}
 body.is-admin .admin-only{display:flex}
 body.is-admin .admin-only-block{display:block}
 .admin-only-block{display:none}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 
 @media(max-width:640px){
   .stats-grid{grid-template-columns:repeat(3,1fr)}
@@ -220,6 +221,7 @@ body.is-admin .admin-only-block{display:block}
     </div>
     <div class="top-badges">
       <span class="top-badge" id="topBadge"><i class="ti ti-users" style="margin-right:4px"></i><span id="badgeCount">53</span> Students · 15 Supervisors</span>
+      <span id="syncStatus" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:9999px;color:rgba(255,255,255,0.7);font-size:12px;padding:4px 12px;display:inline-flex;align-items:center;gap:5px"><i class="ti ti-cloud-off"></i>Not synced</span>
       <span class="admin-badge" id="adminBadge" style="display: none;"><i class="ti ti-shield-check"></i>Admin</span>
       <button class="btn-export" onclick="exportHTML()"><i class="ti ti-download" style="margin-right:4px"></i>Export HTML</button>
       <button class="btn-export" onclick="exportExcel()" style="background:rgba(74,222,128,0.15);border-color:rgba(74,222,128,0.35)"><i class="ti ti-table-export" style="margin-right:4px"></i>Export Excel</button>
@@ -4214,7 +4216,7 @@ async function persistData(){
     showSyncBadge("✓ Saved to GitHub");
   } catch(e){
     console.error("GitHub save failed:", e);
-    showToast("GitHub save failed: " + e.message, "error");
+    showToast("Save failed: " + e.message + " — check token/repo", "error");
   }
 }
 
@@ -4223,14 +4225,17 @@ async function loadFromStorage(){
   if(!isGitHubConfigured()) return; // use hardcoded defaults
   try{
     showSyncBadge("⏳ Loading from GitHub…");
-    const data = await ghRequest("GET",
-      `/repos/${ghGet("owner")}/${ghGet("repo")}/contents/${DATA_PATH}`);
-    const json = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\n/g,"")))));
-    if(json.students)    STUDENTS    = json.students;
-    if(json.supervisors) SUPERVISORS = json.supervisors;
+    // Use raw URL to avoid caching — always gets latest committed file
+    const rawUrl = `https://raw.githubusercontent.com/${ghGet("owner")}/${ghGet("repo")}/${ghGet("branch")||"main"}/${DATA_PATH}?t=${Date.now()}`;
+    const res = await fetch(rawUrl);
+    if(!res.ok) throw new Error("HTTP " + res.status + " fetching data.json");
+    const json = await res.json();
+    if(json.students    && json.students.length)    STUDENTS    = json.students;
+    if(json.supervisors && json.supervisors.length) SUPERVISORS = json.supervisors;
     showSyncBadge("✓ Loaded from GitHub");
   } catch(e){
     console.warn("GitHub load failed:", e);
+    showToast("Load failed: " + e.message, "error");
     // Fall back to hardcoded defaults — page still works
   }
 }
@@ -4339,6 +4344,22 @@ function saveGitHubSettings(){
 }
 
 function showSyncBadge(msg){
+  // Update header sync status
+  const ss = document.getElementById("syncStatus");
+  if(ss){
+    if(msg.includes("⏳")){
+      ss.innerHTML='<i class="ti ti-refresh" style="animation:spin 1s linear infinite"></i>'+msg.replace("⏳ ","");
+      ss.style.color="rgba(255,255,255,0.7)";
+    } else if(msg.includes("✓")){
+      ss.innerHTML='<i class="ti ti-cloud-check"></i>'+msg.replace("✓ ","");
+      ss.style.color="#4ade80";
+    } else {
+      ss.innerHTML='<i class="ti ti-alert-circle"></i>'+msg;
+      ss.style.color="#f87171";
+    }
+  }
+  // Also flash toast for errors
+  if(msg.includes("failed") || msg.includes("⏳")) return;
   const t=document.getElementById("toast");
   const i=t.querySelector("i");
   i.className="ti ti-brand-github";
