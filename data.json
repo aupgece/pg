@@ -1113,28 +1113,6 @@
       "gecFormation": "",
       "gecChange": "",
       "extension": ""
-    },
-    {
-      "name": "fdf",
-      "id": "534535",
-      "degree": "PhDEE",
-      "session": "34343",
-      "status": "Enrolled",
-      "sup": "",
-      "cosup": "",
-      "gecInternal": "",
-      "gecExternal": "",
-      "gecFormation": "",
-      "gecChange": "",
-      "extension": "",
-      "topic": "",
-      "pde": "",
-      "pdeDate": "",
-      "fde": "",
-      "fdeDate": "",
-      "studyMode": "",
-      "email": "",
-      "cell": ""
     }
   ],
   "supervisors": [
@@ -1438,5 +1416,5 @@
       "fphd": 5
     }
   ],
-  "updatedAt": "2026-05-13T04:28:55.625Z"
+  "updatedAt": "2026-05-13T04:34:00.293Z"
 }
