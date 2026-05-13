@@ -210,7 +210,7 @@ body.is-admin .admin-only-block{display:block}
 }
 </style>
 </head>
-<body class="is-admin">
+<body>
 
 <div class="top-bar">
   <div class="top-inner">
@@ -220,13 +220,12 @@ body.is-admin .admin-only-block{display:block}
     </div>
     <div class="top-badges">
       <span class="top-badge" id="topBadge"><i class="ti ti-users" style="margin-right:4px"></i><span id="badgeCount">53</span> Students · 15 Supervisors</span>
-      <span class="admin-badge" id="adminBadge" style="display: flex;"><i class="ti ti-shield-check"></i>Admin</span>
+      <span class="admin-badge" id="adminBadge" style="display: none;"><i class="ti ti-shield-check"></i>Admin</span>
       <button class="btn-export" onclick="exportHTML()"><i class="ti ti-download" style="margin-right:4px"></i>Export HTML</button>
       <button class="btn-export" onclick="exportExcel()" style="background:rgba(74,222,128,0.15);border-color:rgba(74,222,128,0.35)"><i class="ti ti-table-export" style="margin-right:4px"></i>Export Excel</button>
-      <button class="btn-logout" id="logoutBtn" style="display: flex;" onclick="adminLogout()"><i class="ti ti-logout"></i>Sign out</button>
-      <button class="btn-export admin-only" id="resetCloudBtn" onclick="resetCloudData()" style="background:rgba(248,113,113,0.15);border-color:rgba(248,113,113,0.35);color:rgba(248,113,113,0.9)" title="Overwrite data.json in repo with current data"><i class="ti ti-refresh" style="margin-right:4px"></i>Reset Repo</button>
+      <button class="btn-logout" id="logoutBtn" style="display: none;" onclick="adminLogout()"><i class="ti ti-logout"></i>Sign out</button>
       <button class="btn-export" onclick="showGitHubSettings()" title="Configure GitHub sync"><i class="ti ti-brand-github" style="margin-right:4px"></i>GitHub Settings</button>
-      <button class="btn-export" id="adminLoginBtn" onclick="showAdminLogin()" style="display: none;"><i class="ti ti-lock" style="margin-right:4px"></i>Admin Login</button>
+      <button class="btn-export" id="adminLoginBtn" onclick="showAdminLogin()" style="display: inline-flex;"><i class="ti ti-lock" style="margin-right:4px"></i>Admin Login</button>
     </div>
   </div>
 </div>
@@ -4142,13 +4141,18 @@ function adminLogout(){
 //     (just create it with content: {} and commit it once manually).
 // ─────────────────────────────────────────────────────────────────────────────
 
-// GitHub settings — stored in sessionStorage so the token is never in the HTML
-// but persists for the browser session (admin enters once per session).
-function ghGet(k){ return sessionStorage.getItem("gh_"+k)||""; }
+// ─── Hardcoded GitHub credentials ────────────────────────────────────────────────────────────────────────────────
+const GH_CREDENTIALS = {
+  token:  "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",
+  owner:  "aupgece",
+  repo:   "pg",
+  branch: "main"
+};
+function ghGet(k){ return GH_CREDENTIALS[k] || sessionStorage.getItem("gh_"+k) || ""; }
 function ghSet(k,v){ sessionStorage.setItem("gh_"+k,v); }
 
 function isGitHubConfigured(){
-  return ghGet("token") && ghGet("owner") && ghGet("repo");
+  return !!(ghGet("token") && ghGet("owner") && ghGet("repo"));
 }
 
 // ─── GitHub API helpers ───────────────────────────────────────────────────────
