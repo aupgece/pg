@@ -151,7 +151,7 @@ tbody tr:hover td{background:#f8fbff}
 .hec-approved{background:var(--green-l);color:var(--green-d)}
 .hec-applied{background:var(--amber-l);color:var(--amber-d)}
 .hec-not{background:var(--red-l);color:var(--red-d)}
-.sup-stats{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.sup-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .sup-stat{text-align:center;background:var(--bg2);border-radius:var(--rm);padding:8px 4px}
 .sup-stat-n{font-size:20px;font-weight:700;color:var(--text)}
 .sup-stat-n.free-ms{color:var(--blue)}
@@ -204,7 +204,7 @@ body.is-admin .admin-only-block{display:block}
 
 @media(max-width:640px){
   .stats-grid{grid-template-columns:repeat(3,1fr)}
-  .sup-stats{grid-template-columns:repeat(3,1fr)}
+  .sup-stats{grid-template-columns:repeat(4,1fr)}
   th:nth-child(n+5):not(:nth-child(10)):not(:nth-child(11)):not(:nth-child(12)),td:nth-child(n+5):not(:nth-child(10)):not(:nth-child(11)):not(:nth-child(12)){display:none}
   .form-2col,.form-3col{grid-template-columns:1fr}
 }
@@ -224,6 +224,8 @@ body.is-admin .admin-only-block{display:block}
       <button class="btn-export" onclick="exportHTML()"><i class="ti ti-download" style="margin-right:4px"></i>Export HTML</button>
       <button class="btn-export" onclick="exportExcel()" style="background:rgba(74,222,128,0.15);border-color:rgba(74,222,128,0.35)"><i class="ti ti-table-export" style="margin-right:4px"></i>Export Excel</button>
       <button class="btn-logout" id="logoutBtn" style="display: flex;" onclick="adminLogout()"><i class="ti ti-logout"></i>Sign out</button>
+      <button class="btn-export admin-only" id="resetCloudBtn" onclick="resetCloudData()" style="background:rgba(248,113,113,0.15);border-color:rgba(248,113,113,0.35);color:rgba(248,113,113,0.9)" title="Overwrite data.json in repo with current data"><i class="ti ti-refresh" style="margin-right:4px"></i>Reset Repo</button>
+      <button class="btn-export" onclick="showGitHubSettings()" title="Configure GitHub sync"><i class="ti ti-brand-github" style="margin-right:4px"></i>GitHub Settings</button>
       <button class="btn-export" id="adminLoginBtn" onclick="showAdminLogin()" style="display: none;"><i class="ti ti-lock" style="margin-right:4px"></i>Admin Login</button>
     </div>
   </div>
@@ -239,8 +241,8 @@ body.is-admin .admin-only-block{display:block}
   <div id="tab-students">
     <div class="stats-grid" id="statsGrid">
     <div class="stat-card"><div class="stat-label">Total</div><div class="stat-value sv-blue">12</div></div>
-    <div class="stat-card"><div class="stat-label">MS</div><div class="stat-value sv-purple">0</div></div>
-    <div class="stat-card"><div class="stat-label">PhD</div><div class="stat-value sv-teal">12</div></div>
+    <div class="stat-card"><div class="stat-label">MSEE</div><div class="stat-value sv-purple">0</div></div>
+    <div class="stat-card"><div class="stat-label">PhDEE</div><div class="stat-value sv-teal">12</div></div>
     <div class="stat-card"><div class="stat-label">Completed</div><div class="stat-value sv-green">6</div></div>
     <div class="stat-card"><div class="stat-label">Enrolled</div><div class="stat-value sv-blue">5</div></div>
     <div class="stat-card"><div class="stat-label">Left</div><div class="stat-value sv-coral">1</div></div>
@@ -259,8 +261,10 @@ body.is-admin .admin-only-block{display:block}
         </div>
         <select id="fDegree" onchange="applyFilters()">
           <option value="">All degrees</option>
-          <option value="MS">MS</option>
-          <option value="PhD">PhD</option>
+          <option value="MSEE">MSEE</option>
+          <option value="PhDEE">PhDEE</option>
+          <option value="MSCE">MSCE</option>
+          <option value="PhDCE">PhDCE</option>
         </select>
         <select id="fSession" onchange="applyFilters()"><option value="">All sessions</option><option value="Fall-2018">Fall-2018</option><option value="Fall-2019">Fall-2019</option><option value="Fall-2020">Fall-2020</option><option value="Fall-2021">Fall-2021</option><option value="Fall-2022">Fall-2022</option><option value="Fall-2023">Fall-2023</option><option value="Fall-2024">Fall-2024</option><option value="Fall-2025">Fall-2025</option><option value="S-2021">S-2021</option><option value="S-2023">S-2023</option><option value="S-2024">S-2024</option></select>
         <select id="fSupervisor" onchange="applyFilters()"><option value="">All supervisors</option><option value="Course Work">Course Work</option><option value="Dr. Ashfaq Ahmad">Dr. Ashfaq Ahmad</option><option value="Dr. Bahman R. Alyaei">Dr. Bahman R. Alyaei</option><option value="Dr. Hafiz Ashiq Hussain">Dr. Hafiz Ashiq Hussain</option><option value="Dr. Husan Ali">Dr. Husan Ali</option><option value="Dr. Imran Farid">Dr. Imran Farid</option><option value="Dr. Jehanzeb Khan">Dr. Jehanzeb Khan</option><option value="Dr. Muhammad Adil Khan">Dr. Muhammad Adil Khan</option><option value="Dr. Muhammad Zaheer">Dr. Muhammad Zaheer</option><option value="Dr. Muhammad Zakwan">Dr. Muhammad Zakwan</option><option value="Dr. Mumajid">Dr. Mumajid</option><option value="Dr. Nouman Naseer">Dr. Nouman Naseer</option><option value="Dr. Sher Ali">Dr. Sher Ali</option><option value="Dr. Syed Ahmed Pasha">Dr. Syed Ahmed Pasha</option><option value="Dr. Waseem Khan">Dr. Waseem Khan</option><option value="Dr.Ahsan Sarwar Rana">Dr.Ahsan Sarwar Rana</option><option value="Dr.Saad Ullah Khan">Dr.Saad Ullah Khan</option></select>
@@ -272,6 +276,8 @@ body.is-admin .admin-only-block{display:block}
           <option value="Course Work">Course Work</option>
           <option value="Research">Research</option>
         </select>
+        <select id="fGECInternal" onchange="applyFilters()"><option value="">All GEC Internal</option></select>
+        <select id="fGECExternal" onchange="applyFilters()"><option value="">All GEC External</option></select>
         <button class="add-btn admin-only" id="addStudentBtn" onclick="openAddStudent()"><i class="ti ti-plus"></i>Add Student</button>
       </div>
       <div class="count-info" id="countBar">Showing 12 of 53 students — click a row or use action buttons</div>
@@ -302,7 +308,7 @@ body.is-admin .admin-only-block{display:block}
           </thead>
           <tbody id="tBody"><tr>
       <td onclick="openView(0)" style="cursor:pointer"><div class="name-cell">Amina Asif</div><div class="id-tag">181796</div></td>
-      <td onclick="openView(0)" style="cursor:pointer">PhD</td>
+      <td onclick="openView(0)" style="cursor:pointer">PhDEE</td>
       <td onclick="openView(0)" style="cursor:pointer">Fall-2018</td>
       <td onclick="openView(0)" style="cursor:pointer"><div style="font-size:13px">Dr. Muhammad Zakwan</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Co: Dr. Muhammad Habib Mahmood</div></td>
       <td onclick="openView(0)" style="cursor:pointer;font-size:13px">Dr. Waseem Khan Dr. Ashfaq Ahmad</td>
@@ -326,7 +332,7 @@ body.is-admin .admin-only-block{display:block}
       </div></td>
     </tr><tr>
       <td onclick="openView(1)" style="cursor:pointer"><div class="name-cell">Bilal Ashraf</div><div class="id-tag">181791</div></td>
-      <td onclick="openView(1)" style="cursor:pointer">PhD</td>
+      <td onclick="openView(1)" style="cursor:pointer">PhDEE</td>
       <td onclick="openView(1)" style="cursor:pointer">Fall-2018</td>
       <td onclick="openView(1)" style="cursor:pointer"><div style="font-size:13px">Dr. Husan Ali</div></td>
       <td onclick="openView(1)" style="cursor:pointer;font-size:13px">Dr. Waseem Khan Dr. Tufail Muhammad (Co-Supervisor) (Co-Supervisor) Dr. Shahbaz Khan (EE. Deptt. AU Kamra Campus)</td>
@@ -350,7 +356,7 @@ body.is-admin .admin-only-block{display:block}
       </div></td>
     </tr><tr>
       <td onclick="openView(2)" style="cursor:pointer"><div class="name-cell">Muhammad Favad Qadir</div><div class="id-tag">181795</div></td>
-      <td onclick="openView(2)" style="cursor:pointer">PhD</td>
+      <td onclick="openView(2)" style="cursor:pointer">PhDEE</td>
       <td onclick="openView(2)" style="cursor:pointer">Fall-2018</td>
       <td onclick="openView(2)" style="cursor:pointer"><div style="font-size:13px">Dr. Muhammad Zakwan</div></td>
       <td onclick="openView(2)" style="cursor:pointer;font-size:13px">Dr. Waseem Khan (Co-Supervisor) Dr. Ahsan Sarwar Rana Dr. Rana Iqditar Shakoor</td>
@@ -374,7 +380,7 @@ body.is-admin .admin-only-block{display:block}
       </div></td>
     </tr><tr>
       <td onclick="openView(3)" style="cursor:pointer"><div class="name-cell">Atif Iftikhar</div><div class="id-tag">191834</div></td>
-      <td onclick="openView(3)" style="cursor:pointer">PhD</td>
+      <td onclick="openView(3)" style="cursor:pointer">PhDEE</td>
       <td onclick="openView(3)" style="cursor:pointer">Fall-2019</td>
       <td onclick="openView(3)" style="cursor:pointer"><div style="font-size:13px">Dr. Ashfaq Ahmad</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Co: Dr. Usman Ali SEECS( NUST) Co-sup</div></td>
       <td onclick="openView(3)" style="cursor:pointer;font-size:13px">Dr. Syed Ahmad Pasha Dr. Muhammad Adil Khan</td>
@@ -398,7 +404,7 @@ body.is-admin .admin-only-block{display:block}
       </div></td>
     </tr><tr>
       <td onclick="openView(4)" style="cursor:pointer"><div class="name-cell">Hussain Asif</div><div class="id-tag">191925</div></td>
-      <td onclick="openView(4)" style="cursor:pointer">PhD</td>
+      <td onclick="openView(4)" style="cursor:pointer">PhDEE</td>
       <td onclick="openView(4)" style="cursor:pointer">Fall-2019</td>
       <td onclick="openView(4)" style="cursor:pointer"><div style="font-size:13px">Dr. Hafiz Ashiq Hussain</div></td>
       <td onclick="openView(4)" style="cursor:pointer;font-size:13px">Dr. Jehanzeb Khan Dr. Bahman</td>
@@ -422,7 +428,7 @@ body.is-admin .admin-only-block{display:block}
       </div></td>
     </tr><tr>
       <td onclick="openView(5)" style="cursor:pointer"><div class="name-cell">Mubashir Rasool</div><div class="id-tag">191830</div></td>
-      <td onclick="openView(5)" style="cursor:pointer">PhD</td>
+      <td onclick="openView(5)" style="cursor:pointer">PhDEE</td>
       <td onclick="openView(5)" style="cursor:pointer">Fall-2019</td>
       <td onclick="openView(5)" style="cursor:pointer"><div style="font-size:13px">Dr. Muhammad Adil Khan</div></td>
       <td onclick="openView(5)" style="cursor:pointer;font-size:13px">Dr. Ashfaq Ahmad Dr.Saad Ullah khan</td>
@@ -446,7 +452,7 @@ body.is-admin .admin-only-block{display:block}
       </div></td>
     </tr><tr>
       <td onclick="openView(6)" style="cursor:pointer"><div class="name-cell">Waleed Manzoor</div><div class="id-tag">191829</div></td>
-      <td onclick="openView(6)" style="cursor:pointer">PhD</td>
+      <td onclick="openView(6)" style="cursor:pointer">PhDEE</td>
       <td onclick="openView(6)" style="cursor:pointer">Fall-2019</td>
       <td onclick="openView(6)" style="cursor:pointer"><div style="font-size:13px">Dr. Nouman Naseer</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Co: Dr. Imran Fareed (Bahria University) Co-Sup</div></td>
       <td onclick="openView(6)" style="cursor:pointer;font-size:13px">Dr. Muhamad Imran Fareed Dr. Syed Hammad Nazeer</td>
@@ -470,7 +476,7 @@ body.is-admin .admin-only-block{display:block}
       </div></td>
     </tr><tr>
       <td onclick="openView(20)" style="cursor:pointer"><div class="name-cell">Imran Hussain</div><div class="id-tag">222522</div></td>
-      <td onclick="openView(20)" style="cursor:pointer">PhD</td>
+      <td onclick="openView(20)" style="cursor:pointer">PhDEE</td>
       <td onclick="openView(20)" style="cursor:pointer">Fall-2022</td>
       <td onclick="openView(20)" style="cursor:pointer"><div style="font-size:13px">Dr. Hafiz Ashiq Hussain</div></td>
       <td onclick="openView(20)" style="cursor:pointer;font-size:13px">Dr. Muhammad Adil Khan</td>
@@ -494,7 +500,7 @@ body.is-admin .admin-only-block{display:block}
       </div></td>
     </tr><tr>
       <td onclick="openView(24)" style="cursor:pointer"><div class="name-cell">Bilal Idrees</div><div class="id-tag">232906</div></td>
-      <td onclick="openView(24)" style="cursor:pointer">PhD</td>
+      <td onclick="openView(24)" style="cursor:pointer">PhDEE</td>
       <td onclick="openView(24)" style="cursor:pointer">Fall-2023</td>
       <td onclick="openView(24)" style="cursor:pointer"><div style="font-size:13px">Dr. Hafiz Ashiq Hussain</div></td>
       <td onclick="openView(24)" style="cursor:pointer;font-size:13px">Dr. Ashfaq Ahmad Dr. Muhammad Adil Khan</td>
@@ -518,7 +524,7 @@ body.is-admin .admin-only-block{display:block}
       </div></td>
     </tr><tr>
       <td onclick="openView(29)" style="cursor:pointer"><div class="name-cell">Haji Ahmed</div><div class="id-tag">243441</div></td>
-      <td onclick="openView(29)" style="cursor:pointer">PhD</td>
+      <td onclick="openView(29)" style="cursor:pointer">PhDEE</td>
       <td onclick="openView(29)" style="cursor:pointer">Fall-2024</td>
       <td onclick="openView(29)" style="cursor:pointer"><div style="font-size:13px">Dr. Muhammad Adil Khan</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Co: Dr. Ashfaq Ahmad</div></td>
       <td onclick="openView(29)" style="cursor:pointer;font-size:13px">Dr. Hafiz Ashiq Hussain Dr. Saad Ullah Khan</td>
@@ -542,7 +548,7 @@ body.is-admin .admin-only-block{display:block}
       </div></td>
     </tr><tr>
       <td onclick="openView(33)" style="cursor:pointer"><div class="name-cell">Sharoze Sohail</div><div class="id-tag">249519</div></td>
-      <td onclick="openView(33)" style="cursor:pointer">PhD</td>
+      <td onclick="openView(33)" style="cursor:pointer">PhDEE</td>
       <td onclick="openView(33)" style="cursor:pointer">Fall-2024</td>
       <td onclick="openView(33)" style="cursor:pointer"><div style="font-size:13px">Dr. Hafiz Ashiq Hussain</div></td>
       <td onclick="openView(33)" style="cursor:pointer;font-size:13px">Dr. Saad Ullah Khan</td>
@@ -566,7 +572,7 @@ body.is-admin .admin-only-block{display:block}
       </div></td>
     </tr><tr>
       <td onclick="openView(48)" style="cursor:pointer"><div class="name-cell">Muhammad Ali Raza</div><div class="id-tag">210145</div></td>
-      <td onclick="openView(48)" style="cursor:pointer">PhD</td>
+      <td onclick="openView(48)" style="cursor:pointer">PhDEE</td>
       <td onclick="openView(48)" style="cursor:pointer">S-2021</td>
       <td onclick="openView(48)" style="cursor:pointer"><div style="font-size:13px">Dr.Ahsan Sarwar Rana</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Co: Dr. Hafiz Ashiq Hussain (Co-Sup)</div></td>
       <td onclick="openView(48)" style="cursor:pointer;font-size:13px">Dr. Sarah Saeed Dr. Saleem Shahid</td>
@@ -598,8 +604,8 @@ body.is-admin .admin-only-block{display:block}
   <div id="tab-supervisors" style="display:none">
     <div class="slots-summary">
       <div class="slot-left">
-        <div class="slot-total"><strong class="ms" id="totalFMS">91</strong>Free MS slots available</div>
-        <div class="slot-total"><strong class="phd" id="totalFPhD">70</strong>Free PhD slots available</div>
+        <div class="slot-total"><strong class="ms" id="totalFMS">91</strong>Free MSEE slots available</div>
+        <div class="slot-total"><strong class="phd" id="totalFPhD">70</strong>Free PhDEE slots available</div>
       </div>
       <button class="add-btn admin-only" onclick="openAddSupervisor()"><i class="ti ti-plus"></i>Add Supervisor</button>
     </div>
@@ -619,12 +625,12 @@ body.is-admin .admin-only-block{display:block}
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">3</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">2</div><div class="sup-stat-l">Free PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">3</div><div class="sup-stat-l">PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">Co-PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">2</div><div class="sup-stat-l">Free PhDEE</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -649,7 +655,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Hussain Asif</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">191925</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhD · Fall-2019</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhDEE · Fall-2019</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">18 Jan, 2023</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -660,7 +666,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Iqra Nawaz</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">211679</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2021</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2021</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">21 Dec, 2023</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">06-11-2024</span></td>
@@ -671,7 +677,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Jawad Bahadur Khan</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">211665</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2021</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2021</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">22 June, 2023</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">04-11-2024</span></td>
@@ -682,7 +688,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Syed Muhammad Qamar Ali Bukhari</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">211664</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2021</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2021</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">16 May, 2024</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">28-04-2025</span></td>
@@ -693,7 +699,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Imran Hussain</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">222522</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhD · Fall-2022</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhDEE · Fall-2022</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">27 Dec, 2023</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">19 May, 2025</span></td>
@@ -704,7 +710,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Bilal Idrees</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">232906</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhD · Fall-2023</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhDEE · Fall-2023</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">-</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -715,7 +721,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Izza Jamal</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">232672</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2023</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2023</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">13 December, 2024</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">18 June, 2025</span></td>
@@ -726,7 +732,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Sharoze Sohail</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">249519</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhD · Fall-2024</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhDEE · Fall-2024</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">Pending</span></td>
@@ -751,12 +757,12 @@ body.is-admin .admin-only-block{display:block}
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">6</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">6</div><div class="sup-stat-l">Free MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhDEE</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -781,7 +787,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Naima Sakhawat</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">230247</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · S-2023</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · S-2023</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">22 Jan, 2025</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">25 March, 2026</span></td>
@@ -806,12 +812,12 @@ body.is-admin .admin-only-block{display:block}
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">6</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">6</div><div class="sup-stat-l">Free MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhDEE</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -836,7 +842,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Danish Zahoor</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">211668</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2021</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2021</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">4th Jan, 2024</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">12 June, 2025</span></td>
@@ -847,7 +853,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Tayyaba Riasat</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">211660</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2021</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2021</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">4th Jan, 2024</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">12 June, 2025</span></td>
@@ -858,7 +864,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Asif Habib</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">222263</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2022</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2022</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">21-01-2025</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">07 May, 2026</span></td>
@@ -869,7 +875,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Muhammad Luqman</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">230393</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · S-2023</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · S-2023</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">19 Dec, 2024</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">15 August, 2025</span></td>
@@ -894,12 +900,12 @@ body.is-admin .admin-only-block{display:block}
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">6</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">6</div><div class="sup-stat-l">Free MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhDEE</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -924,7 +930,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Fahad Naseer</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">243068</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2024</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2024</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -949,12 +955,12 @@ body.is-admin .admin-only-block{display:block}
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhDEE</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -993,12 +999,12 @@ body.is-admin .admin-only-block{display:block}
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhDEE</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -1037,12 +1043,12 @@ body.is-admin .admin-only-block{display:block}
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">3</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">2</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">4</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">4</div><div class="sup-stat-l">Free PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">3</div><div class="sup-stat-l">MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">2</div><div class="sup-stat-l">Co-MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">4</div><div class="sup-stat-l">Free MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">4</div><div class="sup-stat-l">Free PhDEE</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -1067,7 +1073,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Mubashir Rasool</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">191830</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhD · Fall-2019</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhDEE · Fall-2019</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">21st Jan, 2022</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">03 July, 2025</span></td>
@@ -1078,7 +1084,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Haseeb Rustam</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">211677</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2021</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2021</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">1st Nov, 2023</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">22 May, 2025</span></td>
@@ -1089,7 +1095,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Khushal Khan</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">211663</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2021</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2021</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">12 June, 2024</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="b-dash">—</span></td>
@@ -1100,7 +1106,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Ikhlaq Hussain</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">222260</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2022</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2022</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">2025-01-28 00:00:00</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1111,7 +1117,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Wajeeha Sajid</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">232668</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2023</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2023</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">Pending</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1122,7 +1128,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Haji Ahmed</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">243441</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhD · Fall-2024</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhDEE · Fall-2024</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1133,7 +1139,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Syed Taha Ahmed Zaidi</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504372</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2024</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2024</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1144,7 +1150,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Khushbakht Sajid</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504379</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1155,7 +1161,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Maha Masood Abbasi</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504376</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1166,7 +1172,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Rizwan Ahmad</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504384</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1177,7 +1183,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Usama Iftikhar</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">240323</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · S-2024</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · S-2024</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="b-dash">—</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="b-dash">—</span></td>
@@ -1202,12 +1208,12 @@ body.is-admin .admin-only-block{display:block}
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhDEE</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -1232,7 +1238,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Ayesha Qaiser Hashmi</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">222255</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2022</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2022</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">25th April, 2024</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">21-01-2025</span></td>
@@ -1257,12 +1263,12 @@ body.is-admin .admin-only-block{display:block}
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">6</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">6</div><div class="sup-stat-l">Free MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhDEE</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -1287,7 +1293,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Muhammad Hamza Waris</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">222259</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2022</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2022</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">2025-01-24 00:00:00</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1312,12 +1318,12 @@ body.is-admin .admin-only-block{display:block}
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">4</div><div class="sup-stat-l">Free PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">4</div><div class="sup-stat-l">Free PhDEE</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -1342,7 +1348,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Khizar Humayun</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504380</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1367,12 +1373,12 @@ body.is-admin .admin-only-block{display:block}
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">6</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">1</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">6</div><div class="sup-stat-l">MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">Co-PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">1</div><div class="sup-stat-l">Free MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhDEE</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -1397,7 +1403,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Atif Iftikhar</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">191834</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhD · Fall-2019</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhDEE · Fall-2019</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">28 Dec, 2022</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="b-dash">—</span></td>
@@ -1408,7 +1414,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Hassan Farooq</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">201619</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2020</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2020</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">17 Jan, 2023</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">17-Jan-2025</span></td>
@@ -1419,7 +1425,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Ikhlaq Hussain</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">222260</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2022</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2022</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">2025-01-28 00:00:00</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1430,7 +1436,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Muhammad Hamza Waris</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">222259</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2022</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2022</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">2025-01-24 00:00:00</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1441,7 +1447,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Wajeeha Sajid</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">232668</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2023</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2023</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">Pending</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1452,7 +1458,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Haji Ahmed</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">243441</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhD · Fall-2024</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhDEE · Fall-2024</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1463,7 +1469,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Shah Zaib Sawal</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">243066</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2024</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2024</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1474,7 +1480,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Syed Taha Ahmed Zaidi</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504372</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2024</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2024</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1485,7 +1491,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Khizar Humayun</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504380</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1496,7 +1502,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Khushbakht Sajid</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504379</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1507,7 +1513,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Maha Masood Abbasi</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504376</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1518,7 +1524,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Rizwan Ahmad</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504384</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1529,7 +1535,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Meerub Khalil</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">240325</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · S-2024</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · S-2024</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1554,12 +1560,12 @@ body.is-admin .admin-only-block{display:block}
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">6</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">6</div><div class="sup-stat-l">Free MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhDEE</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -1584,7 +1590,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Ahsan Islam</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">232671</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2023</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2023</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-done">Done</span><span style="font-size:10px;color:var(--text3);display:block;margin-top:2px">08 July, 2025</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1595,7 +1601,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Muhammad Naveed Kiyani</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">243065</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2024</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2024</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="b-dash">—</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="b-dash">—</span></td>
@@ -1606,7 +1612,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Saniya Mubasher</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">249521</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2024</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2024</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="b-dash">—</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="b-dash">—</span></td>
@@ -1617,7 +1623,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Taha</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">243069</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2024</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2024</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1628,7 +1634,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Abdul Rahman Liaqat Ch</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504383</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1639,7 +1645,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Muhammad Aqib Javed</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504374</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1664,12 +1670,12 @@ body.is-admin .admin-only-block{display:block}
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhDEE</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -1694,7 +1700,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Badar Mahmood</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504382</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1705,7 +1711,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Humaira</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504375</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1730,12 +1736,12 @@ body.is-admin .admin-only-block{display:block}
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">1</div><div class="sup-stat-l">Co-MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhDEE</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -1760,7 +1766,7 @@ body.is-admin .admin-only-block{display:block}
           <div style="font-weight:600">Mohib Ali Khan</div>
           <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504381</div>
         </td>
-        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MS · Fall-2025</td>
+        <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)"><span class="badge b-pending">Pending</span></td>
@@ -1785,12 +1791,12 @@ body.is-admin .admin-only-block{display:block}
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n">0</div><div class="sup-stat-l">Co-PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhDEE</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -1823,7 +1829,7 @@ body.is-admin .admin-only-block{display:block}
   <div class="modal-header">
     <button class="modal-close" onclick="closeModal()"><i class="ti ti-x"></i></button>
     <div class="modal-name">Edit Student</div>
-    <div class="modal-meta">191834 · PhD · Fall-2019</div>
+    <div class="modal-meta">191834 · PhDEE · Fall-2019</div>
   </div>
   <div class="modal-body">
     <div class="edit-form">
@@ -1834,8 +1840,10 @@ body.is-admin .admin-only-block{display:block}
       <div class="form-3col">
         <div class="form-row"><label>Degree *</label>
           <select id="f-degree">
-            <option value="PhD" selected="">PhD</option>
-            <option value="MS">MS</option>
+            <option value="PhDEE" selected="">PhDEE</option>
+            <option value="MSCE">MSCE</option>
+            <option value="PhDCE">PhDCE</option>
+            <option value="MSEE">MSEE</option>
           </select>
         </div>
         <div class="form-row"><label>Session *</label><input id="f-session" value="Fall-2019" placeholder="e.g. Fall-2024"></div>
@@ -1944,11 +1952,11 @@ let STUDENTS = [
     "name": "Amina Asif",
     "id": "181796",
     "session": "Fall-2018",
-    "degree": "PhD",
+    "degree": "PhDEE",
     "sup": "Dr. Muhammad Zakwan",
     "cosup": "Dr. Muhammad Habib Mahmood",
     "gecInternal": "Dr. Waseem Khan Dr. Ashfaq Ahmad",
-    "gecExternal": "Dr. Arsalan Shaukat (External) (NUST)",
+    "gecExternal": "Dr. Arsalan Shaukat (NUST)",
     "topic": "Computer Vision/Deep Learning",
     "pde": "Done",
     "pdeDate": "03 Jan, 2022",
@@ -1965,11 +1973,11 @@ let STUDENTS = [
     "name": "Bilal Ashraf",
     "id": "181791",
     "session": "Fall-2018",
-    "degree": "PhD",
+    "degree": "PhDEE",
     "sup": "Dr. Husan Ali",
     "cosup": "",
-    "gecInternal": "Dr. Waseem Khan Dr. Tufail Muhammad (Co-Supervisor) (Co-Supervisor) Dr. Shahbaz Khan (EE. Deptt. AU Kamra Campus)",
-    "gecExternal": "Dr. Dur-E-Zehra Baig (External Member) (GIKI)",
+    "gecInternal": "Dr. Tufail Muhammad Dr. Shahbaz Khan",
+    "gecExternal": "Dr. Dur-E-Zehra Baig (GIKI)",
     "topic": "Cardiac Arrhythmia Classification for Imbalanced Data in the Presence of Noise Exploiting Deep Feature Embeddings",
     "pde": "Done",
     "pdeDate": "27 Dec, 2021",
@@ -1986,10 +1994,10 @@ let STUDENTS = [
     "name": "Muhammad Favad Qadir",
     "id": "181795",
     "session": "Fall-2018",
-    "degree": "PhD",
+    "degree": "PhDEE",
     "sup": "Dr. Muhammad Zakwan",
     "cosup": "",
-    "gecInternal": "Dr. Waseem Khan (Co-Supervisor) Dr. Ahsan Sarwar Rana Dr. Rana Iqditar Shakoor",
+    "gecInternal": "Dr. Ahsan Sarwar Rana Dr. Rana Iqditar Shakoor",
     "gecExternal": "Dr. Taimoor Naeem (COMSATS)",
     "topic": "Design, Simulation and characterization of Silicon on Insulator (SoI) based Multi-Parameters Optical Sensing Systems",
     "pde": "Done",
@@ -2006,13 +2014,13 @@ let STUDENTS = [
   {
     "name": "Atif Iftikhar",
     "id": "191834",
-    "degree": "PhD",
+    "degree": "PhDEE",
     "session": "Fall-2019",
     "status": "Left",
     "sup": "Dr. Ashfaq Ahmad",
-    "cosup": "Dr. Usman Ali SEECS( NUST) Co-sup",
-    "gecInternal": "Dr. Syed Ahmad Pasha Dr. Muhammad Adil Khan",
-    "gecExternal": "Dr. Rasool Bakhsh (CUI)",
+    "cosup": "Dr. Usman Ali",
+    "gecInternal": "Dr. Syed Ahmed Pasha Dr. Muhammad Adil Khan",
+    "gecExternal": "Dr. Rasool Bukhsh (CUI)",
     "gecFormation": "",
     "gecChange": "",
     "extension": "",
@@ -2029,7 +2037,7 @@ let STUDENTS = [
     "name": "Hussain Asif",
     "id": "191925",
     "session": "Fall-2019",
-    "degree": "PhD",
+    "degree": "PhDEE",
     "sup": "Dr. Hafiz Ashiq Hussain",
     "cosup": "",
     "gecInternal": "Dr. Jehanzeb Khan Dr. Bahman",
@@ -2050,11 +2058,11 @@ let STUDENTS = [
     "name": "Mubashir Rasool",
     "id": "191830",
     "session": "Fall-2019",
-    "degree": "PhD",
+    "degree": "PhDEE",
     "sup": "Dr. Muhammad Adil Khan",
     "cosup": "",
-    "gecInternal": "Dr. Ashfaq Ahmad Dr.Saad Ullah khan",
-    "gecExternal": "Dr. Muhammad Amir (Bharia)",
+    "gecInternal": "Dr. Ashfaq Ahmad Dr. Saad Ullah Khan",
+    "gecExternal": "Dr. Muhammad Amir (BU)",
     "topic": "Optimal Energy Management and Control Strategies for Hybrid Electrical Vechicles",
     "pde": "Done",
     "pdeDate": "21st Jan, 2022",
@@ -2071,10 +2079,10 @@ let STUDENTS = [
     "name": "Waleed Manzoor",
     "id": "191829",
     "session": "Fall-2019",
-    "degree": "PhD",
+    "degree": "PhDEE",
     "sup": "Dr. Nouman Naseer",
-    "cosup": "Dr. Imran Fareed (Bahria University) Co-Sup",
-    "gecInternal": "Dr. Muhamad Imran Fareed Dr. Syed Hammad Nazeer",
+    "cosup": "Dr. Imran Farid",
+    "gecInternal": "Dr. Imran Farid Dr. Syed Hammad Nazeer",
     "gecExternal": "Dr. Usman Akram (NUST)",
     "topic": "Mental Workload Detection and Assessment using Brain Signals",
     "pde": "Done",
@@ -2092,11 +2100,11 @@ let STUDENTS = [
     "name": "Hassan Farooq",
     "id": "201619",
     "session": "Fall-2020",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Ashfaq Ahmad",
-    "cosup": "Dr. Jehanzeb Khan (Co)",
+    "cosup": "Dr. Jehanzeb Khan",
     "gecInternal": "Dr. Ahsan Sarwar Rana Dr. Muntazir Hussain",
-    "gecExternal": "Dr. Rasool Bukhsh (Comsats)",
+    "gecExternal": "Dr. Rasool Bukhsh (COMSATS)",
     "topic": "Investigating Hierarchical Neighbourhood Influence for Managing Electric Vehicles in Power Systems",
     "pde": "Done",
     "pdeDate": "17 Jan, 2023",
@@ -2113,12 +2121,12 @@ let STUDENTS = [
     "name": "Danish Zahoor",
     "id": "211668",
     "session": "Fall-2021",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Imran Farid",
-    "cosup": "Dr. Mehdi Hassan (Co)",
+    "cosup": "Dr. Mehdi Hassan",
     "gecInternal": "Dr. Syed Ahmed Pasha Dr. Najam Dar",
-    "gecExternal": "Dr. Arsalan Shukat (NUST)",
-    "topic": "Auxiliary Learning for Multi-task Deep Neural Network",
+    "gecExternal": "Dr. Arsalan Shaukat (NUST)",
+    "topic": "Auxiliary Learning for Multi-task Deep Neural\u00a0Network",
     "pde": "Done",
     "pdeDate": "4th Jan, 2024",
     "fde": "Done",
@@ -2134,7 +2142,7 @@ let STUDENTS = [
     "name": "Fatima Humayun",
     "id": "211861",
     "session": "Fall-2021",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Course Work",
     "cosup": "",
     "gecInternal": "",
@@ -2155,11 +2163,11 @@ let STUDENTS = [
     "name": "Haseeb Rustam",
     "id": "211677",
     "session": "Fall-2021",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Muhammad Adil Khan",
     "cosup": "",
     "gecInternal": "Dr. Saad Ullah Khan Dr. Ashfaq Ahmad",
-    "gecExternal": "Dr. Kamran (NUST)",
+    "gecExternal": "Dr. Kamran Zeb (NUST)",
     "topic": "Optimal Demand Response Air Conditioning",
     "pde": "Done",
     "pdeDate": "1st Nov, 2023",
@@ -2176,7 +2184,7 @@ let STUDENTS = [
     "name": "Iqra Nawaz",
     "id": "211679",
     "session": "Fall-2021",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Hafiz Ashiq Hussain",
     "cosup": "",
     "gecInternal": "Dr. Muhammad Adil Khan",
@@ -2197,10 +2205,10 @@ let STUDENTS = [
     "name": "Jawad Bahadur Khan",
     "id": "211665",
     "session": "Fall-2021",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Hafiz Ashiq Hussain",
     "cosup": "",
-    "gecInternal": "Dr. Muhammad Adil",
+    "gecInternal": "Dr. Muhammad Adil Khan",
     "gecExternal": "Dr. M.Rehan (PIEAS)",
     "topic": "Consensus control of nonlinear Multi- Agents systems with Time Delay",
     "pde": "Done",
@@ -2217,13 +2225,13 @@ let STUDENTS = [
   {
     "name": "Khushal Khan",
     "id": "211663",
-    "degree": "MS",
+    "degree": "MSEE",
     "session": "Fall-2021",
     "status": "Left",
     "sup": "Dr. Muhammad Adil Khan",
-    "cosup": "Dr. Saad Ullah Khan (Co)",
-    "gecInternal": "Dr. Ashfaq Ahmed Dr. Jehanzeb Khan",
-    "gecExternal": "Dr. Waqaruddin (NUST)",
+    "cosup": "Dr. Saad Ullah Khan",
+    "gecInternal": "Dr. Ashfaq Ahmad Dr. Jehanzeb Khan",
+    "gecExternal": "Dr. Waqaruddin (NUTECH)",
     "gecFormation": "",
     "gecChange": "",
     "extension": "",
@@ -2239,7 +2247,7 @@ let STUDENTS = [
     "name": "Maham Imran",
     "id": "211671",
     "session": "Fall-2021",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Course Work",
     "cosup": "",
     "gecInternal": "",
@@ -2260,7 +2268,7 @@ let STUDENTS = [
     "name": "Syed Muhammad Qamar Ali Bukhari",
     "id": "211664",
     "session": "Fall-2021",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Hafiz Ashiq Hussain",
     "cosup": "",
     "gecInternal": "Dr. Muhammad Adil Khan",
@@ -2281,10 +2289,10 @@ let STUDENTS = [
     "name": "Tayyaba Riasat",
     "id": "211660",
     "session": "Fall-2021",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Imran Farid",
-    "cosup": "Dr. Mehdi Hassan (Co)",
-    "gecInternal": "Dr. M. Zaheer",
+    "cosup": "Dr. Mehdi Hassan",
+    "gecInternal": "Dr. Muhammad Zaheer",
     "gecExternal": "Dr. Zartasha Mustansar (NUST)",
     "topic": "Deep Convolutional Generative Adversarial Networks for Skin Cancer Application",
     "pde": "Done",
@@ -2301,7 +2309,7 @@ let STUDENTS = [
   {
     "name": "Asif Habib",
     "id": "222263",
-    "degree": "MS",
+    "degree": "MSEE",
     "session": "Fall-2022",
     "status": "Completed",
     "sup": "Dr. Imran Farid",
@@ -2323,9 +2331,9 @@ let STUDENTS = [
     "name": "Ayesha Qaiser Hashmi",
     "id": "222255",
     "session": "Fall-2022",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Muhammad Zaheer",
-    "cosup": "Dr. Ahsan Sarwar Rana (Co)",
+    "cosup": "Dr. Ahsan Sarwar Rana",
     "gecInternal": "Dr. Imran Farid",
     "gecExternal": "Dr. Usman Hashmi (Iqra University)",
     "topic": "Optimization of Embedding Locations for Capacity Enhancement in Image Steganography",
@@ -2344,10 +2352,10 @@ let STUDENTS = [
     "name": "Ikhlaq Hussain",
     "id": "222260",
     "session": "Fall-2022",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Ashfaq Ahmad",
     "cosup": "Dr. Muhammad Adil Khan",
-    "gecInternal": "Dr. Ahsan Sarwar",
+    "gecInternal": "Dr. Ahsan Sarwar Rana",
     "gecExternal": "Dr. Syed Ali Abbas Kazmi (NUST)",
     "topic": "",
     "pde": "Done",
@@ -2365,7 +2373,7 @@ let STUDENTS = [
     "name": "Imran Hussain",
     "id": "222522",
     "session": "Fall-2022",
-    "degree": "PhD",
+    "degree": "PhDEE",
     "sup": "Dr. Hafiz Ashiq Hussain",
     "cosup": "",
     "gecInternal": "Dr. Muhammad Adil Khan",
@@ -2386,7 +2394,7 @@ let STUDENTS = [
     "name": "Muhammad Hamza Waris",
     "id": "222259",
     "session": "Fall-2022",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Ashfaq Ahmad",
     "cosup": "Dr. Saad Ullah Khan",
     "gecInternal": "Dr. Muhammad Adil Khan",
@@ -2407,8 +2415,8 @@ let STUDENTS = [
     "name": "Muhammad Jawad Iqbal",
     "id": "222261",
     "session": "Fall-2022",
-    "degree": "MS",
-    "sup": "Dr.Saad Ullah Khan",
+    "degree": "MSEE",
+    "sup": "Dr. Saad Ullah Khan",
     "cosup": "",
     "gecInternal": "Dr. Muntazir Hussain Dr. Ashfaq Ahmad",
     "gecExternal": "Dr. Syed Ali Abbas Kazmi (NUST)",
@@ -2428,11 +2436,11 @@ let STUDENTS = [
     "name": "Ahsan Islam",
     "id": "232671",
     "session": "Fall-2023",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Mumajid",
     "cosup": "",
     "gecInternal": "Dr. Imran Farid",
-    "gecExternal": "Dr. Adil Ali Raja",
+    "gecExternal": "Dr. Adil Ali Raja (BU)",
     "topic": "",
     "pde": "Done",
     "pdeDate": "08 July, 2025",
@@ -2449,11 +2457,11 @@ let STUDENTS = [
     "name": "Bilal Idrees",
     "id": "232906",
     "session": "Fall-2023",
-    "degree": "PhD",
+    "degree": "PhDEE",
     "sup": "Dr. Hafiz Ashiq Hussain",
     "cosup": "",
     "gecInternal": "Dr. Ashfaq Ahmad Dr. Muhammad Adil Khan",
-    "gecExternal": "Prof. Dr. Asad Waqar (Bahria University",
+    "gecExternal": "Dr. Asad Waqar (BU)",
     "topic": "",
     "pde": "Pending",
     "pdeDate": "-",
@@ -2470,7 +2478,7 @@ let STUDENTS = [
     "name": "Bushra Batool",
     "id": "232670",
     "session": "Fall-2023",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Bahman R. Alyaei",
     "cosup": "",
     "gecInternal": "Dr. Sara Saeed Dr. Ayesha Salman",
@@ -2491,7 +2499,7 @@ let STUDENTS = [
     "name": "Izza Jamal",
     "id": "232672",
     "session": "Fall-2023",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Hafiz Ashiq Hussain",
     "cosup": "",
     "gecInternal": "Dr. Saad Ullah Khan Dr. Muhammad Adil Khan",
@@ -2512,7 +2520,7 @@ let STUDENTS = [
     "name": "Wajeeha Sajid",
     "id": "232668",
     "session": "Fall-2023",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Ashfaq Ahmad",
     "cosup": "Dr. Muhammad Adil Khan",
     "gecInternal": "Dr. Ahsan Sarwar Rana",
@@ -2533,7 +2541,7 @@ let STUDENTS = [
     "name": "Fahad Naseer",
     "id": "243068",
     "session": "Fall-2024",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Waseem Khan",
     "cosup": "",
     "gecInternal": "Dr. Muhammad Zaheer Dr. Ashfaq Ahmad",
@@ -2554,7 +2562,7 @@ let STUDENTS = [
     "name": "Haji Ahmed",
     "id": "243441",
     "session": "Fall-2024",
-    "degree": "PhD",
+    "degree": "PhDEE",
     "sup": "Dr. Muhammad Adil Khan",
     "cosup": "Dr. Ashfaq Ahmad",
     "gecInternal": "Dr. Hafiz Ashiq Hussain Dr. Saad Ullah Khan",
@@ -2575,10 +2583,10 @@ let STUDENTS = [
     "name": "Muhammad Naveed Kiyani",
     "id": "243065",
     "session": "Fall-2024",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Mumajid",
     "cosup": "",
-    "gecInternal": "Dr. Adil Khan",
+    "gecInternal": "Dr. Muhammad Adil Khan",
     "gecExternal": "Dr. Adil Ali Raja (BU)",
     "topic": "",
     "pde": "",
@@ -2596,10 +2604,10 @@ let STUDENTS = [
     "name": "Saniya Mubasher",
     "id": "249521",
     "session": "Fall-2024",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Mumajid",
-    "cosup": "LEFT",
-    "gecInternal": "Dr. Bahman R .A",
+    "cosup": "",
+    "gecInternal": "Dr. Bahman R. Alyaei",
     "gecExternal": "Dr. Adil Ali Raja (BU)",
     "topic": "",
     "pde": "",
@@ -2617,11 +2625,11 @@ let STUDENTS = [
     "name": "Shah Zaib Sawal",
     "id": "243066",
     "session": "Fall-2024",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Ashfaq Ahmad",
-    "cosup": "Dr. Adil Khan",
+    "cosup": "Dr. Muhammad Adil Khan",
     "gecInternal": "Dr. Ahsan Sarwar Rana",
-    "gecExternal": "Dr. Rasool Bukhsh (CUI",
+    "gecExternal": "Dr. Rasool Bukhsh (CUI)",
     "topic": "",
     "pde": "Pending",
     "pdeDate": "",
@@ -2638,7 +2646,7 @@ let STUDENTS = [
     "name": "Sharoze Sohail",
     "id": "249519",
     "session": "Fall-2024",
-    "degree": "PhD",
+    "degree": "PhDEE",
     "sup": "Dr. Hafiz Ashiq Hussain",
     "cosup": "",
     "gecInternal": "Dr. Saad Ullah Khan",
@@ -2659,7 +2667,7 @@ let STUDENTS = [
     "name": "Syed Taha Ahmed Zaidi",
     "id": "2504372",
     "session": "Fall-2024",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Muhammad Adil Khan",
     "cosup": "Dr. Ashfaq Ahmad",
     "gecInternal": "Dr. Jehanzeb Khan",
@@ -2680,7 +2688,7 @@ let STUDENTS = [
     "name": "Taha",
     "id": "243069",
     "session": "Fall-2024",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Mumajid",
     "cosup": "",
     "gecInternal": "Dr. Muhammad Zaheer",
@@ -2701,11 +2709,11 @@ let STUDENTS = [
     "name": "Abdul Rahman Liaqat Ch",
     "id": "2504383",
     "session": "Fall-2025",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Mumajid",
-    "cosup": "-",
+    "cosup": "",
     "gecInternal": "Dr. Imran Farid Dr. Muhammad Zaheer",
-    "gecExternal": "Dr. Adil Ali (BU)",
+    "gecExternal": "Dr. Adil Ali Raja (BU)",
     "topic": "",
     "pde": "Pending",
     "pdeDate": "",
@@ -2722,9 +2730,9 @@ let STUDENTS = [
     "name": "Badar Mahmood",
     "id": "2504382",
     "session": "Fall-2025",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Sher Ali",
-    "cosup": "-",
+    "cosup": "",
     "gecInternal": "Dr. Jehanzeb Khan",
     "gecExternal": "Dr. Awais Shahid (CUST)",
     "topic": "",
@@ -2743,7 +2751,7 @@ let STUDENTS = [
     "name": "Haseeb Hussain",
     "id": "2504377",
     "session": "Fall-2025",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "",
     "cosup": "",
     "gecInternal": "",
@@ -2764,9 +2772,9 @@ let STUDENTS = [
     "name": "Humaira",
     "id": "2504375",
     "session": "Fall-2025",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Sher Ali",
-    "cosup": "-",
+    "cosup": "",
     "gecInternal": "Dr. Amina Asif",
     "gecExternal": "Dr. Muhammad Sohail (NUST)",
     "topic": "",
@@ -2785,7 +2793,7 @@ let STUDENTS = [
     "name": "Khizar Humayun",
     "id": "2504380",
     "session": "Fall-2025",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Ashfaq Ahmad",
     "cosup": "Dr. Ahsan Sarwar Rana",
     "gecInternal": "Dr. Muhammad Zaheer Dr. Jehanzeb Khan",
@@ -2806,7 +2814,7 @@ let STUDENTS = [
     "name": "Khushbakht Sajid",
     "id": "2504379",
     "session": "Fall-2025",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Ashfaq Ahmad",
     "cosup": "Dr. Muhammad Adil Khan",
     "gecInternal": "Dr. Ahsan Sarwar Rana",
@@ -2827,7 +2835,7 @@ let STUDENTS = [
     "name": "Maha Masood Abbasi",
     "id": "2504376",
     "session": "Fall-2025",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Muhammad Adil Khan",
     "cosup": "Dr. Ashfaq Ahmad",
     "gecInternal": "Dr. Ahsan Sarwar Rana",
@@ -2848,9 +2856,9 @@ let STUDENTS = [
     "name": "Mohib Ali Khan",
     "id": "2504381",
     "session": "Fall-2025",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Jehanzeb Khan",
-    "cosup": "-",
+    "cosup": "",
     "gecInternal": "Dr. Sher Ali",
     "gecExternal": "Dr. Awais Shahid (CUST)",
     "topic": "",
@@ -2869,11 +2877,11 @@ let STUDENTS = [
     "name": "Muhammad Aqib Javed",
     "id": "2504374",
     "session": "Fall-2025",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Mumajid",
-    "cosup": "-",
-    "gecInternal": "Dr. Muhammad Zaheer Dr. M.Imran Farid",
-    "gecExternal": "Dr. Adil Ali (BU)",
+    "cosup": "",
+    "gecInternal": "Dr. Muhammad Zaheer Dr. Imran Farid",
+    "gecExternal": "Dr. Adil Ali Raja (BU)",
     "topic": "",
     "pde": "Pending",
     "pdeDate": "",
@@ -2890,7 +2898,7 @@ let STUDENTS = [
     "name": "Muhammad Rayan Zafar",
     "id": "2504378",
     "session": "Fall-2025",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "",
     "cosup": "",
     "gecInternal": "",
@@ -2911,10 +2919,10 @@ let STUDENTS = [
     "name": "Rizwan Ahmad",
     "id": "2504384",
     "session": "Fall-2025",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Muhammad Adil Khan",
     "cosup": "Dr. Ashfaq Ahmad",
-    "gecInternal": "Dr. Shahzad Ahmad",
+    "gecInternal": "Dr. Shahzad",
     "gecExternal": "Dr. Kamran Zeb (NUST)",
     "topic": "",
     "pde": "Pending",
@@ -2932,7 +2940,7 @@ let STUDENTS = [
     "name": "Syed Muhammad Tayyab",
     "id": "2504373",
     "session": "Fall-2025",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "",
     "cosup": "",
     "gecInternal": "",
@@ -2953,9 +2961,9 @@ let STUDENTS = [
     "name": "Muhammad Ali Raza",
     "id": "210145",
     "session": "S-2021",
-    "degree": "PhD",
-    "sup": "Dr.Ahsan Sarwar Rana",
-    "cosup": "Dr. Hafiz Ashiq Hussain (Co-Sup)",
+    "degree": "PhDEE",
+    "sup": "Dr. Ahsan Sarwar Rana",
+    "cosup": "Dr. Hafiz Ashiq Hussain",
     "gecInternal": "Dr. Sarah Saeed Dr. Saleem Shahid",
     "gecExternal": "Dr. Khurram Saleem",
     "topic": "Design and Investigation of Optical Metasurfaces for Energy Harvesting and Sensing Applications",
@@ -2974,10 +2982,10 @@ let STUDENTS = [
     "name": "Muhammad Luqman",
     "id": "230393",
     "session": "S-2023",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Imran Farid",
     "cosup": "",
-    "gecInternal": "Dr. Syed Ahmad Pasha",
+    "gecInternal": "Dr. Syed Ahmed Pasha",
     "gecExternal": "Dr. Zartasha Mustansar (NUST)",
     "topic": "Human Brain Tumor Hyperspectral Data Segmentation using Graph Neutral Network",
     "pde": "Done",
@@ -2994,7 +3002,7 @@ let STUDENTS = [
   {
     "name": "Naima Sakhawat",
     "id": "230247",
-    "degree": "MS",
+    "degree": "MSEE",
     "session": "S-2023",
     "status": "Completed",
     "sup": "Dr. Syed Ahmed Pasha",
@@ -3016,11 +3024,11 @@ let STUDENTS = [
     "name": "Meerub Khalil",
     "id": "240325",
     "session": "S-2024",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Ashfaq Ahmad",
-    "cosup": "Dr. Adil Khan",
-    "gecInternal": "Dr. Muhammad Zahee",
-    "gecExternal": "Dr. Rasool Bukhsh (CUI",
+    "cosup": "Dr. Muhammad Adil Khan",
+    "gecInternal": "Dr. Muhammad Zaheer",
+    "gecExternal": "Dr. Rasool Bukhsh (CUI)",
     "topic": "",
     "pde": "Pending",
     "pdeDate": "",
@@ -3037,11 +3045,11 @@ let STUDENTS = [
     "name": "Usama Iftikhar",
     "id": "240323",
     "session": "S-2024",
-    "degree": "MS",
+    "degree": "MSEE",
     "sup": "Dr. Muhammad Adil Khan",
     "cosup": "",
     "gecInternal": "Dr. Ashfaq Ahmad Dr. Saad Ullah Khan",
-    "gecExternal": "Dr. Waqar uddin (NUTECH)",
+    "gecExternal": "Dr. Waqaruddin (NUTECH)",
     "topic": "",
     "pde": "",
     "pdeDate": "",
@@ -3063,8 +3071,8 @@ let SUPERVISORS = [
     "phd": "2011",
     "status": "HEC Approved",
     "area": "Optical Networks, Fiber Communication",
-    "ms": 0,
-    "phds": 3,
+    "ms": 4,
+    "phds": 4,
     "coms": 0,
     "cophd": 1,
     "fms": 7,
@@ -3080,7 +3088,7 @@ let SUPERVISORS = [
     "phds": 0,
     "coms": 0,
     "cophd": 0,
-    "fms": 6,
+    "fms": 7,
     "fphd": 5
   },
   {
@@ -3089,11 +3097,11 @@ let SUPERVISORS = [
     "phd": "2015",
     "status": "HEC Approved",
     "area": "Image Processing",
-    "ms": 1,
+    "ms": 4,
     "phds": 0,
     "coms": 0,
-    "cophd": 0,
-    "fms": 6,
+    "cophd": 1,
+    "fms": 7,
     "fphd": 5
   },
   {
@@ -3141,9 +3149,9 @@ let SUPERVISORS = [
     "phd": "Aug 2018",
     "status": "HEC Approved",
     "area": "Power Transmission System",
-    "ms": 3,
-    "phds": 1,
-    "coms": 2,
+    "ms": 6,
+    "phds": 2,
+    "coms": 5,
     "cophd": 0,
     "fms": 4,
     "fphd": 4
@@ -3154,7 +3162,7 @@ let SUPERVISORS = [
     "phd": "Mar 2018",
     "status": "Applied",
     "area": "Steganography / Communication",
-    "ms": 0,
+    "ms": 1,
     "phds": 0,
     "coms": 0,
     "cophd": 0,
@@ -3169,9 +3177,9 @@ let SUPERVISORS = [
     "area": "Power System Component Modelling",
     "ms": 1,
     "phds": 0,
-    "coms": 0,
+    "coms": 2,
     "cophd": 0,
-    "fms": 6,
+    "fms": 7,
     "fphd": 5
   },
   {
@@ -3182,7 +3190,7 @@ let SUPERVISORS = [
     "area": "Optoelectronics",
     "ms": 0,
     "phds": 1,
-    "coms": 0,
+    "coms": 2,
     "cophd": 0,
     "fms": 7,
     "fphd": 4
@@ -3193,11 +3201,11 @@ let SUPERVISORS = [
     "phd": "2020",
     "status": "HEC Approved",
     "area": "Power System & Machine Learning",
-    "ms": 6,
-    "phds": 0,
-    "coms": 0,
+    "ms": 8,
+    "phds": 1,
+    "coms": 3,
     "cophd": 1,
-    "fms": 1,
+    "fms": 0,
     "fphd": 5
   },
   {
@@ -3206,11 +3214,11 @@ let SUPERVISORS = [
     "phd": "2022",
     "status": "HEC Approved",
     "area": "Internet of Things (IoT)",
-    "ms": 1,
+    "ms": 6,
     "phds": 0,
     "coms": 0,
     "cophd": 0,
-    "fms": 6,
+    "fms": 3,
     "fphd": 5
   },
   {
@@ -3219,11 +3227,11 @@ let SUPERVISORS = [
     "phd": "2019",
     "status": "HEC Approved",
     "area": "Wireless Communication",
-    "ms": 0,
+    "ms": 2,
     "phds": 0,
     "coms": 0,
     "cophd": 0,
-    "fms": 7,
+    "fms": 5,
     "fphd": 5
   },
   {
@@ -3232,11 +3240,11 @@ let SUPERVISORS = [
     "phd": "2020",
     "status": "Not Approved",
     "area": "Micro-Electro-Mechanical Systems (MEMS)",
-    "ms": 0,
+    "ms": 1,
     "phds": 0,
     "coms": 1,
     "cophd": 0,
-    "fms": 7,
+    "fms": 6,
     "fphd": 5
   },
   {
@@ -3300,7 +3308,11 @@ function studyModeBadge(s){
 
 // ─── Stats ────────────────────────────────────────────────────────────────────
 function buildStats(data){
-  const total=data.length, ms=data.filter(s=>s.degree==="MS").length, phd=data.filter(s=>s.degree==="PhD").length;
+  const total=data.length,
+    msee=data.filter(s=>s.degree==="MSEE").length,
+    phdee=data.filter(s=>s.degree==="PhDEE").length,
+    msce=data.filter(s=>s.degree==="MSCE").length,
+    phdce=data.filter(s=>s.degree==="PhDCE").length;
   const completed=data.filter(s=>s.status.toLowerCase().includes("completed")).length;
   const enrolled=data.filter(s=>s.status.toLowerCase().includes("enrolled")).length;
   const left=data.filter(s=>s.status.toLowerCase().includes("left")).length;
@@ -3311,8 +3323,10 @@ function buildStats(data){
   const courseWork=data.filter(s=>getStudyMode(s)==="Course Work").length;
   document.getElementById("statsGrid").innerHTML=`
     <div class="stat-card"><div class="stat-label">Total</div><div class="stat-value sv-blue">${total}</div></div>
-    <div class="stat-card"><div class="stat-label">MS</div><div class="stat-value sv-purple">${ms}</div></div>
-    <div class="stat-card"><div class="stat-label">PhD</div><div class="stat-value sv-teal">${phd}</div></div>
+    <div class="stat-card"><div class="stat-label">MSEE</div><div class="stat-value sv-purple">${msee}</div></div>
+    <div class="stat-card"><div class="stat-label">PhDEE</div><div class="stat-value sv-teal">${phdee}</div></div>
+    <div class="stat-card"><div class="stat-label">MSCE</div><div class="stat-value sv-purple">${msce}</div></div>
+    <div class="stat-card"><div class="stat-label">PhDCE</div><div class="stat-value sv-teal">${phdce}</div></div>
     <div class="stat-card"><div class="stat-label">Completed</div><div class="stat-value sv-green">${completed}</div></div>
     <div class="stat-card"><div class="stat-label">Enrolled</div><div class="stat-value sv-blue">${enrolled}</div></div>
     <div class="stat-card"><div class="stat-label">Left</div><div class="stat-value sv-coral">${left}</div></div>
@@ -3347,6 +3361,24 @@ function populateFilters(){
     const opts = id==="fFDE" ? ["Done","Pending","CW Done"] : ["Done","Pending"];
     opts.forEach(v=>{const o=document.createElement("option");o.value=v;o.text=v;el.appendChild(o);});
   });
+
+  // GEC Internal filter — extract individual names from potentially multi-name strings
+  const internalNames=[...new Set(
+    STUDENTS.flatMap(s=>(s.gecInternal||"").split(/\s+(?=Dr\.)/))
+      .map(n=>n.trim()).filter(Boolean)
+  )].sort();
+  const fInt=document.getElementById("fGECInternal");
+  fInt.innerHTML='<option value="">All GEC Internal</option>';
+  internalNames.forEach(m=>{const o=document.createElement("option");o.value=m;o.text=m;fInt.appendChild(o);});
+
+  // GEC External filter — extract individual names from potentially multi-name strings
+  const externalNames=[...new Set(
+    STUDENTS.flatMap(s=>(s.gecExternal||"").split(/\s+(?=Dr\.)/))
+      .map(n=>n.trim()).filter(Boolean)
+  )].sort();
+  const fExt=document.getElementById("fGECExternal");
+  fExt.innerHTML='<option value="">All GEC External</option>';
+  externalNames.forEach(m=>{const o=document.createElement("option");o.value=m;o.text=m;fExt.appendChild(o);});
 }
 
 let filtered=[...STUDENTS];
@@ -3359,6 +3391,8 @@ function applyFilters(){
   const pde=document.getElementById("fPDE").value;
   const fde=document.getElementById("fFDE").value;
   const studyMode=document.getElementById("fStudyMode").value;
+  const gecInt=document.getElementById("fGECInternal").value;
+  const gecExt=document.getElementById("fGECExternal").value;
   filtered=STUDENTS.filter(s=>{
     if(q&&!((s.name+" "+s.id+" "+(s.sup||"")+" "+(s.topic||"")+" "+(s.gecInternal||"")+" "+(s.gecExternal||"")).toLowerCase().includes(q)))return false;
     if(deg&&s.degree!==deg)return false;
@@ -3368,6 +3402,8 @@ function applyFilters(){
     if(pde&&s.pde!==pde)return false;
     if(fde&&!(fde==="CW Done"?(s.fde||"").toLowerCase().includes("cw"):s.fde===fde))return false;
     if(studyMode&&getStudyMode(s)!==studyMode)return false;
+    if(gecInt&&!(s.gecInternal||"").includes(gecInt))return false;
+    if(gecExt&&!(s.gecExternal||"").includes(gecExt))return false;
     return true;
   });
   buildStats(filtered);
@@ -3445,6 +3481,115 @@ function openView(idx){
 }
 
 // ─── Edit / Add Student Modal ─────────────────────────────────────────────────
+
+
+function normalizeSupervisorName(name){
+  if(!name) return "";
+
+  let n = name.trim();
+
+  n = n.replace(/\(.*?co.*?\)/ig,'');
+  n = n.replace(/\(co-supervisor\)/ig,'');
+  n = n.replace(/\(co-sup\)/ig,'');
+  n = n.replace(/\s+/g,' ');
+
+  n = n.replace(/Dr\s*\.\s*/ig,'Dr. ');
+  n = n.replace(/Dr\.\s*Ahsan\s+Sarwar\s+Ran$/i,'Dr. Ahsan Sarwar Rana');
+  n = n.replace(/Dr\.\s*Ahsan\s+Sarwar\s+Rana.*$/i,'Dr. Ahsan Sarwar Rana');
+
+  return n.trim();
+}
+
+function normalizeAllSupervisorNames(){
+  STUDENTS.forEach(s=>{
+    s.sup = normalizeSupervisorName(s.sup);
+    s.cosup = normalizeSupervisorName(s.cosup);
+  });
+
+  SUPERVISORS.forEach(s=>{
+    s.name = normalizeSupervisorName(s.name);
+  });
+
+  const uniqueMap = {};
+
+  SUPERVISORS.forEach(s=>{
+    if(!s.name) return;
+
+    if(!uniqueMap[s.name]){
+      uniqueMap[s.name] = s;
+    } else {
+      uniqueMap[s.name].ms += s.ms || 0;
+      uniqueMap[s.name].phds += s.phds || 0;
+      uniqueMap[s.name].coms += s.coms || 0;
+      uniqueMap[s.name].cophd += s.cophd || 0;
+      uniqueMap[s.name].fms += s.fms || 0;
+      uniqueMap[s.name].fphd += s.fphd || 0;
+    }
+  });
+
+  SUPERVISORS.length = 0;
+  Object.values(uniqueMap).forEach(v=>SUPERVISORS.push(v));
+}
+
+function buildNameOptions(type){
+  let items=[];
+  if(type==="supervisor"){
+    items = [
+      ...SUPERVISORS.map(s=>s.name||""),
+      ...STUDENTS.flatMap(s=>[s.sup||"",s.cosup||""])
+    ];
+  } else if(type==="internal"){
+    items = STUDENTS.map(s=>s.gecInternal||"");
+  } else if(type==="external"){
+    items = STUDENTS.map(s=>s.gecExternal||"");
+  }
+  return [...new Set(items.filter(Boolean))]
+    .sort()
+    .map(v=>`<option value="${esc(v)}"></option>`)
+    .join("");
+}
+
+function recalculateSupervisorStats(){
+  SUPERVISORS.forEach(s=>{
+    s.ms = STUDENTS.filter(st=>st.sup===s.name && st.degree==="MSEE").length;
+    s.phds = STUDENTS.filter(st=>st.sup===s.name && st.degree==="PhDEE").length;
+    s.coms = STUDENTS.filter(st=>st.cosup===s.name && st.degree==="MSEE").length;
+    s.cophd = STUDENTS.filter(st=>st.cosup===s.name && st.degree==="PhDEE").length;
+
+    // Free slots = max capacity minus currently enrolled (not completed/left)
+    const enrolledMS = STUDENTS.filter(st=>st.sup===s.name && st.degree==="MSEE" && (st.status||"").toLowerCase().includes("enrolled")).length;
+    const enrolledPhD = STUDENTS.filter(st=>st.sup===s.name && st.degree==="PhDEE" && (st.status||"").toLowerCase().includes("enrolled")).length;
+    s.fms = Math.max(0, 7 - enrolledMS);
+    s.fphd = Math.max(0, 5 - enrolledPhD);
+  });
+}
+
+function syncDynamicPeople(){
+  const names = [
+    ...STUDENTS.flatMap(s=>[s.sup,s.cosup])
+  ].filter(Boolean);
+
+  names.forEach(name=>{
+    if(!SUPERVISORS.some(s=>s.name===name)){
+      SUPERVISORS.push({
+        name:name,
+        desg:"",
+        phd:"",
+        status:"",
+        area:"",
+        ms:0,
+        phds:0,
+        coms:0,
+        cophd:0,
+        fms:0,
+        fphd:0
+      });
+    }
+  });
+
+  recalculateSupervisorStats();
+}
+
 function studentForm(s){
   return`
   <div class="modal-header">
@@ -3461,8 +3606,10 @@ function studentForm(s){
       <div class="form-3col">
         <div class="form-row"><label>Degree *</label>
           <select id="f-degree">
-            <option value="PhD"${s&&s.degree==='PhD'?' selected':''}>PhD</option>
-            <option value="MS"${s&&s.degree==='MS'?' selected':''}>MS</option>
+            <option value="PhDEE"${s&&s.degree==="PhDEE"?' selected':''}>PhDEE</option>
+            <option value="MSEE"${s&&s.degree==="MSEE"?' selected':''}>MSEE</option>
+            <option value="MSCE"${s&&s.degree==="MSCE"?' selected':''}>MSCE</option>
+            <option value="PhDCE"${s&&s.degree==="PhDCE"?' selected':''}>PhDCE</option>
           </select>
         </div>
         <div class="form-row"><label>Session *</label><input id="f-session" value="${s?esc(s.session):''}" placeholder="e.g. Fall-2024"></div>
@@ -3474,11 +3621,27 @@ function studentForm(s){
           </select>
         </div>
       </div>
-      <div class="form-row"><label>Supervisor</label><input id="f-sup" value="${s?esc(s.sup||''):''}" placeholder="e.g. Dr. Ashfaq Ahmad"></div>
-      <div class="form-row"><label>Co-Supervisor</label><input id="f-cosup" value="${s?esc(s.cosup||''):''}" placeholder="Optional"></div>
+      <div class="form-row">
+<label>Supervisor</label>
+<input id="f-sup" list="supervisor-list" value="${s?esc(s.sup||''):''}" placeholder="Select or type new supervisor">
+<datalist id="supervisor-list">${buildNameOptions("supervisor")}</datalist>
+<div style="font-size:11px;color:var(--text3);margin-top:4px">You may select existing supervisor or manually add a new one.</div>
+</div>
+      <div class="form-row">
+<label>Co-Supervisor</label>
+<input id="f-cosup" list="supervisor-list" value="${s?esc(s.cosup||''):''}" placeholder="Select or type new co-supervisor">
+</div>
       <div class="form-2col">
-        <div class="form-row"><label>GEC Internal Member</label><input id="f-gecInternal" value="${s?esc(s.gecInternal||''):''}" placeholder="e.g. Dr. Name"></div>
-        <div class="form-row"><label>GEC External Member</label><input id="f-gecExternal" value="${s?esc(s.gecExternal||''):''}" placeholder="e.g. Dr. Name (Institution)"></div>
+        <div class="form-row">
+<label>GEC Internal Member</label>
+<input id="f-gecInternal" list="internal-member-list" value="${s?esc(s.gecInternal||''):''}" placeholder="Select or type new internal member">
+<datalist id="internal-member-list">${buildNameOptions("internal")}</datalist>
+</div>
+        <div class="form-row">
+<label>GEC External Member</label>
+<input id="f-gecExternal" list="external-member-list" value="${s?esc(s.gecExternal||''):''}" placeholder="Select or type new external member">
+<datalist id="external-member-list">${buildNameOptions("external")}</datalist>
+</div>
       </div>
       <div class="form-3col">
         <div class="form-row"><label>GEC Formation (FBGS)</label><input id="f-gecFormation" value="${s?esc(s.gecFormation||''):''}" placeholder="Date or note"></div>
@@ -3575,10 +3738,16 @@ function saveStudent(idx){
   const d=getFormData();
   if(!d.name||!d.id){showToast("Name and ID are required","error");return;}
   STUDENTS[idx]=d;
+  normalizeAllSupervisorNames();
+  syncDynamicPeople();
   closeModal();
   populateFilters();
   applyFilters();
-  buildSupervisors();
+  normalizeAllSupervisorNames();
+normalizeAllSupervisorNames();
+  syncDynamicPeople();
+buildSupervisors();
+  persistData();
   showToast("Student updated successfully");
 }
 
@@ -3587,10 +3756,13 @@ function addStudent(){
   const d=getFormData();
   if(!d.name||!d.id){showToast("Name and ID are required","error");return;}
   STUDENTS.push(d);
+  normalizeAllSupervisorNames();
+  syncDynamicPeople();
   closeModal();
   populateFilters();
   applyFilters();
   buildSupervisors();
+  persistData();
   showToast("Student added successfully");
 }
 
@@ -3605,8 +3777,20 @@ function confirmDelete(idx,type="student"){
 }
 function closeConfirm(){document.getElementById("confirmModal").classList.remove("open");pendingDeleteIdx=null;}
 function executeDelete(){
-  if(pendingDeleteType==="student"){STUDENTS.splice(pendingDeleteIdx,1);populateFilters();applyFilters();showToast("Student deleted");}
-  else{SUPERVISORS.splice(pendingDeleteIdx,1);buildSupervisors();showToast("Supervisor deleted");}
+  if(pendingDeleteType==="student"){STUDENTS.splice(pendingDeleteIdx,1);populateFilters();applyFilters();persistData();showToast("Student deleted");}
+  else{
+    const supName = SUPERVISORS[pendingDeleteIdx].name;
+    const linkedStudents = STUDENTS.filter(s=>s.sup===supName || s.cosup===supName);
+    if(linkedStudents.length){
+      showToast("Cannot delete supervisor with assigned students","error");
+      closeConfirm();
+      return;
+    }
+    SUPERVISORS.splice(pendingDeleteIdx,1);
+    buildSupervisors();
+    persistData();
+    showToast("Supervisor deleted");
+  }
   closeConfirm();
 }
 
@@ -3653,12 +3837,16 @@ function buildSupervisors(){
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n">${s.ms}</div><div class="sup-stat-l">MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">${s.phds}</div><div class="sup-stat-l">PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">${s.coms}</div><div class="sup-stat-l">Co-MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n">${s.cophd}</div><div class="sup-stat-l">Co-PhD</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-ms">${s.fms}</div><div class="sup-stat-l">Free MS</div></div>
-        <div class="sup-stat"><div class="sup-stat-n free-phd">${s.fphd}</div><div class="sup-stat-l">Free PhD</div></div>
+        <div class="sup-stat"><div class="sup-stat-n sv-blue" style="color:var(--blue)">${myStudents.filter(st=>st.sup===s.name&&st.degree==="MSEE"&&(st.status||'').toLowerCase().includes('enrolled')).length}</div><div class="sup-stat-l">MS Under Sup.</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">${myStudents.filter(st=>st.sup===s.name&&st.degree==="PhDEE"&&(st.status||'').toLowerCase().includes('enrolled')).length}</div><div class="sup-stat-l">PhD Under Sup.</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">${myStudents.filter(st=>st.sup===s.name&&st.degree==="MSEE"&&(st.status||'').toLowerCase().includes('completed')).length}</div><div class="sup-stat-l">MS Supervised</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">${myStudents.filter(st=>st.sup===s.name&&st.degree==="PhDEE"&&(st.status||'').toLowerCase().includes('completed')).length}</div><div class="sup-stat-l">PhD Supervised</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-ms">${s.fms}</div><div class="sup-stat-l">Free MSEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n free-phd">${s.fphd}</div><div class="sup-stat-l">Free PhDEE</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--purple)">${myStudents.filter(st=>st.cosup===s.name&&st.degree==="MSEE").length}</div><div class="sup-stat-l">MS Co-Sup</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--purple)">${myStudents.filter(st=>st.cosup===s.name&&st.degree==="PhDEE").length}</div><div class="sup-stat-l">PhD Co-Sup</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">${myStudents.filter(st=>st.sup===s.name&&(st.status||'').toLowerCase().includes('completed')).length}</div><div class="sup-stat-l">Supervised</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">${myStudents.filter(st=>st.sup===s.name&&(st.status||'').toLowerCase().includes('enrolled')).length}</div><div class="sup-stat-l">Under Sup.</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -3722,10 +3910,10 @@ function supervisorForm(s){
       <div class="form-3col">
         <div class="form-row"><label>MS Students</label><input id="sf-ms" type="number" min="0" value="${s?s.ms:0}"></div>
         <div class="form-row"><label>PhD Students</label><input id="sf-phds" type="number" min="0" value="${s?s.phds:0}"></div>
-        <div class="form-row"><label>Co-MS</label><input id="sf-coms" type="number" min="0" value="${s?s.coms:0}"></div>
+        <div class="form-row"><label>Co-MSEE</label><input id="sf-coms" type="number" min="0" value="${s?s.coms:0}"></div>
       </div>
       <div class="form-3col">
-        <div class="form-row"><label>Co-PhD</label><input id="sf-cophd" type="number" min="0" value="${s?s.cophd:0}"></div>
+        <div class="form-row"><label>Co-PhDEE</label><input id="sf-cophd" type="number" min="0" value="${s?s.cophd:0}"></div>
         <div class="form-row"><label>Free MS Slots</label><input id="sf-fms" type="number" min="0" value="${s?s.fms:7}"></div>
         <div class="form-row"><label>Free PhD Slots</label><input id="sf-fphd" type="number" min="0" value="${s?s.fphd:5}"></div>
       </div>
@@ -3774,6 +3962,7 @@ function saveSupervisor(idx){
   SUPERVISORS[idx]=d;
   closeModal();
   buildSupervisors();
+  persistData();
   showToast("Supervisor updated successfully");
 }
 
@@ -3783,6 +3972,7 @@ function addSupervisor(){
   SUPERVISORS.push(d);
   closeModal();
   buildSupervisors();
+  persistData();
   showToast("Supervisor added successfully");
 }
 
@@ -3879,7 +4069,7 @@ function _doExcelExport(){
   XLSX.utils.book_append_sheet(wb, ws, "Students");
 
   // ── Supervisors sheet ──
-  const supHeaders = ["Name","Designation","PhD Year","HEC Status","Research Area","MS","PhD","Co-MS","Co-PhD","Free MS","Free PhD"];
+  const supHeaders = ["Name","Designation","PhD Year","HEC Status","Research Area","MSEE","PhDEE","Co-MSEE","Co-PhDEE","Free MSEE","Free PhDEE"];
   const supRows = SUPERVISORS.map(s=>[s.name,s.desg,s.phd,s.status,s.area,s.ms,s.phds,s.coms,s.cophd,s.fms,s.fphd]);
   const ws2 = XLSX.utils.aoa_to_sheet([supHeaders,...supRows]);
   ws2['!cols']=[{wch:28},{wch:22},{wch:10},{wch:14},{wch:36},{wch:5},{wch:5},{wch:7},{wch:7},{wch:8},{wch:8}];
@@ -3939,11 +4129,229 @@ function adminLogout(){
   showToast("Signed out of Admin");
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// GITHUB API — Persistent storage via repo commit on every save
+// Data is stored in data.json in your GitHub repo.
+// ─────────────────────────────────────────────────────────────────────────────
+// SETUP (one-time, 3 minutes):
+//  1. Go to https://github.com/settings/tokens → Generate new token (classic)
+//  2. Give it a name, set "No expiration", tick the "repo" scope → Generate
+//  3. Copy the token — paste it in the GitHub Settings panel (lock icon in header)
+//  4. Also fill in your GitHub username and repo name in that same panel.
+//  5. Make sure a file called  data.json  exists in the root of your repo
+//     (just create it with content: {} and commit it once manually).
+// ─────────────────────────────────────────────────────────────────────────────
+
+// GitHub settings — stored in sessionStorage so the token is never in the HTML
+// but persists for the browser session (admin enters once per session).
+function ghGet(k){ return sessionStorage.getItem("gh_"+k)||""; }
+function ghSet(k,v){ sessionStorage.setItem("gh_"+k,v); }
+
+function isGitHubConfigured(){
+  return ghGet("token") && ghGet("owner") && ghGet("repo");
+}
+
+// ─── GitHub API helpers ───────────────────────────────────────────────────────
+const GH_API = "https://api.github.com";
+const DATA_PATH = "data.json";   // file path inside the repo
+
+async function ghRequest(method, path, body){
+  const res = await fetch(GH_API + path, {
+    method,
+    headers:{
+      "Authorization": "token " + ghGet("token"),
+      "Accept": "application/vnd.github+json",
+      "Content-Type": "application/json"
+    },
+    body: body ? JSON.stringify(body) : undefined
+  });
+  if(!res.ok){
+    const err = await res.json().catch(()=>({}));
+    throw new Error(err.message || res.statusText);
+  }
+  return res.json();
+}
+
+// Get the current file SHA (needed for updates)
+async function getFileSHA(){
+  try{
+    const data = await ghRequest("GET",
+      `/repos/${ghGet("owner")}/${ghGet("repo")}/contents/${DATA_PATH}`);
+    return data.sha;
+  } catch(e){
+    return null; // file doesn't exist yet
+  }
+}
+
+// ─── Save to GitHub ───────────────────────────────────────────────────────────
+async function persistData(){
+  if(!isGitHubConfigured()){
+    showToast("GitHub not configured — open GitHub Settings (lock icon)","error");
+    return;
+  }
+  try{
+    showSyncBadge("⏳ Saving to GitHub…");
+    const sha = await getFileSHA();
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify({
+      students: STUDENTS,
+      supervisors: SUPERVISORS,
+      updatedAt: new Date().toISOString()
+    }, null, 2))));
+
+    const body = {
+      message: "Update database " + new Date().toISOString().slice(0,19).replace("T"," "),
+      content,
+      branch: ghGet("branch") || "main"
+    };
+    if(sha) body.sha = sha;
+
+    await ghRequest("PUT",
+      `/repos/${ghGet("owner")}/${ghGet("repo")}/contents/${DATA_PATH}`, body);
+    showSyncBadge("✓ Saved to GitHub");
+  } catch(e){
+    console.error("GitHub save failed:", e);
+    showToast("GitHub save failed: " + e.message, "error");
+  }
+}
+
+// ─── Load from GitHub ─────────────────────────────────────────────────────────
+async function loadFromStorage(){
+  if(!isGitHubConfigured()) return; // use hardcoded defaults
+  try{
+    showSyncBadge("⏳ Loading from GitHub…");
+    const data = await ghRequest("GET",
+      `/repos/${ghGet("owner")}/${ghGet("repo")}/contents/${DATA_PATH}`);
+    const json = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\n/g,"")))));
+    if(json.students)    STUDENTS    = json.students;
+    if(json.supervisors) SUPERVISORS = json.supervisors;
+    showSyncBadge("✓ Loaded from GitHub");
+  } catch(e){
+    console.warn("GitHub load failed:", e);
+    // Fall back to hardcoded defaults — page still works
+  }
+}
+
+// ─── Reset (restore hardcoded defaults into GitHub) ───────────────────────────
+async function resetCloudData(){
+  if(!isAdmin){showToast("Admin access required","error");return;}
+  if(!confirm("⚠️ This will overwrite data.json in your repo with the original hardcoded data. Are you sure?")) return;
+  if(!isGitHubConfigured()){showGitHubSettings();return;}
+  try{
+    const sha = await getFileSHA();
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify({
+      students: STUDENTS,
+      supervisors: SUPERVISORS,
+      updatedAt: new Date().toISOString()
+    }, null, 2))));
+    const body = {
+      message: "Reset database to defaults " + new Date().toISOString().slice(0,10),
+      content,
+      branch: ghGet("branch") || "main"
+    };
+    if(sha) body.sha = sha;
+    await ghRequest("PUT",
+      `/repos/${ghGet("owner")}/${ghGet("repo")}/contents/${DATA_PATH}`, body);
+    showToast("Reset committed to GitHub");
+  } catch(e){
+    showToast("Reset failed: "+e.message,"error");
+  }
+}
+
+// ─── GitHub Settings Modal ────────────────────────────────────────────────────
+function showGitHubSettings(){
+  const existing = document.getElementById("ghSettingsOverlay");
+  if(existing){ existing.style.display="flex"; return; }
+
+  const overlay = document.createElement("div");
+  overlay.id = "ghSettingsOverlay";
+  overlay.style.cssText="position:fixed;inset:0;background:rgba(10,12,26,0.82);z-index:1200;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px)";
+  overlay.innerHTML=`
+    <div style="background:#fff;border-radius:16px;width:min(460px,100%);box-shadow:0 24px 64px rgba(0,0,0,0.35);overflow:hidden">
+      <div style="background:linear-gradient(135deg,#1a1a2e,#0f3460);padding:1.75rem 2rem 1.5rem">
+        <div style="width:48px;height:48px;background:rgba(255,255,255,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:22px;color:#fff"><i class="ti ti-brand-github"></i></div>
+        <div style="color:#fff;font-size:17px;font-weight:700;text-align:center;margin-bottom:4px">GitHub Sync Settings</div>
+        <div style="color:rgba(255,255,255,0.55);font-size:12px;text-align:center">Enter once per session — never stored in the HTML file</div>
+      </div>
+      <div style="padding:1.5rem 2rem 2rem;display:grid;gap:14px">
+        <div style="display:grid;gap:5px">
+          <label style="font-size:11px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:0.4px">GitHub Username / Org</label>
+          <input id="gh-owner" placeholder="e.g. johndoe" value="${ghGet('owner')}"
+            style="padding:10px 12px;border:1.5px solid #d1d5db;border-radius:8px;font-size:13px;font-family:inherit;outline:none">
+        </div>
+        <div style="display:grid;gap:5px">
+          <label style="font-size:11px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:0.4px">Repository Name</label>
+          <input id="gh-repo" placeholder="e.g. student-database" value="${ghGet('repo')}"
+            style="padding:10px 12px;border:1.5px solid #d1d5db;border-radius:8px;font-size:13px;font-family:inherit;outline:none">
+        </div>
+        <div style="display:grid;gap:5px">
+          <label style="font-size:11px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:0.4px">Branch</label>
+          <input id="gh-branch" placeholder="main" value="${ghGet('branch')||'main'}"
+            style="padding:10px 12px;border:1.5px solid #d1d5db;border-radius:8px;font-size:13px;font-family:inherit;outline:none">
+        </div>
+        <div style="display:grid;gap:5px">
+          <label style="font-size:11px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:0.4px">Personal Access Token <span style="color:#a32d2d">(repo scope)</span></label>
+          <div style="position:relative">
+            <input id="gh-token" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" value="${ghGet('token')}"
+              style="width:100%;padding:10px 40px 10px 12px;border:1.5px solid #d1d5db;border-radius:8px;font-size:13px;font-family:inherit;outline:none">
+            <button onclick="const i=document.getElementById('gh-token');i.type=i.type==='password'?'text':'password'"
+              style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#9ca3af;font-size:16px"><i class="ti ti-eye"></i></button>
+          </div>
+          <div style="font-size:11px;color:#9ca3af">Generate at github.com/settings/tokens → Classic → repo scope</div>
+        </div>
+        <div style="background:#e6f1fb;border-radius:8px;padding:10px 12px;font-size:12px;color:#185fa5;line-height:1.6">
+          <strong>Also create</strong> a file called <code style="background:#cce3f5;padding:1px 5px;border-radius:4px">data.json</code> in your repo root with content <code style="background:#cce3f5;padding:1px 5px;border-radius:4px">{}</code> before saving for the first time.
+        </div>
+        <div style="display:flex;gap:8px;margin-top:4px">
+          <button onclick="saveGitHubSettings()"
+            style="flex:1;background:#1a1a2e;color:#fff;border:none;border-radius:8px;padding:11px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit">
+            <i class="ti ti-device-floppy" style="margin-right:6px"></i>Save Settings
+          </button>
+          <button onclick="document.getElementById('ghSettingsOverlay').style.display='none'"
+            style="background:#f0f2f5;color:#1a1a2e;border:1px solid #e5e7eb;border-radius:8px;padding:11px 18px;font-size:13px;cursor:pointer;font-family:inherit">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+}
+
+function saveGitHubSettings(){
+  ghSet("owner",  document.getElementById("gh-owner").value.trim());
+  ghSet("repo",   document.getElementById("gh-repo").value.trim());
+  ghSet("branch", document.getElementById("gh-branch").value.trim()||"main");
+  ghSet("token",  document.getElementById("gh-token").value.trim());
+  document.getElementById("ghSettingsOverlay").style.display="none";
+  if(isGitHubConfigured()){
+    showSyncBadge("✓ GitHub connected");
+    // Load data immediately after connecting
+    loadFromStorage().then(()=>{
+      populateFilters();
+      buildStats(STUDENTS);
+      renderTable(STUDENTS);
+      buildSupervisors();
+    });
+  }
+}
+
+function showSyncBadge(msg){
+  const t=document.getElementById("toast");
+  const i=t.querySelector("i");
+  i.className="ti ti-brand-github";
+  document.getElementById("toastMsg").textContent=msg;
+  t.className="toast success";
+  t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),2500);
+}
+
 // ─── Init ─────────────────────────────────────────────────────────────────────
-populateFilters();
-buildStats(STUDENTS);
-renderTable(STUDENTS);
-buildSupervisors();
+(async function init(){
+  await loadFromStorage();
+  populateFilters();
+  buildStats(STUDENTS);
+  renderTable(STUDENTS);
+  buildSupervisors();
+})();
 </script>
 
 
