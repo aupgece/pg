@@ -4177,7 +4177,15 @@ function fsMapToObj(fields){
     if(v.stringValue!==undefined) obj[k]=v.stringValue;
     else if(v.integerValue!==undefined) obj[k]=parseInt(v.integerValue);
     else if(v.booleanValue!==undefined) obj[k]=v.booleanValue;
-    else if(v.arrayValue!==undefined) obj[k]=(v.arrayValue.values||[]).map(i=>i.stringValue??i.integerValue??null);
+    else if(v.nullValue!==undefined) obj[k]=null;
+    else if(v.mapValue!==undefined) obj[k]=fsMapToObj(v.mapValue.fields||{});
+    else if(v.arrayValue!==undefined) obj[k]=(v.arrayValue.values||[]).map(i=>{
+      if(i.stringValue!==undefined) return i.stringValue;
+      if(i.integerValue!==undefined) return parseInt(i.integerValue);
+      if(i.booleanValue!==undefined) return i.booleanValue;
+      if(i.mapValue!==undefined) return fsMapToObj(i.mapValue.fields||{});
+      return null;
+    });
     else obj[k]=null;
   }
   return obj;
@@ -4238,12 +4246,12 @@ async function loadFromStorage(){
     if(rsStudents.ok){
       const d = await rsStudents.json();
       const arr = (d.fields?.list?.arrayValue?.values||[]).map(v=>fsMapToObj(v.mapValue?.fields||{}));
-      if(arr.length) STUDENTS = arr;
+      STUDENTS = arr; // always override, even if empty — Firestore is source of truth
     }
     if(rsSupervisors.ok){
       const d = await rsSupervisors.json();
       const arr = (d.fields?.list?.arrayValue?.values||[]).map(v=>fsMapToObj(v.mapValue?.fields||{}));
-      if(arr.length) SUPERVISORS = arr;
+      SUPERVISORS = arr; // always override
     }
     setSyncStatus("loaded");
   } catch(e){
