@@ -179,6 +179,41 @@ tbody tr:hover td{background:#f8fbff}
 .toast.success i{color:#4ade80}
 .toast.error i{color:#f87171}
 
+/* Scheduled Exams Popup */
+.sched-bell-btn{position:relative;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:var(--rm);color:#fff;font-size:13px;font-weight:600;padding:6px 13px;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px;transition:all 0.15s}
+.sched-bell-btn:hover{background:rgba(255,255,255,0.22)}
+.sched-bell-badge{position:absolute;top:-5px;right:-5px;background:#f87171;color:#fff;border-radius:9999px;font-size:10px;font-weight:700;min-width:18px;height:18px;display:flex;align-items:center;justify-content:center;padding:0 4px;border:2px solid #1a1a2e}
+.sched-popup-overlay{display:none;position:fixed;inset:0;background:rgba(10,12,26,0.5);z-index:1050;align-items:flex-start;justify-content:flex-end;padding:80px 1.5rem 1rem}
+.sched-popup-overlay.open{display:flex}
+.sched-popup{background:#fff;border-radius:var(--rl);width:min(520px,100%);max-height:78vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.25);overflow:hidden}
+.sched-popup-header{background:linear-gradient(135deg,#1a1a2e,#0f3460);padding:1rem 1.25rem;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.sched-popup-title{color:#fff;font-size:15px;font-weight:700;flex:1}
+.sched-popup-close{background:rgba(255,255,255,0.15);border:none;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:15px;transition:background 0.15s}
+.sched-popup-close:hover{background:rgba(255,255,255,0.28)}
+.sched-popup-body{overflow-y:auto;flex:1;padding:0}
+.sched-popup-empty{padding:2.5rem 1.5rem;text-align:center;color:var(--text3);font-size:13px}
+.sched-item{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;gap:12px;align-items:flex-start;transition:background 0.1s}
+.sched-item:last-child{border-bottom:none}
+.sched-item:hover{background:#f8fbff}
+.sched-item-icon{width:36px;height:36px;border-radius:var(--rm);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;margin-top:1px}
+.sched-icon-pde{background:var(--purple-l);color:var(--purple-d)}
+.sched-icon-fde{background:var(--teal-l);color:var(--teal-d)}
+.sched-item-body{flex:1;min-width:0}
+.sched-item-name{font-weight:600;font-size:13px;color:var(--text)}
+.sched-item-degree{font-size:11px;color:var(--text3);font-family:'IBM Plex Mono',monospace;margin-top:1px}
+.sched-item-meta{display:flex;gap:8px;align-items:center;margin-top:5px;flex-wrap:wrap}
+.sched-item-type{padding:2px 8px;border-radius:9999px;font-size:11px;font-weight:700}
+.sched-type-pde{background:var(--purple-l);color:var(--purple-d)}
+.sched-type-fde{background:var(--teal-l);color:var(--teal-d)}
+.sched-item-date{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:4px}
+.sched-item-time{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:4px}
+.sched-popup-footer{padding:10px 14px;border-top:1px solid var(--border);background:#f8f9fb;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.sched-popup-count{font-size:12px;color:var(--text3)}
+.sched-section-header{padding:8px 16px;background:#f8f9fb;border-bottom:1px solid var(--border);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text2);display:flex;align-items:center;gap:6px}
+.sched-today-dot{width:7px;height:7px;border-radius:50%;background:#f87171;display:inline-block}
+.sched-upcoming-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;display:inline-block}
+.sched-add-btn{background:#1a1a2e;color:#fff;border:none;border-radius:var(--rm);padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px;transition:background 0.15s}
+.sched-add-btn:hover{background:#0f3460}
 /* Admin login */
 .admin-login-overlay{position:fixed;inset:0;background:rgba(10,12,26,0.82);z-index:1100;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px)}
 .admin-login-box{background:#fff;border-radius:16px;width:min(400px,100%);box-shadow:0 24px 64px rgba(0,0,0,0.35);overflow:hidden}
@@ -279,7 +314,7 @@ body.is-admin .admin-only-block{display:block}
 <div class="top-bar">
   <div class="top-inner">
     <div>
-      <div class="top-title"><i class="ti ti-school" style="margin-right:8px"></i>MS/PhD Electrical & Computer Engineering Students Database</div>
+      <div class="top-title"><i class="ti ti-school" style="margin-right:8px"></i>MS/PhD Electrical Engineering Students Database</div>
       <div class="top-sub">Department of Electrical and Conputer Engineering </div>
     </div>
     <div class="top-badges">
@@ -290,6 +325,7 @@ body.is-admin .admin-only-block{display:block}
       <button class="btn-export" id="reloadBtn" onclick="forceReload()" title="Pull latest data from Firebase"><i class="ti ti-cloud-download" style="margin-right:4px"></i>Reload</button>
       <button class="btn-export" onclick="exportExcel()" style="background:rgba(74,222,128,0.15);border-color:rgba(74,222,128,0.35)"><i class="ti ti-table-export" style="margin-right:4px"></i>Export Excel</button>
       <button class="btn-logout" id="logoutBtn" style="display:none;" onclick="adminLogout()"><i class="ti ti-logout"></i>Sign out</button>
+      <button class="sched-bell-btn" id="schedBellBtn" onclick="toggleSchedPopup()" title="Upcoming FDE/PDE Schedules"><i class="ti ti-bell"></i>Schedule<span class="sched-bell-badge" id="schedBadgeCount" style="display:none">0</span></button>
       <button class="btn-export" id="adminLoginBtn" onclick="showAdminLogin()" style="display:inline-flex;"><i class="ti ti-lock" style="margin-right:4px"></i>Admin Login</button>
     </div>
   </div>
@@ -3415,6 +3451,244 @@ body.is-admin .admin-only-block{display:block}
   </div>
 </div>
 
+<!-- Scheduled FDE/PDE Popup -->
+<div class="sched-popup-overlay" id="schedPopupOverlay" onclick="if(event.target===this)closeSchedPopup()">
+  <div class="sched-popup">
+    <div class="sched-popup-header">
+      <i class="ti ti-calendar-event" style="color:#fff;font-size:18px"></i>
+      <div class="sched-popup-title">Upcoming FDE / PDE Schedules</div>
+      <button class="sched-popup-close" onclick="closeSchedPopup()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="sched-popup-body" id="schedPopupBody">
+      <div class="sched-popup-empty"><i class="ti ti-calendar-off" style="font-size:28px;display:block;margin-bottom:8px"></i>No upcoming exams scheduled</div>
+    </div>
+    <div class="sched-popup-footer">
+      <span class="sched-popup-count" id="schedPopupCount">0 scheduled</span>
+      <button class="sched-add-btn admin-only" onclick="closeSchedPopup();openSchedManager()" style="font-size:12px"><i class="ti ti-plus"></i>Schedule Exam</button>
+    </div>
+  </div>
+</div>
+
+<!-- Schedule Exam Modal -->
+<div class="modal-overlay" id="schedModal" onclick="if(event.target===this)closeSchedModal()">
+  <div class="modal-box" style="width:min(520px,100%)">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeSchedModal()"><i class="ti ti-x"></i></button>
+      <div class="modal-name"><i class="ti ti-calendar-plus" style="margin-right:8px"></i>Schedule an Exam</div>
+      <div class="modal-meta">Set a date &amp; time for an upcoming FDE or PDE</div>
+    </div>
+    <div class="modal-body">
+      <div class="edit-form">
+        <div class="form-row">
+          <label>Student *</label>
+          <select id="sched-student-select" onchange="onSchedStudentChange()">
+            <option value="">— Select a student —</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Exam Type *</label>
+          <select id="sched-type-select">
+            <option value="pde">PDE (Pre-Defence Examination)</option>
+            <option value="fde">FDE (Final Defence Examination)</option>
+          </select>
+        </div>
+        <div class="form-2col">
+          <div class="form-row">
+            <label>Date *</label>
+            <input type="date" id="sched-date-input">
+          </div>
+          <div class="form-row">
+            <label>Time</label>
+            <input type="time" id="sched-time-input" placeholder="e.g. 10:00">
+          </div>
+        </div>
+        <div class="form-row">
+          <label>Venue / Notes</label>
+          <input type="text" id="sched-venue-input" placeholder="e.g. Room 301, ECE Block">
+        </div>
+        <div id="sched-student-info" style="display:none;background:var(--bg2);border:1px solid var(--border);border-radius:var(--rm);padding:10px 12px;font-size:12px;color:var(--text2);line-height:1.6"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeSchedModal()">Cancel</button>
+      <button class="btn-save" onclick="saveSchedExam()"><i class="ti ti-device-floppy" style="margin-right:4px"></i>Save Schedule</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── Scheduled Exams Feature ──────────────────────────────────────────────────
+
+function toggleSchedPopup(){
+  const ov=document.getElementById("schedPopupOverlay");
+  if(ov.classList.contains("open")){closeSchedPopup();}
+  else{renderSchedPopup();ov.classList.add("open");}
+}
+function closeSchedPopup(){document.getElementById("schedPopupOverlay").classList.remove("open");}
+
+function getScheduledExams(){
+  const all=[];
+  STUDENTS.forEach((s,idx)=>{
+    if(s.scheduledPdeDate){
+      all.push({idx,student:s,type:"pde",date:s.scheduledPdeDate,time:s.scheduledPdeTime||"",venue:s.scheduledPdeVenue||""});
+    }
+    if(s.scheduledFdeDate){
+      all.push({idx,student:s,type:"fde",date:s.scheduledFdeDate,time:s.scheduledFdeTime||"",venue:s.scheduledFdeVenue||""});
+    }
+  });
+  // Sort by date ascending
+  all.sort((a,b)=>new Date(a.date)-new Date(b.date));
+  return all;
+}
+
+function renderSchedPopup(){
+  const exams=getScheduledExams();
+  const today=new Date(); today.setHours(0,0,0,0);
+  const body=document.getElementById("schedPopupBody");
+  const countEl=document.getElementById("schedPopupCount");
+
+  if(!exams.length){
+    body.innerHTML=`<div class="sched-popup-empty"><i class="ti ti-calendar-off" style="font-size:28px;display:block;margin-bottom:8px"></i>No upcoming exams scheduled yet${isAdmin?'<br><span style="font-size:11px">Use "Schedule Exam" to add one</span>':''}</div>`;
+    countEl.textContent="0 scheduled";
+    updateBellBadge(0);
+    return;
+  }
+
+  const todayExams=exams.filter(e=>{const d=new Date(e.date);d.setHours(0,0,0,0);return d.getTime()===today.getTime();});
+  const upcomingExams=exams.filter(e=>{const d=new Date(e.date);d.setHours(0,0,0,0);return d>today;});
+  const pastExams=exams.filter(e=>{const d=new Date(e.date);d.setHours(0,0,0,0);return d<today;});
+
+  let html="";
+  if(todayExams.length){
+    html+=`<div class="sched-section-header"><span class="sched-today-dot"></span>Today</div>`;
+    html+=todayExams.map(e=>schedItemHTML(e,true)).join("");
+  }
+  if(upcomingExams.length){
+    html+=`<div class="sched-section-header"><span class="sched-upcoming-dot"></span>Upcoming</div>`;
+    html+=upcomingExams.map(e=>schedItemHTML(e,false)).join("");
+  }
+  if(pastExams.length){
+    html+=`<div class="sched-section-header" style="opacity:0.6">Past</div>`;
+    html+=pastExams.map(e=>schedItemHTML(e,false,true)).join("");
+  }
+
+  body.innerHTML=html;
+  countEl.textContent=exams.length+" scheduled";
+  updateBellBadge(todayExams.length+upcomingExams.length);
+}
+
+function schedItemHTML(e,isToday,isPast){
+  const s=e.student;
+  const typeLabel=e.type==="pde"?"PDE":"FDE";
+  const dateStr=formatSchedDate(e.date);
+  const timeStr=e.time?`<span class="sched-item-time"><i class="ti ti-clock" style="font-size:11px"></i>${formatTime(e.time)}</span>`:"";
+  const venueStr=e.venue?`<span style="font-size:11px;color:var(--text3);margin-top:3px;display:block"><i class="ti ti-map-pin" style="font-size:11px;margin-right:3px"></i>${e.venue}</span>`:"";
+  const delBtn=isAdmin?`<button onclick="removeSchedExam(${e.idx},'${e.type}')" style="background:var(--red-l);color:var(--red-d);border:none;border-radius:var(--r);padding:3px 7px;font-size:11px;cursor:pointer;font-family:inherit;margin-top:4px;display:inline-flex;align-items:center;gap:3px"><i class="ti ti-trash" style="font-size:11px"></i>Remove</button>`:"";
+  return`<div class="sched-item" style="${isPast?'opacity:0.55':''}${isToday?'background:#fff8f0;':''}">
+    <div class="sched-item-icon ${e.type==='pde'?'sched-icon-pde':'sched-icon-fde'}"><i class="ti ti-calendar-event"></i></div>
+    <div class="sched-item-body">
+      <div class="sched-item-name">${s.name}</div>
+      <div class="sched-item-degree">${s.id} · ${s.degree} · ${s.session}</div>
+      <div class="sched-item-meta">
+        <span class="sched-item-type ${e.type==='pde'?'sched-type-pde':'sched-type-fde'}">${typeLabel}</span>
+        <span class="sched-item-date"><i class="ti ti-calendar" style="font-size:11px"></i>${dateStr}${isToday?' <strong style="color:#f87171">(Today!)</strong>':''}</span>
+        ${timeStr}
+      </div>
+      ${venueStr}
+      ${s.sup?`<div style="font-size:11px;color:var(--text3);margin-top:2px"><i class="ti ti-user" style="font-size:11px;margin-right:3px"></i>${s.sup}</div>`:""}
+      ${delBtn}
+    </div>
+  </div>`;
+}
+
+function formatSchedDate(dateStr){
+  if(!dateStr) return dateStr;
+  try{
+    const d=new Date(dateStr+"T00:00:00");
+    return d.toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",year:"numeric"});
+  }catch{return dateStr;}
+}
+function formatTime(t){
+  if(!t) return "";
+  try{
+    const [h,m]=t.split(":");
+    const hr=parseInt(h);
+    const ampm=hr>=12?"PM":"AM";
+    const h12=hr%12||12;
+    return `${h12}:${m} ${ampm}`;
+  }catch{return t;}
+}
+
+function updateBellBadge(count){
+  const badge=document.getElementById("schedBadgeCount");
+  if(count>0){badge.style.display="flex";badge.textContent=count;}
+  else{badge.style.display="none";}
+}
+
+// ─── Schedule Manager ─────────────────────────────────────────────────────────
+function openSchedManager(){
+  if(!isAdmin){showToast("Admin access required","error");return;}
+  // Populate student list
+  const sel=document.getElementById("sched-student-select");
+  sel.innerHTML=`<option value="">— Select a student —</option>`+
+    STUDENTS.map((s,i)=>`<option value="${i}">${s.name} (${s.id}) · ${s.degree}</option>`).join("");
+  document.getElementById("sched-date-input").value="";
+  document.getElementById("sched-time-input").value="";
+  document.getElementById("sched-venue-input").value="";
+  document.getElementById("sched-student-info").style.display="none";
+  document.getElementById("schedModal").classList.add("open");
+}
+function closeSchedModal(){document.getElementById("schedModal").classList.remove("open");}
+
+function onSchedStudentChange(){
+  const idx=document.getElementById("sched-student-select").value;
+  const infoEl=document.getElementById("sched-student-info");
+  if(idx===""){infoEl.style.display="none";return;}
+  const s=STUDENTS[parseInt(idx)];
+  infoEl.style.display="block";
+  infoEl.innerHTML=`<strong>${s.name}</strong> &nbsp;·&nbsp; ${s.degree} &nbsp;·&nbsp; ${s.session}<br>
+    <span>Supervisor: ${s.sup||"—"}</span><br>
+    <span>PDE: ${s.pde||"—"}${s.pdeDate?" ("+s.pdeDate+")":""} &nbsp;|&nbsp; FDE: ${s.fde||"—"}${s.fdeDate?" ("+s.fdeDate+")":""}</span>`;
+}
+
+function saveSchedExam(){
+  if(!isAdmin){showToast("Admin access required","error");return;}
+  const idx=document.getElementById("sched-student-select").value;
+  const type=document.getElementById("sched-type-select").value;
+  const date=document.getElementById("sched-date-input").value;
+  const time=document.getElementById("sched-time-input").value;
+  const venue=document.getElementById("sched-venue-input").value.trim();
+  if(idx===""){showToast("Please select a student","error");return;}
+  if(!date){showToast("Please select a date","error");return;}
+  const s=STUDENTS[parseInt(idx)];
+  if(type==="pde"){s.scheduledPdeDate=date;s.scheduledPdeTime=time;s.scheduledPdeVenue=venue;}
+  else{s.scheduledFdeDate=date;s.scheduledFdeTime=time;s.scheduledFdeVenue=venue;}
+  persistData();
+  closeSchedModal();
+  updateBellBadge(getScheduledExams().filter(e=>{const d=new Date(e.date);d.setHours(0,0,0,0);const t=new Date();t.setHours(0,0,0,0);return d>=t;}).length);
+  showToast(`${type.toUpperCase()} scheduled for ${s.name}`);
+}
+
+function removeSchedExam(idx,type){
+  const s=STUDENTS[idx];
+  if(type==="pde"){s.scheduledPdeDate="";s.scheduledPdeTime="";s.scheduledPdeVenue="";}
+  else{s.scheduledFdeDate="";s.scheduledFdeTime="";s.scheduledFdeVenue="";}
+  persistData();
+  renderSchedPopup();
+  showToast("Schedule removed");
+}
+
+// Init bell badge on load
+function initSchedBadge(){
+  const count=getScheduledExams().filter(e=>{
+    const d=new Date(e.date);d.setHours(0,0,0,0);
+    const t=new Date();t.setHours(0,0,0,0);
+    return d>=t;
+  }).length;
+  updateBellBadge(count);
+}
+</script>
+
 <script>
 let STUDENTS = [
   {
@@ -5321,6 +5595,22 @@ function studentForm(s){
         <div class="form-row"><label>Email</label><input id="f-email" type="email" value="${s?esc(s.email||''):''}" placeholder="student@example.com"></div>
         <div class="form-row"><label>Cell</label><input id="f-cell" value="${s?esc(s.cell||''):''}" placeholder="92 300-0000000"></div>
       </div>
+      <div style="border-top:2px solid var(--border);margin:6px 0 2px;padding-top:10px">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--purple-d);margin-bottom:10px;display:flex;align-items:center;gap:6px"><i class="ti ti-calendar-event"></i>Scheduled PDE</div>
+        <div class="form-3col">
+          <div class="form-row"><label>Scheduled PDE Date</label><input type="date" id="f-scheduledPdeDate" value="${s?esc(s.scheduledPdeDate||''):''}"></div>
+          <div class="form-row"><label>Scheduled PDE Time</label><input type="time" id="f-scheduledPdeTime" value="${s?esc(s.scheduledPdeTime||''):''}"></div>
+          <div class="form-row"><label>PDE Venue</label><input type="text" id="f-scheduledPdeVenue" value="${s?esc(s.scheduledPdeVenue||''):''}" placeholder="e.g. Room 301"></div>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border);margin:4px 0 2px;padding-top:10px">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--teal-d);margin-bottom:10px;display:flex;align-items:center;gap:6px"><i class="ti ti-calendar-check"></i>Scheduled FDE</div>
+        <div class="form-3col">
+          <div class="form-row"><label>Scheduled FDE Date</label><input type="date" id="f-scheduledFdeDate" value="${s?esc(s.scheduledFdeDate||''):''}"></div>
+          <div class="form-row"><label>Scheduled FDE Time</label><input type="time" id="f-scheduledFdeTime" value="${s?esc(s.scheduledFdeTime||''):''}"></div>
+          <div class="form-row"><label>FDE Venue</label><input type="text" id="f-scheduledFdeVenue" value="${s?esc(s.scheduledFdeVenue||''):''}" placeholder="e.g. Seminar Hall"></div>
+        </div>
+      </div>
     </div>
   </div>`;
 }
@@ -5374,6 +5664,12 @@ function getFormData(){
     studyMode:document.getElementById("f-studyMode").value,
     email:document.getElementById("f-email").value.trim(),
     cell:document.getElementById("f-cell").value.trim(),
+    scheduledPdeDate:document.getElementById("f-scheduledPdeDate")?.value||"",
+    scheduledPdeTime:document.getElementById("f-scheduledPdeTime")?.value||"",
+    scheduledPdeVenue:document.getElementById("f-scheduledPdeVenue")?.value.trim()||"",
+    scheduledFdeDate:document.getElementById("f-scheduledFdeDate")?.value||"",
+    scheduledFdeTime:document.getElementById("f-scheduledFdeTime")?.value||"",
+    scheduledFdeVenue:document.getElementById("f-scheduledFdeVenue")?.value.trim()||"",
   };
 }
 
@@ -5392,6 +5688,7 @@ normalizeAllSupervisorNames();
 buildSupervisors();
   persistData();
   showToast("Student updated successfully");
+  initSchedBadge();
 }
 
 function addStudent(){
@@ -6287,6 +6584,7 @@ async function forceReload(){
   buildStats(STUDENTS);
   renderTable(STUDENTS);
   buildSupervisors();
+  initSchedBadge();
 }
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
@@ -6296,6 +6594,15 @@ async function forceReload(){
   buildStats(STUDENTS);
   renderTable(STUDENTS);
   buildSupervisors();
+  initSchedBadge();
+  // Auto-show scheduled exams popup on page load if any exist
+  const exams = getScheduledExams();
+  if(exams.length > 0){
+    setTimeout(()=>{
+      renderSchedPopup();
+      document.getElementById("schedPopupOverlay").classList.add("open");
+    }, 800);
+  }
 })();
 </script>
 
