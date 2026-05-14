@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FM Research Publications — Dept. of Electrical & Computer Engineering</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'IBM Plex Sans',sans-serif;background:#f0f2f5;color:#1a1a2e;min-height:100vh}
+:root{
+  --bg:#ffffff;--bg2:#f0f2f5;--bg3:#e8eaee;
+  --text:#1a1a2e;--text2:#6b7280;--text3:#9ca3af;
+  --border:#e5e7eb;--border2:#d1d5db;
+  --blue:#185FA5;--blue-l:#E6F1FB;--blue-d:#0C447C;
+  --teal:#0F6E56;--teal-l:#E1F5EE;--teal-d:#085041;
+  --green:#3B6D11;--green-l:#EAF3DE;--green-d:#27500A;
+  --amber:#854F0B;--amber-l:#FAEEDA;--amber-d:#633806;
+  --coral:#993C1D;--coral-l:#FAECE7;--coral-d:#712B13;
+  --purple:#534AB7;--purple-l:#EEEDFE;--purple-d:#3C3489;
+  --red:#A32D2D;--red-l:#FCEBEB;--red-d:#791F1F;
+  --r:6px;--rm:8px;--rl:12px;
+  --sh:0 1px 3px rgba(0,0,0,0.08),0 1px 2px rgba(0,0,0,0.05);
+  --shm:0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* ─── Header ─────────────────────────────────────────────────────────────── */
+.top-bar{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);padding:0;box-shadow:var(--shm)}
+.top-inner{max-width:1400px;margin:0 auto;padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.top-brand{display:flex;align-items:center;gap:12px}
+.top-icon{width:42px;height:42px;background:rgba(255,255,255,0.12);border-radius:var(--rm);display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;flex-shrink:0}
+.top-title{color:#fff;font-size:19px;font-weight:700;letter-spacing:-0.3px;line-height:1.2}
+.top-sub{color:rgba(255,255,255,0.55);font-size:12px;margin-top:3px}
+.top-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.top-badge{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:9999px;color:rgba(255,255,255,0.8);font-size:12px;padding:4px 12px;display:inline-flex;align-items:center;gap:5px}
+.btn-hdr{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:var(--rm);color:#fff;font-size:12px;font-weight:600;padding:7px 14px;cursor:pointer;transition:all 0.15s;font-family:inherit;display:inline-flex;align-items:center;gap:6px}
+.btn-hdr:hover{background:rgba(255,255,255,0.22)}
+.btn-hdr-green{background:rgba(74,222,128,0.15);border-color:rgba(74,222,128,0.35)}
+.btn-hdr-green:hover{background:rgba(74,222,128,0.25)}
+.admin-badge{background:rgba(74,222,128,0.18);border:1px solid rgba(74,222,128,0.35);border-radius:9999px;color:#4ade80;font-size:12px;padding:4px 12px;display:inline-flex;align-items:center;gap:5px}
+#syncStatus{font-size:12px;padding:4px 12px;border-radius:9999px;display:inline-flex;align-items:center;gap:5px;transition:all 0.3s}
+.sync-saved{background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.3);color:#4ade80}
+.sync-saving{background:rgba(255,200,50,0.1);border:1px solid rgba(255,200,50,0.3);color:#fbbf24}
+.sync-error{background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.3);color:#f87171}
+
+/* ─── Main layout ────────────────────────────────────────────────────────── */
+.main{max-width:1400px;margin:0 auto;padding:1.5rem}
+
+/* ─── Stats row ──────────────────────────────────────────────────────────── */
+.stats-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:1.25rem}
+.stat-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--rl);padding:14px 18px;box-shadow:var(--sh);display:flex;align-items:center;gap:12px;flex:1;min-width:130px}
+.stat-icon{width:40px;height:40px;border-radius:var(--rm);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.si-blue{background:var(--blue-l);color:var(--blue)}
+.si-purple{background:var(--purple-l);color:var(--purple)}
+.si-teal{background:var(--teal-l);color:var(--teal)}
+.si-green{background:var(--green-l);color:var(--green)}
+.si-amber{background:var(--amber-l);color:var(--amber)}
+.si-coral{background:var(--coral-l);color:var(--coral)}
+.stat-val{font-size:26px;font-weight:700;line-height:1;color:var(--text)}
+.stat-lbl{font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:0.4px;margin-top:2px}
+
+/* ─── Filter bar ─────────────────────────────────────────────────────────── */
+.filter-bar{background:var(--bg);border:1px solid var(--border);border-radius:var(--rl);padding:14px 16px;margin-bottom:1.25rem;box-shadow:var(--sh)}
+.filter-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.search-wrap{position:relative;flex:1;min-width:220px}
+.search-wrap i{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:16px}
+.search-wrap input{width:100%;padding:8px 10px 8px 34px;border:1px solid var(--border);border-radius:var(--rm);font-size:13px;color:var(--text);background:var(--bg2);outline:none;transition:border 0.15s;font-family:inherit}
+.search-wrap input:focus{border-color:var(--blue);background:#fff}
+select{padding:8px 10px;border:1px solid var(--border);border-radius:var(--rm);font-size:13px;color:var(--text);background:var(--bg2);outline:none;cursor:pointer;transition:border 0.15s;font-family:inherit}
+select:focus{border-color:var(--blue);background:#fff}
+.count-info{font-size:12px;color:var(--text3);margin-top:8px}
+.view-toggle{display:flex;border:1px solid var(--border);border-radius:var(--rm);overflow:hidden;background:var(--bg2)}
+.view-btn{background:none;border:none;padding:7px 11px;cursor:pointer;color:var(--text3);font-size:15px;transition:all 0.15s;font-family:inherit}
+.view-btn.active{background:var(--bg);color:var(--blue);box-shadow:var(--sh)}
+.add-btn{background:#1a1a2e;color:#fff;border:none;border-radius:var(--rm);padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.15s;display:inline-flex;align-items:center;gap:6px;font-family:inherit}
+.add-btn:hover{background:#0f3460}
+
+/* ─── Card view ──────────────────────────────────────────────────────────── */
+.pub-fm-section{margin-bottom:1.75rem}
+.pub-fm-header{display:flex;align-items:center;gap:10px;padding:11px 16px;background:linear-gradient(135deg,#f0f4ff,#e8f5f0);border:1px solid var(--border);border-radius:var(--rl) var(--rl) 0 0;cursor:pointer;user-select:none;transition:background 0.15s}
+.pub-fm-header:hover{background:linear-gradient(135deg,#e6f0ff,#def2e9)}
+.pub-fm-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--teal));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+.pub-fm-name{font-size:14px;font-weight:700;color:var(--text);flex:1}
+.pub-fm-dept{font-size:11px;color:var(--text3);margin-top:2px}
+.pub-fm-meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.pub-fm-count{font-size:12px;color:var(--text3);background:var(--bg);border:1px solid var(--border);border-radius:9999px;padding:2px 9px;font-weight:600}
+.pub-fm-body{border:1px solid var(--border);border-top:none;border-radius:0 0 var(--rl) var(--rl);overflow:hidden}
+
+/* Card grid inside each FM */
+.pub-cards{display:grid;gap:0}
+.pub-card{padding:14px 16px;border-bottom:1px solid var(--border);position:relative;transition:background 0.1s}
+.pub-card:last-child{border-bottom:none}
+.pub-card:hover{background:#f8fbff}
+.pub-card-num{position:absolute;top:14px;left:14px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text3);font-weight:600}
+.pub-card-inner{padding-left:28px}
+.pub-title{font-size:13px;font-weight:600;color:var(--text);line-height:1.45;margin-bottom:8px;padding-right:80px}
+.pub-meta-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:5px}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:9999px;font-size:11px;font-weight:600;white-space:nowrap}
+.b-paper{background:var(--blue-l);color:var(--blue-d)}
+.b-conf{background:var(--purple-l);color:var(--purple-d)}
+.b-w{background:#dcfce7;color:#166534}
+.b-x{background:#fef9c3;color:#854d0e}
+.b-y{background:var(--amber-l);color:var(--amber-d)}
+.b-nil{background:var(--bg3);color:var(--text3)}
+.b-au{background:var(--teal-l);color:var(--teal-d)}
+.b-year{background:var(--bg3);color:var(--text2)}
+.pub-journal{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:5px;margin-bottom:5px;font-style:italic}
+.pub-author-row{font-size:12px;color:var(--text3);display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.pub-if-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text3);background:var(--bg2);border-radius:var(--r);padding:1px 6px}
+.pub-links{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap}
+.pub-link{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--blue);text-decoration:none;background:var(--blue-l);padding:3px 9px;border-radius:var(--r);transition:background 0.15s}
+.pub-link:hover{background:#cce3f5;text-decoration:none}
+.pub-link.hjrs-link{color:var(--green-d);background:var(--green-l)}
+.pub-link.hjrs-link:hover{background:#d5ecca}
+.pub-card-actions{position:absolute;top:12px;right:12px;display:flex;gap:4px}
+.act-btn{border:none;border-radius:var(--r);padding:5px 7px;cursor:pointer;font-size:12px;transition:all 0.15s;display:flex;align-items:center;font-family:inherit}
+.btn-edit{background:var(--blue-l);color:var(--blue-d)}
+.btn-edit:hover{background:#cce3f5}
+.btn-del{background:var(--red-l);color:var(--red-d)}
+.btn-del:hover{background:#f5d5d5}
+.no-results{text-align:center;padding:4rem;color:var(--text3);background:var(--bg);border:1px solid var(--border);border-radius:var(--rl)}
+
+/* ─── Table view ─────────────────────────────────────────────────────────── */
+.table-wrap{background:var(--bg);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;box-shadow:var(--sh)}
+.table-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12px}
+thead tr{background:#f8f9fb}
+th{text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text2);padding:10px 12px;border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--text)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:#f8fbff}
+.td-title{font-weight:500;max-width:280px;line-height:1.4}
+.td-journal{color:var(--text2);font-style:italic;max-width:180px}
+.td-mono{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text3)}
+
+/* ─── Modal ──────────────────────────────────────────────────────────────── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,15,30,0.6);z-index:999;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal-box{background:#fff;border-radius:var(--rl);width:min(680px,100%);max-height:94vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.25)}
+.modal-header{background:linear-gradient(135deg,#1a1a2e,#0f3460);padding:1.5rem;border-radius:var(--rl) var(--rl) 0 0;position:relative}
+.modal-close{position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.15);border:none;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:16px;transition:background 0.15s}
+.modal-close:hover{background:rgba(255,255,255,0.25)}
+.modal-name{color:#fff;font-size:17px;font-weight:700}
+.modal-meta{color:rgba(255,255,255,0.6);font-size:13px;margin-top:4px}
+.modal-body{padding:1.5rem}
+.edit-form{display:grid;gap:14px}
+.form-row{display:grid;gap:6px}
+.form-row label{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px}
+.form-row input,.form-row select,.form-row textarea{width:100%;padding:9px 11px;border:1px solid var(--border2);border-radius:var(--rm);font-size:13px;color:var(--text);font-family:inherit;background:#fff;outline:none;transition:border 0.15s}
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(24,95,165,0.08)}
+.form-row textarea{resize:vertical;min-height:60px;line-height:1.5}
+.form-2col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-3col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.modal-footer{padding:1rem 1.5rem;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end;background:#fafbfc;border-radius:0 0 var(--rl) var(--rl)}
+.btn-save{background:#1a1a2e;color:#fff;border:none;border-radius:var(--rm);padding:9px 20px;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.15s;font-family:inherit;display:inline-flex;align-items:center;gap:6px}
+.btn-save:hover{background:#0f3460}
+.btn-cancel{background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:var(--rm);padding:9px 20px;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.15s;font-family:inherit}
+.btn-cancel:hover{background:var(--border)}
+
+/* Confirm modal */
+.confirm-box{background:#fff;border-radius:var(--rl);width:min(420px,100%);padding:2rem;box-shadow:0 20px 60px rgba(0,0,0,0.25);text-align:center}
+.confirm-icon{font-size:44px;color:var(--red);margin-bottom:12px}
+.confirm-title{font-size:18px;font-weight:700;margin-bottom:8px}
+.confirm-text{font-size:14px;color:var(--text2);margin-bottom:20px;line-height:1.5}
+.confirm-btns{display:flex;gap:10px;justify-content:center}
+.btn-confirm-del{background:var(--red);color:#fff;border:none;border-radius:var(--rm);padding:9px 24px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+.btn-confirm-del:hover{background:var(--red-d)}
+
+/* Admin login */
+.admin-login-overlay{display:none;position:fixed;inset:0;background:rgba(10,12,26,0.82);z-index:1100;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px)}
+.admin-login-overlay.open{display:flex}
+.admin-login-box{background:#fff;border-radius:16px;width:min(400px,100%);box-shadow:0 24px 64px rgba(0,0,0,0.35);overflow:hidden}
+.admin-login-header{background:linear-gradient(135deg,#1a1a2e,#0f3460);padding:2rem 2rem 1.5rem;text-align:center}
+.admin-login-icon{width:52px;height:52px;background:rgba(255,255,255,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:24px;color:#fff}
+.admin-login-title{color:#fff;font-size:18px;font-weight:700;margin-bottom:4px}
+.admin-login-sub{color:rgba(255,255,255,0.55);font-size:13px}
+.admin-login-body{padding:1.75rem 2rem 2rem}
+.admin-login-label{font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:0.4px;display:block;margin-bottom:6px}
+.admin-login-input-wrap{position:relative}
+.admin-login-input{width:100%;padding:11px 40px 11px 13px;border:1.5px solid var(--border2);border-radius:var(--rm);font-size:14px;font-family:inherit;color:var(--text);outline:none;transition:border 0.15s;background:#fff}
+.admin-login-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(24,95,165,0.1)}
+.admin-login-input.error{border-color:var(--red)}
+.admin-toggle-pw{position:absolute;right:11px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);font-size:17px;padding:2px}
+.admin-error-msg{color:var(--red);font-size:12px;margin-top:6px;display:none;align-items:center;gap:4px}
+.admin-error-msg.show{display:flex}
+.admin-login-btn{width:100%;margin-top:16px;background:#1a1a2e;color:#fff;border:none;border-radius:var(--rm);padding:12px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background 0.15s;display:flex;align-items:center;justify-content:center;gap:8px}
+.admin-login-btn:hover{background:#0f3460}
+.admin-view-note{margin-top:14px;text-align:center;font-size:12px;color:var(--text3)}
+.admin-view-note a{color:var(--blue);cursor:pointer;text-decoration:none;font-weight:500}
+.admin-view-note a:hover{text-decoration:underline}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;right:24px;background:#1a1a2e;color:#fff;padding:12px 20px;border-radius:var(--rm);font-size:13px;font-weight:500;z-index:9999;transform:translateY(100px);opacity:0;transition:all 0.3s;display:flex;align-items:center;gap:8px;max-width:340px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.success i{color:#4ade80}
+.toast.error i{color:#f87171}
+
+/* Admin-only elements */
+.admin-only{display:none}
+body.is-admin .admin-only{display:inline-flex}
+body.is-admin .admin-only-flex{display:flex}
+
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.spin{animation:spin 1s linear infinite}
+
+@media(max-width:640px){
+  .form-2col,.form-3col{grid-template-columns:1fr}
+  .stats-row{gap:6px}
+  .stat-card{min-width:calc(50% - 3px)}
+}
+</style>
+</head>
+<body>
+
+<!-- ─── Header ─────────────────────────────────────────────────────────── -->
+<div class="top-bar">
+  <div class="top-inner">
+    <div class="top-brand">
+      <div class="top-icon"><i class="ti ti-book-2"></i></div>
+      <div>
+        <div class="top-title"><i class="ti ti-microscope" style="margin-right:7px;opacity:0.8"></i>FM Research Publications</div>
+        <div class="top-sub">Department of Electrical &amp; Computer Engineering · Air University, Islamabad</div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <span id="syncStatus" class="sync-saved"><i class="ti ti-cloud-check"></i>Synced</span>
+      <span class="top-badge" id="topBadge"><i class="ti ti-book"></i><span id="badgeCount">…</span> Publications</span>
+      <span class="admin-badge" id="adminBadge" style="display:none"><i class="ti ti-shield-check"></i>Admin</span>
+      <button class="btn-hdr" onclick="window.location.href='index.html'" title="Back to main database"><i class="ti ti-home"></i>Home</button>
+      <button class="btn-hdr btn-hdr-green" onclick="exportExcel()"><i class="ti ti-table-export"></i>Export Excel</button>
+      <button class="btn-hdr" onclick="forceReload()" title="Pull latest from Firebase"><i class="ti ti-cloud-download"></i>Reload</button>
+      <button class="btn-hdr admin-only" onclick="openAddPub()" id="addBtnHdr"><i class="ti ti-plus"></i>Add Publication</button>
+      <button class="btn-hdr" id="logoutBtn" style="display:none" onclick="adminLogout()"><i class="ti ti-logout"></i>Sign out</button>
+      <button class="btn-hdr" id="adminLoginBtn" onclick="showAdminLogin()"><i class="ti ti-lock"></i>Admin Login</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Main ───────────────────────────────────────────────────────────── -->
+<div class="main">
+
+  <!-- Stats -->
+  <div class="stats-row" id="statsRow">
+    <div class="stat-card"><div class="stat-icon si-blue"><i class="ti ti-books"></i></div><div><div class="stat-val" id="sTotal">—</div><div class="stat-lbl">Total</div></div></div>
+    <div class="stat-card"><div class="stat-icon si-purple"><i class="ti ti-file-text"></i></div><div><div class="stat-val" id="sPapers">—</div><div class="stat-lbl">Journal Papers</div></div></div>
+    <div class="stat-card"><div class="stat-icon si-teal"><i class="ti ti-presentation"></i></div><div><div class="stat-val" id="sConf">—</div><div class="stat-lbl">Conference</div></div></div>
+    <div class="stat-card"><div class="stat-icon si-green"><i class="ti ti-award"></i></div><div><div class="stat-val" id="sW">—</div><div class="stat-lbl">HJRS-W</div></div></div>
+    <div class="stat-card"><div class="stat-icon si-amber"><i class="ti ti-star"></i></div><div><div class="stat-val" id="sX">—</div><div class="stat-lbl">HJRS-X</div></div></div>
+    <div class="stat-card"><div class="stat-icon si-coral"><i class="ti ti-building-community"></i></div><div><div class="stat-val" id="sFM">—</div><div class="stat-lbl">Faculty Members</div></div></div>
+  </div>
+
+  <!-- Filter bar -->
+  <div class="filter-bar">
+    <div class="filter-row">
+      <div class="search-wrap">
+        <i class="ti ti-search"></i>
+        <input type="text" id="fSearch" placeholder="Search title, journal, author…" oninput="applyFilters()">
+      </div>
+      <select id="fFM" onchange="applyFilters()"><option value="">All Authors</option></select>
+      <select id="fYear" onchange="applyFilters()"><option value="">All Years</option></select>
+      <select id="fType" onchange="applyFilters()">
+        <option value="">All Types</option>
+        <option value="Paper">Journal Paper</option>
+        <option value="Conference">Conference</option>
+      </select>
+      <select id="fHJRS" onchange="applyFilters()">
+        <option value="">All HJRS</option>
+        <option value="W">W</option>
+        <option value="X">X</option>
+        <option value="Y">Y</option>
+        <option value="Nil">Nil</option>
+      </select>
+      <select id="fAU" onchange="applyFilters()">
+        <option value="">All Affiliation</option>
+        <option value="Y">AU Affiliated</option>
+        <option value="N">Non-AU</option>
+      </select>
+      <div class="view-toggle">
+        <button class="view-btn active" id="vCards" onclick="setView('cards')" title="Grouped by Author"><i class="ti ti-layout-cards"></i></button>
+        <button class="view-btn" id="vTable" onclick="setView('table')" title="Table view"><i class="ti ti-table"></i></button>
+      </div>
+      <button class="add-btn admin-only" onclick="openAddPub()"><i class="ti ti-plus"></i>Add</button>
+    </div>
+    <div class="count-info" id="countBar">Loading…</div>
+  </div>
+
+  <!-- Content area -->
+  <div id="contentArea"></div>
+
+</div>
+
+<!-- ─── Add/Edit Publication Modal ────────────────────────────────────── -->
+<div class="modal-overlay" id="pubModal">
+  <div class="modal-box" id="pubModalBox"></div>
+</div>
+
+<!-- ─── Confirm Delete Modal ──────────────────────────────────────────── -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="confirm-box">
+    <div class="confirm-icon"><i class="ti ti-trash"></i></div>
+    <div class="confirm-title">Delete Publication?</div>
+    <div class="confirm-text" id="confirmText"></div>
+    <div class="confirm-btns">
+      <button class="btn-cancel" onclick="closeConfirm()">Cancel</button>
+      <button class="btn-confirm-del" id="confirmDelBtn">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Admin Login Modal ─────────────────────────────────────────────── -->
+<div class="admin-login-overlay" id="adminLoginOverlay">
+  <div class="admin-login-box">
+    <div class="admin-login-header">
+      <div class="admin-login-icon"><i class="ti ti-lock"></i></div>
+      <div class="admin-login-title">Admin Access</div>
+      <div class="admin-login-sub">Enter password to manage publications</div>
+    </div>
+    <div class="admin-login-body">
+      <label class="admin-login-label">Password</label>
+      <div class="admin-login-input-wrap">
+        <input type="password" id="adminPwInput" class="admin-login-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')doAdminLogin()">
+        <button class="admin-toggle-pw" onclick="togglePwVisibility()"><i id="eyeIcon" class="ti ti-eye"></i></button>
+      </div>
+      <div class="admin-error-msg" id="adminErrMsg"><i class="ti ti-alert-circle"></i>Incorrect password</div>
+      <button class="admin-login-btn" onclick="doAdminLogin()"><i class="ti ti-shield-check"></i>Sign In as Admin</button>
+      <div class="admin-view-note">Read-only access? <a onclick="hideAdminLogin()">Continue as Viewer</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Toast ─────────────────────────────────────────────────────────── -->
+<div class="toast" id="toast"><i class="ti ti-check"></i><span id="toastMsg"></span></div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════════
+// FIREBASE CONFIG (same project as parent app)
+// ═══════════════════════════════════════════════════════════════════════════
+const FIREBASE_CONFIG = {
+  projectId: "aupgece-1e114"
+};
+const FS_BASE = `https://firestore.googleapis.com/v1/projects/${FIREBASE_CONFIG.projectId}/databases/(default)/documents`;
+const PUB_STORAGE_KEY = "aupgece_publications_v1";
+
+// ─── State ────────────────────────────────────────────────────────────────
+let PUBLICATIONS = [];
+let editingIdx = null;
+let currentView = 'cards';
+let isAdmin = false;
+const ADMIN_PASSWORD = "pg2026";
+
+// ─── Firestore helpers ────────────────────────────────────────────────────
+function objToFsFields(obj) {
+  const fields = {};
+  for (const [k, v] of Object.entries(obj)) {
+    if (v === null || v === undefined) fields[k] = { nullValue: null };
+    else if (typeof v === 'boolean') fields[k] = { booleanValue: v };
+    else if (typeof v === 'number') fields[k] = { integerValue: String(v) };
+    else fields[k] = { stringValue: String(v) };
+  }
+  return fields;
+}
+
+function fsMapToObj(fields) {
+  const obj = {};
+  for (const [k, v] of Object.entries(fields)) {
+    if (v.stringValue  !== undefined) obj[k] = v.stringValue;
+    else if (v.integerValue !== undefined) obj[k] = parseInt(v.integerValue);
+    else if (v.booleanValue !== undefined) obj[k] = v.booleanValue;
+    else if (v.nullValue   !== undefined) obj[k] = null;
+    else obj[k] = null;
+  }
+  return obj;
+}
+
+// ─── localStorage ─────────────────────────────────────────────────────────
+function saveLocal() {
+  try { localStorage.setItem(PUB_STORAGE_KEY, JSON.stringify(PUBLICATIONS)); } catch(e) {}
+}
+function loadLocal() {
+  try {
+    const raw = localStorage.getItem(PUB_STORAGE_KEY);
+    if (raw) { const a = JSON.parse(raw); if (Array.isArray(a) && a.length) return a; }
+  } catch(e) {}
+  return null;
+}
+
+// ─── Firebase sync ────────────────────────────────────────────────────────
+function setSyncStatus(state, msg) {
+  const el = document.getElementById('syncStatus');
+  el.className = `sync-${state}`;
+  if (state === 'saving') el.innerHTML = '<i class="ti ti-refresh spin"></i>Saving…';
+  else if (state === 'saved') el.innerHTML = '<i class="ti ti-cloud-check"></i>Synced';
+  else el.innerHTML = `<i class="ti ti-cloud-x"></i>${msg || 'Error'}`;
+}
+
+async function persistPublications() {
+  saveLocal();
+  setSyncStatus('saving');
+  try {
+    const body = JSON.stringify({
+      fields: {
+        list: {
+          arrayValue: {
+            values: PUBLICATIONS.map(p => ({ mapValue: { fields: objToFsFields(p) } }))
+          }
+        }
+      }
+    });
+    const res = await fetch(`${FS_BASE}/appdata/publications?updateMask.fieldPaths=list`, {
+      method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body
+    });
+    if (res.ok) setSyncStatus('saved');
+    else { console.warn('Firebase save failed:', await res.text()); setSyncStatus('error', 'Save failed'); }
+  } catch(e) {
+    console.warn('Firebase save error:', e);
+    setSyncStatus('error', 'Offline — saved locally');
+  }
+}
+
+async function loadPublications() {
+  const local = loadLocal();
+  if (local) { PUBLICATIONS = local; renderAll(); }
+
+  try {
+    const r = await fetch(`${FS_BASE}/appdata/publications`);
+    if (r.ok) {
+      const d = await r.json();
+      const arr = (d.fields?.list?.arrayValue?.values || []).map(v => fsMapToObj(v.mapValue?.fields || {}));
+      if (arr.length) { PUBLICATIONS = arr; saveLocal(); }
+      else if (!local) { await persistPublications(); }
+    } else if (r.status === 404) {
+      await persistPublications();
+    }
+  } catch(e) {
+    console.warn('Firebase load failed, using localStorage:', e);
+    setSyncStatus('error', 'Offline');
+  }
+  renderAll();
+}
+
+async function forceReload() {
+  setSyncStatus('saving');
+  await loadPublications();
+  showToast('Reloaded from database');
+}
+
+// ─── Stats ────────────────────────────────────────────────────────────────
+function buildStats(pubs) {
+  document.getElementById('sTotal').textContent = pubs.length;
+  document.getElementById('sPapers').textContent = pubs.filter(p => p.type === 'Paper').length;
+  document.getElementById('sConf').textContent = pubs.filter(p => p.type === 'Conference').length;
+  document.getElementById('sW').textContent = pubs.filter(p => p.hjrs === 'W').length;
+  document.getElementById('sX').textContent = pubs.filter(p => p.hjrs === 'X').length;
+  const fms = new Set(pubs.map(p => p.fm).filter(Boolean));
+  document.getElementById('sFM').textContent = fms.size;
+  document.getElementById('badgeCount').textContent = PUBLICATIONS.length;
+}
+
+// ─── Filters ──────────────────────────────────────────────────────────────
+function populateFilters() {
+  const fms = [...new Set(PUBLICATIONS.map(p => p.fm).filter(Boolean))].sort();
+  const years = [...new Set(PUBLICATIONS.map(p => p.year).filter(Boolean))].sort((a,b) => b-a);
+  const fmSel = document.getElementById('fFM');
+  const curFM = fmSel.value;
+  fmSel.innerHTML = '<option value="">All Authors</option>' + fms.map(f => `<option value="${esc(f)}"${curFM===f?' selected':''}>${esc(f)}</option>`).join('');
+  const yrSel = document.getElementById('fYear');
+  const curYr = yrSel.value;
+  yrSel.innerHTML = '<option value="">All Years</option>' + years.map(y => `<option value="${esc(y)}"${curYr==y?' selected':''}>${esc(y)}</option>`).join('');
+}
+
+function getFiltered() {
+  const q = document.getElementById('fSearch').value.toLowerCase();
+  const fm = document.getElementById('fFM').value;
+  const yr = document.getElementById('fYear').value;
+  const tp = document.getElementById('fType').value;
+  const hjrs = document.getElementById('fHJRS').value;
+  const au = document.getElementById('fAU').value;
+  return PUBLICATIONS.filter((p, i) => {
+    p._idx = i;
+    if (fm && p.fm !== fm) return false;
+    if (yr && String(p.year) !== String(yr)) return false;
+    if (tp && p.type !== tp) return false;
+    if (hjrs && p.hjrs !== hjrs) return false;
+    if (au && p.au !== au) return false;
+    if (q) {
+      const hay = `${p.title} ${p.fm} ${p.journal} ${p.year} ${p.notes}`.toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+}
+
+function applyFilters() {
+  const filtered = getFiltered();
+  buildStats(filtered);
+  document.getElementById('countBar').textContent = `Showing ${filtered.length} of ${PUBLICATIONS.length} publications`;
+  if (currentView === 'cards') renderCards(filtered);
+  else renderTable(filtered);
+}
+
+// ─── Rendering ────────────────────────────────────────────────────────────
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function hjrsBadge(h) {
+  if (!h || h === 'Nil') return `<span class="badge b-nil">Nil</span>`;
+  if (h === 'W') return `<span class="badge b-w"><i class="ti ti-award"></i>HJRS-W</span>`;
+  if (h === 'X') return `<span class="badge b-x"><i class="ti ti-star"></i>HJRS-X</span>`;
+  if (h === 'Y') return `<span class="badge b-y">HJRS-Y</span>`;
+  return `<span class="badge b-nil">${esc(h)}</span>`;
+}
+
+function typeBadge(t) {
+  return t === 'Conference'
+    ? `<span class="badge b-conf"><i class="ti ti-presentation"></i>Conf</span>`
+    : `<span class="badge b-paper"><i class="ti ti-file-text"></i>Journal</span>`;
+}
+
+function initials(name) {
+  return (name || '?').split(' ').filter(w => /^[A-Z]/.test(w)).slice(-2).map(w => w[0]).join('') || name[0];
+}
+
+function renderCards(pubs) {
+  const area = document.getElementById('contentArea');
+  if (!pubs.length) { area.innerHTML = `<div class="no-results"><i class="ti ti-search-off" style="font-size:32px;display:block;margin-bottom:12px"></i>No publications match your filters.</div>`; return; }
+
+  // Group by FM
+  const groups = {};
+  pubs.forEach(p => {
+    const key = p.fm || '(Unknown)';
+    if (!groups[key]) groups[key] = [];
+    groups[key].push(p);
+  });
+
+  let html = '';
+  Object.entries(groups).sort((a,b) => a[0].localeCompare(b[0])).forEach(([fm, items]) => {
+    const papers = items.filter(p => p.type === 'Paper').length;
+    const conf = items.filter(p => p.type === 'Conference').length;
+    const wCount = items.filter(p => p.hjrs === 'W').length;
+    const dept = items[0]?.dept || 'ECE';
+    const init = initials(fm);
+    html += `<div class="pub-fm-section">
+      <div class="pub-fm-header" onclick="toggleSection(this)">
+        <div class="pub-fm-avatar">${esc(init)}</div>
+        <div style="flex:1">
+          <div class="pub-fm-name">${esc(fm)}</div>
+          <div class="pub-fm-dept">${esc(dept)}</div>
+        </div>
+        <div class="pub-fm-meta">
+          <span class="pub-fm-count">${items.length} total</span>
+          ${papers ? `<span class="badge b-paper">${papers} journal</span>` : ''}
+          ${conf ? `<span class="badge b-conf">${conf} conf</span>` : ''}
+          ${wCount ? `<span class="badge b-w">${wCount} HJRS-W</span>` : ''}
+        </div>
+        <i class="ti ti-chevron-down" style="font-size:16px;color:var(--text3);transition:transform 0.2s;margin-left:8px"></i>
+      </div>
+      <div class="pub-fm-body pub-cards">`;
+
+    items.forEach((p, ci) => {
+      const realIdx = p._idx;
+      html += `<div class="pub-card">
+        <div class="pub-card-num">${ci+1}</div>
+        <div class="pub-card-inner">
+          <div class="pub-title">${esc(p.title || '—')}</div>
+          <div class="pub-meta-row">
+            ${typeBadge(p.type)}
+            ${hjrsBadge(p.hjrs)}
+            ${p.year ? `<span class="badge b-year"><i class="ti ti-calendar"></i>${esc(p.year)}</span>` : ''}
+            ${p.au === 'Y' ? `<span class="badge b-au"><i class="ti ti-building"></i>AU</span>` : ''}
+          </div>
+          <div class="pub-journal"><i class="ti ti-book"></i>${esc(p.journal || '—')}</div>
+          <div class="pub-author-row">
+            ${p.pos ? `<span><i class="ti ti-user" style="font-size:11px"></i> Author pos. <strong>#${esc(p.pos)}</strong></span>` : ''}
+            ${p.impactFactor && p.impactFactor !== 'Nil' ? `<span class="pub-if-tag">IF: ${esc(p.impactFactor)}</span>` : ''}
+          </div>
+          ${(p.url || p.hjrsUrl) ? `<div class="pub-links">
+            ${p.url ? `<a href="${esc(p.url)}" target="_blank" class="pub-link"><i class="ti ti-external-link"></i>View Paper</a>` : ''}
+            ${p.hjrsUrl ? `<a href="${esc(p.hjrsUrl)}" target="_blank" class="pub-link hjrs-link"><i class="ti ti-certificate"></i>HJRS</a>` : ''}
+          </div>` : ''}
+          ${p.notes ? `<div style="font-size:11px;color:var(--text3);margin-top:5px;font-style:italic">${esc(p.notes)}</div>` : ''}
+        </div>
+        <div class="pub-card-actions admin-only" style="display:none">
+          <button class="act-btn btn-edit" onclick="openEditPub(${realIdx})"><i class="ti ti-pencil"></i></button>
+          <button class="act-btn btn-del" onclick="confirmDeletePub(${realIdx})"><i class="ti ti-trash"></i></button>
+        </div>
+      </div>`;
+    });
+
+    html += `</div></div>`;
+  });
+
+  area.innerHTML = html;
+  // Show admin buttons if admin
+  if (isAdmin) {
+    area.querySelectorAll('.pub-card-actions').forEach(el => el.style.display = 'flex');
+  }
+}
+
+function renderTable(pubs) {
+  const area = document.getElementById('contentArea');
+  if (!pubs.length) { area.innerHTML = `<div class="no-results"><i class="ti ti-search-off" style="font-size:32px;display:block;margin-bottom:12px"></i>No publications match your filters.</div>`; return; }
+
+  let html = `<div class="table-wrap"><div class="table-scroll"><table>
+    <thead><tr>
+      <th>#</th><th>Faculty Member</th><th>Title</th><th>Journal / Venue</th>
+      <th>Year</th><th>Type</th><th>HJRS</th><th>IF</th><th>Author Pos</th><th>AU</th>
+      ${isAdmin ? '<th>Actions</th>' : ''}
+    </tr></thead><tbody>`;
+
+  pubs.forEach((p, i) => {
+    const realIdx = p._idx;
+    html += `<tr>
+      <td class="td-mono">${i+1}</td>
+      <td style="white-space:nowrap;font-weight:600">${esc(p.fm||'—')}</td>
+      <td class="td-title">${esc(p.title||'—')}${p.url ? ` <a href="${esc(p.url)}" target="_blank" style="color:var(--blue);font-size:11px"><i class="ti ti-external-link"></i></a>`:''}</td>
+      <td class="td-journal">${esc(p.journal||'—')}</td>
+      <td class="td-mono">${esc(p.year||'')}</td>
+      <td>${typeBadge(p.type)}</td>
+      <td>${hjrsBadge(p.hjrs)}</td>
+      <td class="td-mono">${esc(p.impactFactor||'')}</td>
+      <td class="td-mono" style="text-align:center">${esc(p.pos||'')}</td>
+      <td>${p.au==='Y'?`<span class="badge b-au">AU</span>`:'—'}</td>
+      ${isAdmin ? `<td><div style="display:flex;gap:4px">
+        <button class="act-btn btn-edit" onclick="openEditPub(${realIdx})"><i class="ti ti-pencil"></i></button>
+        <button class="act-btn btn-del" onclick="confirmDeletePub(${realIdx})"><i class="ti ti-trash"></i></button>
+      </div></td>` : ''}
+    </tr>`;
+  });
+  html += '</tbody></table></div></div>';
+  area.innerHTML = html;
+}
+
+function renderAll() {
+  populateFilters();
+  applyFilters();
+}
+
+function setView(v) {
+  currentView = v;
+  document.getElementById('vCards').classList.toggle('active', v === 'cards');
+  document.getElementById('vTable').classList.toggle('active', v === 'table');
+  applyFilters();
+}
+
+function toggleSection(header) {
+  const body = header.nextElementSibling;
+  const icon = header.querySelector('.ti-chevron-down');
+  const isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : '';
+  if (icon) icon.style.transform = isOpen ? 'rotate(-90deg)' : '';
+}
+
+// ─── Add / Edit modal ─────────────────────────────────────────────────────
+function pubForm(p) {
+  const fms = [...new Set(PUBLICATIONS.map(x => x.fm).filter(Boolean))].sort();
+  const fmOpts = fms.map(f => `<option value="${esc(f)}"${p&&p.fm===f?' selected':''}>${esc(f)}</option>`).join('');
+  return `
+  <div class="modal-header">
+    <div class="modal-name"><i class="ti ti-book" style="margin-right:8px"></i>${p ? 'Edit Publication' : 'Add New Publication'}</div>
+    <div class="modal-meta">${p ? esc((p.title||'').substring(0,60))+'…' : 'Fill in the details below'}</div>
+    <button class="modal-close" onclick="closePubModal()"><i class="ti ti-x"></i></button>
+  </div>
+  <div class="modal-body">
+    <div class="edit-form">
+      <div class="form-row">
+        <label>Title *</label>
+        <input id="pf-title" value="${esc(p?.title||'')}" placeholder="Full paper/conference title">
+      </div>
+      <div class="form-2col">
+        <div class="form-row">
+          <label>Faculty Member *</label>
+          <input id="pf-fm" list="fm-list" value="${esc(p?.fm||'')}" placeholder="Dr. Name">
+          <datalist id="fm-list">${fmOpts}</datalist>
+        </div>
+        <div class="form-row">
+          <label>Department</label>
+          <select id="pf-dept">
+            <option value="ECE"${!p||p.dept==='ECE'?' selected':''}>ECE</option>
+            <option value="EE"${p?.dept==='EE'?' selected':''}>EE</option>
+            <option value="CE"${p?.dept==='CE'?' selected':''}>CE</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <label>Journal / Conference Name *</label>
+        <input id="pf-journal" value="${esc(p?.journal||'')}" placeholder="e.g. IEEE Transactions on …">
+      </div>
+      <div class="form-3col">
+        <div class="form-row">
+          <label>Year *</label>
+          <input id="pf-year" type="number" min="2000" max="2030" value="${esc(p?.year||new Date().getFullYear())}" placeholder="${new Date().getFullYear()}">
+        </div>
+        <div class="form-row">
+          <label>Type</label>
+          <select id="pf-type">
+            <option value="Paper"${!p||p.type==='Paper'?' selected':''}>Journal Paper</option>
+            <option value="Conference"${p?.type==='Conference'?' selected':''}>Conference</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Author Position</label>
+          <input id="pf-pos" type="number" min="1" value="${esc(p?.pos||1)}" placeholder="1">
+        </div>
+      </div>
+      <div class="form-3col">
+        <div class="form-row">
+          <label>HJRS Category</label>
+          <select id="pf-hjrs">
+            <option value="Nil"${!p||p.hjrs==='Nil'?' selected':''}>Nil</option>
+            <option value="W"${p?.hjrs==='W'?' selected':''}>W</option>
+            <option value="X"${p?.hjrs==='X'?' selected':''}>X</option>
+            <option value="Y"${p?.hjrs==='Y'?' selected':''}>Y</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Impact Factor</label>
+          <input id="pf-if" value="${esc(p?.impactFactor||'Nil')}" placeholder="e.g. 3.4 or Nil">
+        </div>
+        <div class="form-row">
+          <label>AU Affiliation</label>
+          <select id="pf-au">
+            <option value="Y"${!p||p.au==='Y'?' selected':''}>Yes</option>
+            <option value="N"${p?.au==='N'?' selected':''}>No</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-2col">
+        <div class="form-row">
+          <label>Publication URL</label>
+          <input id="pf-url" type="url" value="${esc(p?.url||'')}" placeholder="https://…">
+        </div>
+        <div class="form-row">
+          <label>HJRS URL</label>
+          <input id="pf-hjrsurl" type="url" value="${esc(p?.hjrsUrl||'')}" placeholder="https://…">
+        </div>
+      </div>
+      <div class="form-row">
+        <label>Notes</label>
+        <textarea id="pf-notes" placeholder="Any additional notes…">${esc(p?.notes||'')}</textarea>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn-cancel" onclick="closePubModal()">Cancel</button>
+    <button class="btn-save" onclick="savePub()"><i class="ti ti-device-floppy"></i>${p ? 'Save Changes' : 'Add Publication'}</button>
+  </div>`;
+}
+
+function openAddPub() {
+  editingIdx = null;
+  document.getElementById('pubModalBox').innerHTML = pubForm(null);
+  document.getElementById('pubModal').classList.add('open');
+}
+
+function openEditPub(idx) {
+  editingIdx = idx;
+  document.getElementById('pubModalBox').innerHTML = pubForm(PUBLICATIONS[idx]);
+  document.getElementById('pubModal').classList.add('open');
+}
+
+function closePubModal() { document.getElementById('pubModal').classList.remove('open'); }
+
+async function savePub() {
+  const title = document.getElementById('pf-title').value.trim();
+  const fm = document.getElementById('pf-fm').value.trim();
+  const journal = document.getElementById('pf-journal').value.trim();
+  const year = document.getElementById('pf-year').value.trim();
+  if (!title || !fm || !journal || !year) { showToast('Title, Author, Journal & Year are required', 'error'); return; }
+  const pub = {
+    title, fm, dept: document.getElementById('pf-dept').value,
+    journal, year,
+    type: document.getElementById('pf-type').value,
+    pos: parseInt(document.getElementById('pf-pos').value) || 1,
+    hjrs: document.getElementById('pf-hjrs').value,
+    impactFactor: document.getElementById('pf-if').value.trim() || 'Nil',
+    au: document.getElementById('pf-au').value,
+    url: document.getElementById('pf-url').value.trim(),
+    hjrsUrl: document.getElementById('pf-hjrsurl').value.trim(),
+    notes: document.getElementById('pf-notes').value.trim()
+  };
+  if (editingIdx !== null) PUBLICATIONS[editingIdx] = pub;
+  else PUBLICATIONS.push(pub);
+  closePubModal();
+  renderAll();
+  await persistPublications();
+  showToast(editingIdx !== null ? 'Publication updated' : 'Publication added');
+}
+
+function confirmDeletePub(idx) {
+  const p = PUBLICATIONS[idx];
+  document.getElementById('confirmText').textContent = `Delete "${(p.title||'').substring(0,70)}…"? This cannot be undone.`;
+  document.getElementById('confirmDelBtn').onclick = async () => {
+    PUBLICATIONS.splice(idx, 1);
+    closeConfirm();
+    renderAll();
+    await persistPublications();
+    showToast('Publication deleted');
+  };
+  document.getElementById('confirmModal').classList.add('open');
+}
+
+function closeConfirm() { document.getElementById('confirmModal').classList.remove('open'); }
+
+// ─── Admin auth ────────────────────────────────────────────────────────────
+function showAdminLogin() {
+  document.getElementById('adminLoginOverlay').classList.add('open');
+  document.getElementById('adminPwInput').value = '';
+  document.getElementById('adminErrMsg').classList.remove('show');
+  document.getElementById('adminPwInput').classList.remove('error');
+  setTimeout(() => document.getElementById('adminPwInput').focus(), 100);
+}
+function hideAdminLogin() { document.getElementById('adminLoginOverlay').classList.remove('open'); }
+function togglePwVisibility() {
+  const inp = document.getElementById('adminPwInput');
+  const icon = document.getElementById('eyeIcon');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+  icon.className = inp.type === 'password' ? 'ti ti-eye' : 'ti ti-eye-off';
+}
+function doAdminLogin() {
+  if (document.getElementById('adminPwInput').value === ADMIN_PASSWORD) {
+    isAdmin = true;
+    document.body.classList.add('is-admin');
+    document.getElementById('adminBadge').style.display = 'inline-flex';
+    document.getElementById('logoutBtn').style.display = 'inline-flex';
+    document.getElementById('adminLoginBtn').style.display = 'none';
+    hideAdminLogin();
+    renderAll();
+    showToast('Signed in as Admin');
+  } else {
+    document.getElementById('adminErrMsg').classList.add('show');
+    document.getElementById('adminPwInput').classList.add('error');
+    document.getElementById('adminPwInput').focus();
+  }
+}
+function adminLogout() {
+  isAdmin = false;
+  document.body.classList.remove('is-admin');
+  document.getElementById('adminBadge').style.display = 'none';
+  document.getElementById('logoutBtn').style.display = 'none';
+  document.getElementById('adminLoginBtn').style.display = '';
+  renderAll();
+  showToast('Signed out of Admin');
+}
+
+// ─── Export Excel ──────────────────────────────────────────────────────────
+function exportExcel() {
+  if (typeof XLSX === 'undefined') {
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+    s.onload = _doExport;
+    document.head.appendChild(s);
+  } else _doExport();
+}
+function _doExport() {
+  const headers = ['#','Faculty Member','Department','Title','Journal / Venue','Year','Type','Author Position','HJRS','Impact Factor','AU Affiliation','Publication URL','HJRS URL','Notes'];
+  const rows = PUBLICATIONS.map((p, i) => [
+    i+1, p.fm||'', p.dept||'ECE', p.title||'', p.journal||'', p.year||'',
+    p.type||'', p.pos||'', p.hjrs||'', p.impactFactor||'',
+    p.au==='Y'?'Yes':'No', p.url||'', p.hjrsUrl||'', p.notes||''
+  ]);
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.aoa_to_sheet([headers, ...rows]);
+  ws['!cols'] = [{wch:5},{wch:28},{wch:10},{wch:55},{wch:36},{wch:6},{wch:12},{wch:8},{wch:8},{wch:8},{wch:10},{wch:45},{wch:45},{wch:30}];
+  XLSX.utils.book_append_sheet(wb, ws, 'All Publications');
+
+  // By FM sheet
+  const fmMap = {};
+  PUBLICATIONS.forEach(p => {
+    if (!fmMap[p.fm]) fmMap[p.fm] = {total:0,papers:0,conf:0,W:0,X:0,Y:0,nil:0};
+    const m = fmMap[p.fm];
+    m.total++;
+    if (p.type === 'Paper') m.papers++; else m.conf++;
+    if (p.hjrs === 'W') m.W++;
+    else if (p.hjrs === 'X') m.X++;
+    else if (p.hjrs === 'Y') m.Y++;
+    else m.nil++;
+  });
+  const fmH = ['Faculty Member','Total','Journal Papers','Conference Papers','HJRS W','HJRS X','HJRS Y','Nil / Other'];
+  const fmRows = Object.entries(fmMap).sort((a,b)=>a[0].localeCompare(b[0])).map(([f,m])=>[f,m.total,m.papers,m.conf,m.W,m.X,m.Y,m.nil]);
+  const ws2 = XLSX.utils.aoa_to_sheet([fmH, ...fmRows]);
+  ws2['!cols'] = [{wch:30},{wch:8},{wch:14},{wch:16},{wch:8},{wch:8},{wch:8},{wch:10}];
+  XLSX.utils.book_append_sheet(wb, ws2, 'By Faculty Member');
+
+  XLSX.writeFile(wb, `FM_Research_Publications_${new Date().toISOString().slice(0,10)}.xlsx`);
+  showToast('Exported to Excel successfully');
+}
+
+// ─── Toast ─────────────────────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg, type = 'success') {
+  clearTimeout(toastTimer);
+  const t = document.getElementById('toast');
+  const icon = t.querySelector('i');
+  document.getElementById('toastMsg').textContent = msg;
+  t.className = `toast ${type}`;
+  icon.className = type === 'success' ? 'ti ti-check' : 'ti ti-alert-circle';
+  t.classList.add('show');
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ─── Init ──────────────────────────────────────────────────────────────────
+(async function init() {
+  document.getElementById('contentArea').innerHTML = `<div class="no-results"><i class="ti ti-loader spin" style="font-size:32px;display:block;margin-bottom:12px"></i>Loading publications from database…</div>`;
+  await loadPublications();
+})();
+</script>
+</body>
+</html>
