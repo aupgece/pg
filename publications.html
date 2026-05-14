@@ -230,7 +230,7 @@ body.is-admin .admin-only-flex{display:flex}
       <button class="btn-hdr" onclick="window.location.href='index.html'" title="Back to main database"><i class="ti ti-home"></i>Home</button>
       <button class="btn-hdr btn-hdr-green" onclick="exportExcel()"><i class="ti ti-table-export"></i>Export Excel</button>
       <button class="btn-hdr" onclick="forceReload()" title="Pull latest from Firebase"><i class="ti ti-cloud-download"></i>Reload</button>
-      <button class="btn-hdr admin-only" onclick="openAddPub()" id="addBtnHdr"><i class="ti ti-plus"></i>Add Publication</button>
+      <button class="btn-hdr" onclick="openAddPub()" id="addBtnHdr"><i class="ti ti-plus"></i>Add Publication</button>
       <button class="btn-hdr" id="logoutBtn" style="display:none" onclick="adminLogout()"><i class="ti ti-logout"></i>Sign out</button>
       <button class="btn-hdr" id="adminLoginBtn" onclick="showAdminLogin()"><i class="ti ti-lock"></i>Admin Login</button>
     </div>
@@ -280,7 +280,7 @@ body.is-admin .admin-only-flex{display:flex}
         <button class="view-btn active" id="vCards" onclick="setView('cards')" title="Grouped by Author"><i class="ti ti-layout-cards"></i></button>
         <button class="view-btn" id="vTable" onclick="setView('table')" title="Table view"><i class="ti ti-table"></i></button>
       </div>
-      <button class="add-btn admin-only" onclick="openAddPub()"><i class="ti ti-plus"></i>Add</button>
+      <button class="add-btn" onclick="openAddPub()"><i class="ti ti-plus"></i>Add</button>
     </div>
     <div class="count-info" id="countBar">Loading…</div>
   </div>
@@ -753,6 +753,7 @@ function openAddPub() {
 }
 
 function openEditPub(idx) {
+  if (!isAdmin) { showToast('Admin access required to edit', 'error'); return; }
   editingIdx = idx;
   document.getElementById('pubModalBox').innerHTML = pubForm(PUBLICATIONS[idx]);
   document.getElementById('pubModal').classList.add('open');
@@ -761,6 +762,8 @@ function openEditPub(idx) {
 function closePubModal() { document.getElementById('pubModal').classList.remove('open'); }
 
 async function savePub() {
+  // Non-admins can only add new publications, not edit existing ones
+  if (editingIdx !== null && !isAdmin) { showToast('Admin access required to edit publications', 'error'); return; }
   const title = document.getElementById('pf-title').value.trim();
   const fm = document.getElementById('pf-fm').value.trim();
   const journal = document.getElementById('pf-journal').value.trim();
