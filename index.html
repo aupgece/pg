@@ -351,7 +351,7 @@ body.is-admin .admin-only-block{display:block}
 <div class="top-bar">
   <div class="top-inner">
     <div>
-      <div class="top-title"><i class="ti ti-school" style="margin-right:8px"></i>Electrical & Computer Engineering — Graduate Students & Research Database</div>
+      <div class="top-title"><i class="ti ti-school" style="margin-right:8px"></i>MS/PhD Electrical Engineering Students Database</div>
       <div class="top-sub">Department of Electrical and Conputer Engineering </div>
     </div>
     <div class="top-badges">
@@ -372,7 +372,7 @@ body.is-admin .admin-only-block{display:block}
   <div class="tab-row">
     <button class="tab-btn active" onclick="switchTab('students',this)"><i class="ti ti-users" style="margin-right:6px"></i>Students</button>
     <button class="tab-btn" onclick="switchTab('supervisors',this)"><i class="ti ti-user-check" style="margin-right:6px"></i>Supervisors</button>
-    <button class="tab-btn" onclick="switchTab('publications',this)"><i class="ti ti-book" style="margin-right:6px"></i>FMs Research Publication</button>
+    <button class="tab-btn" onclick="switchTab('publications',this)"><i class="ti ti-book" style="margin-right:6px"></i>FM Research Publications</button>
   </div>
 
   <!-- Students Tab -->
@@ -4186,7 +4186,7 @@ function buildStats(data){
 
   document.getElementById("badgeCount").textContent=STUDENTS.length;
   const supCountEl=document.getElementById("supCount");
-  if(supCountEl) supCountEl.textContent=SUPERVISORS.length||"…";
+  if(supCountEl) supCountEl.textContent=SUPERVISORS.filter(s=>(s.active||"").toLowerCase()!=="inactive").length||"…";
 }
 
 // ─── Filters ─────────────────────────────────────────────────────────────────
