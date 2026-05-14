@@ -301,6 +301,43 @@ body.is-admin .admin-only-block{display:block}
 .btn-tmpl-save:hover{background:#0f3460}
 .btn-tmpl-settings{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:var(--rm);color:#fff;font-size:12px;font-weight:600;padding:5px 12px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px;transition:all 0.15s}
 .btn-tmpl-settings:hover{background:rgba(255,255,255,0.25)}
+/* Publications Tab */
+.pub-stats-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:1.25rem}
+.pub-stat-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--rl);padding:12px 18px;box-shadow:var(--sh);display:flex;align-items:center;gap:10px}
+.pub-stat-icon{width:38px;height:38px;border-radius:var(--rm);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.pub-stat-val{font-size:26px;font-weight:700;line-height:1}
+.pub-stat-lbl{font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:0.4px;margin-top:2px}
+.pub-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--rl);padding:16px 18px;box-shadow:var(--sh);margin-bottom:10px;position:relative}
+.pub-card:hover{box-shadow:var(--shm);border-color:var(--border2)}
+.pub-title{font-size:14px;font-weight:600;color:var(--text);line-height:1.45;margin-bottom:8px;padding-right:80px}
+.pub-meta-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:6px}
+.pub-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:9999px;font-size:11px;font-weight:600;white-space:nowrap}
+.pub-b-paper{background:var(--blue-l);color:var(--blue-d)}
+.pub-b-conf{background:var(--purple-l);color:var(--purple-d)}
+.pub-b-hjrs-w{background:#dcfce7;color:#166534}
+.pub-b-hjrs-x{background:#fef9c3;color:#854d0e}
+.pub-b-hjrs-y{background:var(--amber-l);color:var(--amber-d)}
+.pub-b-hjrs-nil{background:var(--bg3);color:var(--text3)}
+.pub-b-au{background:var(--teal-l);color:var(--teal-d)}
+.pub-journal{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:5px}
+.pub-if{font-size:11px;color:var(--text3);font-weight:600}
+.pub-author-row{font-size:12px;color:var(--text2);margin-top:4px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.pub-actions{position:absolute;top:14px;right:14px;display:flex;gap:6px}
+.pub-url-link{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--blue);text-decoration:none;margin-top:6px}
+.pub-url-link:hover{text-decoration:underline}
+.pub-filter-bar{background:var(--bg);border:1px solid var(--border);border-radius:var(--rl);padding:12px 16px;margin-bottom:1.25rem;box-shadow:var(--sh)}
+.pub-grid{display:grid;gap:0}
+.pub-by-fm{margin-bottom:1.5rem}
+.pub-fm-header{display:flex;align-items:center;gap:10px;padding:10px 14px;background:linear-gradient(135deg,#f0f4ff,#e8f5f0);border:1px solid var(--border);border-radius:var(--rl) var(--rl) 0 0;cursor:pointer;user-select:none}
+.pub-fm-name{font-size:14px;font-weight:700;color:var(--text);flex:1}
+.pub-fm-count{font-size:12px;color:var(--text3);background:var(--bg);border:1px solid var(--border);border-radius:9999px;padding:2px 9px;font-weight:600}
+.pub-fm-body{border:1px solid var(--border);border-top:none;border-radius:0 0 var(--rl) var(--rl);overflow:hidden}
+.pub-table{width:100%;border-collapse:collapse;font-size:12px}
+.pub-table th{text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;color:var(--text3);padding:8px 12px;border-bottom:1px solid var(--border);background:#f8f9fb;white-space:nowrap}
+.pub-table td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--text)}
+.pub-table tbody tr:last-child td{border-bottom:none}
+.pub-table tbody tr:hover td{background:#f8fbff}
+.pub-title-cell{font-weight:500;color:var(--text);max-width:320px;line-height:1.4}
 @media(max-width:640px){
   .stats-grid{grid-template-columns:repeat(3,1fr)}
   .sup-stats{grid-template-columns:repeat(4,1fr)}
@@ -314,7 +351,7 @@ body.is-admin .admin-only-block{display:block}
 <div class="top-bar">
   <div class="top-inner">
     <div>
-      <div class="top-title"><i class="ti ti-school" style="margin-right:8px"></i>Electrical & Computer Engineering — Graduate Students & Research Database</div>
+      <div class="top-title"><i class="ti ti-school" style="margin-right:8px"></i>MS/PhD Electrical Engineering Students Database</div>
       <div class="top-sub">Department of Electrical and Conputer Engineering </div>
     </div>
     <div class="top-badges">
@@ -335,6 +372,7 @@ body.is-admin .admin-only-block{display:block}
   <div class="tab-row">
     <button class="tab-btn active" onclick="switchTab('students',this)"><i class="ti ti-users" style="margin-right:6px"></i>Students</button>
     <button class="tab-btn" onclick="switchTab('supervisors',this)"><i class="ti ti-user-check" style="margin-right:6px"></i>Supervisors</button>
+    <button class="tab-btn" onclick="switchTab('publications',this)"><i class="ti ti-book" style="margin-right:6px"></i>FM Research Publications</button>
   </div>
 
   <!-- Students Tab -->
@@ -3247,7 +3285,106 @@ body.is-admin .admin-only-block{display:block}
   </div>
 </div>
 
-<!-- View/Edit Student Modal -->
+  <!-- Publications Tab -->
+  <div id="tab-publications" style="display:none">
+    <!-- Stats row -->
+    <div class="pub-stats-row" id="pubStatsRow">
+      <div class="pub-stat-card"><div class="pub-stat-icon" style="background:var(--blue-l);color:var(--blue-d)"><i class="ti ti-book"></i></div><div><div class="pub-stat-val sv-blue" id="pubStatTotal">0</div><div class="pub-stat-lbl">Total Publications</div></div></div>
+      <div class="pub-stat-card"><div class="pub-stat-icon" style="background:var(--teal-l);color:var(--teal-d)"><i class="ti ti-file-text"></i></div><div><div class="pub-stat-val sv-teal" id="pubStatPaper">0</div><div class="pub-stat-lbl">Journal Papers</div></div></div>
+      <div class="pub-stat-card"><div class="pub-stat-icon" style="background:var(--purple-l);color:var(--purple-d)"><i class="ti ti-presentation"></i></div><div><div class="pub-stat-val" style="color:var(--purple-d)" id="pubStatConf">0</div><div class="pub-stat-lbl">Conference Papers</div></div></div>
+      <div class="pub-stat-card"><div class="pub-stat-icon" style="background:#dcfce7;color:#166534"><i class="ti ti-award"></i></div><div><div class="pub-stat-val" style="color:#166534" id="pubStatW">0</div><div class="pub-stat-lbl">HJRS W-Category</div></div></div>
+      <div class="pub-stat-card"><div class="pub-stat-icon" style="background:var(--amber-l);color:var(--amber-d)"><i class="ti ti-users"></i></div><div><div class="pub-stat-val sv-amber" id="pubStatFMs">0</div><div class="pub-stat-lbl">Faculty Members</div></div></div>
+    </div>
+
+    <!-- Filter bar -->
+    <div class="pub-filter-bar">
+      <div class="filter-row">
+        <div class="search-wrap">
+          <i class="ti ti-search"></i>
+          <input type="text" id="pubSearch" placeholder="Search title, author, journal…" oninput="renderPublications()">
+        </div>
+        <select id="pubFiltFM" onchange="renderPublications()"><option value="">All Faculty Members</option></select>
+        <select id="pubFiltYear" onchange="renderPublications()"><option value="">All Years</option></select>
+        <select id="pubFiltType" onchange="renderPublications()">
+          <option value="">All Types</option>
+          <option value="Paper">Journal Paper</option>
+          <option value="Conference">Conference</option>
+        </select>
+        <select id="pubFiltHJRS" onchange="renderPublications()">
+          <option value="">All HJRS</option>
+          <option value="W">W</option>
+          <option value="X">X</option>
+          <option value="Y">Y</option>
+          <option value="Nil">Nil / N/A</option>
+        </select>
+        <button class="add-btn" id="pubAddBtn" onclick="openAddPublication()"><i class="ti ti-plus"></i> Add Publication</button>
+        <button class="btn-export" onclick="exportPublicationsExcel()" style="background:rgba(74,222,128,0.15);border-color:rgba(74,222,128,0.35);color:#1a1a2e;padding:8px 14px;border-radius:var(--rm);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px"><i class="ti ti-table-export"></i> Export Excel</button>
+      </div>
+      <div class="count-info" id="pubCountBar">Loading…</div>
+    </div>
+
+    <!-- Publications grouped by FM -->
+    <div id="pubGrid"></div>
+  </div>
+</div>
+
+<!-- Add / Edit Publication Modal -->
+<div class="modal-overlay" id="pubModal" onclick="if(event.target===this)closePubModal()">
+  <div class="modal-box" style="width:min(700px,100%)">
+    <div class="modal-header" id="pubModalHeader">
+      <button class="modal-close" onclick="closePubModal()"><i class="ti ti-x"></i></button>
+      <div class="modal-name" id="pubModalTitle">Add Publication</div>
+      <div class="modal-meta">Fill in the publication details</div>
+    </div>
+    <div class="modal-body">
+      <div class="edit-form">
+        <div class="form-row"><label>Publication Title *</label><input id="pf-title" placeholder="Full title of the paper/article"></div>
+        <div class="form-2col">
+          <div class="form-row"><label>Faculty Member (Lead) *</label><input id="pf-fm" placeholder="e.g. Dr. Ashfaq Ahmad" list="pub-fm-list"><datalist id="pub-fm-list"></datalist></div>
+          <div class="form-row"><label>Department</label><input id="pf-dept" value="ECE" placeholder="ECE"></div>
+        </div>
+        <div class="form-2col">
+          <div class="form-row"><label>Journal / Venue Name *</label><input id="pf-journal" placeholder="e.g. IEEE Transactions on..."></div>
+          <div class="form-row"><label>Year of Publication *</label><input id="pf-year" type="number" min="2000" max="2030" placeholder="e.g. 2024"></div>
+        </div>
+        <div class="form-2col">
+          <div class="form-row"><label>Type</label>
+            <select id="pf-type">
+              <option value="Paper">Journal Paper</option>
+              <option value="Conference">Conference</option>
+              <option value="Book Chapter">Book Chapter</option>
+            </select>
+          </div>
+          <div class="form-row"><label>Author Position</label><input id="pf-pos" type="number" min="1" placeholder="e.g. 1 (1st author)"></div>
+        </div>
+        <div class="form-2col">
+          <div class="form-row"><label>HJRS Category</label>
+            <select id="pf-hjrs">
+              <option value="Nil">Nil / Not Listed</option>
+              <option value="W">W</option>
+              <option value="X">X</option>
+              <option value="Y">Y</option>
+            </select>
+          </div>
+          <div class="form-row"><label>Impact Factor</label><input id="pf-if" placeholder="e.g. 4.5 (or Nil)"></div>
+        </div>
+        <div class="form-row"><label>Association with AU</label>
+          <select id="pf-au">
+            <option value="Y">Yes</option>
+            <option value="N">No</option>
+          </select>
+        </div>
+        <div class="form-row"><label>URL of Publication</label><input id="pf-url" type="url" placeholder="https://…"></div>
+        <div class="form-row"><label>HJRS Journal URL</label><input id="pf-hjrsurl" type="url" placeholder="https://hjrs.hec.gov.pk/…"></div>
+        <div class="form-row"><label>Comments / Notes</label><input id="pf-notes" placeholder="e.g. Conference, co-authored with student…"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closePubModal()">Cancel</button>
+      <button class="btn-save" id="pubSaveBtn" onclick="savePublication()"><i class="ti ti-device-floppy" style="margin-right:4px"></i>Save Publication</button>
+    </div>
+  </div>
+</div>
 <div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
   <div class="modal-box" id="modalBox">
   <div class="modal-header">
@@ -6097,6 +6234,117 @@ function _doSupExport(){
   showToast("Supervisors exported to Excel");
 }
 
+// ─── Export Publications Excel ────────────────────────────────────────────────
+function exportPublicationsExcel(){
+  if(typeof XLSX === 'undefined'){
+    const s=document.createElement('script');
+    s.src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+    s.onload=()=>_doPubExcelExport();
+    document.head.appendChild(s);
+  } else {
+    _doPubExcelExport();
+  }
+}
+
+function _doPubExcelExport(){
+  const wb = XLSX.utils.book_new();
+
+  // ── Sheet 1: All Publications flat list ───────────────────────────────────
+  const headers = ["#","Faculty Member","Department","Title","Journal / Venue","Year","Type","Author Position","HJRS","Impact Factor","AU Affiliation","Publication URL","HJRS URL","Notes"];
+  const rows = PUBLICATIONS.map((p,i)=>[
+    i+1,
+    p.fm||"",
+    p.dept||"ECE",
+    p.title||"",
+    p.journal||"",
+    p.year||"",
+    p.type||"",
+    p.pos||"",
+    p.hjrs||"",
+    p.impactFactor||"",
+    p.au==="Y"?"Yes":"No",
+    p.url||"",
+    p.hjrsUrl||"",
+    p.notes||""
+  ]);
+
+  const ws = XLSX.utils.aoa_to_sheet([headers,...rows]);
+  ws['!cols']=[
+    {wch:5},{wch:28},{wch:10},{wch:55},{wch:36},{wch:6},
+    {wch:12},{wch:8},{wch:8},{wch:8},{wch:10},{wch:45},{wch:45},{wch:30}
+  ];
+  // Style header row
+  const range = XLSX.utils.decode_range(ws['!ref']);
+  for(let C=range.s.c; C<=range.e.c; C++){
+    const cell=ws[XLSX.utils.encode_cell({r:0,c:C})];
+    if(cell) cell.s={font:{bold:true},fill:{fgColor:{rgb:"1A1A2E"}},alignment:{horizontal:"center"}};
+  }
+  XLSX.utils.book_append_sheet(wb, ws, "All Publications");
+
+  // ── Sheet 2: Grouped by Faculty Member ───────────────────────────────────
+  const fmHeaders = ["Faculty Member","Total","Journal Papers","Conference Papers","HJRS W","HJRS X","HJRS Y","Nil / Other"];
+  const fmMap = {};
+  PUBLICATIONS.forEach(p=>{
+    if(!fmMap[p.fm]) fmMap[p.fm]={total:0,papers:0,conf:0,W:0,X:0,Y:0,nil:0};
+    const m=fmMap[p.fm];
+    m.total++;
+    if(p.type==="Paper") m.papers++; else m.conf++;
+    if(p.hjrs==="W") m.W++;
+    else if(p.hjrs==="X") m.X++;
+    else if(p.hjrs==="Y") m.Y++;
+    else m.nil++;
+  });
+  const fmRows = Object.entries(fmMap)
+    .sort((a,b)=>a[0].localeCompare(b[0]))
+    .map(([fm,m])=>[fm,m.total,m.papers,m.conf,m.W,m.X,m.Y,m.nil]);
+  // Totals row
+  const totals = fmRows.reduce((acc,r)=>{
+    for(let i=1;i<r.length;i++) acc[i]=(acc[i]||0)+r[i];
+    return acc;
+  }, ["TOTAL"]);
+
+  const ws2 = XLSX.utils.aoa_to_sheet([fmHeaders,...fmRows,totals]);
+  ws2['!cols']=[{wch:30},{wch:8},{wch:14},{wch:16},{wch:8},{wch:8},{wch:8},{wch:10}];
+  const range2 = XLSX.utils.decode_range(ws2['!ref']);
+  for(let C=range2.s.c; C<=range2.e.c; C++){
+    const hCell=ws2[XLSX.utils.encode_cell({r:0,c:C})];
+    if(hCell) hCell.s={font:{bold:true}};
+    // Bold totals row
+    const tCell=ws2[XLSX.utils.encode_cell({r:fmRows.length+1,c:C})];
+    if(tCell) tCell.s={font:{bold:true}};
+  }
+  XLSX.utils.book_append_sheet(wb, ws2, "By Faculty Member");
+
+  // ── Sheet 3: By Year ──────────────────────────────────────────────────────
+  const yrHeaders = ["Year","Total","Journal Papers","Conference Papers","HJRS W","HJRS X","HJRS Y"];
+  const yrMap = {};
+  PUBLICATIONS.forEach(p=>{
+    const y=p.year||"Unknown";
+    if(!yrMap[y]) yrMap[y]={total:0,papers:0,conf:0,W:0,X:0,Y:0};
+    const m=yrMap[y];
+    m.total++;
+    if(p.type==="Paper") m.papers++; else m.conf++;
+    if(p.hjrs==="W") m.W++;
+    else if(p.hjrs==="X") m.X++;
+    else if(p.hjrs==="Y") m.Y++;
+  });
+  const yrRows = Object.entries(yrMap)
+    .sort((a,b)=>b[0].localeCompare(a[0]))
+    .map(([yr,m])=>[yr,m.total,m.papers,m.conf,m.W,m.X,m.Y]);
+
+  const ws3 = XLSX.utils.aoa_to_sheet([yrHeaders,...yrRows]);
+  ws3['!cols']=[{wch:8},{wch:8},{wch:14},{wch:16},{wch:8},{wch:8},{wch:8}];
+  const range3 = XLSX.utils.decode_range(ws3['!ref']);
+  for(let C=range3.s.c; C<=range3.e.c; C++){
+    const cell=ws3[XLSX.utils.encode_cell({r:0,c:C})];
+    if(cell) cell.s={font:{bold:true}};
+  }
+  XLSX.utils.book_append_sheet(wb, ws3, "By Year");
+
+  XLSX.writeFile(wb, "FM_Research_Publications_"+new Date().toISOString().slice(0,10)+".xlsx");
+  showToast("Publications exported to Excel");
+}
+
 // ─── Admin Auth ───────────────────────────────────────────────────────────────
 const ADMIN_PASSWORD = "pg2026"; // Change this password as needed
 let isAdmin = false;
@@ -6128,6 +6376,7 @@ function doAdminLogin(){
     hideAdminLogin();
     applyFilters();
     buildSupervisors();
+    updatePubAddBtn();
     showToast("Signed in as Admin");
   } else {
     document.getElementById("adminErrMsg").classList.add("show");
@@ -6144,7 +6393,14 @@ function adminLogout(){
   document.getElementById("adminLoginBtn").style.display="";
   applyFilters();
   buildSupervisors();
+  updatePubAddBtn();
   showToast("Signed out of Admin");
+}
+
+// Show/hide Add Publication button based on role
+function updatePubAddBtn(){
+  const btn = document.getElementById("pubAddBtn");
+  if(btn) btn.style.display = "inline-flex";
 }
 
 
@@ -6580,6 +6836,7 @@ function setSyncStatus(state, msg){
 // ── Force reload button ───────────────────────────────────────────────────
 async function forceReload(){
   await loadFromStorage();
+  await loadPublications();
   populateFilters();
   buildStats(STUDENTS);
   renderTable(STUDENTS);
@@ -6587,9 +6844,352 @@ async function forceReload(){
   initSchedBadge();
 }
 
-// ─── Init ─────────────────────────────────────────────────────────────────────
+// ─── Publications ─────────────────────────────────────────────────────────────
+let PUBLICATIONS = [
+  {id:"pub_1",fm:"Dr. Amna Asif",dept:"ECE",title:"Design of a Smart Medical Box for Automatic Pill Dispensing and Health Monitoring",au:"Y",url:"https://www.mdpi.com/2673-4591/32/1/7",pos:2,journal:"Eng. Proc.",hjrs:"Nil",hjrsUrl:"",impactFactor:"Nil",year:"2023",type:"Conference",notes:"Conference"},
+  {id:"pub_2",fm:"Dr. Hafiz Ashiq Hussain",dept:"ECE",title:"Reliable and cost-efficient protection scheme for 5G fronthaul/backhaul network",au:"Y",url:"https://www.cell.com/heliyon/pdf/S2405-8440(23)01422-6.pdf",pos:2,journal:"Heliyon",hjrs:"W",hjrsUrl:"https://hjrs.hec.gov.pk/index.php?r=site%2Fresult&id=994755#journal_result",impactFactor:"81",year:"2023",type:"Paper",notes:"Paper"},
+  {id:"pub_3",fm:"Dr. Hafiz Ashiq Hussain",dept:"ECE",title:"Optimization of different TDM techniques in DWDM optical networks for FWM suppression",au:"Y",url:"https://link.springer.com/article/10.1007/s11082-022-04455-4",pos:3,journal:"Opt Quant Electron",hjrs:"W",hjrsUrl:"https://hjrs.hec.gov.pk/index.php?r=site%2Fresult&id=996988#journal_result",impactFactor:"57",year:"2023",type:"Paper",notes:"Paper"},
+  {id:"pub_4",fm:"Dr. Saleem Shahid",dept:"ECE",title:"Multi-layer Material Characterization at Ka-band using Bayesian Inversion Method",au:"Y",url:"https://www.mdpi.com/2079-9292/12/3/563",pos:1,journal:"MDPI Electronics",hjrs:"W",hjrsUrl:"https://hjrs.hec.gov.pk/index.php?r=site%2Fresult&id=994056#journal_result",impactFactor:"58",year:"2023",type:"Paper",notes:"Co-author: Ahsan Sarwar Rana (pos 5)"},
+  {id:"pub_5",fm:"Dr. Syed Ahmed Pasha",dept:"ECE",title:"On the Nonstandard Finite Difference Method for Reaction-Diffusion Models",au:"Y",url:"https://www.sciencedirect.com/science/article/pii/S0960077922011080",pos:1,journal:"Chaos, Solitons and Fractals",hjrs:"W",hjrsUrl:"https://hjrs.hec.gov.pk/index.php?r=site%2Fresult&id=987515#journal_result",impactFactor:"93",year:"2023",type:"Paper",notes:"Paper"},
+  {id:"pub_6",fm:"Dr. H.H. Syed",dept:"ECE",title:"3D Human Reconstruction with Corresponding 3D Texture Model: A Comparison of Salient Approaches",au:"Y",url:"https://ieeexplore.ieee.org/document/10068940?denied=",pos:1,journal:"Proc ITC-CSCC",hjrs:"Nil",hjrsUrl:"",impactFactor:"Nil",year:"2022",type:"Conference",notes:"Co-author: M.H. Mahmood (pos 2, AU: N)"},
+  {id:"pub_7",fm:"Dr. Syed Ahmed Pasha",dept:"ECE",title:"Testing for Coincidences between Time Varying Poisson Processes",au:"Y",url:"https://ieeexplore.ieee.org/document/9992679",pos:1,journal:"Proc. 61st IEEE CDC",hjrs:"Nil",hjrsUrl:"",impactFactor:"Nil",year:"2022",type:"Conference",notes:"Conference"},
+  {id:"pub_8",fm:"Dr. Hafiz Muhammad Talha Raza",dept:"ECE",title:"Metamaterial Absorber for Solar Thermophotovoltaic Systems",au:"Y",url:"https://ieeexplore.ieee.org/document/9969393",pos:1,journal:"Proc. 3rd Intl. Conf. Latest Trends in Elec. Eng. & Comput. Tech.",hjrs:"Nil",hjrsUrl:"",impactFactor:"Nil",year:"2022",type:"Conference",notes:"Co-author: Ahsan Sarwar Rana (pos 2)"},
+  {id:"pub_9",fm:"Dr. Hafiz Muhammad Talha",dept:"ECE",title:"Nanostructured solar absorber and emitter pair to increase the efficiency of low bandgap photovoltaic cell",au:"Y",url:"",pos:1,journal:"Proc. 3rd Intl. Conf. Adv. Material Sci.",hjrs:"Nil",hjrsUrl:"",impactFactor:"Nil",year:"2022",type:"Conference",notes:""},
+  {id:"pub_10",fm:"Dr. Syed Hashim Raza Bukhari",dept:"ECE",title:"COVICT: An IoT based Architecture for COVID-19 Detection and Contact Tracing",au:"Y",url:"https://link.springer.com/article/10.1007/s12652-022-04446-z",pos:2,journal:"J. Ambient Intelligence & Humanized Comput.",hjrs:"W",hjrsUrl:"https://hjrs.hec.gov.pk/index.php?r=site%2Fresult&id=990385#journal_result",impactFactor:"72",year:"2022",type:"Paper",notes:""},
+  {id:"pub_11",fm:"Dr. Saleem Shahid",dept:"ECE",title:"A Single Channel EEG-Based Algorithm for Neonatal Sleep-Wake Classification",au:"Y",url:"https://www.researchgate.net/profile/Saadullah-Abbasi/publication/369362230_An_SVM-based_Neonatal_Sleep-wake_classification_using_single_channel_EEG/links/6416bf69315dfb4cce9056b6/An-SVM-based-Neonatal-Sleep-wake-classification-using-single-channel-EEG.pdf",pos:4,journal:"3rd Int. Conf. Adv. Comput. & Informatics",hjrs:"Nil",hjrsUrl:"",impactFactor:"Nil",year:"2022",type:"Conference",notes:"Conference"},
+  {id:"pub_12",fm:"Dr. Ashfaq Ahmad",dept:"ECE",title:"Benchmarking of Heuristic Algorithms for Energy Router-Based Packetized Energy Management in Smart Homes",au:"Y",url:"https://ieeexplore.ieee.org/abstract/document/9905912",pos:2,journal:"IEEE Sys. J.",hjrs:"W",hjrsUrl:"https://hjrs.hec.gov.pk/index.php?r=site%2Fresult&id=988218#journal_result",impactFactor:"81",year:"2022",type:"Paper",notes:"Paper"},
+  {id:"pub_13",fm:"Dr. Syed Ahmed Pasha",dept:"ECE",title:"Convex & Non‐convex Approaches for the Matrix Completion Problem",au:"Y",url:"https://ieeexplore.ieee.org/abstract/document/9990400",pos:2,journal:"Proc. 19th IBCAST",hjrs:"Nil",hjrsUrl:"",impactFactor:"Nil",year:"2022",type:"Conference",notes:"Conference"},
+  {id:"pub_14",fm:"Dr. Syed Ahmed Pasha",dept:"ECE",title:"Fast Sparse Magnetic Resonance Image Reconstruction",au:"Y",url:"https://ieeexplore.ieee.org/abstract/document/9990511",pos:2,journal:"Proc. 19th IBCAST",hjrs:"Nil",hjrsUrl:"",impactFactor:"Nil",year:"2022",type:"Conference",notes:"Conference"},
+  {id:"pub_15",fm:"Dr. Saleem Shahid",dept:"ECE",title:"Development of a Visible Light Communication (VLC) System with Noise Suppression and Differentiation between Combined Sequences",au:"Y",url:"https://ieeexplore.ieee.org/document/9990534",pos:2,journal:"Proc. 19th IBCAST",hjrs:"Nil",hjrsUrl:"",impactFactor:"Nil",year:"2022",type:"Conference",notes:"Conference"},
+  {id:"pub_16",fm:"Dr. Waseem Iqbal",dept:"ECE",title:"Speed and Thermal Analysis of High-Speed Permanent Magnet Synchronous Motor for Electric Vehicle",au:"Y",url:"https://ieeexplore.ieee.org/document/9990259",pos:2,journal:"Proc. 19th IBCAST",hjrs:"Nil",hjrsUrl:"",impactFactor:"Nil",year:"2022",type:"Conference",notes:"Co-author: Hussain Asif (pos 4)"},
+  {id:"pub_17",fm:"Dr. Zohaib Hassan",dept:"ECE",title:"Charging Station Distribution Optimization Using Drone Fleet in a Disaster",au:"Y",url:"https://www.hindawi.com/journals/jr/2022/7329346/",pos:1,journal:"J. Robotics",hjrs:"X",hjrsUrl:"https://hjrs.hec.gov.pk/index.php?r=site%2Fresult&id=996699#journal_result",impactFactor:"25",year:"2022",type:"Paper",notes:"Co-author: Ahsan Sarwar Rana (pos 3)"},
+  {id:"pub_18",fm:"Dr. Ayesha Salman",dept:"ECE",title:"EMG-based Control of Wheel Chair",au:"Y",url:"https://ieeexplore.ieee.org/document/9828265",pos:4,journal:"Proc. 13th Asian Control Conf (ASCC)",hjrs:"Nil",hjrsUrl:"",impactFactor:"Nil",year:"2022",type:"Conference",notes:"Conference"},
+  {id:"pub_19",fm:"Dr. Zohaib Hassan",dept:"ECE",title:"Charging Stations Distribution Optimization using Drones Fleet for Disaster Prone Areas",au:"Y",url:"https://www.researchgate.net/profile/Imran-Imran-19/publication/362762339_Charging_Stations_Distribution_Optimization_using_Drones_Fleet_for_Disaster_Prone_Areas/links/62fe1acae3c7de4c346537ac/Charging-Stations-Distribution-Optimization-using-Drones-Fleet-for-Disaster-Prone-Areas.pdf",pos:1,journal:"International Journal of Innovations in Science & Technology",hjrs:"Nil",hjrsUrl:"",impactFactor:"Nil",year:"2022",type:"Conference",notes:"Conference"},
+  {id:"pub_20",fm:"Dr. Ashfaq Ahmad",dept:"ECE",title:"Optimal Sizing and Management of Distributed Energy Resources in Smart Buildings",au:"Y",url:"https://www.sciencedirect.com/science/article/pii/S0360544222000135",pos:1,journal:"Energy",hjrs:"W",hjrsUrl:"https://hjrs.hec.gov.pk/index.php?r=site%2Fresult&id=986928#journal_result",impactFactor:"95",year:"2022",type:"Paper",notes:"Paper"},
+  {id:"pub_21",fm:"Dr. Saad Ullah Khan",dept:"ECE",title:"A demand side management scheme for optimal power scheduling of industrial loads",au:"Y",url:"https://link.springer.com/article/10.1007/s12667-022-00510-x",pos:2,journal:"Energy Systems",hjrs:"X",hjrsUrl:"https://hjrs.hec.gov.pk/index.php?r=site%2Fresult&id=995077#journal_result",impactFactor:"31",year:"2022",type:"Paper",notes:"Paper"},
+  {id:"pub_22",fm:"Dr. Muhammad Imran Farid",dept:"ECE",title:"FF-PCA-LDA: Intelligent Feature Fusion Based PCA-LDA Classification System for Plant Leaf Diseases",au:"Y",url:"https://www.mdpi.com/2076-3417/12/7/3514",pos:4,journal:"Applied Sciences",hjrs:"W",hjrsUrl:"https://hjrs.hec.gov.pk/index.php?r=site%2Fresult&id=995504#journal_result",impactFactor:"70",year:"2022",type:"Paper",notes:"Paper"},
+  {id:"pub_23",fm:"Dr. Syed Hashim Raza Bukhari",dept:"ECE",title:"Performance Optimization of Apodized FBG Biomedical Sensor for Variation in Temperature and Presence of Noise",au:"Y",url:"https://onlinelibrary.wiley.com/doi/full/10.1002/tee.23573",pos:3,journal:"IEEJ Trans. Electric & Electronic Engineering",hjrs:"X",hjrsUrl:"https://hjrs.hec.gov.pk/index.php?r=site%2Fresult&id=999497#journal_result",impactFactor:"36",year:"2022",type:"Paper",notes:"Paper"},
+  {id:"pub_24",fm:"Dr. Syed Hashim Raza Bukhari",dept:"ECE",title:"Backpropagated intelligent computing networks for 3D nanofluid rheology with generalized heat flux",au:"Y",url:"https://www.tandfonline.com/doi/full/10.1080/17455030.2022.2039417",pos:4,journal:"J. Waves in Random & Complex Media",hjrs:"W",hjrsUrl:"https://hjrs.hec.gov.pk/index.php?r=site%2Fresult&id=996356#journal_result",impactFactor:"62",year:"2022",type:"Paper",notes:"Paper"},
+  {id:"pub_25",fm:"Dr. Muhammad Adil Khan",dept:"ECE",title:"Optimal power management framework for smart homes using electric vehicles and energy storage",au:"Y",url:"https://www.sciencedirect.com/science/article/abs/pii/S0142061521005974",pos:3,journal:"Int. J. Electr. Power Energy Syst.",hjrs:"W",hjrsUrl:"https://hjrs.hec.gov.pk/index.php?r=site%2Fresult&id=987719#journal_result",impactFactor:"87",year:"2022",type:"Paper",notes:"Paper"},
+  {id:"pub_26",fm:"Dr. Ahsan Sarwar Rana",dept:"ECE",title:"Evaluating the most efficient 2D ZrN nanostructures for broadband metasurface absorbers",au:"Y",url:"https://www.spiedigitallibrary.org/conference-proceedings-of-spie/12004/120040T/Evaluating-the-most-efficient-2D-ZrN-nanostructures-for-broadband-metasurface/10.1117/12.2607885.short",pos:2,journal:"SPIE",hjrs:"Nil",hjrsUrl:"",impactFactor:"Nil",year:"2022",type:"Conference",notes:"Conference"},
+  {id:"pub_27",fm:"Dr. Ahsan Sarwar Rana",dept:"ECE",title:"Investigating sunlight trapping efficiency of an ultrathin, ultrabroadband, thermostable, zirconium nitride (ZrN)-based metasurface for solar thermophotovoltaic systems",au:"Y",url:"https://www.spiedigitallibrary.org/conference-proceedings-of-spie/12150/2615502/Investigating-sunlight-trapping-efficiency-of-an-ultrathin-ultrabroadband-thermostable-zirconium/10.1117/12.2615502.short",pos:2,journal:"SPIE",hjrs:"Nil",hjrsUrl:"",impactFactor:"Nil",year:"2022",type:"Conference",notes:"Conference"},
+  {id:"pub_28",fm:"Dr. Ahsan Sarwar Rana",dept:"ECE",title:"The Dawn of Metadevices: From Contemporary Designs to Exotic Applications",au:"Y",url:"https://spj.science.org/doi/10.34133/2022/9861078",pos:2,journal:"Advanced Devices & Instrumentation",hjrs:"Nil",hjrsUrl:"",impactFactor:"Nil",year:"2022",type:"Conference",notes:"Conference"},
+  {id:"pub_29",fm:"Dr. Ahsan Sarwar Rana",dept:"ECE",title:"Broadband solar absorption by chromium metasurface for highly efficient solar thermophotovoltaic systems",au:"Y",url:"https://www.sciencedirect.com/science/article/pii/S1364032122008863",pos:1,journal:"Renewable and Sustainable Energy Reviews",hjrs:"W",hjrsUrl:"https://hjrs.hec.gov.pk/index.php?r=site%2Fresult&id=986166#journal_result",impactFactor:"97",year:"2022",type:"Paper",notes:"Paper"},
+  {id:"pub_30",fm:"Dr. Sher Ali",dept:"ECE",title:"Energy Efficient Resource Allocation for Uplink MC-NOMA based Heterogeneous Small Cell Networks with Wireless Backhaul",au:"Y",url:"https://ieeexplore.ieee.org/document/9932016",pos:3,journal:"IEEE Transactions on Vehicular Technology",hjrs:"W",hjrsUrl:"https://hjrs.hec.gov.pk/index.php?r=site%2Fresult&id=986559#journal_result",impactFactor:"94",year:"2022",type:"Paper",notes:"Paper"},
+  {id:"pub_31",fm:"Dr. Sher Ali",dept:"ECE",title:"New Advancements in Cybersecurity: A Comprehensive Survey",au:"Y",url:"https://link.springer.com/chapter/10.1007/978-3-031-05752-6_1",pos:2,journal:"Book chapter: Big Data Analytics and Computational Intelligence for Cybersecurity",hjrs:"Nil",hjrsUrl:"",impactFactor:"Nil",year:"2022",type:"Conference",notes:"Book Chapter"},
+  {id:"pub_32",fm:"Dr. Sher Ali",dept:"ECE",title:"Joint mode selection and user association in D2D enabled multitier C-RAN",au:"Y",url:"https://link.springer.com/article/10.1007/s10586-021-03456-4",pos:2,journal:"Cluster Computing by Springer Link",hjrs:"W",hjrsUrl:"https://hjrs.hec.gov.pk/index.php?r=site%2Fresult&id=992970#journal_result",impactFactor:"57",year:"2022",type:"Paper",notes:"Paper"},
+  {id:"pub_33",fm:"Dr. Sher Ali",dept:"ECE",title:"Stress Avoidance and Exercise recommendation Through CVS Posture Observation",au:"Y",url:"https://ieeexplore.ieee.org/abstract/document/9989130",pos:5,journal:"IEEE International Conference on IT and Industrial Technologies 2022",hjrs:"Nil",hjrsUrl:"",impactFactor:"Nil",year:"2022",type:"Conference",notes:"Conference"},
+  {id:"pub_34",fm:"Dr. Muhammad Ali Raza",dept:"ECE",title:"Prognostic Value of Reflux of Contrast into the Inferior Vena Cava and Hepatic Veins on CT Pulmonary Angiography in Patients of Pulmonary Embolism",au:"Y",url:"",pos:3,journal:"The Journal Of Global Radiology",hjrs:"Nil",hjrsUrl:"",impactFactor:"Nil",year:"2022",type:"Conference",notes:""}
+];
+
+let editingPubIdx = null;
+
+function hjrsBadge(cat){
+  const map={W:"pub-b-hjrs-w",X:"pub-b-hjrs-x",Y:"pub-b-hjrs-y",Nil:"pub-b-hjrs-nil"};
+  const cls=map[cat]||"pub-b-hjrs-nil";
+  const label=(cat&&cat!=="Nil")?`HJRS ${cat}`:"No HJRS";
+  return`<span class="pub-badge ${cls}"><i class="ti ti-award" style="font-size:10px"></i>${label}</span>`;
+}
+function typeBadge(t){
+  const isPaper=(t==="Paper"||t==="Journal Paper");
+  return`<span class="pub-badge ${isPaper?'pub-b-paper':'pub-b-conf'}"><i class="ti ti-${isPaper?'file-text':'presentation'}" style="font-size:10px"></i>${t||"—"}</span>`;
+}
+
+function getFilteredPubs(){
+  const q=(document.getElementById("pubSearch")?.value||"").toLowerCase();
+  const fm=document.getElementById("pubFiltFM")?.value||"";
+  const yr=document.getElementById("pubFiltYear")?.value||"";
+  const tp=document.getElementById("pubFiltType")?.value||"";
+  const hj=document.getElementById("pubFiltHJRS")?.value||"";
+  return PUBLICATIONS.filter(p=>{
+    if(fm && p.fm!==fm) return false;
+    if(yr && String(p.year)!==yr) return false;
+    if(tp && p.type!==tp) return false;
+    if(hj && (hj==="Nil"?(p.hjrs!=="Nil"&&p.hjrs):p.hjrs!==hj)) return false;
+    if(q && !`${p.title} ${p.fm} ${p.journal} ${p.notes}`.toLowerCase().includes(q)) return false;
+    return true;
+  });
+}
+
+function renderPublications(){
+  const pubs=getFilteredPubs();
+  const grid=document.getElementById("pubGrid");
+  const countBar=document.getElementById("pubCountBar");
+  if(!grid) return;
+
+  // Update stats
+  document.getElementById("pubStatTotal").textContent=PUBLICATIONS.length;
+  document.getElementById("pubStatPaper").textContent=PUBLICATIONS.filter(p=>p.type==="Paper").length;
+  document.getElementById("pubStatConf").textContent=PUBLICATIONS.filter(p=>p.type==="Conference").length;
+  document.getElementById("pubStatW").textContent=PUBLICATIONS.filter(p=>p.hjrs==="W").length;
+  const fmSet=new Set(PUBLICATIONS.map(p=>p.fm));
+  document.getElementById("pubStatFMs").textContent=fmSet.size;
+
+  if(!pubs.length){
+    grid.innerHTML=`<div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--rl);padding:3rem;text-align:center;color:var(--text3)"><i class="ti ti-book-off" style="font-size:28px;display:block;margin-bottom:8px"></i>No publications found</div>`;
+    countBar.textContent=`0 of ${PUBLICATIONS.length} publications`;
+    updatePubAddBtn();
+    return;
+  }
+
+  countBar.textContent=`Showing ${pubs.length} of ${PUBLICATIONS.length} publications`;
+  updatePubAddBtn();
+
+  // Group by FM
+  const byFM={};
+  pubs.forEach((p,i)=>{
+    const globalIdx=PUBLICATIONS.indexOf(p);
+    if(!byFM[p.fm]) byFM[p.fm]=[];
+    byFM[p.fm].push({...p,_idx:globalIdx});
+  });
+
+  grid.innerHTML=Object.entries(byFM).sort((a,b)=>a[0].localeCompare(b[0])).map(([fm,list])=>`
+    <div class="pub-by-fm">
+      <div class="pub-fm-header" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none';this.querySelector('.ti-chevron-down').style.transform=this.nextElementSibling.style.display==='none'?'':'rotate(180deg)'">
+        <i class="ti ti-user-circle" style="font-size:18px;color:var(--blue-d)"></i>
+        <div class="pub-fm-name">${fm}</div>
+        <span class="pub-fm-count">${list.length} publication${list.length>1?'s':''}</span>
+        <i class="ti ti-chevron-down" style="font-size:14px;color:var(--text3);transition:transform 0.2s;transform:rotate(180deg)"></i>
+      </div>
+      <div class="pub-fm-body">
+        <table class="pub-table">
+          <thead><tr>
+            <th style="width:40px">#</th>
+            <th>Title</th>
+            <th>Journal / Venue</th>
+            <th>Year</th>
+            <th>Type</th>
+            <th>HJRS</th>
+            <th>IF</th>
+            <th style="width:90px">Actions</th>
+          </tr></thead>
+          <tbody>
+            ${list.map((p,li)=>`<tr>
+              <td style="color:var(--text3);font-size:11px">${li+1}</td>
+              <td class="pub-title-cell">
+                ${p.url?`<a href="${p.url}" target="_blank" style="color:var(--text);text-decoration:none;font-weight:500" title="Open publication">${p.title}</a>`:`<span>${p.title}</span>`}
+                ${p.au==="Y"?`<span style="font-size:10px;color:var(--teal-d);margin-left:4px;font-weight:600">AU</span>`:""}
+              </td>
+              <td style="color:var(--text2);font-size:11px;max-width:160px;line-height:1.4">${p.journal||"—"}</td>
+              <td style="white-space:nowrap;font-weight:600">${p.year||"—"}</td>
+              <td>${typeBadge(p.type)}</td>
+              <td>${p.hjrsUrl?`<a href="${p.hjrsUrl}" target="_blank" style="text-decoration:none">${hjrsBadge(p.hjrs)}</a>`:hjrsBadge(p.hjrs)}</td>
+              <td style="color:var(--text3)">${p.impactFactor&&p.impactFactor!=="Nil"?`<strong style="color:var(--text)">${p.impactFactor}</strong>`:"—"}</td>
+              <td><div class="actions-cell">
+                ${isAdmin?`<button class="act-btn btn-edit" onclick="openEditPublication(${p._idx})"><i class="ti ti-pencil"></i></button>
+                <button class="act-btn btn-del" onclick="confirmDeletePub(${p._idx})"><i class="ti ti-trash"></i></button>`:`<button class="act-btn btn-view" onclick="openEditPublication(${p._idx})"><i class="ti ti-eye"></i></button>`}
+              </div></td>
+            </tr>`).join("")}
+          </tbody>
+        </table>
+      </div>
+    </div>`).join("");
+}
+
+function populatePubFilters(){
+  const fmSel=document.getElementById("pubFiltFM");
+  const yrSel=document.getElementById("pubFiltYear");
+  if(!fmSel||!yrSel) return;
+  const fms=[...new Set(PUBLICATIONS.map(p=>p.fm))].sort();
+  const yrs=[...new Set(PUBLICATIONS.map(p=>p.year))].sort((a,b)=>b-a);
+  fmSel.innerHTML=`<option value="">All Faculty Members</option>`+fms.map(f=>`<option value="${f}">${f}</option>`).join("");
+  yrSel.innerHTML=`<option value="">All Years</option>`+yrs.map(y=>`<option value="${y}">${y}</option>`).join("");
+  // FM datalist for add form
+  const dl=document.getElementById("pub-fm-list");
+  if(dl) dl.innerHTML=fms.map(f=>`<option value="${f}">`).join("");
+}
+
+// ── Add / Edit Publication ──────────────────────────────────────────────────
+function openAddPublication(){
+  editingPubIdx=null;
+  document.getElementById("pubModalTitle").textContent="Add Publication";
+  ["pf-title","pf-fm","pf-journal","pf-url","pf-hjrsurl","pf-notes","pf-if","pf-pos"].forEach(id=>{const el=document.getElementById(id);if(el)el.value="";});
+  document.getElementById("pf-dept").value="ECE";
+  document.getElementById("pf-year").value=new Date().getFullYear();
+  document.getElementById("pf-type").value="Paper";
+  document.getElementById("pf-hjrs").value="Nil";
+  document.getElementById("pf-au").value="Y";
+  document.getElementById("pf-fm").disabled=false;
+  document.getElementById("pubSaveBtn").style.display="";
+  document.getElementById("pubModal").classList.add("open");
+}
+
+function openEditPublication(idx){
+  editingPubIdx=idx;
+  const p=PUBLICATIONS[idx];
+  document.getElementById("pubModalTitle").textContent=isAdmin?"Edit Publication":"View Publication";
+  document.getElementById("pf-title").value=p.title||"";
+  document.getElementById("pf-fm").value=p.fm||"";
+  document.getElementById("pf-dept").value=p.dept||"ECE";
+  document.getElementById("pf-journal").value=p.journal||"";
+  document.getElementById("pf-year").value=p.year||"";
+  document.getElementById("pf-type").value=p.type||"Paper";
+  document.getElementById("pf-pos").value=p.pos||"";
+  document.getElementById("pf-hjrs").value=p.hjrs||"Nil";
+  document.getElementById("pf-if").value=p.impactFactor||"";
+  document.getElementById("pf-au").value=p.au||"Y";
+  document.getElementById("pf-url").value=p.url||"";
+  document.getElementById("pf-hjrsurl").value=p.hjrsUrl||"";
+  document.getElementById("pf-notes").value=p.notes||"";
+  // Admin can edit; FM and public can only view
+  ["pf-title","pf-fm","pf-dept","pf-journal","pf-year","pf-type","pf-pos","pf-hjrs","pf-if","pf-au","pf-url","pf-hjrsurl","pf-notes"].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.disabled=!isAdmin;
+  });
+  document.getElementById("pubSaveBtn").style.display=isAdmin?"":"none";
+  document.getElementById("pubModal").classList.add("open");
+}
+
+function closePubModal(){
+  document.getElementById("pubModal").classList.remove("open");
+  // Re-enable inputs
+  ["pf-title","pf-fm","pf-dept","pf-journal","pf-year","pf-type","pf-pos","pf-hjrs","pf-if","pf-au","pf-url","pf-hjrsurl","pf-notes"].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.disabled=false;
+  });
+}
+
+function savePublication(){
+  // Anyone can add; editing requires admin
+  if(editingPubIdx!==null && !isAdmin){showToast("Admin access required to edit","error");return;}
+  const title=document.getElementById("pf-title").value.trim();
+  const fm=document.getElementById("pf-fm").value.trim();
+  const year=document.getElementById("pf-year").value.trim();
+  const journal=document.getElementById("pf-journal").value.trim();
+  if(!title||!fm||!year){showToast("Title, Faculty Member and Year are required","error");return;}
+  const pub={
+    id: editingPubIdx!==null ? PUBLICATIONS[editingPubIdx].id : "pub_"+Date.now(),
+    fm, dept:document.getElementById("pf-dept").value.trim()||"ECE",
+    title, journal, year,
+    type:document.getElementById("pf-type").value,
+    pos:parseInt(document.getElementById("pf-pos").value)||1,
+    hjrs:document.getElementById("pf-hjrs").value,
+    impactFactor:document.getElementById("pf-if").value.trim()||"Nil",
+    au:document.getElementById("pf-au").value,
+    url:document.getElementById("pf-url").value.trim(),
+    hjrsUrl:document.getElementById("pf-hjrsurl").value.trim(),
+    notes:document.getElementById("pf-notes").value.trim()
+  };
+  if(editingPubIdx!==null) PUBLICATIONS[editingPubIdx]=pub;
+  else PUBLICATIONS.push(pub);
+  closePubModal();
+  populatePubFilters();
+  renderPublications();
+  persistPublications();
+  showToast(editingPubIdx!==null?"Publication updated":"Publication added");
+}
+
+function confirmDeletePub(idx){
+  const p=PUBLICATIONS[idx];
+  document.getElementById("confirmText").textContent=`Delete publication "${p.title.substring(0,60)}…"? This cannot be undone.`;
+  document.getElementById("confirmDelBtn").onclick=()=>{
+    PUBLICATIONS.splice(idx,1);
+    closeConfirm();
+    populatePubFilters();
+    renderPublications();
+    persistPublications();
+    showToast("Publication deleted");
+  };
+  document.getElementById("confirmModal").classList.add("open");
+}
+
+// ── Persist publications to Firebase ───────────────────────────────────────
+const PUB_STORAGE_KEY = "aupgece_publications_v1";
+
+function savePublicationsLocal(){
+  try{
+    localStorage.setItem(PUB_STORAGE_KEY, JSON.stringify(PUBLICATIONS));
+  }catch(e){console.warn("localStorage save failed:",e);}
+}
+
+function loadPublicationsLocal(){
+  try{
+    const raw = localStorage.getItem(PUB_STORAGE_KEY);
+    if(raw){
+      const arr = JSON.parse(raw);
+      if(Array.isArray(arr) && arr.length) return arr;
+    }
+  }catch(e){console.warn("localStorage load failed:",e);}
+  return null;
+}
+
+async function persistPublications(){
+  // 1. Always save to localStorage immediately (instant, guaranteed)
+  savePublicationsLocal();
+  // 2. Sync to Firebase — use PATCH which creates-or-updates the document
+  setSyncStatus("saving");
+  try{
+    const body = JSON.stringify({
+      fields:{
+        list:{
+          arrayValue:{
+            values: PUBLICATIONS.map(p=>({mapValue:{fields:objToFsFields(p)}}))
+          }
+        }
+      }
+    });
+    // PATCH with updateMask creates the document if it doesn't exist
+    const res = await fetch(
+      `${FS_BASE}/appdata/publications?updateMask.fieldPaths=list`,
+      { method:"PATCH", headers:{"Content-Type":"application/json"}, body }
+    );
+    if(res.ok){
+      setSyncStatus("saved");
+    } else {
+      const err = await res.text();
+      console.warn("Firebase pub save failed:", err);
+      setSyncStatus("error", "Pub save failed");
+    }
+  }catch(e){
+    console.warn("Firebase pub save error:", e);
+    setSyncStatus("error", "Offline — saved locally");
+  }
+}
+
+async function loadPublications(){
+  // 1. Load localStorage first for instant display
+  const local = loadPublicationsLocal();
+  if(local) PUBLICATIONS = local;
+
+  // 2. Firebase is source of truth — always prefer it when available
+  try{
+    const r = await fetch(`${FS_BASE}/appdata/publications`);
+    if(r.ok){
+      const d = await r.json();
+      const arr = (d.fields?.list?.arrayValue?.values||[]).map(v=>fsMapToObj(v.mapValue?.fields||{}));
+      if(arr.length){
+        PUBLICATIONS = arr;
+        savePublicationsLocal(); // keep localStorage in sync
+      } else if(!local){
+        // Firebase doc exists but empty — seed it with the hardcoded list
+        await persistPublications();
+      }
+    } else if(r.status === 404){
+      // Document doesn't exist yet in Firestore — create it now
+      await persistPublications();
+    }
+  }catch(e){
+    console.warn("Firebase pub load failed, using localStorage:", e);
+  }
+}
+
+// Hook switchTab to init publications when tab is first opened
+const _origSwitchTab = typeof switchTab==='function' ? switchTab : null;
+function switchTab(name, btn){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  ['students','supervisors','publications'].forEach(t=>{
+    const el=document.getElementById('tab-'+t);
+    if(el) el.style.display=(t===name?'':'none');
+  });
+  if(name==='publications'){
+    populatePubFilters();
+    renderPublications();
+    // Show add button for admin or FM
+    updatePubAddBtn();
+  }
+}
 (async function init(){
   await loadFromStorage();
+  await loadPublications();
   populateFilters();
   buildStats(STUDENTS);
   renderTable(STUDENTS);
