@@ -85,7 +85,7 @@ tbody tr:hover td{background:#f8fbff}
 .name-cell{font-weight:600;font-size:13px}
 .id-tag{font-size:11px;color:var(--text3);margin-top:2px;font-family:'IBM Plex Mono',monospace}
 .no-results{text-align:center;padding:3rem;color:var(--text3)}
-.actions-cell{display:flex;gap:6px;align-items:center}
+.actions-cell{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
 .act-btn{border:none;border-radius:var(--r);padding:5px 8px;cursor:pointer;font-size:12px;transition:all 0.15s;display:flex;align-items:center;gap:4px;font-family:inherit;font-weight:500}
 .btn-edit{background:var(--blue-l);color:var(--blue-d)}
 .btn-edit:hover{background:#cce3f5}
@@ -210,7 +210,62 @@ body.is-admin .admin-only{display:flex}
 body.is-admin .admin-only-block{display:block}
 .admin-only-block{display:none}
 
+/* Email Draft Modal */
+.email-modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,15,30,0.6);z-index:1200;align-items:center;justify-content:center;padding:1rem}
+.email-modal-overlay.open{display:flex}
+.email-modal-box{background:#fff;border-radius:var(--rl);width:min(580px,100%);max-height:92vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,0.3)}
+.email-modal-header{padding:1.25rem 1.5rem;border-radius:var(--rl) var(--rl) 0 0;position:relative}
+.email-modal-header.pde-header{background:linear-gradient(135deg,#534AB7,#3C3489)}
+.email-modal-header.fde-header{background:linear-gradient(135deg,#0F6E56,#085041)}
+.email-modal-title{color:#fff;font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px}
+.email-modal-sub{color:rgba(255,255,255,0.65);font-size:12px;margin-top:4px}
+.email-modal-close{position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.15);border:none;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:16px;transition:background 0.15s}
+.email-modal-close:hover{background:rgba(255,255,255,0.25)}
+.email-modal-body{padding:1.25rem 1.5rem}
+.email-from-badge{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rm);padding:8px 12px;font-size:12px;color:var(--text2);margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.email-from-badge strong{color:var(--text);font-weight:600}
+.email-field-row{display:grid;gap:5px;margin-bottom:12px}
+.email-field-label{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:0.4px}
+.email-field-input{width:100%;padding:8px 11px;border:1px solid var(--border2);border-radius:var(--rm);font-size:13px;color:var(--text);font-family:inherit;background:#fff;outline:none;transition:border 0.15s}
+.email-field-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(24,95,165,0.08)}
+.email-body-area{width:100%;padding:9px 11px;border:1px solid var(--border2);border-radius:var(--rm);font-size:13px;color:var(--text);font-family:inherit;background:#fff;outline:none;transition:border 0.15s;resize:vertical;min-height:220px;line-height:1.6}
+.email-body-area:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(24,95,165,0.08)}
+.email-modal-footer{padding:1rem 1.5rem;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end;align-items:center;background:#fafbfc;border-radius:0 0 var(--rl) var(--rl)}
+.btn-send-email{background:#1a1a2e;color:#fff;border:none;border-radius:var(--rm);padding:9px 18px;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.15s;font-family:inherit;display:flex;align-items:center;gap:6px}
+.btn-send-email:hover{background:#0f3460}
+.btn-copy-email{background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:var(--rm);padding:9px 16px;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.15s;font-family:inherit;display:flex;align-items:center;gap:6px}
+.btn-copy-email:hover{background:var(--border)}
+.btn-pde{background:var(--purple-l);color:var(--purple-d);white-space:nowrap}
+.btn-pde:hover{background:#dddcfd}
+.btn-fde{background:var(--teal-l);color:var(--teal-d);white-space:nowrap}
+.btn-fde:hover{background:#c3ebe0}
+
 @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+/* Template Editor Modal */
+.tmpl-overlay{display:none;position:fixed;inset:0;background:rgba(15,15,30,0.7);z-index:1400;align-items:center;justify-content:center;padding:1rem}
+.tmpl-overlay.open{display:flex}
+.tmpl-box{background:#fff;border-radius:var(--rl);width:min(680px,100%);max-height:94vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,0.35)}
+.tmpl-header{background:linear-gradient(135deg,#1a1a2e,#0f3460);padding:1.25rem 1.5rem;border-radius:var(--rl) var(--rl) 0 0;position:relative;display:flex;align-items:center;gap:10px}
+.tmpl-header-title{color:#fff;font-size:16px;font-weight:700;flex:1}
+.tmpl-close{background:rgba(255,255,255,0.15);border:none;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:16px;transition:background 0.15s}
+.tmpl-close:hover{background:rgba(255,255,255,0.25)}
+.tmpl-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);background:#f8f9fb}
+.tmpl-tab{padding:10px 22px;font-size:13px;font-weight:600;cursor:pointer;border:none;background:none;color:var(--text2);border-bottom:2px solid transparent;margin-bottom:-1px;font-family:inherit;transition:all 0.15s}
+.tmpl-tab.active{color:var(--blue);border-bottom-color:var(--blue);background:#fff}
+.tmpl-body{padding:1.25rem 1.5rem}
+.tmpl-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.tmpl-tag{background:var(--blue-l);color:var(--blue-d);border:none;border-radius:var(--r);padding:3px 9px;font-size:11px;font-weight:600;cursor:pointer;font-family:'IBM Plex Mono',monospace;transition:background 0.15s}
+.tmpl-tag:hover{background:#cce3f5}
+.tmpl-hint{font-size:11px;color:var(--text3);margin-bottom:8px}
+.tmpl-textarea{width:100%;padding:10px 12px;border:1px solid var(--border2);border-radius:var(--rm);font-size:13px;color:var(--text);font-family:'IBM Plex Mono',monospace;background:#fff;outline:none;resize:vertical;min-height:320px;line-height:1.6;transition:border 0.15s}
+.tmpl-textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(24,95,165,0.08)}
+.tmpl-footer{padding:1rem 1.5rem;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:space-between;align-items:center;background:#fafbfc;border-radius:0 0 var(--rl) var(--rl)}
+.btn-tmpl-reset{background:var(--red-l);color:var(--red-d);border:none;border-radius:var(--rm);padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px}
+.btn-tmpl-reset:hover{background:#f5d5d5}
+.btn-tmpl-save{background:#1a1a2e;color:#fff;border:none;border-radius:var(--rm);padding:9px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px}
+.btn-tmpl-save:hover{background:#0f3460}
+.btn-tmpl-settings{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:var(--rm);color:#fff;font-size:12px;font-weight:600;padding:5px 12px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px;transition:all 0.15s}
+.btn-tmpl-settings:hover{background:rgba(255,255,255,0.25)}
 @media(max-width:640px){
   .stats-grid{grid-template-columns:repeat(3,1fr)}
   .sup-stats{grid-template-columns:repeat(4,1fr)}
@@ -3279,6 +3334,87 @@ body.is-admin .admin-only-block{display:block}
 <!-- Toast -->
 <div class="toast success" id="toast"><i class="ti ti-check-circle"></i><span id="toastMsg">Student updated successfully</span></div>
 
+<!-- ── Email Draft Modal (PDE / FDE) ──────────────────────────────────────── -->
+<div id="emailModal" class="email-modal-overlay" onclick="if(event.target===this)closeEmailModal()">
+  <div class="email-modal-box">
+    <div class="email-modal-header" id="emailModalHeader">
+      <button class="email-modal-close" onclick="closeEmailModal()"><i class="ti ti-x"></i></button>
+      <div class="email-modal-title" id="emailModalTitle"></div>
+      <div class="email-modal-sub" id="emailModalSub"></div>
+    </div>
+    <div class="email-modal-body">
+      <div class="email-from-badge">
+        <i class="ti ti-send" style="font-size:14px"></i>
+        <span>From: <strong>nauman.aman@au.edu.pk</strong></span>
+      </div>
+      <div class="email-field-row">
+        <label class="email-field-label">To <span style="color:var(--red)">*</span></label>
+        <input class="email-field-input" id="emailTo" type="text" placeholder="recipient@example.com">
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">Separate multiple addresses with commas</div>
+      </div>
+      <div class="email-field-row">
+        <label class="email-field-label">Cc</label>
+        <input class="email-field-input" id="emailCc" type="text" placeholder="cc@example.com (optional)">
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">Separate multiple addresses with commas</div>
+      </div>
+      <div class="email-field-row">
+        <label class="email-field-label">Subject</label>
+        <input class="email-field-input" id="emailSubject" type="text" placeholder="Email subject">
+      </div>
+      <div class="email-field-row" style="margin-bottom:0">
+        <label class="email-field-label">Message Body</label>
+        <textarea class="email-body-area" id="emailBody"></textarea>
+      </div>
+    </div>
+    <div class="email-modal-footer" style="flex-wrap:wrap;gap:8px;">
+      <button class="btn-copy-email" onclick="copyEmailDraft()"><i class="ti ti-clipboard"></i>Copy Draft</button>
+      <button class="btn-cancel" onclick="closeEmailModal()">Cancel</button>
+      <button class="btn-copy-email" onclick="openGmail()" style="background:#fef2f2;color:#b91c1c;border-color:#fecaca;" title="Open in Gmail"><i class="ti ti-brand-gmail"></i>Gmail</button>
+      <button class="btn-copy-email" onclick="openOutlook()" style="background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe;" title="Open in Outlook Web"><i class="ti ti-brand-windows"></i>Outlook</button>
+      <button class="btn-send-email" onclick="openMailClient()"><i class="ti ti-mail-forward"></i>Mail Client</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Template Editor Modal -->
+<div id="tmplModal" class="tmpl-overlay" onclick="if(event.target===this)closeTmplModal()">
+  <div class="tmpl-box">
+    <div class="tmpl-header">
+      <i class="ti ti-file-text" style="color:#fff;font-size:18px"></i>
+      <div class="tmpl-header-title">Edit Email Templates</div>
+      <button class="tmpl-close" onclick="closeTmplModal()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="tmpl-tabs">
+      <button class="tmpl-tab active" onclick="switchTmplTab('pde',this)"><i class="ti ti-calendar-event" style="margin-right:5px"></i>PDE Template</button>
+      <button class="tmpl-tab" onclick="switchTmplTab('fde',this)"><i class="ti ti-calendar-check" style="margin-right:5px"></i>FDE Template</button>
+    </div>
+    <div class="tmpl-body">
+      <div class="tmpl-hint">Click a placeholder to insert it at the cursor position:</div>
+      <div class="tmpl-tags">
+        <button class="tmpl-tag" onclick="insertPlaceholder('{{name}}')">{{name}}</button>
+        <button class="tmpl-tag" onclick="insertPlaceholder('{{id}}')">{{id}}</button>
+        <button class="tmpl-tag" onclick="insertPlaceholder('{{degree}}')">{{degree}}</button>
+        <button class="tmpl-tag" onclick="insertPlaceholder('{{session}}')">{{session}}</button>
+        <button class="tmpl-tag" onclick="insertPlaceholder('{{supervisor}}')">{{supervisor}}</button>
+        <button class="tmpl-tag" onclick="insertPlaceholder('{{cosupervisor}}')">{{cosupervisor}}</button>
+        <button class="tmpl-tag" onclick="insertPlaceholder('{{gecInternal}}')">{{gecInternal}}</button>
+        <button class="tmpl-tag" onclick="insertPlaceholder('{{gecExternal}}')">{{gecExternal}}</button>
+        <button class="tmpl-tag" onclick="insertPlaceholder('{{topic}}')">{{topic}}</button>
+        <button class="tmpl-tag" onclick="insertPlaceholder('{{examType}}')">{{examType}}</button>
+      </div>
+      <textarea class="tmpl-textarea" id="tmplEditor" spellcheck="true"></textarea>
+    </div>
+    <div class="tmpl-footer">
+      <button class="btn-tmpl-reset" onclick="resetTmpl()"><i class="ti ti-refresh"></i>Reset to Default</button>
+      <div style="display:flex;gap:8px;">
+        <button class="btn-cancel" onclick="closeTmplModal()">Cancel</button>
+        <button class="btn-tmpl-save" onclick="saveTmpl()"><i class="ti ti-device-floppy"></i>Save Template</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 let STUDENTS = [
   {
@@ -4934,7 +5070,9 @@ function renderTable(data){
       <td onclick="openView(${i})" style="cursor:pointer;font-size:12px;color:var(--text2)">${s.extension||'<span style="color:var(--text3)">—</span>'}</td>
       <td><div class="actions-cell">
         ${isAdmin?`<button class="act-btn btn-edit" onclick="openEdit(${i})"><i class="ti ti-pencil"></i>Edit</button>
-        <button class="act-btn btn-del" onclick="confirmDelete(${i})"><i class="ti ti-trash"></i></button>`:`<span style="font-size:12px;color:var(--text3)">—</span>`}
+        <button class="act-btn btn-del" onclick="confirmDelete(${i})"><i class="ti ti-trash"></i></button>
+        <button class="act-btn btn-pde" onclick="openEmailDraft(${i},'pde')"><i class="ti ti-calendar-event"></i>Arrange PDE</button>
+        <button class="act-btn btn-fde" onclick="openEmailDraft(${i},'fde')"><i class="ti ti-calendar-event"></i>Arrange FDE</button>`:`<span style="font-size:12px;color:var(--text3)">—</span>`}
       </div></td>
     </tr>`;
   }).join("");
@@ -4951,7 +5089,7 @@ function openView(idx){
       <button class="modal-close" onclick="closeModal()"><i class="ti ti-x"></i></button>
       <div class="modal-name">${s.name}</div>
       <div class="modal-meta">${s.id} &middot; ${s.degree} &middot; ${s.session}</div>
-      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">${badge(s.status,"status")}${isAdmin?`<button onclick="closeModal();openEdit(${idx})" style="background:rgba(255,255,255,0.2);border:none;border-radius:6px;color:#fff;font-size:12px;font-weight:600;padding:4px 10px;cursor:pointer;font-family:inherit"><i class="ti ti-pencil" style="margin-right:4px"></i>Edit</button>`:''}</div>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">${badge(s.status,"status")}${isAdmin?`<button onclick="closeModal();openEdit(${idx})" style="background:rgba(255,255,255,0.2);border:none;border-radius:6px;color:#fff;font-size:12px;font-weight:600;padding:4px 10px;cursor:pointer;font-family:inherit"><i class="ti ti-pencil" style="margin-right:4px"></i>Edit</button><button onclick="closeModal();openEmailDraft(${idx},'pde')" style="background:rgba(83,74,183,0.35);border:1px solid rgba(83,74,183,0.5);border-radius:6px;color:#fff;font-size:12px;font-weight:600;padding:4px 10px;cursor:pointer;font-family:inherit"><i class="ti ti-calendar-event" style="margin-right:4px"></i>Arrange PDE</button><button onclick="closeModal();openEmailDraft(${idx},'fde')" style="background:rgba(15,110,86,0.35);border:1px solid rgba(15,110,86,0.5);border-radius:6px;color:#fff;font-size:12px;font-weight:600;padding:4px 10px;cursor:pointer;font-family:inherit"><i class="ti ti-calendar-event" style="margin-right:4px"></i>Arrange FDE</button>`:''}</div>
     </div>
     <div class="modal-body">
       <div class="section-title"><i class="ti ti-user-check"></i>Supervision</div>
@@ -4973,6 +5111,9 @@ function openView(idx){
         ${fRow("Study Mode",studyModeBadge(s))}
       </div>
       ${(s.email||s.cell)?`<div class="divider"></div><div class="section-title"><i class="ti ti-address-book"></i>Contact</div><div class="field-grid">${s.email?fRow("Email",`<a href="mailto:${s.email}" style="color:var(--blue)">${s.email}</a>`):""}${s.cell?fRow("Cell",s.cell):""}</div>`:""}
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal()">Close</button>
     </div>`;
   document.getElementById("modal").classList.add("open");
 }
@@ -5193,6 +5334,11 @@ function openEdit(idx){
     <button class="btn-cancel" onclick="closeModal()">Cancel</button>
     <button class="btn-save" onclick="saveStudent(${idx})"><i class="ti ti-device-floppy" style="margin-right:4px"></i>Save Changes</button>
   </div>`;
+  // Inject PDE/FDE buttons into the edit modal header after admin check
+  const headerBtns = document.createElement('div');
+  headerBtns.style.cssText = 'margin-top:10px;display:flex;gap:8px;flex-wrap:wrap';
+  headerBtns.innerHTML = `<button onclick="closeModal();openEmailDraft(${idx},'pde')" style="background:rgba(83,74,183,0.35);border:1px solid rgba(83,74,183,0.5);border-radius:6px;color:#fff;font-size:12px;font-weight:600;padding:4px 10px;cursor:pointer;font-family:inherit"><i class="ti ti-calendar-event" style="margin-right:4px"></i>Arrange PDE</button><button onclick="closeModal();openEmailDraft(${idx},'fde')" style="background:rgba(15,110,86,0.35);border:1px solid rgba(15,110,86,0.5);border-radius:6px;color:#fff;font-size:12px;font-weight:600;padding:4px 10px;cursor:pointer;font-family:inherit"><i class="ti ti-calendar-event" style="margin-right:4px"></i>Arrange FDE</button>`;
+  document.querySelector('#modalBox .modal-header').appendChild(headerBtns);
   document.getElementById("modal").classList.add("open");
 }
 
@@ -5721,6 +5867,260 @@ const FIREBASE_CONFIG = {
   measurementId:     "G-VHBB86W83T"
 };
 
+
+// ─── Email Draft Modal (PDE / FDE) ────────────────────────────────────────────
+function openEmailDraft(idx, type){
+  const s = STUDENTS[idx];
+  const isPDE = type === 'pde';
+  const examLabel = isPDE ? 'PDE' : 'FDE';
+  const colorClass = isPDE ? 'pde-header' : 'fde-header';
+
+  document.getElementById('emailModalHeader').className = 'email-modal-header ' + colorClass;
+  document.getElementById('emailModalTitle').innerHTML =
+    `<i class="ti ti-calendar-event"></i>Arrange ${examLabel} — ${s.name}`;
+  document.getElementById('emailModalSub').textContent =
+    `${s.degree} · ${s.session} · ID: ${s.id}`;
+
+  document.getElementById('emailTo').value  = s.email || '';
+  document.getElementById('emailCc').value  = '';
+  document.getElementById('emailSubject').value = isPDE
+    ? `Proposal Defense Exam — ${s.name} (${s.id}) — ${s.degree}`
+    : `Final Defense Exam — ${s.name} (${s.id}) — ${s.degree}`;
+
+  document.getElementById('emailBody').value = applyTemplate(type, s);
+  document.getElementById('emailModal').classList.add('open');
+}
+
+function _OLD_openEmailDraft_unused(idx, type){
+  const s = STUDENTS[idx];
+  const isPDE = type === 'pde';
+  const body = isPDE
+    ? `Dear ${s.name},
+
+I hope this message finds you well. I am writing to inform you that your Pre-Defense Examination (PDE) has been scheduled. Please find the relevant details below:
+
+Student Name  : ${s.name}
+Student ID    : ${s.id}
+Degree        : ${s.degree}
+Session       : ${s.session}
+Supervisor    : ${supName}${coSup ? '\nCo-Supervisor  : ' + coSup : ''}
+GEC Internal  : ${s.gecInternal || '—'}
+GEC External  : ${s.gecExternal || '—'}
+Thesis Topic  : ${topic}
+
+PDE Date/Time : [Please insert date and time]
+Venue         : [Please insert venue]
+
+You are requested to prepare your PDE presentation and submit the required documents at least one week before the scheduled date.
+
+Please confirm your availability by replying to this email.
+
+Best regards,
+[Your Name]
+Department of Electrical and Computer Engineering
+Air University, Islamabad
+Email: nauman.aman@au.edu.pk`
+    : `Dear ${s.name},
+
+I hope this message finds you well. I am pleased to inform you that your Final Defense Examination (FDE) has been scheduled. Please find the relevant details below:
+
+Student Name  : ${s.name}
+Student ID    : ${s.id}
+Degree        : ${s.degree}
+Session       : ${s.session}
+Supervisor    : ${supName}${coSup ? '\nCo-Supervisor  : ' + coSup : ''}
+GEC Internal  : ${s.gecInternal || '—'}
+GEC External  : ${s.gecExternal || '—'}
+Thesis Topic  : ${topic}
+
+FDE Date/Time : [Please insert date and time]
+Venue         : [Please insert venue]
+
+You are requested to submit the final corrected thesis along with all required documentation prior to the defense date. Kindly ensure all pre-requisites have been fulfilled.
+
+Please confirm your availability by replying to this email.
+
+Best regards,
+[Your Name]
+Department of Electrical and Computer Engineering
+Air University, Islamabad
+Email: nauman.aman@au.edu.pk`;
+
+  // (unused — kept for reference)
+}
+
+
+// ── Template Editor ────────────────────────────────────────────────────────
+const DEFAULT_TEMPLATES = {
+  pde: `Respected All,
+
+The Proposal Defense Exam of {{degree}} student is scheduled to take place as follows:
+
+Student ID  : {{id}}
+Name        : {{name}}
+Topic       : {{topic}}
+Supervisor  : {{supervisor}}
+GEC Members : {{gecInternal}} (Internal Member)
+              {{gecExternal}} (External Member)
+Date/Time   : [Please insert date and time]
+Venue       : [Please insert venue]
+
+All concerned are requested to attend.`,
+  fde: `Respected All,
+
+The Final Defense Exam of following {{degree}} student is scheduled to take place as follows:
+
+Student ID  : {{id}}
+Name        : {{name}}
+Topic       : {{topic}}
+Supervisor  : {{supervisor}}
+GEC Members : {{gecInternal}} (Internal Member)
+              {{gecExternal}} (External Member)
+Date/Time   : [Please insert date and time]
+Venue       : [Please insert venue]
+
+All concerned are requested to attend.`
+};
+
+let _tmplCurrentType = 'pde';
+
+// In-memory cache — loaded from Firebase on page load
+let _tmplCache = { pde: null, fde: null };
+
+function getTemplate(type){
+  return _tmplCache[type] || DEFAULT_TEMPLATES[type];
+}
+
+function openTmplModal(){
+  _tmplCurrentType = 'pde';
+  // reset tabs
+  document.querySelectorAll('.tmpl-tab').forEach((t,i) => t.classList.toggle('active', i===0));
+  document.getElementById('tmplEditor').value = getTemplate('pde');
+  document.getElementById('tmplModal').classList.add('open');
+}
+
+function closeTmplModal(){
+  document.getElementById('tmplModal').classList.remove('open');
+}
+
+function switchTmplTab(type, el){
+  _tmplCurrentType = type;
+  document.querySelectorAll('.tmpl-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tmplEditor').value = getTemplate(type);
+}
+
+function insertPlaceholder(tag){
+  const ta = document.getElementById('tmplEditor');
+  const start = ta.selectionStart;
+  const end = ta.selectionEnd;
+  const val = ta.value;
+  ta.value = val.slice(0, start) + tag + val.slice(end);
+  ta.selectionStart = ta.selectionEnd = start + tag.length;
+  ta.focus();
+}
+
+async function saveTmpl(){
+  const val = document.getElementById('tmplEditor').value;
+  const btn = document.querySelector('.btn-tmpl-save');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="ti ti-refresh" style="animation:spin 1s linear infinite"></i>Saving…';
+  try {
+    _tmplCache[_tmplCurrentType] = val;
+    await persistTemplates();
+    showToast('Template saved to cloud!', 'success');
+    closeTmplModal();
+  } catch(e) {
+    showToast('Save failed: ' + e.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="ti ti-device-floppy"></i>Save Template';
+  }
+}
+
+async function resetTmpl(){
+  if(!confirm('Reset this template to default? Your changes will be lost.')) return;
+  _tmplCache[_tmplCurrentType] = null;
+  document.getElementById('tmplEditor').value = DEFAULT_TEMPLATES[_tmplCurrentType];
+  try {
+    await persistTemplates();
+    showToast('Template reset to default', 'success');
+  } catch(e) {
+    showToast('Reset saved locally but cloud sync failed', 'error');
+  }
+}
+
+function applyTemplate(type, s){
+  const supName = s.sup   || '—';
+  const coSup   = s.cosup || '—';
+  const topic   = s.topic || '[Thesis topic not yet assigned]';
+  const examType = type === 'pde' ? 'PDE' : 'FDE';
+  return getTemplate(type)
+    .replace(/{{name}}/g,         s.name    || '')
+    .replace(/{{id}}/g,           s.id      || '')
+    .replace(/{{degree}}/g,       s.degree  || '')
+    .replace(/{{session}}/g,      s.session || '')
+    .replace(/{{supervisor}}/g,   supName)
+    .replace(/{{cosupervisor}}/g, coSup)
+    .replace(/{{gecInternal}}/g,  s.gecInternal || '—')
+    .replace(/{{gecExternal}}/g,  s.gecExternal || '—')
+    .replace(/{{topic}}/g,        topic)
+    .replace(/{{examType}}/g,     examType);
+}
+
+function closeEmailModal(){
+  document.getElementById('emailModal').classList.remove('open');
+}
+
+function openMailClient(){
+  const to      = document.getElementById('emailTo').value.trim();
+  const cc      = document.getElementById('emailCc').value.trim();
+  const subject = encodeURIComponent(document.getElementById('emailSubject').value.trim());
+  const body    = encodeURIComponent(document.getElementById('emailBody').value.trim());
+  const ccParam = cc ? `&cc=${encodeURIComponent(cc)}` : '';
+  const mailtoUrl = `mailto:${to}?${ccParam}&subject=${subject}&body=${body}`;
+  const win = window.open(mailtoUrl, '_blank');
+  // Fallback: if browser blocks it, navigate directly
+  if(!win || win.closed || typeof win.closed === 'undefined'){
+    window.location.href = mailtoUrl;
+  }
+}
+
+function openGmail(){
+  const to      = document.getElementById('emailTo').value.trim();
+  const cc      = document.getElementById('emailCc').value.trim();
+  const subject = encodeURIComponent(document.getElementById('emailSubject').value.trim());
+  const body    = encodeURIComponent(document.getElementById('emailBody').value.trim());
+  let url = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(to)}&su=${subject}&body=${body}`;
+  if(cc) url += `&cc=${encodeURIComponent(cc)}`;
+  window.open(url, '_blank');
+}
+
+function openOutlook(){
+  const to      = document.getElementById('emailTo').value.trim();
+  const cc      = document.getElementById('emailCc').value.trim();
+  // Use %20 for spaces (not +), and %2E for dots — required by OWA deeplink
+  const subject = encodeURIComponent(document.getElementById('emailSubject').value.trim()).replaceAll('+','%20').replaceAll('.','%2E');
+  const body    = encodeURIComponent(document.getElementById('emailBody').value.trim()).replaceAll('+','%20').replaceAll('.','%2E');
+  const toEnc   = encodeURIComponent(to).replaceAll('+','%20');
+  let url = `https://outlook.office.com/mail/deeplink/compose?to=${toEnc}&subject=${subject}&body=${body}`;
+  if(cc) url += `&cc=${encodeURIComponent(cc).replaceAll('+','%20')}`;
+  window.open(url, '_blank');
+}
+
+function copyEmailDraft(){
+  const to      = document.getElementById('emailTo').value.trim();
+  const cc      = document.getElementById('emailCc').value.trim();
+  const subject = document.getElementById('emailSubject').value.trim();
+  const body    = document.getElementById('emailBody').value.trim();
+  const text    = `From: nauman.aman@au.edu.pk\nTo: ${to}${cc?'\nCc: '+cc:''}\nSubject: ${subject}\n\n${body}`;
+  navigator.clipboard.writeText(text).then(()=>{
+    showToast('Email draft copied to clipboard','success');
+  }).catch(()=>{
+    showToast('Could not copy — please select and copy manually','error');
+  });
+}
+
 // Firestore REST API base URL
 const FS_BASE = `https://firestore.googleapis.com/v1/projects/${FIREBASE_CONFIG.projectId}/databases/(default)/documents`;
 
@@ -5810,6 +6210,34 @@ async function persistData(){
 }
 
 // ── Load data from Firestore on page load ─────────────────────────────────
+// ── Save templates to Firebase ────────────────────────────────────────────
+async function persistTemplates(){
+  await fetch(`${FS_BASE}/appdata/templates`, {
+    method: "PATCH",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({fields:{
+      pde: {stringValue: _tmplCache.pde || ''},
+      fde: {stringValue: _tmplCache.fde || ''}
+    }})
+  });
+}
+
+// ── Load templates from Firebase ──────────────────────────────────────────
+async function loadTemplates(){
+  try {
+    const r = await fetch(`${FS_BASE}/appdata/templates`);
+    if(r.ok){
+      const d = await r.json();
+      const pde = d.fields?.pde?.stringValue;
+      const fde = d.fields?.fde?.stringValue;
+      if(pde) _tmplCache.pde = pde;
+      if(fde) _tmplCache.fde = fde;
+    }
+  } catch(e) {
+    console.warn('Template load failed, using defaults:', e);
+  }
+}
+
 async function loadFromStorage(){
   try{
     setSyncStatus("loading");
@@ -5817,6 +6245,7 @@ async function loadFromStorage(){
       fetch(`${FS_BASE}/appdata/students`),
       fetch(`${FS_BASE}/appdata/supervisors`)
     ]);
+    await loadTemplates();
     if(rsStudents.ok){
       const d = await rsStudents.json();
       const arr = (d.fields?.list?.arrayValue?.values||[]).map(v=>fsMapToObj(v.mapValue?.fields||{}));
