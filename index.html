@@ -102,6 +102,7 @@ tbody tr:hover td{background:#f8fbff}
 .b-completed{background:var(--teal-l);color:var(--teal-d)}
 .b-enrolled{background:var(--blue-l);color:var(--blue-d)}
 .b-left{background:var(--red-l);color:var(--red-d)}
+.b-semester{background:var(--blue-l);color:var(--blue-d)}
 .b-dash{color:var(--text3);font-size:13px}
 .b-research{background:var(--blue-l);color:var(--blue-d)}
 .b-coursework{background:var(--purple-l);color:var(--purple-d)}
@@ -481,7 +482,7 @@ body.is-admin .admin-only-block{display:block}
         </select>
         <select id="fSession" onchange="applyFilters()"><option value="">All sessions</option><option value="Fall-2018">Fall-2018</option><option value="Fall-2019">Fall-2019</option><option value="Fall-2020">Fall-2020</option><option value="Fall-2021">Fall-2021</option><option value="Fall-2022">Fall-2022</option><option value="Fall-2023">Fall-2023</option><option value="Fall-2024">Fall-2024</option><option value="Fall-2025">Fall-2025</option><option value="S-2021">S-2021</option><option value="S-2023">S-2023</option><option value="S-2024">S-2024</option></select>
         <select id="fSupervisor" onchange="applyFilters()"><option value="">All supervisors</option><option value="Dr. Ahsan Sarwar Rana">Dr. Ahsan Sarwar Rana</option><option value="Dr. Ashfaq Ahmad">Dr. Ashfaq Ahmad</option><option value="Dr. Bahman R. Alyaei">Dr. Bahman R. Alyaei</option><option value="Dr. Hafiz Ashiq Hussain">Dr. Hafiz Ashiq Hussain</option><option value="Dr. Husan Ali">Dr. Husan Ali</option><option value="Dr. Imran Farid">Dr. Imran Farid</option><option value="Dr. Jehanzeb Khan">Dr. Jehanzeb Khan</option><option value="Dr. Muhammad Adil Khan">Dr. Muhammad Adil Khan</option><option value="Dr. Muhammad Zaheer">Dr. Muhammad Zaheer</option><option value="Dr. Muhammad Zakwan">Dr. Muhammad Zakwan</option><option value="Dr. Mumajid">Dr. Mumajid</option><option value="Dr. Nouman Naseer">Dr. Nouman Naseer</option><option value="Dr. Saad Ullah Khan">Dr. Saad Ullah Khan</option><option value="Dr. Sher Ali">Dr. Sher Ali</option><option value="Dr. Syed Ahmed Pasha">Dr. Syed Ahmed Pasha</option><option value="Dr. Waseem Khan">Dr. Waseem Khan</option></select>
-        <select id="fStatus" onchange="applyFilters()"><option value="">All statuses</option><option value="Completed">Completed</option><option value="Enrolled">Enrolled</option><option value="Left">Left</option><option value="Semester Leave">Semester Leave</select>
+        <select id="fStatus" onchange="applyFilters()"><option value="">All statuses</option><option value="Completed">Completed</option><option value="Enrolled">Enrolled</option><option value="Left">Left</option></select>
         <select id="fPDE" onchange="applyFilters()"><option value="">All PDE</option><option value="Done">Done</option><option value="Pending">Pending</option></select>
         <select id="fFDE" onchange="applyFilters()"><option value="">All FDE</option><option value="Done">Done</option><option value="Pending">Pending</option><option value="CW Done">CW Done</option></select>
         <select id="fStudyMode" onchange="applyFilters()">
@@ -5321,6 +5322,7 @@ function badge(val,type){
     if(v.includes("completed")) return '<span class="badge b-completed">Completed</span>';
     if(v.includes("enrolled")) return '<span class="badge b-enrolled">Enrolled</span>';
     if(v.includes("left")) return '<span class="badge b-left">Left</span>';
+    if(v.includes("semester leave")) return '<span class="badge b-semester">Semester Leave</span>';
     return '<span class="badge b-pending">'+val+'</span>';
   }
 }
@@ -5353,7 +5355,8 @@ function buildStats(data){
   function cnt(arr,fn){ return arr.filter(fn).length; }
   const isCompleted = s => s.status.toLowerCase().includes("completed");
   const isEnrolled  = s => s.status.toLowerCase().includes("enrolled");
-  const isLeft      = s => s.status.toLowerCase().includes("left");
+  const isLeft      = s => s.status.toLowerCase().includes("left") && !s.status.toLowerCase().includes("semester");
+  const isSemLeave  = s => s.status.toLowerCase().includes("semester leave");
   const isFdeDone   = s => (s.fde||"").toLowerCase()==="done";
   const isFdePending= s => (s.fde||"").toLowerCase()==="pending";
   const isFdeCW     = s => (s.fde||"").toLowerCase().includes("cw");
@@ -5377,6 +5380,7 @@ function buildStats(data){
       <div class="stat-card"><div class="stat-label">Completed</div><div class="stat-value sv-green">${cnt(data,isCompleted)}</div></div>
       <div class="stat-card"><div class="stat-label">Enrolled</div><div class="stat-value sv-blue">${cnt(data,isEnrolled)}</div></div>
       <div class="stat-card"><div class="stat-label">Left</div><div class="stat-value sv-coral">${cnt(data,isLeft)}</div></div>
+      <div class="stat-card"><div class="stat-label">Semester Leave</div><div class="stat-value sv-blue">${cnt(data,isSemLeave)}</div></div>
     </div>`;
 
   // ── Helper to build a per-degree block ──
@@ -5467,7 +5471,7 @@ function populateFilters(){
 
   const fst=document.getElementById("fStatus");
   fst.innerHTML='<option value="">All statuses</option>';
-  ["Completed","Enrolled","Left"].forEach(s=>{const o=document.createElement("option");o.value=s;o.text=s;fst.appendChild(o);});
+  ["Completed","Enrolled","Left","Semester Leave"].forEach(s=>{const o=document.createElement("option");o.value=s;o.text=s;fst.appendChild(o);});
   ["fPDE","fFDE"].forEach(id=>{
     const el=document.getElementById(id);
     el.innerHTML=`<option value="">${id==="fPDE"?"All PDE":"All FDE"}</option>`;
@@ -5511,7 +5515,7 @@ function applyFilters(){
     if(deg&&s.degree!==deg)return false;
     if(ses&&s.session!==ses)return false;
     if(supF&&s.sup!==supF)return false;
-    if(st&&!s.status.includes(st))return false;
+    if(st&&s.status!==st)return false;
     if(pde&&s.pde!==pde)return false;
     if(fde&&!(fde==="CW Done"?(s.fde||"").toLowerCase().includes("cw"):s.fde===fde))return false;
     if(studyMode&&getStudyMode(s)!==studyMode)return false;
@@ -5736,6 +5740,7 @@ function studentForm(s){
             <option value="Enrolled"${s&&s.status==='Enrolled'?' selected':''}>Enrolled</option>
             <option value="Completed"${s&&s.status==='Completed'?' selected':''}>Completed</option>
             <option value="Left"${s&&s.status==='Left'?' selected':''}>Left</option>
+            <option value="Semester Leave"${s&&s.status==='Semester Leave'?' selected':''}>Semester Leave</option>
           </select>
         </div>
       </div>
