@@ -1,11 +1,13 @@
-<html lang="en"><head><style>body {transition: opacity ease-in 0.2s; } 
+
+<!-- saved from url=(0029)https://aupgece.github.io/pg/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>body {transition: opacity ease-in 0.2s; } 
 body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
 </style>
-<meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MS/PhD Electrical Engineering Students' Database — Dept. of Electrical Engineering</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./MS_PhD Electrical Engineering Students&#39; Database — Dept. of Electrical Engineering_files/tabler-icons.min.css">
+<link href="./MS_PhD Electrical Engineering Students&#39; Database — Dept. of Electrical Engineering_files/css2" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'IBM Plex Sans',sans-serif;background:#f0f2f5;color:#1a1a2e;min-height:100vh}
@@ -175,6 +177,20 @@ tbody tr:hover td{background:#f8fbff}
 .slot-total strong.ms{color:var(--blue)}
 .slot-total strong.phd{color:var(--teal)}
 .sup-actions{display:flex;gap:6px;margin-top:10px}
+
+/* Remarks */
+.remarks-cell{min-width:160px;max-width:220px}
+.remarks-display{font-size:12px;color:var(--text2);line-height:1.5;white-space:pre-wrap;word-break:break-word}
+.remarks-empty{color:var(--text3);font-size:12px}
+.btn-remark{background:var(--amber-l);color:var(--amber-d);border:none;border-radius:var(--r);padding:4px 8px;cursor:pointer;font-size:11px;font-weight:600;display:inline-flex;align-items:center;gap:3px;font-family:inherit;margin-top:4px;transition:background 0.15s}
+.btn-remark:hover{background:#f5ddb5}
+.remarks-edit-wrap{display:flex;flex-direction:column;gap:5px}
+.remarks-textarea{width:100%;padding:6px 8px;border:1px solid var(--border2);border-radius:var(--rm);font-size:12px;color:var(--text);font-family:inherit;resize:vertical;min-height:60px;line-height:1.5;outline:none;transition:border 0.15s}
+.remarks-textarea:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(133,79,11,0.1)}
+.remarks-save-row{display:flex;gap:5px}
+.btn-rsave{background:#1a1a2e;color:#fff;border:none;border-radius:var(--r);padding:4px 10px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit}
+.btn-rsave:hover{background:#0f3460}
+.btn-rcancel{background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:var(--r);padding:4px 8px;font-size:11px;cursor:pointer;font-family:inherit}
 
 /* Toast */
 .toast{position:fixed;bottom:24px;right:24px;background:#1a1a2e;color:#fff;padding:12px 20px;border-radius:var(--rm);font-size:13px;font-weight:500;z-index:9999;transform:translateY(100px);opacity:0;transition:all 0.3s;display:flex;align-items:center;gap:8px}
@@ -348,7 +364,7 @@ body.is-admin .admin-only-block{display:block}
   .form-2col,.form-3col{grid-template-columns:1fr}
 }
 </style>
-</head>
+<link type="text/css" rel="stylesheet" href="chrome-extension://fheoggkfdfchfphceeifdbepaooicaho/css/mcafee_fonts.css"></head>
 <body>
 
 <div class="top-bar">
@@ -361,10 +377,10 @@ body.is-admin .admin-only-block{display:block}
       <span id="syncStatus" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgb(74, 222, 128); border-radius: 9999px; color: rgb(74, 222, 128); font-size: 12px; padding: 4px 12px; display: inline-flex; align-items: center; gap: 5px;"><i class="ti ti-cloud-check"></i>Synced</span>
       <span class="top-badge" id="topBadge"><i class="ti ti-users" style="margin-right:4px"></i><span id="badgeCount">53</span> Students · <span id="supCount">14</span> Supervisors</span>
       <span class="admin-badge" id="adminBadge" style="display:none;"><i class="ti ti-shield-check"></i>Admin</span>
-      <button class="btn-export" id="reloadBtn" onclick="forceReload()" title="Pull latest data from Firebase"><i class="ti ti-cloud-download" style="margin-right:4px"></i>Reload</button>
-      <button class="btn-export" onclick="exportExcel()" style="background:rgba(74,222,128,0.15);border-color:rgba(74,222,128,0.35)"><i class="ti ti-table-export" style="margin-right:4px"></i>Export Excel</button>
+      <button class="btn-export" id="reloadBtn" onclick="forceReload()" title="Pull latest data from Firebase" fdprocessedid="bf2a8"><i class="ti ti-cloud-download" style="margin-right:4px"></i>Reload</button>
+      <button class="btn-export" onclick="exportExcel()" style="background:rgba(74,222,128,0.15);border-color:rgba(74,222,128,0.35)" fdprocessedid="ikrgks"><i class="ti ti-table-export" style="margin-right:4px"></i>Export Excel</button>
       <button class="btn-logout" id="logoutBtn" style="display:none;" onclick="adminLogout()"><i class="ti ti-logout"></i>Sign out</button>
-      <button class="sched-bell-btn" id="schedBellBtn" onclick="toggleSchedPopup()" title="Upcoming FDE/PDE Schedules"><i class="ti ti-bell"></i>Schedule<span class="sched-bell-badge" id="schedBadgeCount" style="display:none">0</span></button>
+      <button class="sched-bell-btn" id="schedBellBtn" onclick="toggleSchedPopup()" title="Upcoming FDE/PDE Schedules" fdprocessedid="z1frqb"><i class="ti ti-bell"></i>Schedule<span class="sched-bell-badge" id="schedBadgeCount" style="display:none">0</span></button>
       <button class="btn-export" id="adminLoginBtn" onclick="showAdminLogin()" style="display:none;"><i class="ti ti-lock" style="margin-right:4px"></i>Admin Login</button>
     </div>
   </div>
@@ -372,9 +388,9 @@ body.is-admin .admin-only-block{display:block}
 
 <div class="main">
   <div class="tab-row">
-    <button class="tab-btn active" onclick="switchTab('students',this)"><i class="ti ti-users" style="margin-right:6px"></i>Students</button>
-    <button class="tab-btn" onclick="switchTab('supervisors',this)"><i class="ti ti-user-check" style="margin-right:6px"></i>Supervisors</button>
-    <button class="tab-btn" onclick="window.location.href='publications.html'"><i class="ti ti-book" style="margin-right:6px"></i>FM Research Publications</button>
+    <button class="tab-btn active" onclick="switchTab(&#39;students&#39;,this)" fdprocessedid="em7i5d"><i class="ti ti-users" style="margin-right:6px"></i>Students</button>
+    <button class="tab-btn" onclick="switchTab(&#39;supervisors&#39;,this)" fdprocessedid="vnpngo"><i class="ti ti-user-check" style="margin-right:6px"></i>Supervisors</button>
+    <button class="tab-btn" onclick="window.location.href=&#39;publications.html&#39;" fdprocessedid="acgcxv"><i class="ti ti-book" style="margin-right:6px"></i>FM Research Publications</button>
   </div>
 
   <!-- Students Tab -->
@@ -473,27 +489,27 @@ body.is-admin .admin-only-block{display:block}
       <div class="filter-row">
         <div class="search-wrap">
           <i class="ti ti-search"></i>
-          <input type="text" id="search" placeholder="Search name, ID, supervisor, topic…" oninput="applyFilters()">
+          <input type="text" id="search" placeholder="Search name, ID, supervisor, topic…" oninput="applyFilters()" fdprocessedid="c4q90o">
         </div>
-        <select id="fDegree" onchange="applyFilters()">
+        <select id="fDegree" onchange="applyFilters()" fdprocessedid="37f4zo">
           <option value="">All degrees</option>
           <option value="MSEE">MSEE</option>
           <option value="PhDEE">PhDEE</option>
           <option value="MSCE">MSCE</option>
           <option value="PhDCE">PhDCE</option>
         </select>
-        <select id="fSession" onchange="applyFilters()"><option value="">All sessions</option><option value="Fall-2018">Fall-2018</option><option value="Fall-2019">Fall-2019</option><option value="Fall-2020">Fall-2020</option><option value="Fall-2021">Fall-2021</option><option value="Fall-2022">Fall-2022</option><option value="Fall-2023">Fall-2023</option><option value="Fall-2024">Fall-2024</option><option value="Fall-2025">Fall-2025</option><option value="S-2021">S-2021</option><option value="S-2023">S-2023</option><option value="S-2024">S-2024</option></select>
-        <select id="fSupervisor" onchange="applyFilters()"><option value="">All supervisors</option><option value="Dr. Ahsan Sarwar Rana">Dr. Ahsan Sarwar Rana</option><option value="Dr. Ashfaq Ahmad">Dr. Ashfaq Ahmad</option><option value="Dr. Bahman R. Alyaei">Dr. Bahman R. Alyaei</option><option value="Dr. Hafiz Ashiq Hussain">Dr. Hafiz Ashiq Hussain</option><option value="Dr. Husan Ali">Dr. Husan Ali</option><option value="Dr. Imran Farid">Dr. Imran Farid</option><option value="Dr. Jehanzeb Khan">Dr. Jehanzeb Khan</option><option value="Dr. Muhammad Adil Khan">Dr. Muhammad Adil Khan</option><option value="Dr. Muhammad Zaheer">Dr. Muhammad Zaheer</option><option value="Dr. Muhammad Zakwan">Dr. Muhammad Zakwan</option><option value="Dr. Mumajid">Dr. Mumajid</option><option value="Dr. Nouman Naseer">Dr. Nouman Naseer</option><option value="Dr. Saad Ullah Khan">Dr. Saad Ullah Khan</option><option value="Dr. Sher Ali">Dr. Sher Ali</option><option value="Dr. Syed Ahmed Pasha">Dr. Syed Ahmed Pasha</option><option value="Dr. Waseem Khan">Dr. Waseem Khan</option></select>
-        <select id="fStatus" onchange="applyFilters()"><option value="">All statuses</option><option value="Completed">Completed</option><option value="Enrolled">Enrolled</option><option value="Left">Left</option><option value="Semester Leave">Semester Leave</option></select>
-        <select id="fPDE" onchange="applyFilters()"><option value="">All PDE</option><option value="Done">Done</option><option value="Pending">Pending</option></select>
-        <select id="fFDE" onchange="applyFilters()"><option value="">All FDE</option><option value="Done">Done</option><option value="Pending">Pending</option><option value="CW Done">CW Done</option></select>
-        <select id="fStudyMode" onchange="applyFilters()">
+        <select id="fSession" onchange="applyFilters()" fdprocessedid="bdmo9b"><option value="">All sessions</option><option value="Fall-2018">Fall-2018</option><option value="Fall-2019">Fall-2019</option><option value="Fall-2020">Fall-2020</option><option value="Fall-2021">Fall-2021</option><option value="Fall-2022">Fall-2022</option><option value="Fall-2023">Fall-2023</option><option value="Fall-2024">Fall-2024</option><option value="Fall-2025">Fall-2025</option><option value="S-2021">S-2021</option><option value="S-2023">S-2023</option><option value="S-2024">S-2024</option></select>
+        <select id="fSupervisor" onchange="applyFilters()" fdprocessedid="oj9g2e"><option value="">All supervisors</option><option value="Dr. Ahsan Sarwar Rana">Dr. Ahsan Sarwar Rana</option><option value="Dr. Ashfaq Ahmad">Dr. Ashfaq Ahmad</option><option value="Dr. Bahman R. Alyaei">Dr. Bahman R. Alyaei</option><option value="Dr. Hafiz Ashiq Hussain">Dr. Hafiz Ashiq Hussain</option><option value="Dr. Husan Ali">Dr. Husan Ali</option><option value="Dr. Imran Farid">Dr. Imran Farid</option><option value="Dr. Jehanzeb Khan">Dr. Jehanzeb Khan</option><option value="Dr. Muhammad Adil Khan">Dr. Muhammad Adil Khan</option><option value="Dr. Muhammad Zaheer">Dr. Muhammad Zaheer</option><option value="Dr. Muhammad Zakwan">Dr. Muhammad Zakwan</option><option value="Dr. Mumajid">Dr. Mumajid</option><option value="Dr. Nouman Naseer">Dr. Nouman Naseer</option><option value="Dr. Saad Ullah Khan">Dr. Saad Ullah Khan</option><option value="Dr. Sher Ali">Dr. Sher Ali</option><option value="Dr. Syed Ahmed Pasha">Dr. Syed Ahmed Pasha</option><option value="Dr. Waseem Khan">Dr. Waseem Khan</option></select>
+        <select id="fStatus" onchange="applyFilters()" fdprocessedid="0cezr"><option value="">All statuses</option><option value="Completed">Completed</option><option value="Enrolled">Enrolled</option><option value="Left">Left</option><option value="Semester Leave">Semester Leave</option></select>
+        <select id="fPDE" onchange="applyFilters()" fdprocessedid="wok72"><option value="">All PDE</option><option value="Done">Done</option><option value="Pending">Pending</option></select>
+        <select id="fFDE" onchange="applyFilters()" fdprocessedid="m5v4bj"><option value="">All FDE</option><option value="Done">Done</option><option value="Pending">Pending</option><option value="CW Done">CW Done</option></select>
+        <select id="fStudyMode" onchange="applyFilters()" fdprocessedid="96gfye">
           <option value="">All Study Modes</option>
           <option value="Course Work">Course Work</option>
           <option value="Research">Research</option>
         </select>
-        <select id="fGECInternal" onchange="applyFilters()"><option value="">All GEC Internal</option><option value="Dr. Ahsan Sarwar Rana">Dr. Ahsan Sarwar Rana</option><option value="Dr. Amina Asif">Dr. Amina Asif</option><option value="Dr. Ashfaq Ahmad">Dr. Ashfaq Ahmad</option><option value="Dr. Ayesha Salman">Dr. Ayesha Salman</option><option value="Dr. Bahman">Dr. Bahman</option><option value="Dr. Bahman R. Alyaei">Dr. Bahman R. Alyaei</option><option value="Dr. Hafiz Ashiq Hussain">Dr. Hafiz Ashiq Hussain</option><option value="Dr. Imran Farid">Dr. Imran Farid</option><option value="Dr. Jehanzeb Khan">Dr. Jehanzeb Khan</option><option value="Dr. Muhammad Adil Khan">Dr. Muhammad Adil Khan</option><option value="Dr. Muhammad Zaheer">Dr. Muhammad Zaheer</option><option value="Dr. Muntazir Hussain">Dr. Muntazir Hussain</option><option value="Dr. Najam Dar">Dr. Najam Dar</option><option value="Dr. Qumrish Arooj">Dr. Qumrish Arooj</option><option value="Dr. Rana Iqditar Shakoor">Dr. Rana Iqditar Shakoor</option><option value="Dr. Saad Ullah Khan">Dr. Saad Ullah Khan</option><option value="Dr. Saleem Shahid">Dr. Saleem Shahid</option><option value="Dr. Sara Saeed">Dr. Sara Saeed</option><option value="Dr. Sarah Saeed">Dr. Sarah Saeed</option><option value="Dr. Shahbaz Khan">Dr. Shahbaz Khan</option><option value="Dr. Shahzad">Dr. Shahzad</option><option value="Dr. Sher Ali">Dr. Sher Ali</option><option value="Dr. Syed Ahmed Pasha">Dr. Syed Ahmed Pasha</option><option value="Dr. Syed Hammad Nazeer">Dr. Syed Hammad Nazeer</option><option value="Dr. Tufail Muhammad">Dr. Tufail Muhammad</option><option value="Dr. Waseem Khan">Dr. Waseem Khan</option></select>
-        <select id="fGECExternal" onchange="applyFilters()"><option value="">All GEC External</option><option value="Dr. Abraiz Khattak (NUST)">Dr. Abraiz Khattak (NUST)</option><option value="Dr. Adil Ali Raja (BU)">Dr. Adil Ali Raja (BU)</option><option value="Dr. Arsalan Shaukat (NUST)">Dr. Arsalan Shaukat (NUST)</option><option value="Dr. Asad Waqar (BU)">Dr. Asad Waqar (BU)</option><option value="Dr. Awais Ahmed (QAU)">Dr. Awais Ahmed (QAU)</option><option value="Dr. Awais Shahid (CUST)">Dr. Awais Shahid (CUST)</option><option value="Dr. Dur-E-Zehra Baig (GIKI)">Dr. Dur-E-Zehra Baig (GIKI)</option><option value="Dr. Junaid Ali Khan (HITECH)">Dr. Junaid Ali Khan (HITECH)</option><option value="Dr. Kamran Zeb (NUST)">Dr. Kamran Zeb (NUST)</option><option value="Dr. Khurram Saleem">Dr. Khurram Saleem</option><option value="Dr. M.Rehan (PIEAS)">Dr. M.Rehan (PIEAS)</option><option value="Dr. Muhammad Aamir (PAF IAST)">Dr. Muhammad Aamir (PAF IAST)</option><option value="Dr. Muhammad Ali Mughal (HITECH)">Dr. Muhammad Ali Mughal (HITECH)</option><option value="Dr. Muhammad Amir (BU)">Dr. Muhammad Amir (BU)</option><option value="Dr. Muhammad Sohail (NUST)">Dr. Muhammad Sohail (NUST)</option><option value="Dr. Rasool Bukhsh (COMSATS)">Dr. Rasool Bukhsh (COMSATS)</option><option value="Dr. Rasool Bukhsh (CUI)">Dr. Rasool Bukhsh (CUI)</option><option value="Dr. Shafiq Haider (UET Taxila)">Dr. Shafiq Haider (UET Taxila)</option><option value="Dr. Sohaira Ahmad (University of Wah)">Dr. Sohaira Ahmad (University of Wah)</option><option value="Dr. Syed Ali Abbas Kazmi (NUST)">Dr. Syed Ali Abbas Kazmi (NUST)</option><option value="Dr. Taimoor Naeem (COMSATS)">Dr. Taimoor Naeem (COMSATS)</option><option value="Dr. Usman Akram (NUST)">Dr. Usman Akram (NUST)</option><option value="Dr. Usman Ali (NUST)">Dr. Usman Ali (NUST)</option><option value="Dr. Usman Hashmi (Iqra University)">Dr. Usman Hashmi (Iqra University)</option><option value="Dr. Waqaruddin (NUTECH)">Dr. Waqaruddin (NUTECH)</option><option value="Dr. Zartasha Mustansar (NUST)">Dr. Zartasha Mustansar (NUST)</option></select>
+        <select id="fGECInternal" onchange="applyFilters()" fdprocessedid="6m2di"><option value="">All GEC Internal</option><option value="Dr. Ahsan Sarwar Rana">Dr. Ahsan Sarwar Rana</option><option value="Dr. Amina Asif">Dr. Amina Asif</option><option value="Dr. Ashfaq Ahmad">Dr. Ashfaq Ahmad</option><option value="Dr. Ayesha Salman">Dr. Ayesha Salman</option><option value="Dr. Bahman">Dr. Bahman</option><option value="Dr. Bahman R. Alyaei">Dr. Bahman R. Alyaei</option><option value="Dr. Hafiz Ashiq Hussain">Dr. Hafiz Ashiq Hussain</option><option value="Dr. Imran Farid">Dr. Imran Farid</option><option value="Dr. Jehanzeb Khan">Dr. Jehanzeb Khan</option><option value="Dr. Muhammad Adil Khan">Dr. Muhammad Adil Khan</option><option value="Dr. Muhammad Zaheer">Dr. Muhammad Zaheer</option><option value="Dr. Muntazir Hussain">Dr. Muntazir Hussain</option><option value="Dr. Najam Dar">Dr. Najam Dar</option><option value="Dr. Qumrish Arooj">Dr. Qumrish Arooj</option><option value="Dr. Rana Iqditar Shakoor">Dr. Rana Iqditar Shakoor</option><option value="Dr. Saad Ullah Khan">Dr. Saad Ullah Khan</option><option value="Dr. Saleem Shahid">Dr. Saleem Shahid</option><option value="Dr. Sara Saeed">Dr. Sara Saeed</option><option value="Dr. Sarah Saeed">Dr. Sarah Saeed</option><option value="Dr. Shahbaz Khan">Dr. Shahbaz Khan</option><option value="Dr. Shahzad">Dr. Shahzad</option><option value="Dr. Sher Ali">Dr. Sher Ali</option><option value="Dr. Syed Ahmed Pasha">Dr. Syed Ahmed Pasha</option><option value="Dr. Syed Hammad Nazeer">Dr. Syed Hammad Nazeer</option><option value="Dr. Tufail Muhammad">Dr. Tufail Muhammad</option><option value="Dr. Waseem Khan">Dr. Waseem Khan</option></select>
+        <select id="fGECExternal" onchange="applyFilters()" fdprocessedid="sapl7j"><option value="">All GEC External</option><option value="Dr. Abraiz Khattak (NUST)">Dr. Abraiz Khattak (NUST)</option><option value="Dr. Adil Ali Raja (BU)">Dr. Adil Ali Raja (BU)</option><option value="Dr. Arsalan Shaukat (NUST)">Dr. Arsalan Shaukat (NUST)</option><option value="Dr. Asad Waqar (BU)">Dr. Asad Waqar (BU)</option><option value="Dr. Awais Ahmed (QAU)">Dr. Awais Ahmed (QAU)</option><option value="Dr. Awais Shahid (CUST)">Dr. Awais Shahid (CUST)</option><option value="Dr. Dur-E-Zehra Baig (GIKI)">Dr. Dur-E-Zehra Baig (GIKI)</option><option value="Dr. Junaid Ali Khan (HITECH)">Dr. Junaid Ali Khan (HITECH)</option><option value="Dr. Kamran Zeb (NUST)">Dr. Kamran Zeb (NUST)</option><option value="Dr. Khurram Saleem">Dr. Khurram Saleem</option><option value="Dr. M.Rehan (PIEAS)">Dr. M.Rehan (PIEAS)</option><option value="Dr. Muhammad Aamir (PAF IAST)">Dr. Muhammad Aamir (PAF IAST)</option><option value="Dr. Muhammad Ali Mughal (HITECH)">Dr. Muhammad Ali Mughal (HITECH)</option><option value="Dr. Muhammad Amir (BU)">Dr. Muhammad Amir (BU)</option><option value="Dr. Muhammad Sohail (NUST)">Dr. Muhammad Sohail (NUST)</option><option value="Dr. Rasool Bukhsh (COMSATS)">Dr. Rasool Bukhsh (COMSATS)</option><option value="Dr. Rasool Bukhsh (CUI)">Dr. Rasool Bukhsh (CUI)</option><option value="Dr. Shafiq Haider (UET Taxila)">Dr. Shafiq Haider (UET Taxila)</option><option value="Dr. Sohaira Ahmad (University of Wah)">Dr. Sohaira Ahmad (University of Wah)</option><option value="Dr. Syed Ali Abbas Kazmi (NUST)">Dr. Syed Ali Abbas Kazmi (NUST)</option><option value="Dr. Taimoor Naeem (COMSATS)">Dr. Taimoor Naeem (COMSATS)</option><option value="Dr. Usman Akram (NUST)">Dr. Usman Akram (NUST)</option><option value="Dr. Usman Ali (NUST)">Dr. Usman Ali (NUST)</option><option value="Dr. Usman Hashmi (Iqra University)">Dr. Usman Hashmi (Iqra University)</option><option value="Dr. Waqaruddin (NUTECH)">Dr. Waqaruddin (NUTECH)</option><option value="Dr. Zartasha Mustansar (NUST)">Dr. Zartasha Mustansar (NUST)</option></select>
         <button class="add-btn admin-only" id="addStudentBtn" onclick="openAddStudent()"><i class="ti ti-plus"></i>Add Student</button>
       </div>
       <div class="count-info" id="countBar">Showing 53 of 53 students — click a row or use action buttons</div>
@@ -519,6 +535,7 @@ body.is-admin .admin-only-block{display:block}
               <th>GEC Formation (FBGS)</th>
               <th>GEC Change (FBGS)</th>
               <th>Extension (FBGS)</th>
+              <th>Admin Remarks</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -1762,7 +1779,7 @@ body.is-admin .admin-only-block{display:block}
     <div class="sup-grid" id="supGrid"><div class="sup-card" style="">
       <div class="sup-header">
         <div>
-          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Hafiz Ashiq Hussain')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Hafiz Ashiq Hussain</div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Hafiz Ashiq Hussain&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Hafiz Ashiq Hussain</div>
           <div class="sup-desg">Professor · PhD 2011</div>
           <div class="sup-area">Optical Networks, Fiber Communication</div>
           <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:4px"><span style="background:var(--blue-l);color:var(--blue-d);font-size:10px;font-weight:600;padding:2px 7px;border-radius:9999px">MSEE</span><span style="background:var(--blue-l);color:var(--blue-d);font-size:10px;font-weight:600;padding:2px 7px;border-radius:9999px">MSCE</span><span style="background:var(--blue-l);color:var(--blue-d);font-size:10px;font-weight:600;padding:2px 7px;border-radius:9999px">PhDEE</span><span style="background:var(--blue-l);color:var(--blue-d);font-size:10px;font-weight:600;padding:2px 7px;border-radius:9999px">PhDCE</span></div>
@@ -1797,7 +1814,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Hussain Asif</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">191925</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">191925</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhDEE · Fall-2019</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -1808,7 +1825,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Iqra Nawaz</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">211679</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">211679</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2021</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -1819,7 +1836,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Jawad Bahadur Khan</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">211665</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">211665</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2021</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -1830,7 +1847,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Syed Muhammad Qamar Ali Bukhari</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">211664</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">211664</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2021</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -1841,7 +1858,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Imran Hussain</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">222522</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">222522</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhDEE · Fall-2022</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -1852,7 +1869,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Bilal Idrees</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">232906</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">232906</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhDEE · Fall-2023</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -1863,7 +1880,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Izza Jamal</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">232672</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">232672</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2023</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -1874,7 +1891,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Sharoze Sohail</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">249519</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">249519</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhDEE · Fall-2024</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -1885,7 +1902,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Muhammad Ali Raza</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">210145</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">210145</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhDEE · S-2021</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
@@ -1899,7 +1916,7 @@ body.is-admin .admin-only-block{display:block}
     </div><div class="sup-card" style="">
       <div class="sup-header">
         <div>
-          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Syed Ahmed Pasha')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Syed Ahmed Pasha</div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Syed Ahmed Pasha&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Syed Ahmed Pasha</div>
           <div class="sup-desg">Associate Professor · PhD 2009</div>
           <div class="sup-area">Controls / Machine Learning</div>
           
@@ -1934,7 +1951,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Naima Sakhawat</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">230247</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">230247</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · S-2023</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -1948,7 +1965,7 @@ body.is-admin .admin-only-block{display:block}
     </div><div class="sup-card" style="">
       <div class="sup-header">
         <div>
-          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Imran Farid')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Imran Farid</div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Imran Farid&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Imran Farid</div>
           <div class="sup-desg">Assistant Professor · PhD 2015</div>
           <div class="sup-area">Image Processing</div>
           
@@ -1983,7 +2000,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Waleed Manzoor</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">191829</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">191829</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhDEE · Fall-2019</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
@@ -1994,7 +2011,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Danish Zahoor</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">211668</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">211668</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2021</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2005,7 +2022,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Tayyaba Riasat</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">211660</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">211660</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2021</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2016,7 +2033,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Asif Habib</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">222263</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">222263</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2022</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2027,7 +2044,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Muhammad Luqman</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">230393</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">230393</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · S-2023</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2041,7 +2058,7 @@ body.is-admin .admin-only-block{display:block}
     </div><div class="sup-card" style="">
       <div class="sup-header">
         <div>
-          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Waseem Khan')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Waseem Khan</div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Waseem Khan&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Waseem Khan</div>
           <div class="sup-desg">Assistant Professor · PhD 2015</div>
           <div class="sup-area">Communication / RF Microwave</div>
           
@@ -2076,7 +2093,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Fahad Naseer</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">243068</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">243068</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2024</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2090,7 +2107,7 @@ body.is-admin .admin-only-block{display:block}
     </div><div class="sup-card" style="">
       <div class="sup-header">
         <div>
-          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Sara Saeed')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Sara Saeed</div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Sara Saeed&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Sara Saeed</div>
           <div class="sup-desg">Assistant Professor · PhD Aug 2016</div>
           <div class="sup-area">RF/Microwave Antenna System</div>
           
@@ -2128,7 +2145,7 @@ body.is-admin .admin-only-block{display:block}
     </div><div class="sup-card" style="">
       <div class="sup-header">
         <div>
-          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Ayesha Salman')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Ayesha Salman</div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Ayesha Salman&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Ayesha Salman</div>
           <div class="sup-desg">Assistant Professor · PhD Oct 2017</div>
           <div class="sup-area">Digital Signal Processing</div>
           
@@ -2166,7 +2183,7 @@ body.is-admin .admin-only-block{display:block}
     </div><div class="sup-card" style="">
       <div class="sup-header">
         <div>
-          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Muhammad Adil Khan')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Muhammad Adil Khan</div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Muhammad Adil Khan&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Muhammad Adil Khan</div>
           <div class="sup-desg">Assistant Professor · PhD Aug 2018</div>
           <div class="sup-area">Power Transmission System</div>
           
@@ -2201,7 +2218,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Mubashir Rasool</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">191830</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">191830</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhDEE · Fall-2019</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2212,7 +2229,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Haseeb Rustam</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">211677</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">211677</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2021</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2223,7 +2240,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Khushal Khan</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">211663</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">211663</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2021</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2234,7 +2251,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Ikhlaq Hussain</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">222260</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">222260</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2022</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
@@ -2245,7 +2262,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Wajeeha Sajid</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">232668</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">232668</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2023</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
@@ -2256,7 +2273,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Haji Ahmed</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">243441</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">243441</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhDEE · Fall-2024</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2267,7 +2284,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Shah Zaib Sawal</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">243066</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">243066</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2024</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
@@ -2278,7 +2295,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Syed Taha Ahmed Zaidi</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504372</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">2504372</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2024</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2289,7 +2306,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Khushbakht Sajid</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504379</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">2504379</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
@@ -2300,7 +2317,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Maha Masood Abbasi</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504376</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">2504376</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2311,7 +2328,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Rizwan Ahmad</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504384</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">2504384</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2322,7 +2339,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Meerub Khalil</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">240325</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">240325</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · S-2024</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
@@ -2336,7 +2353,7 @@ body.is-admin .admin-only-block{display:block}
     </div><div class="sup-card" style="">
       <div class="sup-header">
         <div>
-          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Muhammad Zaheer')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Muhammad Zaheer</div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Muhammad Zaheer&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Muhammad Zaheer</div>
           <div class="sup-desg">Assistant Professor · PhD Mar 2018</div>
           <div class="sup-area">Steganography / Communication</div>
           
@@ -2371,7 +2388,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Ayesha Qaiser Hashmi</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">222255</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">222255</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2022</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2385,7 +2402,7 @@ body.is-admin .admin-only-block{display:block}
     </div><div class="sup-card" style="opacity:0.5;filter:grayscale(0.4)">
       <div class="sup-header">
         <div>
-          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Saad Ullah Khan')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Saad Ullah Khan</div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Saad Ullah Khan&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Saad Ullah Khan</div>
           <div class="sup-desg">Assistant Professor · PhD 2019</div>
           <div class="sup-area">Power System Component Modelling</div>
           <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:4px"><span style="background:var(--blue-l);color:var(--blue-d);font-size:10px;font-weight:600;padding:2px 7px;border-radius:9999px">MSEE</span><span style="background:var(--blue-l);color:var(--blue-d);font-size:10px;font-weight:600;padding:2px 7px;border-radius:9999px">MSCE</span><span style="background:var(--blue-l);color:var(--blue-d);font-size:10px;font-weight:600;padding:2px 7px;border-radius:9999px">PhDEE</span><span style="background:var(--blue-l);color:var(--blue-d);font-size:10px;font-weight:600;padding:2px 7px;border-radius:9999px">PhDCE</span></div>
@@ -2420,7 +2437,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Khushal Khan</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">211663</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">211663</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2021</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
@@ -2431,7 +2448,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Muhammad Hamza Waris</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">222259</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">222259</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2022</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
@@ -2442,7 +2459,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Muhammad Jawad Iqbal</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">222261</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">222261</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2022</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2456,7 +2473,7 @@ body.is-admin .admin-only-block{display:block}
     </div><div class="sup-card" style="">
       <div class="sup-header">
         <div>
-          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Ahsan Sarwar Rana')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Ahsan Sarwar Rana</div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Ahsan Sarwar Rana&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Ahsan Sarwar Rana</div>
           <div class="sup-desg">Assistant Professor · PhD 2021</div>
           <div class="sup-area">Optoelectronics</div>
           
@@ -2491,7 +2508,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Ayesha Qaiser Hashmi</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">222255</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">222255</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2022</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
@@ -2502,7 +2519,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Khizar Humayun</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504380</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">2504380</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
@@ -2513,7 +2530,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Muhammad Ali Raza</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">210145</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">210145</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhDEE · S-2021</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2527,7 +2544,7 @@ body.is-admin .admin-only-block{display:block}
     </div><div class="sup-card" style="">
       <div class="sup-header">
         <div>
-          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Ashfaq Ahmad')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Ashfaq Ahmad</div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Ashfaq Ahmad&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Ashfaq Ahmad</div>
           <div class="sup-desg">Assistant Professor · PhD 2020</div>
           <div class="sup-area">Power System &amp; Machine Learning</div>
           
@@ -2562,7 +2579,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Atif Iftikhar</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">191834</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">191834</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhDEE · Fall-2019</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2573,7 +2590,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Hassan Farooq</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">201619</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">201619</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2020</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2584,7 +2601,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Ikhlaq Hussain</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">222260</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">222260</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2022</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2595,7 +2612,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Muhammad Hamza Waris</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">222259</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">222259</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2022</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2606,7 +2623,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Wajeeha Sajid</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">232668</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">232668</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2023</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2617,7 +2634,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Haji Ahmed</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">243441</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">243441</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhDEE · Fall-2024</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
@@ -2628,7 +2645,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Shah Zaib Sawal</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">243066</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">243066</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2024</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2639,7 +2656,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Syed Taha Ahmed Zaidi</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504372</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">2504372</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2024</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
@@ -2650,7 +2667,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Khizar Humayun</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504380</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">2504380</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2661,7 +2678,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Khushbakht Sajid</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504379</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">2504379</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2672,7 +2689,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Maha Masood Abbasi</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504376</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">2504376</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
@@ -2683,7 +2700,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Rizwan Ahmad</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504384</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">2504384</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
@@ -2694,7 +2711,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Meerub Khalil</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">240325</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">240325</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · S-2024</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2708,7 +2725,7 @@ body.is-admin .admin-only-block{display:block}
     </div><div class="sup-card" style="">
       <div class="sup-header">
         <div>
-          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Mumajid')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Mumajid</div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Mumajid&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Mumajid</div>
           <div class="sup-desg">Assistant Professor · PhD 2022</div>
           <div class="sup-area">Internet of Things (IoT)</div>
           
@@ -2743,7 +2760,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Ahsan Islam</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">232671</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">232671</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2023</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2754,7 +2771,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Muhammad Naveed Kiyani</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">243065</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">243065</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2024</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2765,7 +2782,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Saniya Mubasher</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">249521</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">249521</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2024</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2776,7 +2793,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Taha</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">243069</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">243069</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2024</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2787,7 +2804,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Abdul Rahman Liaqat Ch</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504383</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">2504383</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2798,7 +2815,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Muhammad Aqib Javed</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504374</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">2504374</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2812,7 +2829,7 @@ body.is-admin .admin-only-block{display:block}
     </div><div class="sup-card" style="">
       <div class="sup-header">
         <div>
-          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Sher Ali')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Sher Ali</div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Sher Ali&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Sher Ali</div>
           <div class="sup-desg">Assistant Professor · PhD 2019</div>
           <div class="sup-area">Wireless Communication</div>
           
@@ -2847,7 +2864,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Badar Mahmood</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504382</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">2504382</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2858,7 +2875,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Humaira</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504375</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">2504375</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2872,7 +2889,7 @@ body.is-admin .admin-only-block{display:block}
     </div><div class="sup-card" style="">
       <div class="sup-header">
         <div>
-          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Jehanzeb Khan')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Jehanzeb Khan</div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Jehanzeb Khan&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Jehanzeb Khan</div>
           <div class="sup-desg">Assistant Professor · PhD 2020</div>
           <div class="sup-area">Micro-Electro-Mechanical Systems (MEMS)</div>
           
@@ -2907,7 +2924,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Hassan Farooq</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">201619</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">201619</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2020</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
@@ -2918,7 +2935,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Mohib Ali Khan</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">2504381</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">2504381</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2025</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -2932,7 +2949,7 @@ body.is-admin .admin-only-block{display:block}
     </div><div class="sup-card" style="">
       <div class="sup-header">
         <div>
-          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Shahzad')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Shahzad</div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Shahzad&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Shahzad</div>
           <div class="sup-desg">Assistant Professor</div>
           
           
@@ -2970,7 +2987,7 @@ body.is-admin .admin-only-block{display:block}
     </div><div class="sup-card" style="opacity:0.5;filter:grayscale(0.4)">
       <div class="sup-header">
         <div>
-          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Muhammad Zakwan')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Muhammad Zakwan</div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Muhammad Zakwan&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Muhammad Zakwan</div>
           <div class="sup-desg"></div>
           
           
@@ -3005,7 +3022,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Amina Asif</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">181796</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">181796</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhDEE · Fall-2018</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -3016,7 +3033,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Muhammad Favad Qadir</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">181795</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">181795</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhDEE · Fall-2018</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -3030,7 +3047,7 @@ body.is-admin .admin-only-block{display:block}
     </div><div class="sup-card" style="opacity:0.5;filter:grayscale(0.4)">
       <div class="sup-header">
         <div>
-          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Muhammad Habib Mahmood')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Muhammad Habib Mahmood</div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Muhammad Habib Mahmood&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Muhammad Habib Mahmood</div>
           <div class="sup-desg"></div>
           
           
@@ -3065,7 +3082,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Amina Asif</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">181796</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">181796</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhDEE · Fall-2018</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
@@ -3079,7 +3096,7 @@ body.is-admin .admin-only-block{display:block}
     </div><div class="sup-card" style="opacity:0.5;filter:grayscale(0.4)">
       <div class="sup-header">
         <div>
-          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Husan Ali')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Husan Ali</div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Husan Ali&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Husan Ali</div>
           <div class="sup-desg"></div>
           
           
@@ -3114,7 +3131,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Bilal Ashraf</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">181791</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">181791</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhDEE · Fall-2018</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -3128,7 +3145,7 @@ body.is-admin .admin-only-block{display:block}
     </div><div class="sup-card" style="opacity:0.5;filter:grayscale(0.4)">
       <div class="sup-header">
         <div>
-          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Usman Ali')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Usman Ali</div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Usman Ali&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Usman Ali</div>
           <div class="sup-desg"></div>
           
           
@@ -3163,7 +3180,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Atif Iftikhar</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">191834</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">191834</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhDEE · Fall-2019</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
@@ -3177,7 +3194,7 @@ body.is-admin .admin-only-block{display:block}
     </div><div class="sup-card" style="opacity:0.5;filter:grayscale(0.4)">
       <div class="sup-header">
         <div>
-          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Nouman Naseer')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Nouman Naseer</div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Nouman Naseer&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Nouman Naseer</div>
           <div class="sup-desg"></div>
           
           
@@ -3212,7 +3229,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Waleed Manzoor</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">191829</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">191829</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">PhDEE · Fall-2019</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -3226,7 +3243,7 @@ body.is-admin .admin-only-block{display:block}
     </div><div class="sup-card" style="opacity:0.5;filter:grayscale(0.4)">
       <div class="sup-header">
         <div>
-          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Mehdi Hassan')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Mehdi Hassan</div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Mehdi Hassan&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Mehdi Hassan</div>
           <div class="sup-desg"></div>
           
           
@@ -3261,7 +3278,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Danish Zahoor</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">211668</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">211668</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2021</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
@@ -3272,7 +3289,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Tayyaba Riasat</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">211660</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">211660</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2021</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Co-sup</td>
@@ -3286,7 +3303,7 @@ body.is-admin .admin-only-block{display:block}
     </div><div class="sup-card" style="opacity:0.5;filter:grayscale(0.4)">
       <div class="sup-header">
         <div>
-          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('Dr. Bahman R. Alyaei')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Bahman R. Alyaei</div>
+          <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Bahman R. Alyaei&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Bahman R. Alyaei</div>
           <div class="sup-desg"></div>
           
           
@@ -3321,7 +3338,7 @@ body.is-admin .admin-only-block{display:block}
       <tr style="font-size:12px">
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">
           <div style="font-weight:600">Bushra Batool</div>
-          <div style="color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px">232670</div>
+          <div style="color:var(--text3);font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:11px">232670</div>
         </td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap">MSEE · Fall-2023</td>
         <td style="padding:6px 10px;border-bottom:1px solid var(--border)">Primary</td>
@@ -3545,7 +3562,7 @@ body.is-admin .admin-only-block{display:block}
     <div class="admin-login-body">
       <label class="admin-login-label" for="adminPwInput">Password</label>
       <div class="admin-login-input-wrap">
-        <input class="admin-login-input" type="password" id="adminPwInput" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doAdminLogin()">
+        <input class="admin-login-input" type="password" id="adminPwInput" placeholder="Enter admin password" onkeydown="if(event.key===&#39;Enter&#39;)doAdminLogin()">
         <button class="admin-toggle-pw" onclick="togglePwVisibility()" tabindex="-1" id="togglePwBtn"><i class="ti ti-eye" id="eyeIcon"></i></button>
       </div>
       <div class="admin-error-msg" id="adminErrMsg"><i class="ti ti-alert-circle"></i><span>Incorrect password. Please try again.</span></div>
@@ -3610,22 +3627,22 @@ body.is-admin .admin-only-block{display:block}
       <button class="tmpl-close" onclick="closeTmplModal()"><i class="ti ti-x"></i></button>
     </div>
     <div class="tmpl-tabs">
-      <button class="tmpl-tab active" onclick="switchTmplTab('pde',this)"><i class="ti ti-calendar-event" style="margin-right:5px"></i>PDE Template</button>
-      <button class="tmpl-tab" onclick="switchTmplTab('fde',this)"><i class="ti ti-calendar-check" style="margin-right:5px"></i>FDE Template</button>
+      <button class="tmpl-tab active" onclick="switchTmplTab(&#39;pde&#39;,this)"><i class="ti ti-calendar-event" style="margin-right:5px"></i>PDE Template</button>
+      <button class="tmpl-tab" onclick="switchTmplTab(&#39;fde&#39;,this)"><i class="ti ti-calendar-check" style="margin-right:5px"></i>FDE Template</button>
     </div>
     <div class="tmpl-body">
       <div class="tmpl-hint">Click a placeholder to insert it at the cursor position:</div>
       <div class="tmpl-tags">
-        <button class="tmpl-tag" onclick="insertPlaceholder('{{name}}')">{{name}}</button>
-        <button class="tmpl-tag" onclick="insertPlaceholder('{{id}}')">{{id}}</button>
-        <button class="tmpl-tag" onclick="insertPlaceholder('{{degree}}')">{{degree}}</button>
-        <button class="tmpl-tag" onclick="insertPlaceholder('{{session}}')">{{session}}</button>
-        <button class="tmpl-tag" onclick="insertPlaceholder('{{supervisor}}')">{{supervisor}}</button>
-        <button class="tmpl-tag" onclick="insertPlaceholder('{{cosupervisor}}')">{{cosupervisor}}</button>
-        <button class="tmpl-tag" onclick="insertPlaceholder('{{gecInternal}}')">{{gecInternal}}</button>
-        <button class="tmpl-tag" onclick="insertPlaceholder('{{gecExternal}}')">{{gecExternal}}</button>
-        <button class="tmpl-tag" onclick="insertPlaceholder('{{topic}}')">{{topic}}</button>
-        <button class="tmpl-tag" onclick="insertPlaceholder('{{examType}}')">{{examType}}</button>
+        <button class="tmpl-tag" onclick="insertPlaceholder(&#39;{{name}}&#39;)">{{name}}</button>
+        <button class="tmpl-tag" onclick="insertPlaceholder(&#39;{{id}}&#39;)">{{id}}</button>
+        <button class="tmpl-tag" onclick="insertPlaceholder(&#39;{{degree}}&#39;)">{{degree}}</button>
+        <button class="tmpl-tag" onclick="insertPlaceholder(&#39;{{session}}&#39;)">{{session}}</button>
+        <button class="tmpl-tag" onclick="insertPlaceholder(&#39;{{supervisor}}&#39;)">{{supervisor}}</button>
+        <button class="tmpl-tag" onclick="insertPlaceholder(&#39;{{cosupervisor}}&#39;)">{{cosupervisor}}</button>
+        <button class="tmpl-tag" onclick="insertPlaceholder(&#39;{{gecInternal}}&#39;)">{{gecInternal}}</button>
+        <button class="tmpl-tag" onclick="insertPlaceholder(&#39;{{gecExternal}}&#39;)">{{gecExternal}}</button>
+        <button class="tmpl-tag" onclick="insertPlaceholder(&#39;{{topic}}&#39;)">{{topic}}</button>
+        <button class="tmpl-tag" onclick="insertPlaceholder(&#39;{{examType}}&#39;)">{{examType}}</button>
       </div>
       <textarea class="tmpl-textarea" id="tmplEditor" spellcheck="true"></textarea>
     </div>
@@ -5593,6 +5610,25 @@ function renderTable(data){
       <td onclick="openView(${i})" style="cursor:pointer;font-size:12px;color:var(--text2)">${s.gecFormation||'<span style="color:var(--text3)">—</span>'}</td>
       <td onclick="openView(${i})" style="cursor:pointer;font-size:12px;color:var(--text2)">${s.gecChange||'<span style="color:var(--text3)">—</span>'}</td>
       <td onclick="openView(${i})" style="cursor:pointer;font-size:12px;color:var(--text2)">${s.extension||'<span style="color:var(--text3)">—</span>'}</td>
+      <td class="remarks-cell">
+        ${isAdmin
+          ? `<div id="rmk-display-${i}">
+              ${s.remarks
+                ? `<div class="remarks-display">${esc(s.remarks)}</div>`
+                : `<span class="remarks-empty">No remarks</span>`}
+              <button class="btn-remark" onclick="openRemark(${i})"><i class="ti ti-pencil" style="font-size:11px"></i>Edit</button>
+            </div>
+            <div id="rmk-edit-${i}" style="display:none" class="remarks-edit-wrap">
+              <textarea class="remarks-textarea" id="rmk-ta-${i}" placeholder="Write admin remarks…">${esc(s.remarks||'')}</textarea>
+              <div class="remarks-save-row">
+                <button class="btn-rsave" onclick="saveRemark(${i})"><i class="ti ti-device-floppy" style="font-size:11px;margin-right:3px"></i>Save</button>
+                <button class="btn-rcancel" onclick="cancelRemark(${i})">Cancel</button>
+              </div>
+            </div>`
+          : (s.remarks
+              ? `<div class="remarks-display">${esc(s.remarks)}</div>`
+              : `<span class="remarks-empty">—</span>`)}
+      </td>
       <td><div class="actions-cell">
         ${isAdmin?`<button class="act-btn btn-edit" onclick="openEdit(${i})"><i class="ti ti-pencil"></i>Edit</button>
         <button class="act-btn btn-del" onclick="confirmDelete(${i})"><i class="ti ti-trash"></i></button>
@@ -5601,10 +5637,31 @@ function renderTable(data){
       </div></td>
     </tr>`;
   }).join("");
-  document.getElementById("tBody").innerHTML=rows||'<tr><td colspan="16" class="no-results"><i class="ti ti-search-off" style="font-size:32px;display:block;margin-bottom:8px;opacity:0.4"></i>No students match the current filters</td></tr>';
+  document.getElementById("tBody").innerHTML=rows||'<tr><td colspan="17" class="no-results"><i class="ti ti-search-off" style="font-size:32px;display:block;margin-bottom:8px;opacity:0.4"></i>No students match the current filters</td></tr>';
 }
 
-// ─── View Modal ───────────────────────────────────────────────────────────────
+// ─── Inline Remarks ───────────────────────────────────────────────────────────
+function openRemark(i){
+  document.getElementById("rmk-display-"+i).style.display="none";
+  document.getElementById("rmk-edit-"+i).style.display="block";
+  const ta=document.getElementById("rmk-ta-"+i);
+  ta.focus();ta.setSelectionRange(ta.value.length,ta.value.length);
+}
+function cancelRemark(i){
+  // Restore textarea to saved value
+  document.getElementById("rmk-ta-"+i).value=STUDENTS[i].remarks||"";
+  document.getElementById("rmk-edit-"+i).style.display="none";
+  document.getElementById("rmk-display-"+i).style.display="block";
+}
+function saveRemark(i){
+  const val=document.getElementById("rmk-ta-"+i).value.trim();
+  STUDENTS[i].remarks=val;
+  persistData();
+  applyFilters();
+  showToast("Remark saved");
+}
+
+
 function fRow(lbl,val){return`<div class="field-row"><span class="field-label">${lbl}</span><span class="field-value">${val}</span></div>`;}
 
 function openView(idx){
@@ -5636,6 +5693,7 @@ function openView(idx){
         ${fRow("Study Mode",studyModeBadge(s))}
       </div>
       ${(s.email||s.cell)?`<div class="divider"></div><div class="section-title"><i class="ti ti-address-book"></i>Contact</div><div class="field-grid">${s.email?fRow("Email",`<a href="mailto:${s.email}" style="color:var(--blue)">${s.email}</a>`):""}${s.cell?fRow("Cell",s.cell):""}</div>`:""}
+      ${s.remarks?`<div class="divider"></div><div class="section-title"><i class="ti ti-notes"></i>Admin Remarks</div><div class="topic-box" style="border-left:3px solid var(--amber);background:var(--amber-l);color:var(--text)">${esc(s.remarks)}</div>`:""}
     </div>
     <div class="modal-footer">
       <button class="btn-cancel" onclick="closeModal()">Close</button>
@@ -5847,8 +5905,8 @@ function studentForm(s){
         <div class="form-row"><label>Email</label><input id="f-email" type="email" value="${s?esc(s.email||''):''}" placeholder="student@example.com"></div>
         <div class="form-row"><label>Cell</label><input id="f-cell" value="${s?esc(s.cell||''):''}" placeholder="92 300-0000000"></div>
       </div>
+      <div class="form-row"><label>Admin Remarks</label><textarea id="f-remarks" placeholder="Internal remarks for admin use only…">${s?esc(s.remarks||''):''}</textarea></div>
       <div style="border-top:2px solid var(--border);margin:6px 0 2px;padding-top:10px">
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--purple-d);margin-bottom:10px;display:flex;align-items:center;gap:6px"><i class="ti ti-calendar-event"></i>Scheduled PDE</div>
         <div class="form-3col">
           <div class="form-row"><label>Scheduled PDE Date</label><input type="date" id="f-scheduledPdeDate" value="${s?esc(s.scheduledPdeDate||''):''}"></div>
           <div class="form-row"><label>Scheduled PDE Time</label><input type="time" id="f-scheduledPdeTime" value="${s?esc(s.scheduledPdeTime||''):''}"></div>
@@ -5922,6 +5980,7 @@ function getFormData(){
     scheduledFdeDate:document.getElementById("f-scheduledFdeDate")?.value||"",
     scheduledFdeTime:document.getElementById("f-scheduledFdeTime")?.value||"",
     scheduledFdeVenue:document.getElementById("f-scheduledFdeVenue")?.value.trim()||"",
+    remarks:document.getElementById("f-remarks")?.value.trim()||"",
   };
 }
 
@@ -7351,4 +7410,72 @@ function switchTab(name, btn){
 
 
 
-<veepn-lock-screen><style>@font-face{font-family:FigtreeVF;src:url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"),url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");font-weight:100 1000;font-display:swap}</style></veepn-lock-screen></body></html>
+<veepn-lock-screen><style>@font-face{font-family:FigtreeVF;src:url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"),url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");font-weight:100 1000;font-display:swap}</style></veepn-lock-screen><span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span><span id="PING_CONTENT_DLS_POPUP" style="display: none;"></span><div style="background-color: transparent; border-width: medium; border-style: none; border-color: currentcolor; border-image: initial; bottom: 15px; display: block; margin: 0px; opacity: 1; padding: 0px; position: fixed; right: 15px; z-index: 2147483647;"><template shadowrootmode="closed"><style>/*!
+ * 
+ *     MCAFEE RESTRICTED CONFIDENTIAL
+ *     Copyright (c) 2026 McAfee, LLC
+ *
+ *     The source code contained or described herein and all documents related
+ *     to the source code ("Material") are owned by McAfee or its
+ *     suppliers or licensors. Title to the Material remains with McAfee
+ *     or its suppliers and licensors. The Material contains trade
+ *     secrets and proprietary and confidential information of McAfee or its
+ *     suppliers and licensors. The Material is protected by worldwide copyright
+ *     and trade secret laws and treaty provisions. No part of the Material may
+ *     be used, copied, reproduced, modified, published, uploaded, posted,
+ *     transmitted, distributed, or disclosed in any way without McAfee's prior
+ *     express written permission.
+ *
+ *     No license under any patent, copyright, trade secret or other intellectual
+ *     property right is granted to or conferred upon you by disclosure or
+ *     delivery of the Materials, either expressly, by implication, inducement,
+ *     estoppel or otherwise. Any license under such intellectual property rights
+ *     must be expressed and approved by McAfee in writing.
+ *
+ */
+@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-Thin.ttf") format("truetype");font-weight:100;font-style:normal}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-ThinItalic.ttf") format("truetype");font-weight:100;font-style:italic}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-ExtraLight.ttf") format("truetype");font-weight:200;font-style:normal}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-ExtraLightItalic.ttf") format("truetype");font-weight:200;font-style:italic}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-Light.ttf") format("truetype");font-weight:300;font-style:normal}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-LightItalic.ttf") format("truetype");font-weight:300;font-style:italic}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-Regular.ttf") format("truetype");font-weight:400;font-style:normal}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-Italic.ttf") format("truetype");font-weight:400;font-style:italic}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-Medium.ttf") format("truetype");font-weight:500;font-style:normal}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-MediumItalic.ttf") format("truetype");font-weight:500;font-style:italic}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-SemiBold.ttf") format("truetype");font-weight:600;font-style:normal}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-SemiBoldItalic.ttf") format("truetype");font-weight:600;font-style:italic}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-Bold.ttf") format("truetype");font-weight:700;font-style:normal}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-BoldItalic.ttf") format("truetype");font-weight:700;font-style:italic}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-ExtraBold.ttf") format("truetype");font-weight:800;font-style:normal}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-ExtraBoldItalic.ttf") format("truetype");font-weight:800;font-style:italic}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-Black.ttf") format("truetype");font-weight:900;font-style:normal}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-BlackItalic.ttf") format("truetype");font-weight:900;font-style:italic}*{border:0;box-sizing:border-box;font:inherit;font-family:"McAfeePoppins",Helvetica,Arial;font-size:100%;margin:0;padding:0;vertical-align:baseline;outline:none}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}html,body{background-color:#f5f6fa;font-family:"McAfeePoppins",Helvetica,Arial;line-height:1;height:100%;width:100%}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:"";content:none}table{border-collapse:collapse;border-spacing:0}b{font-weight:bold}img{display:block}.dls__container{align-items:center;display:flex;margin:0 auto;margin-top:50px;position:relative}.dls__popup__expanded{align-items:center;overflow:hidden;border-radius:100px;cursor:pointer;display:flex;left:0;padding:15px;position:absolute;height:95px;width:383px;background-color:#fff;transition:all .3s ease-in-out}.dls__popup__expanded .dls__icon{height:65px;width:73px}.content{margin-left:12px}.content .content__images{display:flex;align-items:center;width:250px}.content .content__images .seperator__line{margin-left:5px;margin-right:10px}.content .content__images #dls_close_icon{cursor:pointer;margin-left:auto;margin-right:0px}.content p{font-family:"McAfeePoppins",Helvetica,Arial;font-weight:"400";font-size:14px;line-height:20px;margin-top:8px;color:#4258ff;width:250px;cursor:pointer}.shield{overflow:hidden;box-shadow:0px 2px 4px 0px rgba(33,41,52,.12),0px -1px 2px 0px rgba(0,0,0,.08);align-items:center;border-radius:100px;bottom:0;display:flex;height:95px;justify-content:center;position:absolute;right:0;width:383px;transition:all .3s ease-in-out}.shield__circle{display:flex;justify-content:center;align-items:center;width:55px;height:55px;background-color:#c01818;transition:all .6s ease-in-out .2s;z-index:1;opacity:0}
+
+/*# sourceMappingURL=../sourceMap/chrome/css/download_scan_popup.css.map*/</style><div class="dls__container">
+  <div class="shield" style="background: transparent; opacity: 0.1; display: none;">
+    <div class="shield__circle" style="opacity: 1;">
+      <img src="chrome-extension://fheoggkfdfchfphceeifdbepaooicaho/images/download_scan/mcafee_logo_white.svg?secret=nrb3kv" x-mcsrc="" id="dls_ballon_icon" x-mcsrcparsed="true">
+    </div>
+    <div class="dls__popup__expanded" style="opacity: 0;">
+      <img src="chrome-extension://fheoggkfdfchfphceeifdbepaooicaho/images/download_scan/download_scan_icon.svg?secret=nrb3kv" x-mcsrc="" class="dls__icon" x-mcsrcparsed="true">
+      <div class="content">
+        <div class="content__images">
+          <img src="chrome-extension://fheoggkfdfchfphceeifdbepaooicaho/images/download_scan/mcafee_logo_red.svg?secret=nrb3kv" x-mcsrc="" id="dls_mcafee_logo" x-mcsrcparsed="true">
+          <img src="chrome-extension://fheoggkfdfchfphceeifdbepaooicaho/images/download_scan/seperator_line.svg?secret=nrb3kv" x-mcsrc="" class="seperator__line" x-mcsrcparsed="true">
+          <img src="chrome-extension://fheoggkfdfchfphceeifdbepaooicaho/images/download_scan/webadvisor.svg?secret=nrb3kv" x-mcsrc="" x-mcsrcparsed="true">
+          <img src="chrome-extension://fheoggkfdfchfphceeifdbepaooicaho/images/download_scan/close-outline.svg?secret=nrb3kv" x-mcsrc="" id="dls_close_icon" x-mcsrcparsed="true">
+        </div>
+        <p id="download_scan_popup_expanded_descriptions">Your download's being scanned. We'll let you know if there's an issue.</p>
+      </div>
+    </div>
+  </div>
+</div><style>/*!
+ * 
+ *     MCAFEE RESTRICTED CONFIDENTIAL
+ *     Copyright (c) 2026 McAfee, LLC
+ *
+ *     The source code contained or described herein and all documents related
+ *     to the source code ("Material") are owned by McAfee or its
+ *     suppliers or licensors. Title to the Material remains with McAfee
+ *     or its suppliers and licensors. The Material contains trade
+ *     secrets and proprietary and confidential information of McAfee or its
+ *     suppliers and licensors. The Material is protected by worldwide copyright
+ *     and trade secret laws and treaty provisions. No part of the Material may
+ *     be used, copied, reproduced, modified, published, uploaded, posted,
+ *     transmitted, distributed, or disclosed in any way without McAfee's prior
+ *     express written permission.
+ *
+ *     No license under any patent, copyright, trade secret or other intellectual
+ *     property right is granted to or conferred upon you by disclosure or
+ *     delivery of the Materials, either expressly, by implication, inducement,
+ *     estoppel or otherwise. Any license under such intellectual property rights
+ *     must be expressed and approved by McAfee in writing.
+ *
+ */
+.mc-interactive-balloon{position:absolute;right:-50px;bottom:8px;box-shadow:rgba(0,0,0,.12) 0px 0px 10px;height:40px;width:40px;background:#1671ee;border-radius:20px;display:flex;justify-content:center;align-items:center}
+
+/*# sourceMappingURL=../sourceMap/chrome/css/interactive_balloon.css.map*/</style></template></div></body></html>
