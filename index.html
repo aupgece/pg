@@ -5604,7 +5604,7 @@ function buildStats(data){
 
   const total   = data.length;
   const allMSEE = byDeg("MSEE"), allMSCE = byDeg("MSCE");
-  const allPHDEE= byDeg("PhDEE"), allPHDCE= byDeg("PhDCE");
+  const allPhDEE= byDeg("PhDEE"), allPHDCE= byDeg("PhDCE");
 
   // ── Overall row ──
   const overallHtml=`
@@ -5612,9 +5612,9 @@ function buildStats(data){
     <div class="stats-grid">
       <div class="stat-card"><div class="stat-label">Total Students</div><div class="stat-value sv-blue">${total}</div></div>
       <div class="stat-card"><div class="stat-label">Total MSEE</div><div class="stat-value sv-purple">${allMSEE.length}</div></div>
-      <div class="stat-card"><div class="stat-label">Total PhDEE</div><div class="stat-value sv-teal">${allPHDEE.length}</div></div>
+      <div class="stat-card"><div class="stat-label">Total PhDEE</div><div class="stat-value sv-teal">${allPhDEE.length}</div></div>
       <div class="stat-card"><div class="stat-label">Total MSCE</div><div class="stat-value sv-purple">${allMSCE.length}</div></div>
-      <div class="stat-card"><div class="stat-label">Total PhDCE</div><div class="stat-value sv-teal">${allPHDCE.length}</div></div>
+      <div class="stat-card"><div class="stat-label">Total PhDCE</div><div class="stat-value sv-teal">${allPhDCE.length}</div></div>
       <div class="stat-card"><div class="stat-label">Completed</div><div class="stat-value sv-green">${cnt(data,isCompleted)}</div></div>
       <div class="stat-card"><div class="stat-label">Enrolled</div><div class="stat-value sv-blue">${cnt(data,isEnrolled)}</div></div>
       <div class="stat-card"><div class="stat-label">Left</div><div class="stat-value sv-coral">${cnt(data,isLeft)}</div></div>
@@ -5658,7 +5658,7 @@ function buildStats(data){
 
   // ── Combined MS (MSEE+MSCE) summary ──
   const allMS = [...allMSEE,...allMSCE];
-  const allPhD = [...allPHDEE,...allPHDCE];
+  const allPhD = [...allPhDEE,...allPhDCE];
   const msPhDHtml=`
     <div class="stats-section-label">MS Combined (MSEE + MSCE)</div>
     <div class="stats-grid">
@@ -5685,8 +5685,8 @@ function buildStats(data){
 	    overallHtml +
 	    degBlock("MSEE — Master of Science (Electrical Engineering)", allMSEE, "sv-purple","MSEE") +
 	    degBlock("MSCE — Master of Science (Computer Engineering)", allMSCE, "sv-purple","MSCE") +
-	    degBlock("PhDEE — Doctor of Philosophy (Electrical Engineering)", allPHDEE, "sv-teal","PhDEE") +
-	    degBlock("PhDCE — Doctor of Philosophy (Computer Engineering)", allPHDCE, "sv-teal","PhDCE") +
+	    degBlock("PhDEE — Doctor of Philosophy (Electrical Engineering)", allPhDEE, "sv-teal","PhDEE") +
+	    degBlock("PhDCE — Doctor of Philosophy (Computer Engineering)", allPhDCE, "sv-teal","PhDCE") +
 	    msPhDHtml;
 
 	  // Add click listeners for toggling
@@ -6250,19 +6250,19 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();closeC
 
 // ─── Supervisors ──────────────────────────────────────────────────────────────
 function buildSupervisors(){
-  const MS_DEGS=['MSEE','MSCE'], PHD_DEGS=['PhDEE','PhDCE'];
+  const MS_DEGS=['MSEE','MSCE'], PhD_DEGS=['PhDEE','PhDCE'];
   const totalFMS=SUPERVISORS.reduce((a,s)=>{
     if(s.active==='Inactive') return a;
-    const degs=s.degrees&&s.degrees.length?s.degrees:[...MS_DEGS,...PHD_DEGS];
+    const degs=s.degrees&&s.degrees.length?s.degrees:[...MS_DEGS,...PhD_DEGS];
     if(!degs.some(d=>MS_DEGS.includes(d))) return a;
     const enrolled=STUDENTS.filter(st=>st.sup===s.name&&MS_DEGS.includes(st.degree)&&(st.status||'').toLowerCase().includes('enrolled')).length;
     return a+Math.max(0,7-enrolled);
   },0);
   const totalFPhD=SUPERVISORS.reduce((a,s)=>{
     if(s.active==='Inactive') return a;
-    const degs=s.degrees&&s.degrees.length?s.degrees:[...MS_DEGS,...PHD_DEGS];
-    if(!degs.some(d=>PHD_DEGS.includes(d))) return a;
-    const enrolled=STUDENTS.filter(st=>st.sup===s.name&&PHD_DEGS.includes(st.degree)&&(st.status||'').toLowerCase().includes('enrolled')).length;
+    const degs=s.degrees&&s.degrees.length?s.degrees:[...MS_DEGS,...PhD_DEGS];
+    if(!degs.some(d=>PhD_DEGS.includes(d))) return a;
+    const enrolled=STUDENTS.filter(st=>st.sup===s.name&&PhD_DEGS.includes(st.degree)&&(st.status||'').toLowerCase().includes('enrolled')).length;
     return a+Math.max(0,5-enrolled);
   },0);
   document.getElementById("totalFMS").textContent=totalFMS;
