@@ -1,6 +1,8 @@
 
-<!-- saved from url=(0029)https://aupgece.github.io/pg/ -->
+<!-- saved from url=(0039)https://aupgece.github.io/pg/index.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>body {transition: opacity ease-in 0.2s; } 
+body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
+</style><style>body {transition: opacity ease-in 0.2s; } 
 body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
 </style>
 
@@ -47,8 +49,12 @@ body{font-family:'IBM Plex Sans',sans-serif;background:#f0f2f5;color:#1a1a2e;min
 .tab-btn.active{background:#1a1a2e;color:#fff;border-color:#1a1a2e}
 
 /* Stats */
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:0.75rem}
-.stats-section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.7px;color:var(--text2);padding:6px 4px 4px;margin-top:14px;margin-bottom:4px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:6px}
+	.stats-section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.7px;color:var(--text2);padding:10px 12px;margin-top:14px;margin-bottom:4px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:6px;cursor:pointer;background:rgba(0,0,0,0.02);border-radius:var(--rm) var(--rm) 0 0;transition:all 0.2s}
+	.stats-section-label:hover{background:rgba(0,0,0,0.05)}
+	.stats-section-label::after{content:"\ea5f";font-family:'tabler-icons';margin-left:auto;font-size:14px;transition:transform 0.2s;opacity:0.5}
+	.stats-section-label.open::after{transform:rotate(180deg);opacity:1}
+	.stats-grid{display:none;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:0.75rem;padding:16px;background:#fff;border:1px solid var(--border);border-top:none;border-radius:0 0 var(--rl) var(--rl);box-shadow:inset 0 2px 4px rgba(0,0,0,0.02)}
+	.stats-grid.open{display:grid}
 .stats-section-label:first-child{margin-top:0}
 .stats-section-label::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--blue)}
 .deg-label-msee::before{background:var(--purple)}
@@ -380,7 +386,7 @@ body.is-admin .admin-only-block{display:block}
       <button class="btn-export" id="reloadBtn" onclick="forceReload()" title="Pull latest data from Firebase" fdprocessedid="bf2a8"><i class="ti ti-cloud-download" style="margin-right:4px"></i>Reload</button>
       <button class="btn-export" onclick="exportExcel()" style="background:rgba(74,222,128,0.15);border-color:rgba(74,222,128,0.35)" fdprocessedid="ikrgks"><i class="ti ti-table-export" style="margin-right:4px"></i>Export Excel</button>
       <button class="btn-logout" id="logoutBtn" style="display:none;" onclick="adminLogout()"><i class="ti ti-logout"></i>Sign out</button>
-      <button class="sched-bell-btn" id="schedBellBtn" onclick="toggleSchedPopup()" title="Upcoming FDE/PDE Schedules" fdprocessedid="z1frqb"><i class="ti ti-bell"></i>Schedule<span class="sched-bell-badge" id="schedBadgeCount" style="display:none">0</span></button>
+      <button class="sched-bell-btn" id="schedBellBtn" onclick="toggleSchedPopup()" title="Upcoming FDE/PDE Schedules" fdprocessedid="z1frqb"><i class="ti ti-bell"></i>Schedule<span class="sched-bell-badge" id="schedBadgeCount" style="display: flex;">1</span></button>
       <button class="btn-export" id="adminLoginBtn" onclick="showAdminLogin()" style="display:none;"><i class="ti ti-lock" style="margin-right:4px"></i>Admin Login</button>
     </div>
   </div>
@@ -559,6 +565,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(0)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(0)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(0)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -582,6 +591,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(1)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(1)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(1)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -605,6 +617,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(2)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(2)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(2)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -628,6 +643,10 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(3)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(3)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(3)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <div class="remarks-display">DQE Done (07th , 09th Sep, 2020 
+SL (S-2022)</div>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -651,6 +670,10 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(4)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(4)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(4)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <div class="remarks-display">DQE Done (07th , 09th Sep, 2020 
+SL-F-23</div>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -674,6 +697,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(5)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(5)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(5)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -697,6 +723,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(6)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(6)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(6)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -720,6 +749,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(7)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(7)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(7)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -743,6 +775,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(8)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(8)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(8)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -766,6 +801,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(9)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(9)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(9)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -789,6 +827,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(10)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(10)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(10)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -812,6 +853,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(11)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(11)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(11)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -835,6 +879,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(12)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(12)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(12)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -858,6 +905,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(13)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(13)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(13)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -881,6 +931,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(14)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(14)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(14)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -904,6 +957,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(15)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(15)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(15)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -927,6 +983,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(16)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(16)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(16)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -950,6 +1009,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(17)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(17)" style="cursor:pointer;font-size:12px;color:var(--text2)">124</td>
       <td onclick="openView(17)" style="cursor:pointer;font-size:12px;color:var(--text2)">123</td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -973,6 +1035,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(18)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(18)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(18)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -996,6 +1061,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(19)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(19)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(19)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <div class="remarks-display">SL F-2026</div>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1019,6 +1087,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(20)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(20)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(20)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1042,6 +1113,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(21)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(21)" style="cursor:pointer;font-size:12px;color:var(--text2)">124</td>
       <td onclick="openView(21)" style="cursor:pointer;font-size:12px;color:var(--text2)">123</td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1065,6 +1139,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(22)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(22)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(22)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1088,6 +1165,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(23)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(23)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(23)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1111,6 +1191,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(24)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(24)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(24)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1134,6 +1217,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(25)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(25)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(25)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1157,6 +1243,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(26)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(26)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(26)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1180,6 +1269,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(27)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(27)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(27)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1203,6 +1295,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(28)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(28)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(28)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <div class="remarks-display">SL-S-2026</div>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1226,6 +1321,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(29)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(29)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(29)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1249,6 +1347,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(30)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(30)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(30)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1272,6 +1373,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(31)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(31)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(31)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1295,6 +1399,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(32)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(32)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(32)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1318,6 +1425,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(33)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(33)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(33)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1341,6 +1451,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(34)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(34)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(34)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <div class="remarks-display">SL- F-25</div>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1364,6 +1477,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(35)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(35)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(35)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1387,6 +1503,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(36)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(36)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(36)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1410,6 +1529,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(37)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(37)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(37)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1433,6 +1555,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(38)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(38)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(38)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1456,6 +1581,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(39)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(39)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(39)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1479,6 +1607,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(40)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(40)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(40)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1502,6 +1633,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(41)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(41)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(41)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1525,6 +1659,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(42)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(42)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(42)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1548,6 +1685,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(43)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(43)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(43)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1571,6 +1711,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(44)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(44)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(44)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1594,6 +1737,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(45)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(45)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(45)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1617,6 +1763,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(46)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(46)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(46)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1640,6 +1789,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(47)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(47)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(47)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1663,6 +1815,10 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(48)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(48)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(48)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <div class="remarks-display">DQE: 26-29 August, 2022
+SL: F-25</div>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1686,6 +1842,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(49)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(49)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(49)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1709,6 +1868,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(50)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(50)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(50)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1732,6 +1894,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(51)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(51)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(51)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <div class="remarks-display">SL-Fall-2024</div>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -1755,6 +1920,9 @@ body.is-admin .admin-only-block{display:block}
       <td onclick="openView(52)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(52)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
       <td onclick="openView(52)" style="cursor:pointer;font-size:12px;color:var(--text2)"><span style="color:var(--text3)">—</span></td>
+      <td class="remarks-cell">
+        <span class="remarks-empty">—</span>
+      </td>
       <td><div class="actions-cell">
         <span style="font-size:12px;color:var(--text3)">—</span>
       </div></td>
@@ -3664,11 +3832,23 @@ body.is-admin .admin-only-block{display:block}
       <div class="sched-popup-title">Upcoming FDE / PDE Schedules</div>
       <button class="sched-popup-close" onclick="closeSchedPopup()"><i class="ti ti-x"></i></button>
     </div>
-    <div class="sched-popup-body" id="schedPopupBody">
-      <div class="sched-popup-empty"><i class="ti ti-calendar-off" style="font-size:28px;display:block;margin-bottom:8px"></i>No upcoming exams scheduled</div>
+    <div class="sched-popup-body" id="schedPopupBody"><div class="sched-section-header"><span class="sched-upcoming-dot"></span>Upcoming</div><div class="sched-item" style="">
+    <div class="sched-item-icon sched-icon-fde"><i class="ti ti-calendar-event"></i></div>
+    <div class="sched-item-body">
+      <div class="sched-item-name">Muhammad Hamza Waris</div>
+      <div class="sched-item-degree">222259 · MSEE · Fall-2022</div>
+      <div class="sched-item-meta">
+        <span class="sched-item-type sched-type-fde">FDE</span>
+        <span class="sched-item-date"><i class="ti ti-calendar" style="font-size:11px"></i>Thu, 18 Jun 2026</span>
+        <span class="sched-item-time"><i class="ti ti-clock" style="font-size:11px"></i>12:00 PM</span>
+      </div>
+      <span style="font-size:11px;color:var(--text3);margin-top:3px;display:block"><i class="ti ti-map-pin" style="font-size:11px;margin-right:3px"></i>FCR</span>
+      <div style="font-size:11px;color:var(--text3);margin-top:2px"><i class="ti ti-user" style="font-size:11px;margin-right:3px"></i>Dr. Ashfaq Ahmad</div>
+      
     </div>
+  </div></div>
     <div class="sched-popup-footer">
-      <span class="sched-popup-count" id="schedPopupCount">0 scheduled</span>
+      <span class="sched-popup-count" id="schedPopupCount">1 scheduled</span>
       <button class="sched-add-btn admin-only" onclick="closeSchedPopup();openSchedManager()" style="font-size:12px"><i class="ti ti-plus"></i>Schedule Exam</button>
     </div>
   </div>
@@ -5501,13 +5681,33 @@ function buildStats(data){
       <div class="stat-card"><div class="stat-label">Left</div><div class="stat-value sv-coral">${cnt(allPhD,isLeft)}</div></div>
     </div>`;
 
-  document.getElementById("statsGrid").innerHTML=
-    overallHtml +
-    degBlock("MSEE — Master of Science (Electrical Engineering)", allMSEE, "sv-purple","MSEE") +
-    degBlock("MSCE — Master of Science (Computer Engineering)", allMSCE, "sv-purple","MSCE") +
-    degBlock("PhDEE — Doctor of Philosophy (Electrical Engineering)", allPHDEE, "sv-teal","PhDEE") +
-    degBlock("PhDCE — Doctor of Philosophy (Computer Engineering)", allPHDCE, "sv-teal","PhDCE") +
-    msPhDHtml;
+	  document.getElementById("statsGrid").innerHTML=
+	    overallHtml +
+	    degBlock("MSEE — Master of Science (Electrical Engineering)", allMSEE, "sv-purple","MSEE") +
+	    degBlock("MSCE — Master of Science (Computer Engineering)", allMSCE, "sv-purple","MSCE") +
+	    degBlock("PhDEE — Doctor of Philosophy (Electrical Engineering)", allPHDEE, "sv-teal","PhDEE") +
+	    degBlock("PhDCE — Doctor of Philosophy (Computer Engineering)", allPHDCE, "sv-teal","PhDCE") +
+	    msPhDHtml;
+
+	  // Add click listeners for toggling
+	  document.querySelectorAll('.stats-section-label').forEach(label => {
+	    label.addEventListener('click', () => {
+	      const grid = label.nextElementSibling;
+	      const isOpen = grid.classList.contains('open');
+	      
+	      // Close others (optional, but cleaner)
+	      // document.querySelectorAll('.stats-grid').forEach(g => g.classList.remove('open'));
+	      // document.querySelectorAll('.stats-section-label').forEach(l => l.classList.remove('open'));
+
+	      if(isOpen) {
+	        grid.classList.remove('open');
+	        label.classList.remove('open');
+	      } else {
+	        grid.classList.add('open');
+	        label.classList.add('open');
+	      }
+	    });
+	  });
 
   document.getElementById("badgeCount").textContent=STUDENTS.length;
   const supCountEl=document.getElementById("supCount");
