@@ -1,6 +1,8 @@
 
-<!-- saved from url=(0039)https://aupgece.github.io/pg/index.html -->
+
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>body {transition: opacity ease-in 0.2s; } 
+body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
+</style><style>body {transition: opacity ease-in 0.2s; } 
 body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
 </style><style>body {transition: opacity ease-in 0.2s; } 
 body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
@@ -49,7 +51,7 @@ body{font-family:'IBM Plex Sans',sans-serif;background:#f0f2f5;color:#1a1a2e;min
 .tab-btn.active{background:#1a1a2e;color:#fff;border-color:#1a1a2e}
 
 /* Stats */
-	.stats-section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.7px;color:var(--text2);padding:10px 12px;margin-top:14px;margin-bottom:4px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:6px;cursor:pointer;background:rgba(0,0,0,0.02);border-radius:var(--rm) var(--rm) 0 0;transition:all 0.2s}
+	.stats-section-label{font-size:11px;font-weight:700;letter-spacing:0.7px;color:var(--text2);padding:10px 12px;margin-top:14px;margin-bottom:4px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:6px;cursor:pointer;background:rgba(0,0,0,0.02);border-radius:var(--rm) var(--rm) 0 0;transition:all 0.2s}
 	.stats-section-label:hover{background:rgba(0,0,0,0.05)}
 	.stats-section-label::after{content:"\ea5f";font-family:'tabler-icons';margin-left:auto;font-size:14px;transition:transform 0.2s;opacity:0.5}
 	.stats-section-label.open::after{transform:rotate(180deg);opacity:1}
@@ -370,7 +372,7 @@ body.is-admin .admin-only-block{display:block}
   .form-2col,.form-3col{grid-template-columns:1fr}
 }
 </style>
-<link type="text/css" rel="stylesheet" href="chrome-extension://fheoggkfdfchfphceeifdbepaooicaho/css/mcafee_fonts.css"></head>
+</head>
 <body>
 
 <div class="top-bar">
@@ -483,7 +485,7 @@ body.is-admin .admin-only-block{display:block}
     </div>
     <div class="stats-section-label">PhD Combined (PhDEE + PhDCE)</div>
     <div class="stats-grid">
-      <div class="stat-card"><div class="stat-label">Total PhD</div><div class="stat-value sv-teal">12</div></div>
+      <div class="stat-card"><div class="stat-label">Total phd</div><div class="stat-value sv-teal">12</div></div>
       <div class="stat-card"><div class="stat-label">FDE Done</div><div class="stat-value sv-green">6</div></div>
       <div class="stat-card"><div class="stat-label">FDE Pending</div><div class="stat-value sv-amber">5</div></div>
       <div class="stat-card"><div class="stat-label">PDE Done</div><div class="stat-value sv-teal">9</div></div>
@@ -537,6 +539,7 @@ body.is-admin .admin-only-block{display:block}
               <th>FDE</th>
               <th>Study Mode</th>
               <th>Status</th>
+              <th>Current Status</th>
               <th>Contact</th>
               <th>GEC Formation (FBGS)</th>
               <th>GEC Change (FBGS)</th>
@@ -1937,7 +1940,7 @@ SL: F-25</div>
     <div class="slots-summary">
       <div class="slot-left">
         <div class="slot-total"><strong class="ms" id="totalFMS">81</strong>Free MS slots available</div>
-        <div class="slot-total"><strong class="phd" id="totalFPhD">65</strong>Free PhD slots available</div>
+        <div class="slot-total"><strong class="phd" id="totalFPhD">65</strong>Free phd slots available</div>
       </div>
       <div style="display:flex;gap:8px;align-items:center">
         <button class="btn-export" onclick="exportSupervisorsExcel()" style="background:rgba(74,222,128,0.15);border-color:rgba(74,222,128,0.35)"><i class="ti ti-table-export" style="margin-right:4px"></i>Export Excel</button>
@@ -1948,7 +1951,7 @@ SL: F-25</div>
       <div class="sup-header">
         <div>
           <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Hafiz Ashiq Hussain&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Hafiz Ashiq Hussain</div>
-          <div class="sup-desg">Professor · PhD 2011</div>
+          <div class="sup-desg">Professor · phd 2011</div>
           <div class="sup-area">Optical Networks, Fiber Communication</div>
           <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:4px"><span style="background:var(--blue-l);color:var(--blue-d);font-size:10px;font-weight:600;padding:2px 7px;border-radius:9999px">MSEE</span><span style="background:var(--blue-l);color:var(--blue-d);font-size:10px;font-weight:600;padding:2px 7px;border-radius:9999px">MSCE</span><span style="background:var(--blue-l);color:var(--blue-d);font-size:10px;font-weight:600;padding:2px 7px;border-radius:9999px">PhDEE</span><span style="background:var(--blue-l);color:var(--blue-d);font-size:10px;font-weight:600;padding:2px 7px;border-radius:9999px">PhDCE</span></div>
         </div>
@@ -1959,7 +1962,7 @@ SL: F-25</div>
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">3</div><div class="sup-stat-l">PhD Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">2</div><div class="sup-stat-l">Free PhD</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">5</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">3</div><div class="sup-stat-l">Under Sup.</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">3</div><div class="sup-stat-l">phd Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">2</div><div class="sup-stat-l">Free phd</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">5</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">3</div><div class="sup-stat-l">Under Sup.</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -2085,7 +2088,7 @@ SL: F-25</div>
       <div class="sup-header">
         <div>
           <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Syed Ahmed Pasha&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Syed Ahmed Pasha</div>
-          <div class="sup-desg">Associate Professor · PhD 2009</div>
+          <div class="sup-desg">Associate Professor · phd 2009</div>
           <div class="sup-area">Controls / Machine Learning</div>
           
         </div>
@@ -2096,7 +2099,7 @@ SL: F-25</div>
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">PhD Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">1</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">phd Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free phd</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">1</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -2134,7 +2137,7 @@ SL: F-25</div>
       <div class="sup-header">
         <div>
           <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Imran Farid&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Imran Farid</div>
-          <div class="sup-desg">Assistant Professor · PhD 2015</div>
+          <div class="sup-desg">Assistant Professor · phd 2015</div>
           <div class="sup-area">Image Processing</div>
           
         </div>
@@ -2145,7 +2148,7 @@ SL: F-25</div>
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">PhD Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">4</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">phd Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free phd</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">4</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -2227,7 +2230,7 @@ SL: F-25</div>
       <div class="sup-header">
         <div>
           <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Waseem Khan&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Waseem Khan</div>
-          <div class="sup-desg">Assistant Professor · PhD 2015</div>
+          <div class="sup-desg">Assistant Professor · phd 2015</div>
           <div class="sup-area">Communication / RF Microwave</div>
           
         </div>
@@ -2238,7 +2241,7 @@ SL: F-25</div>
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">1</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">6</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">PhD Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">0</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">1</div><div class="sup-stat-l">Under Sup.</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">1</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">6</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">phd Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free phd</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">0</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">1</div><div class="sup-stat-l">Under Sup.</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -2276,7 +2279,7 @@ SL: F-25</div>
       <div class="sup-header">
         <div>
           <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Sara Saeed&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Sara Saeed</div>
-          <div class="sup-desg">Assistant Professor · PhD Aug 2016</div>
+          <div class="sup-desg">Assistant Professor · phd Aug 2016</div>
           <div class="sup-area">RF/Microwave Antenna System</div>
           
         </div>
@@ -2287,7 +2290,7 @@ SL: F-25</div>
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">PhD Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">0</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">phd Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free phd</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">0</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -2314,7 +2317,7 @@ SL: F-25</div>
       <div class="sup-header">
         <div>
           <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Ayesha Salman&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Ayesha Salman</div>
-          <div class="sup-desg">Assistant Professor · PhD Oct 2017</div>
+          <div class="sup-desg">Assistant Professor · phd Oct 2017</div>
           <div class="sup-area">Digital Signal Processing</div>
           
         </div>
@@ -2325,7 +2328,7 @@ SL: F-25</div>
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">PhD Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">0</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">phd Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free phd</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">0</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -2352,7 +2355,7 @@ SL: F-25</div>
       <div class="sup-header">
         <div>
           <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Muhammad Adil Khan&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Muhammad Adil Khan</div>
-          <div class="sup-desg">Assistant Professor · PhD Aug 2018</div>
+          <div class="sup-desg">Assistant Professor · phd Aug 2018</div>
           <div class="sup-area">Power Transmission System</div>
           
         </div>
@@ -2363,7 +2366,7 @@ SL: F-25</div>
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">3</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">4</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">1</div><div class="sup-stat-l">PhD Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">4</div><div class="sup-stat-l">Free PhD</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">2</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">4</div><div class="sup-stat-l">Under Sup.</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">3</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">4</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">1</div><div class="sup-stat-l">phd Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">4</div><div class="sup-stat-l">Free phd</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">2</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">4</div><div class="sup-stat-l">Under Sup.</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -2522,7 +2525,7 @@ SL: F-25</div>
       <div class="sup-header">
         <div>
           <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Muhammad Zaheer&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Muhammad Zaheer</div>
-          <div class="sup-desg">Assistant Professor · PhD Mar 2018</div>
+          <div class="sup-desg">Assistant Professor · phd Mar 2018</div>
           <div class="sup-area">Steganography / Communication</div>
           
         </div>
@@ -2533,7 +2536,7 @@ SL: F-25</div>
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">PhD Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">1</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">phd Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free phd</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">1</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -2571,7 +2574,7 @@ SL: F-25</div>
       <div class="sup-header">
         <div>
           <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Saad Ullah Khan&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Saad Ullah Khan</div>
-          <div class="sup-desg">Assistant Professor · PhD 2019</div>
+          <div class="sup-desg">Assistant Professor · phd 2019</div>
           <div class="sup-area">Power System Component Modelling</div>
           <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:4px"><span style="background:var(--blue-l);color:var(--blue-d);font-size:10px;font-weight:600;padding:2px 7px;border-radius:9999px">MSEE</span><span style="background:var(--blue-l);color:var(--blue-d);font-size:10px;font-weight:600;padding:2px 7px;border-radius:9999px">MSCE</span><span style="background:var(--blue-l);color:var(--blue-d);font-size:10px;font-weight:600;padding:2px 7px;border-radius:9999px">PhDEE</span><span style="background:var(--blue-l);color:var(--blue-d);font-size:10px;font-weight:600;padding:2px 7px;border-radius:9999px">PhDCE</span></div>
         </div>
@@ -2582,7 +2585,7 @@ SL: F-25</div>
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">0</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">PhD Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">0</div><div class="sup-stat-l">Free PhD</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">1</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">0</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">phd Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">0</div><div class="sup-stat-l">Free phd</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">1</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -2642,7 +2645,7 @@ SL: F-25</div>
       <div class="sup-header">
         <div>
           <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Ahsan Sarwar Rana&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Ahsan Sarwar Rana</div>
-          <div class="sup-desg">Assistant Professor · PhD 2021</div>
+          <div class="sup-desg">Assistant Professor · phd 2021</div>
           <div class="sup-area">Optoelectronics</div>
           
         </div>
@@ -2653,7 +2656,7 @@ SL: F-25</div>
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">1</div><div class="sup-stat-l">PhD Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">4</div><div class="sup-stat-l">Free PhD</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">0</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">1</div><div class="sup-stat-l">Under Sup.</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">1</div><div class="sup-stat-l">phd Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">4</div><div class="sup-stat-l">Free phd</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">0</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">1</div><div class="sup-stat-l">Under Sup.</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -2713,7 +2716,7 @@ SL: F-25</div>
       <div class="sup-header">
         <div>
           <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Ashfaq Ahmad&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Ashfaq Ahmad</div>
-          <div class="sup-desg">Assistant Professor · PhD 2020</div>
+          <div class="sup-desg">Assistant Professor · phd 2020</div>
           <div class="sup-area">Power System &amp; Machine Learning</div>
           
         </div>
@@ -2724,7 +2727,7 @@ SL: F-25</div>
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">6</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">1</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">PhD Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">1</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">6</div><div class="sup-stat-l">Under Sup.</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">6</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">1</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">phd Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free phd</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">1</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">6</div><div class="sup-stat-l">Under Sup.</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -2894,7 +2897,7 @@ SL: F-25</div>
       <div class="sup-header">
         <div>
           <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Mumajid&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Mumajid</div>
-          <div class="sup-desg">Assistant Professor · PhD 2022</div>
+          <div class="sup-desg">Assistant Professor · phd 2022</div>
           <div class="sup-area">Internet of Things (IoT)</div>
           
         </div>
@@ -2905,7 +2908,7 @@ SL: F-25</div>
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">4</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">3</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">PhD Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">0</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">4</div><div class="sup-stat-l">Under Sup.</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">4</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">3</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">phd Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free phd</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">0</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">4</div><div class="sup-stat-l">Under Sup.</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -2998,7 +3001,7 @@ SL: F-25</div>
       <div class="sup-header">
         <div>
           <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Sher Ali&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Sher Ali</div>
-          <div class="sup-desg">Assistant Professor · PhD 2019</div>
+          <div class="sup-desg">Assistant Professor · phd 2019</div>
           <div class="sup-area">Wireless Communication</div>
           
         </div>
@@ -3009,7 +3012,7 @@ SL: F-25</div>
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">2</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">5</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">PhD Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">0</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">2</div><div class="sup-stat-l">Under Sup.</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">2</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">5</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">phd Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free phd</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">0</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">2</div><div class="sup-stat-l">Under Sup.</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -3058,7 +3061,7 @@ SL: F-25</div>
       <div class="sup-header">
         <div>
           <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor(&#39;Dr. Jehanzeb Khan&#39;)"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>Dr. Jehanzeb Khan</div>
-          <div class="sup-desg">Assistant Professor · PhD 2020</div>
+          <div class="sup-desg">Assistant Professor · phd 2020</div>
           <div class="sup-area">Micro-Electro-Mechanical Systems (MEMS)</div>
           
         </div>
@@ -3069,7 +3072,7 @@ SL: F-25</div>
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">1</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">6</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">PhD Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">0</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">1</div><div class="sup-stat-l">Under Sup.</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">1</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">6</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">phd Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free phd</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">0</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">1</div><div class="sup-stat-l">Under Sup.</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -3129,7 +3132,7 @@ SL: F-25</div>
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">PhD Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free PhD</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">0</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">7</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">phd Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">5</div><div class="sup-stat-l">Free phd</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">0</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -3167,7 +3170,7 @@ SL: F-25</div>
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">0</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">PhD Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">0</div><div class="sup-stat-l">Free PhD</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">2</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">0</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">phd Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">0</div><div class="sup-stat-l">Free phd</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">2</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -3227,7 +3230,7 @@ SL: F-25</div>
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">0</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">PhD Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">0</div><div class="sup-stat-l">Free PhD</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">0</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">0</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">phd Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">0</div><div class="sup-stat-l">Free phd</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">0</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -3276,7 +3279,7 @@ SL: F-25</div>
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">0</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">PhD Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">0</div><div class="sup-stat-l">Free PhD</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">1</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">0</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">phd Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">0</div><div class="sup-stat-l">Free phd</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">1</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -3325,7 +3328,7 @@ SL: F-25</div>
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">0</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">PhD Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">0</div><div class="sup-stat-l">Free PhD</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">0</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">0</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">phd Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">0</div><div class="sup-stat-l">Free phd</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">0</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -3374,7 +3377,7 @@ SL: F-25</div>
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">0</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">PhD Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">0</div><div class="sup-stat-l">Free PhD</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">1</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">0</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">phd Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">0</div><div class="sup-stat-l">Free phd</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">1</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -3423,7 +3426,7 @@ SL: F-25</div>
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">0</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">PhD Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">0</div><div class="sup-stat-l">Free PhD</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">0</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">0</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">phd Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">0</div><div class="sup-stat-l">Free phd</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">0</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -3483,7 +3486,7 @@ SL: F-25</div>
         </div>
       </div>
       <div class="sup-stats">
-        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">0</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">PhD Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">0</div><div class="sup-stat-l">Free PhD</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">1</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
+        <div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">MS Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-ms">0</div><div class="sup-stat-l">Free MS</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">0</div><div class="sup-stat-l">phd Enrolled</div></div><div class="sup-stat"><div class="sup-stat-n free-phd">0</div><div class="sup-stat-l">Free phd</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--green)">1</div><div class="sup-stat-l">Supervised</div></div><div class="sup-stat"><div class="sup-stat-n" style="color:var(--blue)">0</div><div class="sup-stat-l">Under Sup.</div></div>
       </div>
       <!-- Student list collapsible -->
       <div style="margin-top:10px">
@@ -4507,6 +4510,7 @@ let STUDENTS = [
     "scheduledPdeDate": "",
     "gecInternal": "Dr. Ahsan Sarwar Rana",
     "id": "222260",
+    "remarks": "SL F-2026",
     "email": "ikhlaqhussainsada14@gmail.com",
     "cosup": "Dr. Muhammad Adil Khan",
     "session": "Fall-2022",
@@ -5604,7 +5608,7 @@ function buildStats(data){
 
   const total   = data.length;
   const allMSEE = byDeg("MSEE"), allMSCE = byDeg("MSCE");
-  const allPhDEE= byDeg("PhDEE"), allPHDCE= byDeg("PhDCE");
+  const allPhDEE= byDeg("PhDEE"), allPhDCE= byDeg("PhDCE");
 
   // ── Overall row ──
   const overallHtml=`
@@ -5634,7 +5638,7 @@ function buildStats(data){
       ? (isPhD ? "PhDEE + PhDCE" : "MSEE + MSCE")
       : (isPhD ? "PhDEE + PhDCE" : "MSEE + MSCE");
 
-    // FDE labels differ for MS vs PhD
+    // FDE labels differ for MS vs phd
     const fdeLabel = isPhD ? "FDE" : "FDE";
 
     return`
@@ -5673,7 +5677,7 @@ function buildStats(data){
     </div>
     <div class="stats-section-label">PhD Combined (PhDEE + PhDCE)</div>
     <div class="stats-grid">
-      <div class="stat-card"><div class="stat-label">Total PhD</div><div class="stat-value sv-teal">${allPhD.length}</div></div>
+      <div class="stat-card"><div class="stat-label">Total phd</div><div class="stat-value sv-teal">${allPhD.length}</div></div>
       <div class="stat-card"><div class="stat-label">FDE Done</div><div class="stat-value sv-green">${cnt(allPhD,isFdeDone)}</div></div>
       <div class="stat-card"><div class="stat-label">FDE Pending</div><div class="stat-value sv-amber">${cnt(allPhD,isFdePending)}</div></div>
       <div class="stat-card"><div class="stat-label">PDE Done</div><div class="stat-value sv-teal">${cnt(allPhD,isPdeDone)}</div></div>
@@ -5785,6 +5789,68 @@ function applyFilters(){
   renderTable(filtered);
 }
 
+// ─── Current Status Duration ──────────────────────────────────────────────────
+function computeCurrentStatus(s){
+  // Parse session like "Fall-2021", "S-2023", "Fall-2025"
+  const session = (s.session||"").trim();
+
+  let startYear, startSem; // sem: 0=Spring, 1=Fall
+  const fallMatch   = session.match(/^Fall-(\d{4})$/i);
+  const springMatch = session.match(/^S-(\d{4})$/i);
+
+  if(fallMatch){
+    startYear = parseInt(fallMatch[1]);
+    startSem  = 1; // Fall
+  } else if(springMatch){
+    startYear = parseInt(springMatch[1]);
+    startSem  = 0; // Spring
+  } else {
+    return null; // unknown session format
+  }
+
+  // Count actual Fall/Spring semesters from start up to current semester
+  const now = new Date();
+  const nowYear  = now.getFullYear();
+  const nowMonth = now.getMonth(); // 0-indexed
+  // Spring = Jan(0)–Jul(6), Fall = Aug(7)–Dec(11)
+  const currentSem = nowMonth >= 7 ? 1 : 0;
+
+  let totalSemesters = 0;
+  let y = startYear, sem = startSem;
+  while(y < nowYear || (y === nowYear && sem <= currentSem)){
+    totalSemesters++;
+    sem++;
+    if(sem > 1){ sem = 0; y++; }
+  }
+
+  // Count SL entries in admin remarks
+  // Accepts formats: SL, SL-F-23, SL F-2026, SL-S-2024, SL: F-25, SL-Fall-2024, SL (S-2022) etc.
+  const remarks = (s.remarks||"").toUpperCase();
+  // Count each occurrence of "SL" keyword (each = 1 semester leave)
+  const slMatches = remarks.match(/\bSL\b/g);
+  const slCount   = slMatches ? slMatches.length : 0;
+
+  // Subtract SL semesters (each SL = -1 semester)
+  let activeSemesters = Math.max(0, totalSemesters - slCount);
+
+  // Convert to years + remaining semesters
+  const years    = Math.floor(activeSemesters / 2);
+  const remSem   = activeSemesters % 2;
+
+  // Build label
+  let label = "";
+  if(years > 0 && remSem > 0)       label = `${years}y ${remSem}s`;
+  else if(years > 0 && remSem === 0) label = `${years} yr${years>1?'s':''}`;
+  else if(years === 0 && remSem > 0) label = `${remSem} sem`;
+  else                               label = "< 1 sem";
+
+  // Tooltip detail
+  let tip = `Session: ${session} | Total semesters: ${totalSemesters}`;
+  if(slCount > 0) tip += ` | SL: ${slCount} | Active: ${activeSemesters}`;
+
+  return { label, tip, totalSemesters, slCount, activeSemesters, years, remSem };
+}
+
 // ─── Table ────────────────────────────────────────────────────────────────────
 function renderTable(data){
   document.getElementById("countBar").textContent="Showing "+data.length+" of "+STUDENTS.length+" students — click a row or use action buttons";
@@ -5802,6 +5868,15 @@ function renderTable(data){
       <td><div>${badge(s.fde,"fde")}</div>${s.fdeDate?`<div style="font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap">${s.fdeDate}</div>`:''}</td>
       <td>${studyModeBadge(s)}</td>
       <td>${badge(s.status,"status")}</td>
+      <td style="white-space:nowrap;min-width:105px">${(()=>{
+        const cs=computeCurrentStatus(s);
+        if(!cs) return '<span style="color:var(--text3)">—</span>';
+        let color='var(--blue-d)',bg='var(--blue-l)';
+        if(cs.activeSemesters>=8){color='var(--red-d)';bg='var(--red-l)';}
+        else if(cs.activeSemesters>=6){color='var(--amber-d)';bg='var(--amber-l)';}
+        else if(cs.activeSemesters>=4){color='var(--teal-d)';bg='var(--teal-l)';}
+        return `<span title="${cs.tip}" style="display:inline-block;background:${bg};color:${color};font-weight:700;font-size:12px;padding:3px 9px;border-radius:9999px;cursor:default">${cs.label}</span>`;
+      })()}</td>
       <td style="white-space:nowrap">
         ${s.email?`<div style="font-size:12px"><a href="mailto:${s.email}" style="color:var(--blue);text-decoration:none"><i class="ti ti-mail" style="font-size:11px;margin-right:3px"></i>${s.email}</a></div>`:''}
         ${s.cell?`<div style="font-size:12px;color:var(--text2);margin-top:2px"><i class="ti ti-phone" style="font-size:11px;margin-right:3px"></i>${s.cell}</div>`:''}
@@ -5812,17 +5887,11 @@ function renderTable(data){
       <td onclick="openView(${i})" style="cursor:pointer;font-size:12px;color:var(--text2)">${s.extension||'<span style="color:var(--text3)">—</span>'}</td>
       <td class="remarks-cell">
         ${isAdmin
-          ? `<div id="rmk-display-${i}">
-              ${s.remarks
-                ? `<div class="remarks-display">${esc(s.remarks)}</div>`
-                : `<span class="remarks-empty">No remarks</span>`}
-              <button class="btn-remark" onclick="openRemark(${i})"><i class="ti ti-pencil" style="font-size:11px"></i>Edit</button>
-            </div>
-            <div id="rmk-edit-${i}" style="display:none" class="remarks-edit-wrap">
-              <textarea class="remarks-textarea" id="rmk-ta-${i}" placeholder="Write admin remarks…">${esc(s.remarks||'')}</textarea>
+          ? `<div class="remarks-edit-wrap">
+              <textarea class="remarks-textarea" id="rmk-ta-${i}" placeholder="Write admin remarks… (use SL for Semester Leave)">${esc(s.remarks||'')}</textarea>
               <div class="remarks-save-row">
                 <button class="btn-rsave" onclick="saveRemark(${i})"><i class="ti ti-device-floppy" style="font-size:11px;margin-right:3px"></i>Save</button>
-                <button class="btn-rcancel" onclick="cancelRemark(${i})">Cancel</button>
+                <span id="rmk-saved-${i}" style="font-size:11px;color:var(--teal-d);opacity:0;transition:opacity 0.3s"><i class="ti ti-check"></i> Saved</span>
               </div>
             </div>`
           : (s.remarks
@@ -5837,28 +5906,29 @@ function renderTable(data){
       </div></td>
     </tr>`;
   }).join("");
-  document.getElementById("tBody").innerHTML=rows||'<tr><td colspan="17" class="no-results"><i class="ti ti-search-off" style="font-size:32px;display:block;margin-bottom:8px;opacity:0.4"></i>No students match the current filters</td></tr>';
+  document.getElementById("tBody").innerHTML=rows||'<tr><td colspan="18" class="no-results"><i class="ti ti-search-off" style="font-size:32px;display:block;margin-bottom:8px;opacity:0.4"></i>No students match the current filters</td></tr>';
 }
 
 // ─── Inline Remarks ───────────────────────────────────────────────────────────
-function openRemark(i){
-  document.getElementById("rmk-display-"+i).style.display="none";
-  document.getElementById("rmk-edit-"+i).style.display="block";
-  const ta=document.getElementById("rmk-ta-"+i);
-  ta.focus();ta.setSelectionRange(ta.value.length,ta.value.length);
-}
-function cancelRemark(i){
-  // Restore textarea to saved value
-  document.getElementById("rmk-ta-"+i).value=STUDENTS[i].remarks||"";
-  document.getElementById("rmk-edit-"+i).style.display="none";
-  document.getElementById("rmk-display-"+i).style.display="block";
-}
 function saveRemark(i){
-  const val=document.getElementById("rmk-ta-"+i).value.trim();
+  const ta=document.getElementById("rmk-ta-"+i);
+  if(!ta) return;
+  const val=ta.value.trim();
   STUDENTS[i].remarks=val;
   persistData();
+  // Show inline saved indicator
+  const savedEl=document.getElementById("rmk-saved-"+i);
+  if(savedEl){savedEl.style.opacity="1";setTimeout(()=>{savedEl.style.opacity="0";},2000);}
+  // Re-render to update Current Status column (SL count may have changed)
   applyFilters();
   showToast("Remark saved");
+}
+function autoSaveRemark(i){
+  const ta=document.getElementById("rmk-ta-"+i);
+  if(!ta) return;
+  STUDENTS[i].remarks=ta.value.trim();
+  persistData();
+  applyFilters();
 }
 
 
@@ -5891,6 +5961,7 @@ function openView(idx){
         ${fRow("PDE",badge(s.pde,"pde")+(s.pdeDate?` <span style="font-size:12px;color:var(--text2);margin-left:6px">${s.pdeDate}</span>`:""))}
         ${fRow("FDE",badge(s.fde,"fde")+(s.fdeDate?` <span style="font-size:12px;color:var(--text2);margin-left:6px">${s.fdeDate}</span>`:""))}
         ${fRow("Study Mode",studyModeBadge(s))}
+        ${(()=>{const cs=computeCurrentStatus(s);return cs?fRow("Duration",`<span style="font-weight:700;color:var(--blue-d)">${cs.label}</span>${cs.slCount>0?` <span style="font-size:11px;color:var(--amber-d)">(${cs.slCount} SL deducted)</span>`:''}`):'';})()}
       </div>
       ${(s.email||s.cell)?`<div class="divider"></div><div class="section-title"><i class="ti ti-address-book"></i>Contact</div><div class="field-grid">${s.email?fRow("Email",`<a href="mailto:${s.email}" style="color:var(--blue)">${s.email}</a>`):""}${s.cell?fRow("Cell",s.cell):""}</div>`:""}
       ${s.remarks?`<div class="divider"></div><div class="section-title"><i class="ti ti-notes"></i>Admin Remarks</div><div class="topic-box" style="border-left:3px solid var(--amber);background:var(--amber-l);color:var(--text)">${esc(s.remarks)}</div>`:""}
@@ -6250,19 +6321,19 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();closeC
 
 // ─── Supervisors ──────────────────────────────────────────────────────────────
 function buildSupervisors(){
-  const MS_DEGS=['MSEE','MSCE'], PhD_DEGS=['PhDEE','PhDCE'];
+  const MS_DEGS=['MSEE','MSCE'], phd_DEGS=['PhDEE','PhDCE'];
   const totalFMS=SUPERVISORS.reduce((a,s)=>{
     if(s.active==='Inactive') return a;
-    const degs=s.degrees&&s.degrees.length?s.degrees:[...MS_DEGS,...PhD_DEGS];
+    const degs=s.degrees&&s.degrees.length?s.degrees:[...MS_DEGS,...phd_DEGS];
     if(!degs.some(d=>MS_DEGS.includes(d))) return a;
     const enrolled=STUDENTS.filter(st=>st.sup===s.name&&MS_DEGS.includes(st.degree)&&(st.status||'').toLowerCase().includes('enrolled')).length;
     return a+Math.max(0,7-enrolled);
   },0);
   const totalFPhD=SUPERVISORS.reduce((a,s)=>{
     if(s.active==='Inactive') return a;
-    const degs=s.degrees&&s.degrees.length?s.degrees:[...MS_DEGS,...PhD_DEGS];
-    if(!degs.some(d=>PhD_DEGS.includes(d))) return a;
-    const enrolled=STUDENTS.filter(st=>st.sup===s.name&&PhD_DEGS.includes(st.degree)&&(st.status||'').toLowerCase().includes('enrolled')).length;
+    const degs=s.degrees&&s.degrees.length?s.degrees:[...MS_DEGS,...phd_DEGS];
+    if(!degs.some(d=>phd_DEGS.includes(d))) return a;
+    const enrolled=STUDENTS.filter(st=>st.sup===s.name&&phd_DEGS.includes(st.degree)&&(st.status||'').toLowerCase().includes('enrolled')).length;
     return a+Math.max(0,5-enrolled);
   },0);
   document.getElementById("totalFMS").textContent=totalFMS;
@@ -6289,7 +6360,7 @@ function buildSupervisors(){
       <div class="sup-header">
         <div>
           <div class="sup-name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="View students" onclick="filterBySupervisor('${s.name.replace(/'/g,"\\'")}')"><i class="ti ti-filter" style="font-size:12px;margin-right:4px;opacity:0.5"></i>${s.name}</div>
-          <div class="sup-desg">${s.desg}${s.phd?" &middot; PhD "+s.phd:""}</div>
+          <div class="sup-desg">${s.desg}${s.phd?" &middot; phd "+s.phd:""}</div>
           ${s.area?`<div class="sup-area">${s.area}</div>`:""}
           ${s.degrees&&s.degrees.length?`<div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:4px">${s.degrees.map(d=>`<span style="background:var(--blue-l);color:var(--blue-d);font-size:10px;font-weight:600;padding:2px 7px;border-radius:9999px">${d}</span>`).join('')}</div>`:``}
         </div>
@@ -6318,8 +6389,8 @@ function buildSupervisors(){
           if(phdDegs.length){
             const enrolled = myStudents.filter(st=>st.sup===s.name&&phdDegs.includes(st.degree)&&(st.status||'').toLowerCase().includes('enrolled')).length;
             const free = inactive ? 0 : Math.max(0,5-enrolled);
-            html += `<div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">${enrolled}</div><div class="sup-stat-l">PhD Enrolled</div></div>`;
-            html += `<div class="sup-stat"><div class="sup-stat-n free-phd">${free}</div><div class="sup-stat-l">Free PhD</div></div>`;
+            html += `<div class="sup-stat"><div class="sup-stat-n" style="color:var(--teal)">${enrolled}</div><div class="sup-stat-l">phd Enrolled</div></div>`;
+            html += `<div class="sup-stat"><div class="sup-stat-n free-phd">${free}</div><div class="sup-stat-l">Free phd</div></div>`;
           }
           const completed = myStudents.filter(st=>st.sup===s.name&&(st.status||'').toLowerCase().includes('completed')).length;
           const underSup  = myStudents.filter(st=>st.sup===s.name&&(st.status||'').toLowerCase().includes('enrolled')).length;
@@ -6375,7 +6446,7 @@ function supervisorForm(s){
         <div class="form-row"><label>Designation</label><input id="sf-desg" value="${s?esc(s.desg||''):''}" placeholder="e.g. Assistant Professor"></div>
       </div>
       <div class="form-2col">
-        <div class="form-row"><label>PhD Year</label><input id="sf-phd" value="${s?esc(s.phd||''):''}" placeholder="e.g. 2020"></div>
+        <div class="form-row"><label>phd Year</label><input id="sf-phd" value="${s?esc(s.phd||''):''}" placeholder="e.g. 2020"></div>
         <div class="form-row"><label>HEC Status</label>
           <select id="sf-status">
             <option value=""${s&&!s.status?' selected':''}>—</option>
@@ -6403,7 +6474,7 @@ function supervisorForm(s){
           </label>`).join('')}
         </div>
       </div>
-      <div class="section-title" style="margin-top:4px;background:var(--blue-l);border-radius:var(--rm);padding:8px 12px;color:var(--blue-d)"><i class="ti ti-info-circle"></i>MS &amp; PhD enrolled counts and free slots are computed automatically from student records.</div>
+      <div class="section-title" style="margin-top:4px;background:var(--blue-l);border-radius:var(--rm);padding:8px 12px;color:var(--blue-d)"><i class="ti ti-info-circle"></i>MS &amp; phd enrolled counts and free slots are computed automatically from student records.</div>
     </div>
   </div>`;
 }
@@ -6477,12 +6548,7 @@ function filterBySupervisor(name){
 }
 
 // ─── Tabs ─────────────────────────────────────────────────────────────────────
-function switchTab(tab,btn){
-  document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
-  document.getElementById("tab-students").style.display=tab==="students"?"":"none";
-  document.getElementById("tab-supervisors").style.display=tab==="supervisors"?"":"none";
-}
+/* switchTab defined below — do not duplicate here */
 
 // ─── Export ───────────────────────────────────────────────────────────────────
 function exportHTML(){
@@ -6552,7 +6618,7 @@ function _doExcelExport(){
   XLSX.utils.book_append_sheet(wb, ws, "Students");
 
   // ── Supervisors sheet ──
-  const supHeaders = ["Name","Designation","PhD Year","HEC Status","Research Area","MS Enrolled","PhD Enrolled","Co-MSEE","Co-PhDEE","Free MSEE (7-enrolled)","Free PhDEE (5-enrolled)","Total Students"];
+  const supHeaders = ["Name","Designation","phd Year","HEC Status","Research Area","MS Enrolled","phd Enrolled","Co-MSEE","Co-PhDEE","Free MSEE (7-enrolled)","Free PhDEE (5-enrolled)","Total Students"];
   const supRows = SUPERVISORS.map(s=>{
     const enrolledMS  = STUDENTS.filter(st=>st.sup===s.name&&st.degree==="MSEE"&&(st.status||'').toLowerCase().includes('enrolled')).length;
     const enrolledPhD = STUDENTS.filter(st=>st.sup===s.name&&st.degree==="PhDEE"&&(st.status||'').toLowerCase().includes('enrolled')).length;
@@ -6586,7 +6652,7 @@ function exportSupervisorsExcel(){
   }
 }
 function _doSupExport(){
-  const headers = ["Name","Designation","PhD Year","HEC Status","Research Area","MS Enrolled","PhD Enrolled","Co-MSEE","Co-PhDEE","Free MSEE (7-enrolled)","Free PhDEE (5-enrolled)","Total Students"];
+  const headers = ["Name","Designation","phd Year","HEC Status","Research Area","MS Enrolled","phd Enrolled","Co-MSEE","Co-PhDEE","Free MSEE (7-enrolled)","Free PhDEE (5-enrolled)","Total Students"];
   const rows = SUPERVISORS.map(s=>{
     const enrolledMS  = STUDENTS.filter(st=>st.sup===s.name&&st.degree==="MSEE"&&(st.status||'').toLowerCase().includes('enrolled')).length;
     const enrolledPhD = STUDENTS.filter(st=>st.sup===s.name&&st.degree==="PhDEE"&&(st.status||'').toLowerCase().includes('enrolled')).length;
@@ -7572,8 +7638,6 @@ document.addEventListener('keydown', function(e){
   }
 })();
 
-// Hook switchTab to init publications when tab is first opened
-const _origSwitchTab = typeof switchTab==='function' ? switchTab : null;
 function switchTab(name, btn){
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   if(btn) btn.classList.add('active');
@@ -7584,19 +7648,19 @@ function switchTab(name, btn){
   if(name==='publications'){
     populatePubFilters();
     renderPublications();
-    // Show add button for admin or FM
     updatePubAddBtn();
   }
 }
+
 (async function init(){
-  await loadFromStorage();
-  await loadPublications();
+  // ── Render immediately from embedded data so UI is fully interactive at once ──
   populateFilters();
   buildStats(STUDENTS);
   renderTable(STUDENTS);
   buildSupervisors();
   initSchedBadge();
-  // Auto-show scheduled exams popup on page load if any exist
+
+  // Auto-show scheduled exams popup
   const exams = getScheduledExams();
   if(exams.length > 0){
     setTimeout(()=>{
@@ -7604,78 +7668,43 @@ function switchTab(name, btn){
       document.getElementById("schedPopupOverlay").classList.add("open");
     }, 800);
   }
+
+  // ── Try Firebase sync in background — never block or break the UI ──
+  try {
+    const [rsStudents, rsSupervisors] = await Promise.all([
+      fetch(FS_BASE+"/appdata/students"),
+      fetch(FS_BASE+"/appdata/supervisors")
+    ]);
+    let updated = false;
+    if(rsStudents.ok){
+      const d = await rsStudents.json();
+      const arr = (d.fields?.list?.arrayValue?.values||[]).map(v=>fsMapToObj(v.mapValue?.fields||{}));
+      if(arr.length > 0){ STUDENTS = arr; updated = true; }
+    }
+    if(rsSupervisors.ok){
+      const d = await rsSupervisors.json();
+      const arr = (d.fields?.list?.arrayValue?.values||[]).map(v=>fsMapToObj(v.mapValue?.fields||{}));
+      if(arr.length > 0){ SUPERVISORS = arr; updated = true; }
+    }
+    if(updated){
+      populateFilters();
+      buildStats(STUDENTS);
+      renderTable(STUDENTS);
+      buildSupervisors();
+      setSyncStatus("loaded");
+    }
+  } catch(e){
+    // Firebase unreachable — embedded data already shown, nothing to do
+    setSyncStatus("loaded");
+  }
+
+  // Load publications
+  try { await loadPublications(); } catch(e){}
 })();
 </script>
 
 
 
 
-<veepn-lock-screen><style>@font-face{font-family:FigtreeVF;src:url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"),url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");font-weight:100 1000;font-display:swap}</style></veepn-lock-screen><span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span><span id="PING_CONTENT_DLS_POPUP" style="display: none;"></span><div style="background-color: transparent; border-width: medium; border-style: none; border-color: currentcolor; border-image: initial; bottom: 15px; display: block; margin: 0px; opacity: 1; padding: 0px; position: fixed; right: 15px; z-index: 2147483647;"><template shadowrootmode="closed"><style>/*!
- * 
- *     MCAFEE RESTRICTED CONFIDENTIAL
- *     Copyright (c) 2026 McAfee, LLC
- *
- *     The source code contained or described herein and all documents related
- *     to the source code ("Material") are owned by McAfee or its
- *     suppliers or licensors. Title to the Material remains with McAfee
- *     or its suppliers and licensors. The Material contains trade
- *     secrets and proprietary and confidential information of McAfee or its
- *     suppliers and licensors. The Material is protected by worldwide copyright
- *     and trade secret laws and treaty provisions. No part of the Material may
- *     be used, copied, reproduced, modified, published, uploaded, posted,
- *     transmitted, distributed, or disclosed in any way without McAfee's prior
- *     express written permission.
- *
- *     No license under any patent, copyright, trade secret or other intellectual
- *     property right is granted to or conferred upon you by disclosure or
- *     delivery of the Materials, either expressly, by implication, inducement,
- *     estoppel or otherwise. Any license under such intellectual property rights
- *     must be expressed and approved by McAfee in writing.
- *
- */
-@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-Thin.ttf") format("truetype");font-weight:100;font-style:normal}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-ThinItalic.ttf") format("truetype");font-weight:100;font-style:italic}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-ExtraLight.ttf") format("truetype");font-weight:200;font-style:normal}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-ExtraLightItalic.ttf") format("truetype");font-weight:200;font-style:italic}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-Light.ttf") format("truetype");font-weight:300;font-style:normal}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-LightItalic.ttf") format("truetype");font-weight:300;font-style:italic}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-Regular.ttf") format("truetype");font-weight:400;font-style:normal}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-Italic.ttf") format("truetype");font-weight:400;font-style:italic}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-Medium.ttf") format("truetype");font-weight:500;font-style:normal}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-MediumItalic.ttf") format("truetype");font-weight:500;font-style:italic}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-SemiBold.ttf") format("truetype");font-weight:600;font-style:normal}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-SemiBoldItalic.ttf") format("truetype");font-weight:600;font-style:italic}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-Bold.ttf") format("truetype");font-weight:700;font-style:normal}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-BoldItalic.ttf") format("truetype");font-weight:700;font-style:italic}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-ExtraBold.ttf") format("truetype");font-weight:800;font-style:normal}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-ExtraBoldItalic.ttf") format("truetype");font-weight:800;font-style:italic}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-Black.ttf") format("truetype");font-weight:900;font-style:normal}@font-face{font-family:"McAfeePoppins";src:url("../../../fonts/Poppins-BlackItalic.ttf") format("truetype");font-weight:900;font-style:italic}*{border:0;box-sizing:border-box;font:inherit;font-family:"McAfeePoppins",Helvetica,Arial;font-size:100%;margin:0;padding:0;vertical-align:baseline;outline:none}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}html,body{background-color:#f5f6fa;font-family:"McAfeePoppins",Helvetica,Arial;line-height:1;height:100%;width:100%}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:"";content:none}table{border-collapse:collapse;border-spacing:0}b{font-weight:bold}img{display:block}.dls__container{align-items:center;display:flex;margin:0 auto;margin-top:50px;position:relative}.dls__popup__expanded{align-items:center;overflow:hidden;border-radius:100px;cursor:pointer;display:flex;left:0;padding:15px;position:absolute;height:95px;width:383px;background-color:#fff;transition:all .3s ease-in-out}.dls__popup__expanded .dls__icon{height:65px;width:73px}.content{margin-left:12px}.content .content__images{display:flex;align-items:center;width:250px}.content .content__images .seperator__line{margin-left:5px;margin-right:10px}.content .content__images #dls_close_icon{cursor:pointer;margin-left:auto;margin-right:0px}.content p{font-family:"McAfeePoppins",Helvetica,Arial;font-weight:"400";font-size:14px;line-height:20px;margin-top:8px;color:#4258ff;width:250px;cursor:pointer}.shield{overflow:hidden;box-shadow:0px 2px 4px 0px rgba(33,41,52,.12),0px -1px 2px 0px rgba(0,0,0,.08);align-items:center;border-radius:100px;bottom:0;display:flex;height:95px;justify-content:center;position:absolute;right:0;width:383px;transition:all .3s ease-in-out}.shield__circle{display:flex;justify-content:center;align-items:center;width:55px;height:55px;background-color:#c01818;transition:all .6s ease-in-out .2s;z-index:1;opacity:0}
 
-/*# sourceMappingURL=../sourceMap/chrome/css/download_scan_popup.css.map*/</style><div class="dls__container">
-  <div class="shield" style="background: transparent; opacity: 0.1; display: none;">
-    <div class="shield__circle" style="opacity: 1;">
-      <img src="chrome-extension://fheoggkfdfchfphceeifdbepaooicaho/images/download_scan/mcafee_logo_white.svg?secret=nrb3kv" x-mcsrc="" id="dls_ballon_icon" x-mcsrcparsed="true">
-    </div>
-    <div class="dls__popup__expanded" style="opacity: 0;">
-      <img src="chrome-extension://fheoggkfdfchfphceeifdbepaooicaho/images/download_scan/download_scan_icon.svg?secret=nrb3kv" x-mcsrc="" class="dls__icon" x-mcsrcparsed="true">
-      <div class="content">
-        <div class="content__images">
-          <img src="chrome-extension://fheoggkfdfchfphceeifdbepaooicaho/images/download_scan/mcafee_logo_red.svg?secret=nrb3kv" x-mcsrc="" id="dls_mcafee_logo" x-mcsrcparsed="true">
-          <img src="chrome-extension://fheoggkfdfchfphceeifdbepaooicaho/images/download_scan/seperator_line.svg?secret=nrb3kv" x-mcsrc="" class="seperator__line" x-mcsrcparsed="true">
-          <img src="chrome-extension://fheoggkfdfchfphceeifdbepaooicaho/images/download_scan/webadvisor.svg?secret=nrb3kv" x-mcsrc="" x-mcsrcparsed="true">
-          <img src="chrome-extension://fheoggkfdfchfphceeifdbepaooicaho/images/download_scan/close-outline.svg?secret=nrb3kv" x-mcsrc="" id="dls_close_icon" x-mcsrcparsed="true">
-        </div>
-        <p id="download_scan_popup_expanded_descriptions">Your download's being scanned. We'll let you know if there's an issue.</p>
-      </div>
-    </div>
-  </div>
-</div><style>/*!
- * 
- *     MCAFEE RESTRICTED CONFIDENTIAL
- *     Copyright (c) 2026 McAfee, LLC
- *
- *     The source code contained or described herein and all documents related
- *     to the source code ("Material") are owned by McAfee or its
- *     suppliers or licensors. Title to the Material remains with McAfee
- *     or its suppliers and licensors. The Material contains trade
- *     secrets and proprietary and confidential information of McAfee or its
- *     suppliers and licensors. The Material is protected by worldwide copyright
- *     and trade secret laws and treaty provisions. No part of the Material may
- *     be used, copied, reproduced, modified, published, uploaded, posted,
- *     transmitted, distributed, or disclosed in any way without McAfee's prior
- *     express written permission.
- *
- *     No license under any patent, copyright, trade secret or other intellectual
- *     property right is granted to or conferred upon you by disclosure or
- *     delivery of the Materials, either expressly, by implication, inducement,
- *     estoppel or otherwise. Any license under such intellectual property rights
- *     must be expressed and approved by McAfee in writing.
- *
- */
-.mc-interactive-balloon{position:absolute;right:-50px;bottom:8px;box-shadow:rgba(0,0,0,.12) 0px 0px 10px;height:40px;width:40px;background:#1671ee;border-radius:20px;display:flex;justify-content:center;align-items:center}
-
-/*# sourceMappingURL=../sourceMap/chrome/css/interactive_balloon.css.map*/</style></template></div></body></html>
+</body></html>
