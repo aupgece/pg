@@ -6585,14 +6585,18 @@ function _doExcelExport(){
     "Name","ID","Degree","Session","Supervisor","Co-Supervisor",
     "GEC Internal","GEC External","Thesis Topic",
     "PDE Status","PDE Date","FDE Status","FDE Date","Study Mode",
-    "Status","Email","Cell","GEC Formation (FBGS)","GEC Change (FBGS)","Extension (FBGS)"
+    "Status","Current Status","Email","Cell","GEC Formation (FBGS)","GEC Change (FBGS)","Extension (FBGS)"
   ];
-  const rows = STUDENTS.map(s=>[
-    s.name, s.id, s.degree, s.session, s.sup, s.cosup,
-    s.gecInternal, s.gecExternal, s.topic,
-    s.pde, s.pdeDate, s.fde, s.fdeDate, getStudyMode(s),
-    s.status, s.email, s.cell, s.gecFormation, s.gecChange, s.extension
-  ]);
+  const rows = STUDENTS.map(s=>{
+    const cs = computeCurrentStatus(s);
+    const currentStatus = cs ? cs.label : "—";
+    return [
+      s.name, s.id, s.degree, s.session, s.sup, s.cosup,
+      s.gecInternal, s.gecExternal, s.topic,
+      s.pde, s.pdeDate, s.fde, s.fdeDate, getStudyMode(s),
+      s.status, currentStatus, s.email, s.cell, s.gecFormation, s.gecChange, s.extension
+    ];
+  });
 
   const wb = XLSX.utils.book_new();
 
@@ -6605,7 +6609,7 @@ function _doExcelExport(){
     {wch:28},{wch:10},{wch:7},{wch:12},{wch:24},{wch:24},
     {wch:36},{wch:32},{wch:50},
     {wch:10},{wch:16},{wch:10},{wch:16},{wch:14},
-    {wch:12},{wch:28},{wch:18},{wch:20},{wch:18},{wch:16}
+    {wch:12},{wch:14},{wch:28},{wch:18},{wch:20},{wch:18},{wch:16}
   ];
 
   // Bold header row
