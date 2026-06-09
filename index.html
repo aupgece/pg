@@ -7660,16 +7660,8 @@ function switchTab(name, btn){
   buildSupervisors();
   initSchedBadge();
 
-  // Auto-show scheduled exams popup
-  const exams = getScheduledExams();
-  if(exams.length > 0){
-    setTimeout(()=>{
-      renderSchedPopup();
-      document.getElementById("schedPopupOverlay").classList.add("open");
-    }, 800);
-  }
-
   // ── Try Firebase sync in background — never block or break the UI ──
+  let popupShown = false;
   try {
     const [rsStudents, rsSupervisors] = await Promise.all([
       fetch(FS_BASE+"/appdata/students"),
@@ -7693,9 +7685,29 @@ function switchTab(name, btn){
       buildSupervisors();
       setSyncStatus("loaded");
     }
+    // Auto-show scheduled exams popup after Firebase data is loaded
+    const exams = getScheduledExams();
+    if(exams.length > 0){
+      popupShown = true;
+      setTimeout(()=>{
+        renderSchedPopup();
+        document.getElementById("schedPopupOverlay").classList.add("open");
+      }, 600);
+    }
   } catch(e){
     // Firebase unreachable — embedded data already shown, nothing to do
     setSyncStatus("loaded");
+  }
+
+  // Fallback: show popup from embedded data if Firebase was unreachable
+  if(!popupShown){
+    const exams = getScheduledExams();
+    if(exams.length > 0){
+      setTimeout(()=>{
+        renderSchedPopup();
+        document.getElementById("schedPopupOverlay").classList.add("open");
+      }, 800);
+    }
   }
 
   // Load publications
