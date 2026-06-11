@@ -5978,6 +5978,13 @@ function applyFilters(){
 
 // ─── Current Status Duration ──────────────────────────────────────────────────
 function computeCurrentStatus(s){
+  // Rule: any student whose FDE contains "CW" (course work) gets no duration
+  const status = (s.status||"").trim();
+  const fdeVal = (s.fde||"").trim().toUpperCase();
+  if(fdeVal.includes("CW")){
+    return null;
+  }
+
   // Parse session like "Fall-2021", "S-2023", "Fall-2025"
   const session = (s.session||"").trim();
 
@@ -5995,16 +6002,32 @@ function computeCurrentStatus(s){
     return null; // unknown session format
   }
 
-  // Count actual Fall/Spring semesters from start up to current semester
-  const now = new Date();
-  const nowYear  = now.getFullYear();
-  const nowMonth = now.getMonth(); // 0-indexed
-  // Spring = Jan(0)–Jul(6), Fall = Aug(7)–Dec(11)
-  const currentSem = nowMonth >= 7 ? 1 : 0;
+  // For Completed students with a valid FDE date, count session → FDE date
+  // For all others, count session → today
+  let endYear, endSem;
+  let usedFdeDate = false;
 
+  if(status === "Completed" && s.fdeDate && s.fdeDate.trim()){
+    const fdeDate = new Date(s.fdeDate.trim().replace(/(\d{2})-(\d{2})-(\d{4})/, "$3-$2-$1"));
+    if(!isNaN(fdeDate.getTime())){
+      endYear = fdeDate.getFullYear();
+      // Spring = Jan–Jul (month 0–6), Fall = Aug–Dec (month 7–11)
+      endSem  = fdeDate.getMonth() >= 7 ? 1 : 0;
+      usedFdeDate = true;
+    }
+  }
+
+  if(!usedFdeDate){
+    const now = new Date();
+    endYear = now.getFullYear();
+    const nowMonth = now.getMonth();
+    endSem  = nowMonth >= 7 ? 1 : 0;
+  }
+
+  // Count actual Fall/Spring semesters from start up to end semester (inclusive)
   let totalSemesters = 0;
   let y = startYear, sem = startSem;
-  while(y < nowYear || (y === nowYear && sem <= currentSem)){
+  while(y < endYear || (y === endYear && sem <= endSem)){
     totalSemesters++;
     sem++;
     if(sem > 1){ sem = 0; y++; }
@@ -6032,7 +6055,9 @@ function computeCurrentStatus(s){
   else                               label = "< 1 sem";
 
   // Tooltip detail
-  let tip = `Session: ${session} | Total semesters: ${totalSemesters}`;
+  let tip = `Session: ${session}`;
+  if(usedFdeDate) tip += ` | FDE: ${s.fdeDate.trim()}`;
+  tip += ` | Total semesters: ${totalSemesters}`;
   if(slCount > 0) tip += ` | SL: ${slCount} | Active: ${activeSemesters}`;
 
   return { label, tip, totalSemesters, slCount, activeSemesters, years, remSem };
