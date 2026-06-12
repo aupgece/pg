@@ -6047,12 +6047,22 @@ function computeCurrentStatus(s){
   const years    = Math.floor(activeSemesters / 2);
   const remSem   = activeSemesters % 2;
 
-  // Build label
-  let label = "";
-  if(years > 0 && remSem > 0)       label = `${years}y ${remSem}s`;
-  else if(years > 0 && remSem === 0) label = `${years} yr${years>1?'s':''}`;
-  else if(years === 0 && remSem > 0) label = `${remSem} sem`;
-  else                               label = "< 1 sem";
+  // Build semester name from endYear + endSem (0=Spring, 1=Fall)
+  const endSemName = (endSem === 1 ? "Fall" : "Spring") + "-" + endYear;
+
+  // Build duration string (same as before)
+  let duration = "";
+  if(years > 0 && remSem > 0)       duration = `${years}y ${remSem}s`;
+  else if(years > 0 && remSem === 0) duration = `${years} yr${years>1?'s':''}`;
+  else if(years === 0 && remSem > 0) duration = `${remSem} sem`;
+  else                               duration = "< 1 sem";
+
+  // Ordinal suffix for semester number
+  const semNum = activeSemesters > 0 ? activeSemesters : 1;
+  const ordinal = semNum === 1 ? "st" : semNum === 2 ? "nd" : semNum === 3 ? "rd" : "th";
+
+  // Combined label: semester number + semester name + duration
+  const label = `Semester ${semNum}${ordinal} | ${endSemName} (${duration})`;
 
   // Tooltip detail
   let tip = `Session: ${session}`;
@@ -6173,7 +6183,7 @@ function openView(idx){
         ${fRow("PDE",badge(s.pde,"pde")+(s.pdeDate?` <span style="font-size:12px;color:var(--text2);margin-left:6px">${s.pdeDate}</span>`:""))}
         ${fRow("FDE",badge(s.fde,"fde")+(s.fdeDate?` <span style="font-size:12px;color:var(--text2);margin-left:6px">${s.fdeDate}</span>`:""))}
         ${fRow("Study Mode",studyModeBadge(s))}
-        ${(()=>{const cs=computeCurrentStatus(s);return cs?fRow("Duration",`<span style="font-weight:700;color:var(--blue-d)">${cs.label}</span>${cs.slCount>0?` <span style="font-size:11px;color:var(--amber-d)">(${cs.slCount} SL deducted)</span>`:''}`):'';})()}
+        ${(()=>{const cs=computeCurrentStatus(s);return cs?fRow("Current Status",`<span style="font-weight:700;color:var(--blue-d)">${cs.label}</span>${cs.slCount>0?` <span style="font-size:11px;color:var(--amber-d)">(${cs.slCount} SL deducted)</span>`:''}`):'';})()}
       </div>
       ${(s.email||s.cell)?`<div class="divider"></div><div class="section-title"><i class="ti ti-address-book"></i>Contact</div><div class="field-grid">${s.email?fRow("Email",`<a href="mailto:${s.email}" style="color:var(--blue)">${s.email}</a>`):""}${s.cell?fRow("Cell",s.cell):""}</div>`:""}
       ${s.remarks?`<div class="divider"></div><div class="section-title"><i class="ti ti-notes"></i>Admin Remarks</div><div class="topic-box" style="border-left:3px solid var(--amber);background:var(--amber-l);color:var(--text)">${esc(s.remarks)}</div>`:""}
