@@ -398,13 +398,13 @@ body.is-admin .admin-only-block{display:block}
 
 <div class="main">
   <div class="tab-row">
-    <button class="tab-btn" onclick="switchTab(&#39;students&#39;,this)" fdprocessedid="em7i5d"><i class="ti ti-users" style="margin-right:6px"></i>Students</button>
-    <button class="tab-btn active" onclick="switchTab(&#39;supervisors&#39;,this)" fdprocessedid="vnpngo"><i class="ti ti-user-check" style="margin-right:6px"></i>Supervisors</button>
+    <button class="tab-btn active" onclick="switchTab(&#39;students&#39;,this)" fdprocessedid="em7i5d"><i class="ti ti-users" style="margin-right:6px"></i>Students</button>
+    <button class="tab-btn" onclick="switchTab(&#39;supervisors&#39;,this)" fdprocessedid="vnpngo"><i class="ti ti-user-check" style="margin-right:6px"></i>Supervisors</button>
     <button class="tab-btn" onclick="window.location.href=&#39;publications.html&#39;" fdprocessedid="acgcxv"><i class="ti ti-book" style="margin-right:6px"></i>FM Research Publications</button>
   </div>
 
   <!-- Students Tab -->
-  <div id="tab-students" style="display: none;">
+  <div id="tab-students" style="">
     <div id="statsGrid">
     <div class="stats-section-label">Overall</div>
     <div class="stats-grid">
@@ -726,7 +726,7 @@ SL-F-23</div>
   </div>
 
   <!-- Supervisors Tab -->
-  <div id="tab-supervisors" style="">
+  <div id="tab-supervisors" style="display:none">
     <div class="filter-bar">
       <div class="filter-row">
         <div class="search-wrap">
