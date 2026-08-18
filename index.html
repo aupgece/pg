@@ -380,8 +380,8 @@ body.is-admin .admin-only-block{display:block}
 <div class="top-bar">
   <div class="top-inner">
     <div>
-      <div class="top-title"><i class="ti ti-school" style="margin-right:8px"></i>Electrical &amp; Computer Engineering — Graduate Students &amp; Research Database</div>
-      <div class="top-sub">Department of Electrical and Computer Engineering - Air University Islamabad </div>
+      <div class="top-title"><i class="ti ti-school" style="margin-right:8px"></i>Graduate Students &amp; Research Database</div>
+      <div class="top-sub">Department of Electrical Engineering and Department of Computer & Software Engineering - Air University Islamabad </div>
     </div>
     <div class="top-badges">
       <span id="syncStatus" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgb(74, 222, 128); border-radius: 9999px; color: rgb(74, 222, 128); font-size: 12px; padding: 4px 12px; display: inline-flex; align-items: center; gap: 5px;"><i class="ti ti-cloud-check"></i>Synced</span>
@@ -5722,21 +5722,56 @@ function exportExcel(){
   }
 }
 
+// Applies a banded "Excel table" look (colored header, alternating row fills, borders) to a worksheet
+function _styleAsTable(ws, numCols, numDataRows, opts){
+  opts = opts||{};
+  const headerFill = opts.headerFill || "185FA5";
+  const bandFill = opts.bandFill || "E6F1FB";
+  const wrapCols = opts.wrapCols || new Set();
+  const centerCols = opts.centerCols || new Set();
+  const thin = {style:"thin",color:{rgb:"C7CDD6"}};
+  const borderAll = {top:thin,bottom:thin,left:thin,right:thin};
+  const headerBorder = {top:thin,bottom:{style:"medium",color:{rgb:headerFill}},left:thin,right:thin};
+
+  for(let C=0; C<numCols; C++){
+    const cell = ws[XLSX.utils.encode_cell({r:0,c:C})];
+    if(cell) cell.s = {font:{bold:true,color:{rgb:"FFFFFF"}},fill:{fgColor:{rgb:headerFill}},alignment:{horizontal:"center",vertical:"center",wrapText:true},border:headerBorder};
+  }
+  for(let R=1; R<=numDataRows; R++){
+    const zebra = (R % 2 === 0) ? {fgColor:{rgb:bandFill}} : {fgColor:{rgb:"FFFFFF"}};
+    for(let C=0; C<numCols; C++){
+      const addr = XLSX.utils.encode_cell({r:R,c:C});
+      let cell = ws[addr];
+      if(!cell){ cell = {t:"s", v:""}; ws[addr] = cell; }
+      cell.s = {
+        border: borderAll,
+        alignment: {vertical:"top", wrapText: wrapCols.has(C), horizontal: centerCols.has(C) ? "center":"left"},
+        fill: zebra
+      };
+    }
+  }
+  ws['!autofilter'] = {ref: ws['!ref']};
+}
+
 function _doExcelExport(){
   const headers = [
-    "Name","ID","Degree","Session","Supervisor","Co-Supervisor",
-    "GEC Internal","GEC External","Thesis Topic",
-    "PDE Status","PDE Date","FDE Status","FDE Date","Study Mode",
-    "Status","Current Status","Email","Cell","GEC Formation (FBGS)","GEC Change (FBGS)","Extension (FBGS)"
+    "Name","ID","Degree","Session","Status","Current Status",
+    "Supervisor","Co-Supervisor","GEC Internal","GEC External",
+    "GEC Formation (FBGS)","GEC Change (FBGS)","Extension (FBGS)","Thesis Topic",
+    "PDE Status","PDE Date","Scheduled PDE Date","Scheduled PDE Time","PDE Venue",
+    "FDE Status","FDE Date","Scheduled FDE Date","Scheduled FDE Time","FDE Venue",
+    "Study Mode","Email","Cell","Admin Remarks"
   ];
   const rows = STUDENTS.map(s=>{
     const cs = computeCurrentStatus(s);
     const currentStatus = cs ? cs.label : "—";
     return [
-      s.name, s.id, s.degree, s.session, s.sup, s.cosup,
-      s.gecInternal, s.gecExternal, s.topic,
-      s.pde, s.pdeDate, s.fde, s.fdeDate, getStudyMode(s),
-      s.status, currentStatus, s.email, s.cell, s.gecFormation, s.gecChange, s.extension
+      s.name, s.id, s.degree, s.session, s.status, currentStatus,
+      s.sup, s.cosup, s.gecInternal, s.gecExternal,
+      s.gecFormation, s.gecChange, s.extension, s.topic,
+      s.pde, s.pdeDate, s.scheduledPdeDate, s.scheduledPdeTime, s.scheduledPdeVenue,
+      s.fde, s.fdeDate, s.scheduledFdeDate, s.scheduledFdeTime, s.scheduledFdeVenue,
+      getStudyMode(s), s.email, s.cell, s.remarks
     ];
   });
 
@@ -5746,20 +5781,20 @@ function _doExcelExport(){
   const wsData = [headers, ...rows];
   const ws = XLSX.utils.aoa_to_sheet(wsData);
 
-  // Column widths
   ws['!cols'] = [
-    {wch:28},{wch:10},{wch:7},{wch:12},{wch:24},{wch:24},
-    {wch:36},{wch:32},{wch:50},
-    {wch:10},{wch:16},{wch:10},{wch:16},{wch:14},
-    {wch:12},{wch:14},{wch:28},{wch:18},{wch:20},{wch:18},{wch:16}
+    {wch:26},{wch:10},{wch:8},{wch:12},{wch:14},{wch:14},
+    {wch:22},{wch:22},{wch:20},{wch:20},
+    {wch:16},{wch:16},{wch:14},{wch:44},
+    {wch:11},{wch:14},{wch:14},{wch:12},{wch:16},
+    {wch:11},{wch:14},{wch:14},{wch:12},{wch:16},
+    {wch:12},{wch:26},{wch:16},{wch:36}
   ];
+  ws['!rows'] = [{hpx:26}]; // taller header row
 
-  // Bold header row
-  const range = XLSX.utils.decode_range(ws['!ref']);
-  for(let C=range.s.c; C<=range.e.c; C++){
-    const cell = ws[XLSX.utils.encode_cell({r:0,c:C})];
-    if(cell) cell.s = {font:{bold:true},fill:{fgColor:{rgb:"1A1A2E"}},alignment:{horizontal:"center"}};
-  }
+  _styleAsTable(ws, headers.length, rows.length, {
+    wrapCols: new Set([13,27]),      // Thesis Topic, Admin Remarks
+    centerCols: new Set([2,4])       // Degree, Status
+  });
 
   XLSX.utils.book_append_sheet(wb, ws, "Students");
 
@@ -5775,11 +5810,11 @@ function _doExcelExport(){
   });
   const ws2 = XLSX.utils.aoa_to_sheet([supHeaders,...supRows]);
   ws2['!cols']=[{wch:28},{wch:22},{wch:10},{wch:14},{wch:36},{wch:11},{wch:11},{wch:7},{wch:7},{wch:18},{wch:18},{wch:12}];
-  const range2 = XLSX.utils.decode_range(ws2['!ref']);
-  for(let C=range2.s.c;C<=range2.e.c;C++){
-    const cell=ws2[XLSX.utils.encode_cell({r:0,c:C})];
-    if(cell) cell.s={font:{bold:true}};
-  }
+  ws2['!rows'] = [{hpx:26}];
+  _styleAsTable(ws2, supHeaders.length, supRows.length, {
+    headerFill:"0F6E56", bandFill:"E1F5EE",
+    centerCols: new Set([2,3,5,6,7,8,9,10,11])
+  });
   XLSX.utils.book_append_sheet(wb, ws2, "Supervisors");
 
   XLSX.writeFile(wb, "MS_PhD_Student_Database_"+new Date().toISOString().slice(0,10)+".xlsx");
@@ -6056,7 +6091,7 @@ Please confirm your availability by replying to this email.
 
 Best regards,
 [Your Name]
-Department of Electrical and Computer Engineering
+Department of Electrical Engineering and Department of Computer & Software Engineering
 Air University, Islamabad
 Email: nauman.aman@au.edu.pk`
     : `Dear ${s.name},
@@ -6081,7 +6116,7 @@ Please confirm your availability by replying to this email.
 
 Best regards,
 [Your Name]
-Department of Electrical and Computer Engineering
+Department of Electrical Engineering and Department of Computer & Software Engineering
 Air University, Islamabad
 Email: nauman.aman@au.edu.pk`;
 
