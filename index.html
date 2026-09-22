@@ -527,6 +527,14 @@ body.is-admin .admin-only-block{display:block}
         <select id="fGECInternal" onchange="applyFilters()" fdprocessedid="6m2di"><option value="">All GEC Internal</option><option value="Dr. Ahsan Sarwar Rana">Dr. Ahsan Sarwar Rana</option><option value="Dr. Amina Asif">Dr. Amina Asif</option><option value="Dr. Ashfaq Ahmad">Dr. Ashfaq Ahmad</option><option value="Dr. Ayesha Salman">Dr. Ayesha Salman</option><option value="Dr. Bahman">Dr. Bahman</option><option value="Dr. Bahman R. Alyaei">Dr. Bahman R. Alyaei</option><option value="Dr. Hafiz Ashiq Hussain">Dr. Hafiz Ashiq Hussain</option><option value="Dr. Imran Farid">Dr. Imran Farid</option><option value="Dr. Jehanzeb Khan">Dr. Jehanzeb Khan</option><option value="Dr. Muhammad Adil Khan">Dr. Muhammad Adil Khan</option><option value="Dr. Muhammad Zaheer">Dr. Muhammad Zaheer</option><option value="Dr. Muntazir Hussain">Dr. Muntazir Hussain</option><option value="Dr. Najam Dar">Dr. Najam Dar</option><option value="Dr. Qumrish Arooj">Dr. Qumrish Arooj</option><option value="Dr. Rana Iqditar Shakoor">Dr. Rana Iqditar Shakoor</option><option value="Dr. Saad Ullah Khan">Dr. Saad Ullah Khan</option><option value="Dr. Saleem Shahid">Dr. Saleem Shahid</option><option value="Dr. Sara Saeed">Dr. Sara Saeed</option><option value="Dr. Sarah Saeed">Dr. Sarah Saeed</option><option value="Dr. Shahbaz Khan">Dr. Shahbaz Khan</option><option value="Dr. Shahzad">Dr. Shahzad</option><option value="Dr. Sher Ali">Dr. Sher Ali</option><option value="Dr. Syed Ahmed Pasha">Dr. Syed Ahmed Pasha</option><option value="Dr. Syed Hammad Nazeer">Dr. Syed Hammad Nazeer</option><option value="Dr. Tufail Muhammad">Dr. Tufail Muhammad</option><option value="Dr. Waseem Khan">Dr. Waseem Khan</option></select>
         <select id="fGECExternal" onchange="applyFilters()" fdprocessedid="sapl7j"><option value="">All GEC External</option><option value="Dr. Abraiz Khattak (NUST)">Dr. Abraiz Khattak (NUST)</option><option value="Dr. Adil Ali Raja (BU)">Dr. Adil Ali Raja (BU)</option><option value="Dr. Arsalan Shaukat (NUST)">Dr. Arsalan Shaukat (NUST)</option><option value="Dr. Asad Waqar (BU)">Dr. Asad Waqar (BU)</option><option value="Dr. Awais Ahmed (QAU)">Dr. Awais Ahmed (QAU)</option><option value="Dr. Awais Shahid (CUST)">Dr. Awais Shahid (CUST)</option><option value="Dr. Dur-E-Zehra Baig (GIKI)">Dr. Dur-E-Zehra Baig (GIKI)</option><option value="Dr. Junaid Ali Khan (HITECH)">Dr. Junaid Ali Khan (HITECH)</option><option value="Dr. Kamran Zeb (NUST)">Dr. Kamran Zeb (NUST)</option><option value="Dr. Khurram Saleem">Dr. Khurram Saleem</option><option value="Dr. M.Rehan (PIEAS)">Dr. M.Rehan (PIEAS)</option><option value="Dr. Muhammad Aamir (PAF IAST)">Dr. Muhammad Aamir (PAF IAST)</option><option value="Dr. Muhammad Ali Mughal (HITECH)">Dr. Muhammad Ali Mughal (HITECH)</option><option value="Dr. Muhammad Amir (BU)">Dr. Muhammad Amir (BU)</option><option value="Dr. Muhammad Sohail (NUST)">Dr. Muhammad Sohail (NUST)</option><option value="Dr. Rasool Bukhsh (COMSATS)">Dr. Rasool Bukhsh (COMSATS)</option><option value="Dr. Rasool Bukhsh (CUI)">Dr. Rasool Bukhsh (CUI)</option><option value="Dr. Shafiq Haider (UET Taxila)">Dr. Shafiq Haider (UET Taxila)</option><option value="Dr. Sohaira Ahmad (University of Wah)">Dr. Sohaira Ahmad (University of Wah)</option><option value="Dr. Syed Ali Abbas Kazmi (NUST)">Dr. Syed Ali Abbas Kazmi (NUST)</option><option value="Dr. Taimoor Naeem (COMSATS)">Dr. Taimoor Naeem (COMSATS)</option><option value="Dr. Usman Akram (NUST)">Dr. Usman Akram (NUST)</option><option value="Dr. Usman Ali (NUST)">Dr. Usman Ali (NUST)</option><option value="Dr. Usman Hashmi (Iqra University)">Dr. Usman Hashmi (Iqra University)</option><option value="Dr. Waqaruddin (NUTECH)">Dr. Waqaruddin (NUTECH)</option><option value="Dr. Zartasha Mustansar (NUST)">Dr. Zartasha Mustansar (NUST)</option></select>
         <button class="add-btn admin-only" id="addStudentBtn" onclick="openAddStudent()"><i class="ti ti-plus"></i>Add Student</button>
+        <select id="batchEmailSelect" class="admin-only" title="Send one email to every student in a batch" style="padding:8px 10px;border:1px solid var(--border);border-radius:var(--rm);font-size:13px;color:var(--text);background:var(--bg2);outline:none;cursor:pointer;font-family:inherit;font-weight:600" onchange="if(this.value){composeBatchEmail(this.value);this.value='';}">
+          <option value="">✉️ Email Batch…</option>
+          <option value="MSEE">All MSEE Students</option>
+          <option value="PhDEE">All PhDEE Students</option>
+          <option value="MSCE">All MSCE Students</option>
+          <option value="PhDCE">All PhDCE Students</option>
+          <option value="ALL">All Students (Every Degree)</option>
+        </select>
       </div>
       <div class="count-info" id="countBar">Showing 6 of 53 students — click a row or use action buttons</div>
     </div>
@@ -6244,6 +6252,41 @@ function applyTemplate(type, s){
 
 function closeEmailModal(){
   document.getElementById('emailModal').classList.remove('open');
+}
+
+// ─── Batch Email (send one email to an entire degree batch, e.g. all MSEE / PhDEE) ──
+function composeBatchEmail(degree){
+  const list = STUDENTS.filter(s => (degree === 'ALL' || s.degree === degree) && s.email && s.email.trim());
+  const label = degree === 'ALL' ? 'All Students' : degree;
+
+  if(!list.length){
+    showToast(`No students with an email address found for ${label}`, 'error');
+    return;
+  }
+
+  const emails = list.map(s => s.email.trim()).join(', ');
+
+  document.getElementById('emailModalHeader').className = 'email-modal-header pde-header';
+  document.getElementById('emailModalTitle').innerHTML =
+    `<i class="ti ti-users"></i>Batch Email — ${label}`;
+  document.getElementById('emailModalSub').textContent =
+    `${list.length} recipient${list.length > 1 ? 's' : ''} · ${label}`;
+
+  document.getElementById('emailTo').value = emails;
+  document.getElementById('emailCc').value = '';
+  document.getElementById('emailSubject').value = `Notice for ${label}`;
+  document.getElementById('emailBody').value =
+`Dear Students,
+
+[Write your message here]
+
+Best regards,
+Department of Electrical Engineering and Department of Computer & Software Engineering
+Air University, Islamabad
+Email: nauman.aman@au.edu.pk`;
+
+  document.getElementById('emailModal').classList.add('open');
+  showToast(`Loaded ${list.length} recipient${list.length > 1 ? 's' : ''} for ${label}`);
 }
 
 function openMailClient(){
