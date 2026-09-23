@@ -16,7 +16,18 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
 <link href="./MS_PhD Electrical Engineering Students&#39; Database — Dept. of Electrical Engineering_files/css2" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'IBM Plex Sans',sans-serif;background:#f0f2f5;color:#1a1a2e;min-height:100vh}
+*{scrollbar-width:thin;scrollbar-color:var(--border2) transparent}
+*::-webkit-scrollbar{height:8px;width:8px}
+*::-webkit-scrollbar-track{background:transparent}
+*::-webkit-scrollbar-thumb{background:var(--border2);border-radius:9999px}
+*::-webkit-scrollbar-thumb:hover{background:#b6bbc4}
+html{scroll-behavior:smooth}
+body{font-family:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f2f5;color:#1a1a2e;min-height:100vh;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;line-height:1.5}
+::selection{background:var(--blue);color:#fff}
+a{color:inherit}
+button,select,input,textarea{font-family:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:4px}
 :root{
   --bg:#ffffff;--bg2:#f0f2f5;--bg3:#e8eaee;
   --text:#1a1a2e;--text2:#6b7280;--text3:#9ca3af;
@@ -34,7 +45,7 @@ body{font-family:'IBM Plex Sans',sans-serif;background:#f0f2f5;color:#1a1a2e;min
 }
 
 /* Header */
-.top-bar{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);padding:0;box-shadow:var(--shm)}
+.top-bar{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);padding:0;box-shadow:var(--shm);position:sticky;top:0;z-index:200}
 .top-inner{max-width:1920px;margin:0 auto;padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .top-title{color:#fff;font-size:20px;font-weight:700;letter-spacing:-0.3px}
 .top-sub{color:rgba(255,255,255,0.6);font-size:13px;margin-top:2px}
@@ -47,10 +58,10 @@ body{font-family:'IBM Plex Sans',sans-serif;background:#f0f2f5;color:#1a1a2e;min
 .main{max-width:1920px;margin:0 auto;padding:1.5rem}
 
 /* Tabs */
-.tab-row{display:flex;gap:6px;margin-bottom:1.25rem}
-.tab-btn{padding:8px 18px;border-radius:var(--rm);border:1px solid var(--border);background:var(--bg);font-size:13px;font-weight:500;cursor:pointer;color:var(--text2);transition:all 0.15s;font-family:inherit}
-.tab-btn:hover{background:var(--bg3)}
-.tab-btn.active{background:#1a1a2e;color:#fff;border-color:#1a1a2e}
+.tab-row{display:flex;gap:6px;margin-bottom:1.25rem;background:#fff;padding:6px;border-radius:var(--rl);border:1px solid var(--border);box-shadow:var(--sh);width:fit-content}
+.tab-btn{padding:9px 20px;border-radius:var(--rm);border:1px solid transparent;background:transparent;font-size:13px;font-weight:600;cursor:pointer;color:var(--text2);transition:all 0.18s ease}
+.tab-btn:hover{background:var(--bg3);color:var(--text)}
+.tab-btn.active{background:#1a1a2e;color:#fff;border-color:#1a1a2e;box-shadow:0 2px 6px rgba(26,26,46,0.25)}
 
 /* Stats */
 	.stats-section-label{font-size:11px;font-weight:700;letter-spacing:0.7px;color:var(--text2);padding:10px 12px;margin-top:14px;margin-bottom:4px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:6px;cursor:pointer;background:rgba(0,0,0,0.02);border-radius:var(--rm) var(--rm) 0 0;transition:all 0.2s}
@@ -66,7 +77,8 @@ body{font-family:'IBM Plex Sans',sans-serif;background:#f0f2f5;color:#1a1a2e;min
 .deg-label-phdee::before{background:var(--teal)}
 .deg-label-phdce::before{background:var(--teal)}
 #statsGrid{margin-bottom:1.25rem}
-.stat-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--rl);padding:14px 16px;box-shadow:var(--sh)}
+.stat-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--rl);padding:14px 16px;box-shadow:var(--sh);transition:transform 0.15s ease,box-shadow 0.15s ease}
+.stat-card:hover{transform:translateY(-2px);box-shadow:var(--shm)}
 .stat-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);margin-bottom:6px}
 .stat-value{font-size:28px;font-weight:700;line-height:1}
 .sv-blue{color:var(--blue)}.sv-purple{color:var(--purple)}.sv-teal{color:var(--teal)}.sv-green{color:var(--green)}.sv-coral{color:var(--coral)}.sv-amber{color:var(--amber)}
@@ -76,31 +88,37 @@ body{font-family:'IBM Plex Sans',sans-serif;background:#f0f2f5;color:#1a1a2e;min
 .filter-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .search-wrap{position:relative;flex:1;min-width:200px}
 .search-wrap i{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:16px}
-.search-wrap input{width:100%;padding:8px 10px 8px 34px;border:1px solid var(--border);border-radius:var(--rm);font-size:13px;color:var(--text);background:var(--bg2);outline:none;transition:border 0.15s;font-family:inherit}
+.search-wrap input{width:100%;padding:8px 10px 8px 34px;border:1px solid var(--border);border-radius:var(--rm);font-size:13px;color:var(--text);background:var(--bg2);outline:none;transition:border 0.15s,background 0.15s;font-family:inherit}
+.search-wrap input:hover{border-color:var(--border2)}
 .search-wrap input:focus{border-color:var(--blue);background:#fff}
-select{padding:8px 10px;border:1px solid var(--border);border-radius:var(--rm);font-size:13px;color:var(--text);background:var(--bg2);outline:none;cursor:pointer;transition:border 0.15s;font-family:inherit}
+select{padding:8px 10px;border:1px solid var(--border);border-radius:var(--rm);font-size:13px;color:var(--text);background:var(--bg2);outline:none;cursor:pointer;transition:border 0.15s,background 0.15s;font-family:inherit}
+select:hover{border-color:var(--border2)}
 select:focus{border-color:var(--blue);background:#fff}
 .count-info{font-size:12px;color:var(--text3);margin-top:8px}
 
 /* Add Student Btn */
 .add-btn{background:#1a1a2e;color:#fff;border:none;border-radius:var(--rm);padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.15s;align-items:center;gap:6px;font-family:inherit}
-.add-btn:hover{background:#0f3460}
+.add-btn:hover{background:#0f3460;transform:translateY(-1px);box-shadow:0 4px 10px rgba(15,52,96,0.25)}
+.add-btn:active{transform:translateY(0)}
 
 /* Table */
 .table-wrap{background:var(--bg);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;box-shadow:var(--sh)}
-.table-scroll{overflow-x:auto}
+.table-scroll{overflow-x:auto;max-height:72vh;overflow-y:auto}
 table{width:100%;border-collapse:collapse;font-size:12.5px}
 thead tr{background:#f8f9fb}
+thead th{position:sticky;top:0;z-index:5;background:#f8f9fb;box-shadow:inset 0 -1px 0 var(--border)}
 th{text-align:left;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--text2);padding:9px 10px;border-bottom:1px solid var(--border);white-space:nowrap}
 td{padding:7px 10px;border-bottom:1px solid var(--border);vertical-align:middle;color:var(--text)}
 tbody tr:last-child td{border-bottom:none}
-tbody tr{transition:background 0.1s}
-tbody tr:hover td{background:#f8fbff}
+tbody tr{transition:background 0.12s}
+tbody tr:nth-child(even){background:#fafbfd}
+tbody tr:hover td{background:#eef6ff}
 .name-cell{font-weight:600;font-size:13px}
 .id-tag{font-size:11px;color:var(--text3);margin-top:2px;font-family:'IBM Plex Mono',monospace}
 .no-results{text-align:center;padding:3rem;color:var(--text3)}
 .actions-cell{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
 .act-btn{border:none;border-radius:var(--r);padding:5px 8px;cursor:pointer;font-size:12px;transition:all 0.15s;display:flex;align-items:center;gap:4px;font-family:inherit;font-weight:500}
+.act-btn:hover{filter:brightness(0.94);transform:translateY(-1px)}
 .btn-edit{background:var(--blue-l);color:var(--blue-d)}
 .btn-edit:hover{background:#cce3f5}
 .btn-del{background:var(--red-l);color:var(--red-d)}
@@ -122,9 +140,10 @@ tbody tr:hover td{background:#f8fbff}
 .b-coursework{background:var(--purple-l);color:var(--purple-d)}
 
 /* Modal */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,15,30,0.55);z-index:999;align-items:center;justify-content:center;padding:1rem}
-.modal-overlay.open{display:flex}
-.modal-box{background:#fff;border-radius:var(--rl);width:min(660px,100%);max-height:92vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.25)}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,15,30,0.55);z-index:999;align-items:center;justify-content:center;padding:1rem;opacity:0;transition:opacity 0.18s ease}
+.modal-overlay.open{display:flex;opacity:1}
+.modal-box{background:#fff;border-radius:var(--rl);width:min(660px,100%);max-height:92vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.25);transform:translateY(8px) scale(0.98);transition:transform 0.18s ease}
+.modal-overlay.open .modal-box{transform:translateY(0) scale(1)}
 .modal-header{background:linear-gradient(135deg,#1a1a2e,#0f3460);padding:1.5rem;border-radius:var(--rl) var(--rl) 0 0;position:relative}
 .modal-close{position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.15);border:none;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:16px;transition:background 0.15s}
 .modal-close:hover{background:rgba(255,255,255,0.25)}
@@ -165,7 +184,8 @@ tbody tr:hover td{background:#f8fbff}
 
 /* Supervisors */
 .sup-grid{display:grid;gap:10px}
-.sup-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--rl);padding:16px;box-shadow:var(--sh);position:relative}
+.sup-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--rl);padding:16px;box-shadow:var(--sh);position:relative;transition:box-shadow 0.15s ease}
+.sup-card:hover{box-shadow:var(--shm)}
 .sup-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap}
 .sup-name{font-size:15px;font-weight:700;color:var(--text)}
 .sup-desg{font-size:12px;color:var(--text2);margin-top:2px}
@@ -275,9 +295,10 @@ body.is-admin .admin-only-block{display:block}
 .admin-only-block{display:none}
 
 /* Email Draft Modal */
-.email-modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,15,30,0.6);z-index:1200;align-items:center;justify-content:center;padding:1rem}
-.email-modal-overlay.open{display:flex}
-.email-modal-box{background:#fff;border-radius:var(--rl);width:min(580px,100%);max-height:92vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,0.3)}
+.email-modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,15,30,0.6);z-index:1200;align-items:center;justify-content:center;padding:1rem;opacity:0;transition:opacity 0.18s ease}
+.email-modal-overlay.open{display:flex;opacity:1}
+.email-modal-box{background:#fff;border-radius:var(--rl);width:min(580px,100%);max-height:92vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,0.3);transform:translateY(8px) scale(0.98);transition:transform 0.18s ease}
+.email-modal-overlay.open .email-modal-box{transform:translateY(0) scale(1)}
 .email-modal-header{padding:1.25rem 1.5rem;border-radius:var(--rl) var(--rl) 0 0;position:relative}
 .email-modal-header.pde-header{background:linear-gradient(135deg,#534AB7,#3C3489)}
 .email-modal-header.fde-header{background:linear-gradient(135deg,#0F6E56,#085041)}
@@ -306,9 +327,10 @@ body.is-admin .admin-only-block{display:block}
 
 @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 /* Template Editor Modal */
-.tmpl-overlay{display:none;position:fixed;inset:0;background:rgba(15,15,30,0.7);z-index:1400;align-items:center;justify-content:center;padding:1rem}
-.tmpl-overlay.open{display:flex}
-.tmpl-box{background:#fff;border-radius:var(--rl);width:min(680px,100%);max-height:94vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,0.35)}
+.tmpl-overlay{display:none;position:fixed;inset:0;background:rgba(15,15,30,0.7);z-index:1400;align-items:center;justify-content:center;padding:1rem;opacity:0;transition:opacity 0.18s ease}
+.tmpl-overlay.open{display:flex;opacity:1}
+.tmpl-box{background:#fff;border-radius:var(--rl);width:min(680px,100%);max-height:94vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,0.35);transform:translateY(8px) scale(0.98);transition:transform 0.18s ease}
+.tmpl-overlay.open .tmpl-box{transform:translateY(0) scale(1)}
 .tmpl-header{background:linear-gradient(135deg,#1a1a2e,#0f3460);padding:1.25rem 1.5rem;border-radius:var(--rl) var(--rl) 0 0;position:relative;display:flex;align-items:center;gap:10px}
 .tmpl-header-title{color:#fff;font-size:16px;font-weight:700;flex:1}
 .tmpl-close{background:rgba(255,255,255,0.15);border:none;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:16px;transition:background 0.15s}
@@ -535,6 +557,7 @@ body.is-admin .admin-only-block{display:block}
           <option value="PhDCE">PhDCE — Enrolled Only</option>
           <option value="ALL">All Degrees — Enrolled Only</option>
         </select>
+        <button class="add-btn admin-only" id="bulkImportBtn" onclick="openBulkImport()"><i class="ti ti-file-upload"></i>Bulk Import</button>
       </div>
       <div class="count-info" id="countBar">Showing 6 of 53 students — click a row or use action buttons</div>
     </div>
@@ -2714,6 +2737,34 @@ SL-F-23</div>
     <button class="btn-cancel" onclick="closeModal()">Cancel</button>
     <button class="btn-save" onclick="saveStudent(3)"><i class="ti ti-device-floppy" style="margin-right:4px"></i>Save Changes</button>
   </div></div>
+</div>
+
+<!-- Bulk Import Students Modal -->
+<div class="modal-overlay" id="bulkImportModal" onclick="if(event.target===this)closeBulkImportModal()">
+  <div class="modal-box" style="width:min(640px,100%)">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeBulkImportModal()"><i class="ti ti-x"></i></button>
+      <div class="modal-name"><i class="ti ti-file-upload" style="margin-right:8px"></i>Bulk Import Students</div>
+      <div class="modal-meta">Upload an Excel (.xlsx) or CSV file to add many students at once</div>
+    </div>
+    <div class="modal-body">
+      <div style="background:var(--blue-l);border:1px solid var(--border);border-radius:var(--rm);padding:12px 14px;font-size:12.5px;color:var(--blue-d);line-height:1.6;margin-bottom:16px">
+        <strong>How it works:</strong> Download the template below, fill in one row per student, then upload it here. Required columns are <strong>Name</strong>, <strong>ID</strong> and <strong>Degree</strong> (MSEE / MSCE / PhDEE / PhDCE). Everything else is optional. Rows with a duplicate ID or an invalid Degree/Status will be skipped and listed for you.
+      </div>
+      <button class="btn-copy-email" onclick="downloadBulkTemplate()" style="margin-bottom:16px">
+        <i class="ti ti-download"></i>Download Excel Template
+      </button>
+      <div class="form-row">
+        <label>Upload Filled Excel / CSV File</label>
+        <input type="file" id="bulkImportFile" accept=".xlsx,.xls,.csv" onchange="handleBulkFile(this)" style="width:100%;padding:9px 11px;border:1px solid var(--border2);border-radius:var(--rm);font-size:13px;font-family:inherit;background:#fff">
+      </div>
+      <div id="bulkImportSummary" style="margin-top:14px"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeBulkImportModal()">Cancel</button>
+      <button class="btn-save" id="bulkImportConfirmBtn" style="display:none" onclick="confirmBulkImport()"><i class="ti ti-check" style="margin-right:4px"></i>Confirm Import</button>
+    </div>
+  </div>
 </div>
 
 <!-- Confirm Delete Modal -->
@@ -4965,7 +5016,7 @@ function renderTable(data){
       </div></td>
     </tr>`;
   }).join("");
-  document.getElementById("tBody").innerHTML=rows||'<tr><td colspan="18" class="no-results"><i class="ti ti-search-off" style="font-size:32px;display:block;margin-bottom:8px;opacity:0.4"></i>No students match the current filters</td></tr>';
+  document.getElementById("tBody").innerHTML=rows||'<tr><td colspan="18" class="no-results"><i class="ti ti-search-off" style="font-size:36px;display:block;margin-bottom:10px;opacity:0.4"></i><div style="font-size:14px;font-weight:600;color:var(--text2);margin-bottom:4px">No students match these filters</div><div style="font-size:12px;color:var(--text3)">Try clearing a filter or adjusting your search</div></td></tr>';
 }
 
 // ─── Inline Remarks ───────────────────────────────────────────────────────────
@@ -5345,6 +5396,153 @@ function addStudent(){
   buildSupervisors();
   persistData();
   showToast("Student added successfully");
+}
+
+// ─── Bulk Import Students (Excel / CSV) ────────────────────────────────────────
+const BULK_VALID_DEGREES = { MSEE:"MSEE", MSCE:"MSCE", PHDEE:"PhDEE", PHDCE:"PhDCE" };
+let _bulkImportRows = [];
+
+function openBulkImport(){
+  if(!isAdmin){showToast("Admin access required","error");return;}
+  document.getElementById('bulkImportFile').value='';
+  document.getElementById('bulkImportSummary').innerHTML='';
+  document.getElementById('bulkImportConfirmBtn').style.display='none';
+  _bulkImportRows = [];
+  document.getElementById('bulkImportModal').classList.add('open');
+}
+function closeBulkImportModal(){
+  document.getElementById('bulkImportModal').classList.remove('open');
+}
+
+function _loadXLSX(cb){
+  if(typeof XLSX !== 'undefined'){ cb(); return; }
+  const s=document.createElement('script');
+  s.src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+  s.onload=cb;
+  document.head.appendChild(s);
+}
+
+function downloadBulkTemplate(){
+  _loadXLSX(_doDownloadBulkTemplate);
+}
+function _doDownloadBulkTemplate(){
+  const headers = ["Name","ID","Degree","Session","Status","Email","Cell","Supervisor","Thesis Topic"];
+  const example = ["Ali Raza","2504399","MSEE","Fall-2025","Enrolled","ali.raza@example.com","92 300-1234567","Dr. Ashfaq Ahmad","(optional — can be left blank)"];
+  const ws = XLSX.utils.aoa_to_sheet([headers, example]);
+  ws['!cols']=[{wch:24},{wch:12},{wch:10},{wch:12},{wch:14},{wch:26},{wch:16},{wch:22},{wch:34}];
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Students");
+  XLSX.writeFile(wb, "Student_Bulk_Import_Template.xlsx");
+  showToast("Template downloaded");
+}
+
+function normBulkDegree(v){
+  const key = (v||'').toString().trim().toUpperCase().replace(/\s+/g,'');
+  return BULK_VALID_DEGREES[key] || null;
+}
+function normBulkStatus(v){
+  const s = (v||'').toString().trim().toLowerCase();
+  if(!s) return "Enrolled";
+  if(s.startsWith('enroll')) return "Enrolled";
+  if(s.startsWith('complet')) return "Completed";
+  if(s.startsWith('left')) return "Left";
+  if(s.includes('semester')||s.includes('leave')) return "Semester Leave";
+  return null;
+}
+
+function handleBulkFile(input){
+  const file = input.files[0];
+  if(!file) return;
+  const summaryEl = document.getElementById('bulkImportSummary');
+  summaryEl.innerHTML = '<span style="color:var(--text3);font-size:13px">Reading file…</span>';
+  _loadXLSX(()=>{
+    const reader = new FileReader();
+    reader.onload = e => {
+      try{
+        const data = new Uint8Array(e.target.result);
+        const wb = XLSX.read(data, {type:'array'});
+        const sheet = wb.Sheets[wb.SheetNames[0]];
+        const rows = XLSX.utils.sheet_to_json(sheet, {defval:''});
+        processBulkRows(rows);
+      }catch(err){
+        summaryEl.innerHTML = `<span style="color:var(--red-d);font-size:13px"><i class="ti ti-alert-circle"></i> Could not read file: ${esc(err.message)}</span>`;
+      }
+    };
+    reader.onerror = () => {
+      summaryEl.innerHTML = '<span style="color:var(--red-d);font-size:13px">Could not read the selected file.</span>';
+    };
+    reader.readAsArrayBuffer(file);
+  });
+}
+
+function _bulkField(r, ...keys){
+  for(const k of keys){ if(r[k]!==undefined && r[k]!==null && String(r[k]).trim()!=='') return String(r[k]).trim(); }
+  return '';
+}
+
+function processBulkRows(rows){
+  const existingIds = new Set(STUDENTS.map(s=>String(s.id).trim()));
+  const seenInFile = new Set();
+  const toAdd=[]; const errors=[];
+
+  rows.forEach((r,i)=>{
+    const rowNum = i+2; // +2 accounts for header row + 1-index
+    const name   = _bulkField(r,"Name","name");
+    const id     = _bulkField(r,"ID","Id","id");
+    const email  = _bulkField(r,"Email","email");
+    const cell   = _bulkField(r,"Cell","Cell Phone","cell");
+    const sup    = _bulkField(r,"Supervisor","supervisor");
+    const topic  = _bulkField(r,"Thesis Topic","Topic","topic");
+    const session= _bulkField(r,"Session","session");
+
+    if(!name || !id){ errors.push(`Row ${rowNum}: missing Name or ID — skipped`); return; }
+    if(existingIds.has(id)){ errors.push(`Row ${rowNum}: ID ${esc(id)} already exists in database — skipped`); return; }
+    if(seenInFile.has(id)){ errors.push(`Row ${rowNum}: duplicate ID ${esc(id)} in this file — skipped`); return; }
+
+    const degree = normBulkDegree(_bulkField(r,"Degree","degree"));
+    if(!degree){ errors.push(`Row ${rowNum}: invalid Degree "${esc(_bulkField(r,"Degree","degree")||'(blank)')}" (use MSEE, MSCE, PhDEE or PhDCE) — skipped`); return; }
+
+    const statusRaw = _bulkField(r,"Status","status");
+    const status = normBulkStatus(statusRaw);
+    if(!status){ errors.push(`Row ${rowNum}: invalid Status "${esc(statusRaw)}" (use Enrolled, Completed, Left or Semester Leave) — skipped`); return; }
+
+    seenInFile.add(id);
+    toAdd.push({
+      name, id, degree, session, status,
+      sup, cosup:"", gecInternal:"", gecExternal:"",
+      gecFormation:"", gecChange:"", extension:"",
+      topic, pde:"", pdeDate:"", fde:"", fdeDate:"",
+      studyMode:"", email, cell, remarks:""
+    });
+  });
+
+  _bulkImportRows = toAdd;
+  const summaryEl = document.getElementById('bulkImportSummary');
+  let html = `<div style="font-weight:600;color:var(--teal-d);font-size:13.5px"><i class="ti ti-circle-check"></i> ${toAdd.length} student${toAdd.length!==1?'s':''} ready to import</div>`;
+  if(errors.length){
+    html += `<div style="font-weight:600;color:var(--red-d);margin:10px 0 5px;font-size:13px"><i class="ti ti-alert-triangle"></i> ${errors.length} row${errors.length!==1?'s':''} skipped</div>
+    <div style="max-height:150px;overflow-y:auto;background:var(--bg2);border:1px solid var(--border);border-radius:var(--rm);padding:8px 10px;font-size:12px;color:var(--text2);line-height:1.7">${errors.map(e=>e).join('<br>')}</div>`;
+  }
+  if(!rows.length){
+    html = `<span style="color:var(--red-d);font-size:13px">The file has no data rows.</span>`;
+  }
+  summaryEl.innerHTML = html;
+  document.getElementById('bulkImportConfirmBtn').style.display = toAdd.length ? 'inline-flex' : 'none';
+}
+
+function confirmBulkImport(){
+  if(!_bulkImportRows.length) return;
+  const count = _bulkImportRows.length;
+  STUDENTS.push(..._bulkImportRows);
+  normalizeAllSupervisorNames();
+  syncDynamicPeople();
+  populateFilters();
+  applyFilters();
+  buildSupervisors();
+  persistData();
+  showToast(`${count} student${count!==1?'s':''} imported successfully`);
+  _bulkImportRows=[];
+  closeBulkImportModal();
 }
 
 // ─── Delete ───────────────────────────────────────────────────────────────────
