@@ -529,11 +529,11 @@ body.is-admin .admin-only-block{display:block}
         <button class="add-btn admin-only" id="addStudentBtn" onclick="openAddStudent()"><i class="ti ti-plus"></i>Add Student</button>
         <select id="batchEmailSelect" class="admin-only" title="Send one email to every student in a batch" style="padding:8px 10px;border:1px solid var(--border);border-radius:var(--rm);font-size:13px;color:var(--text);background:var(--bg2);outline:none;cursor:pointer;font-family:inherit;font-weight:600" onchange="if(this.value){composeBatchEmail(this.value);this.value='';}">
           <option value="">✉️ Email Batch…</option>
-          <option value="MSEE">All MSEE Students</option>
-          <option value="PhDEE">All PhDEE Students</option>
-          <option value="MSCE">All MSCE Students</option>
-          <option value="PhDCE">All PhDCE Students</option>
-          <option value="ALL">All Students (Every Degree)</option>
+          <option value="MSEE">MSEE — Enrolled Only</option>
+          <option value="PhDEE">PhDEE — Enrolled Only</option>
+          <option value="MSCE">MSCE — Enrolled Only</option>
+          <option value="PhDCE">PhDCE — Enrolled Only</option>
+          <option value="ALL">All Degrees — Enrolled Only</option>
         </select>
       </div>
       <div class="count-info" id="countBar">Showing 6 of 53 students — click a row or use action buttons</div>
@@ -6256,11 +6256,15 @@ function closeEmailModal(){
 
 // ─── Batch Email (send one email to an entire degree batch, e.g. all MSEE / PhDEE) ──
 function composeBatchEmail(degree){
-  const list = STUDENTS.filter(s => (degree === 'ALL' || s.degree === degree) && s.email && s.email.trim());
-  const label = degree === 'ALL' ? 'All Students' : degree;
+  const list = STUDENTS.filter(s =>
+    (degree === 'ALL' || s.degree === degree) &&
+    s.status === 'Enrolled' &&
+    s.email && s.email.trim()
+  );
+  const label = degree === 'ALL' ? 'All Enrolled Students' : `Enrolled ${degree}`;
 
   if(!list.length){
-    showToast(`No students with an email address found for ${label}`, 'error');
+    showToast(`No enrolled students with an email address found for ${degree === 'ALL' ? 'any degree' : degree}`, 'error');
     return;
   }
 
