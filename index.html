@@ -549,14 +549,7 @@ body.is-admin .admin-only-block{display:block}
         <select id="fGECInternal" onchange="applyFilters()" fdprocessedid="6m2di"><option value="">All GEC Internal</option><option value="Dr. Ahsan Sarwar Rana">Dr. Ahsan Sarwar Rana</option><option value="Dr. Amina Asif">Dr. Amina Asif</option><option value="Dr. Ashfaq Ahmad">Dr. Ashfaq Ahmad</option><option value="Dr. Ayesha Salman">Dr. Ayesha Salman</option><option value="Dr. Bahman">Dr. Bahman</option><option value="Dr. Bahman R. Alyaei">Dr. Bahman R. Alyaei</option><option value="Dr. Hafiz Ashiq Hussain">Dr. Hafiz Ashiq Hussain</option><option value="Dr. Imran Farid">Dr. Imran Farid</option><option value="Dr. Jehanzeb Khan">Dr. Jehanzeb Khan</option><option value="Dr. Muhammad Adil Khan">Dr. Muhammad Adil Khan</option><option value="Dr. Muhammad Zaheer">Dr. Muhammad Zaheer</option><option value="Dr. Muntazir Hussain">Dr. Muntazir Hussain</option><option value="Dr. Najam Dar">Dr. Najam Dar</option><option value="Dr. Qumrish Arooj">Dr. Qumrish Arooj</option><option value="Dr. Rana Iqditar Shakoor">Dr. Rana Iqditar Shakoor</option><option value="Dr. Saad Ullah Khan">Dr. Saad Ullah Khan</option><option value="Dr. Saleem Shahid">Dr. Saleem Shahid</option><option value="Dr. Sara Saeed">Dr. Sara Saeed</option><option value="Dr. Sarah Saeed">Dr. Sarah Saeed</option><option value="Dr. Shahbaz Khan">Dr. Shahbaz Khan</option><option value="Dr. Shahzad">Dr. Shahzad</option><option value="Dr. Sher Ali">Dr. Sher Ali</option><option value="Dr. Syed Ahmed Pasha">Dr. Syed Ahmed Pasha</option><option value="Dr. Syed Hammad Nazeer">Dr. Syed Hammad Nazeer</option><option value="Dr. Tufail Muhammad">Dr. Tufail Muhammad</option><option value="Dr. Waseem Khan">Dr. Waseem Khan</option></select>
         <select id="fGECExternal" onchange="applyFilters()" fdprocessedid="sapl7j"><option value="">All GEC External</option><option value="Dr. Abraiz Khattak (NUST)">Dr. Abraiz Khattak (NUST)</option><option value="Dr. Adil Ali Raja (BU)">Dr. Adil Ali Raja (BU)</option><option value="Dr. Arsalan Shaukat (NUST)">Dr. Arsalan Shaukat (NUST)</option><option value="Dr. Asad Waqar (BU)">Dr. Asad Waqar (BU)</option><option value="Dr. Awais Ahmed (QAU)">Dr. Awais Ahmed (QAU)</option><option value="Dr. Awais Shahid (CUST)">Dr. Awais Shahid (CUST)</option><option value="Dr. Dur-E-Zehra Baig (GIKI)">Dr. Dur-E-Zehra Baig (GIKI)</option><option value="Dr. Junaid Ali Khan (HITECH)">Dr. Junaid Ali Khan (HITECH)</option><option value="Dr. Kamran Zeb (NUST)">Dr. Kamran Zeb (NUST)</option><option value="Dr. Khurram Saleem">Dr. Khurram Saleem</option><option value="Dr. M.Rehan (PIEAS)">Dr. M.Rehan (PIEAS)</option><option value="Dr. Muhammad Aamir (PAF IAST)">Dr. Muhammad Aamir (PAF IAST)</option><option value="Dr. Muhammad Ali Mughal (HITECH)">Dr. Muhammad Ali Mughal (HITECH)</option><option value="Dr. Muhammad Amir (BU)">Dr. Muhammad Amir (BU)</option><option value="Dr. Muhammad Sohail (NUST)">Dr. Muhammad Sohail (NUST)</option><option value="Dr. Rasool Bukhsh (COMSATS)">Dr. Rasool Bukhsh (COMSATS)</option><option value="Dr. Rasool Bukhsh (CUI)">Dr. Rasool Bukhsh (CUI)</option><option value="Dr. Shafiq Haider (UET Taxila)">Dr. Shafiq Haider (UET Taxila)</option><option value="Dr. Sohaira Ahmad (University of Wah)">Dr. Sohaira Ahmad (University of Wah)</option><option value="Dr. Syed Ali Abbas Kazmi (NUST)">Dr. Syed Ali Abbas Kazmi (NUST)</option><option value="Dr. Taimoor Naeem (COMSATS)">Dr. Taimoor Naeem (COMSATS)</option><option value="Dr. Usman Akram (NUST)">Dr. Usman Akram (NUST)</option><option value="Dr. Usman Ali (NUST)">Dr. Usman Ali (NUST)</option><option value="Dr. Usman Hashmi (Iqra University)">Dr. Usman Hashmi (Iqra University)</option><option value="Dr. Waqaruddin (NUTECH)">Dr. Waqaruddin (NUTECH)</option><option value="Dr. Zartasha Mustansar (NUST)">Dr. Zartasha Mustansar (NUST)</option></select>
         <button class="add-btn admin-only" id="addStudentBtn" onclick="openAddStudent()"><i class="ti ti-plus"></i>Add Student</button>
-        <select id="batchEmailSelect" class="admin-only" title="Sends to Enrolled students in this degree. If you've also picked a Session in the filter above, only that session is included." style="padding:8px 10px;border:1px solid var(--border);border-radius:var(--rm);font-size:13px;color:var(--text);background:var(--bg2);outline:none;cursor:pointer;font-family:inherit;font-weight:600" onchange="if(this.value){composeBatchEmail(this.value);this.value='';}">
-          <option value="">✉️ Email Batch… (uses Session filter if set)</option>
-          <option value="MSEE">MSEE — Enrolled Only</option>
-          <option value="PhDEE">PhDEE — Enrolled Only</option>
-          <option value="MSCE">MSCE — Enrolled Only</option>
-          <option value="PhDCE">PhDCE — Enrolled Only</option>
-          <option value="ALL">All Degrees — Enrolled Only</option>
-        </select>
+        <button class="add-btn admin-only" id="bulkEmailBtn" title="Send an email to students filtered by degree, session and status" onclick="openBulkEmailModal()"><i class="ti ti-mail"></i>Bulk Email</button>
         <button class="add-btn admin-only" id="bulkImportBtn" onclick="openBulkImport()"><i class="ti ti-file-upload"></i>Bulk Import</button>
       </div>
       <div class="count-info" id="countBar">Showing 6 of 53 students — click a row or use action buttons</div>
@@ -2842,6 +2835,50 @@ SL-F-23</div>
       <button class="btn-copy-email" onclick="openGmail()" style="background:#fef2f2;color:#b91c1c;border-color:#fecaca;" title="Open in Gmail"><i class="ti ti-brand-gmail"></i>Gmail</button>
       <button class="btn-copy-email" onclick="openOutlook()" style="background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe;" title="Open in Outlook Web"><i class="ti ti-brand-windows"></i>Outlook</button>
       <button class="btn-send-email" onclick="openMailClient()"><i class="ti ti-mail-forward"></i>Mail Client</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Bulk Email Modal (filter by Degree / Session / Status) ──────────────── -->
+<div id="bulkEmailModal" class="email-modal-overlay" onclick="if(event.target===this)closeBulkEmailModal()">
+  <div class="email-modal-box" style="width:min(640px,100%)">
+    <div class="email-modal-header pde-header">
+      <button class="email-modal-close" onclick="closeBulkEmailModal()"><i class="ti ti-x"></i></button>
+      <div class="email-modal-title"><i class="ti ti-users"></i>Bulk Email</div>
+      <div class="email-modal-sub">Filter recipients by degree, session and status — pick "All" or specific values in each</div>
+    </div>
+    <div class="email-modal-body">
+      <div class="email-field-row">
+        <label class="email-field-label">Degree</label>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
+          <label style="display:flex;align-items:center;gap:5px;font-size:12px;padding:5px 10px;border:1px solid var(--border2);border-radius:9999px;background:var(--bg2);cursor:pointer;user-select:none"><input type="checkbox" id="bulkAllDeg" checked onchange="bulkAllToggle('Deg')">All Degrees</label>
+          <label style="display:flex;align-items:center;gap:5px;font-size:12px;padding:5px 10px;border:1px solid var(--border2);border-radius:9999px;background:var(--bg2);cursor:pointer;user-select:none;opacity:0.45"><input type="checkbox" class="bulkDegItem" value="MSEE" disabled onchange="bulkItemToggle('Deg')">MSEE</label>
+          <label style="display:flex;align-items:center;gap:5px;font-size:12px;padding:5px 10px;border:1px solid var(--border2);border-radius:9999px;background:var(--bg2);cursor:pointer;user-select:none;opacity:0.45"><input type="checkbox" class="bulkDegItem" value="PhDEE" disabled onchange="bulkItemToggle('Deg')">PhDEE</label>
+          <label style="display:flex;align-items:center;gap:5px;font-size:12px;padding:5px 10px;border:1px solid var(--border2);border-radius:9999px;background:var(--bg2);cursor:pointer;user-select:none;opacity:0.45"><input type="checkbox" class="bulkDegItem" value="MSCE" disabled onchange="bulkItemToggle('Deg')">MSCE</label>
+          <label style="display:flex;align-items:center;gap:5px;font-size:12px;padding:5px 10px;border:1px solid var(--border2);border-radius:9999px;background:var(--bg2);cursor:pointer;user-select:none;opacity:0.45"><input type="checkbox" class="bulkDegItem" value="PhDCE" disabled onchange="bulkItemToggle('Deg')">PhDCE</label>
+        </div>
+      </div>
+      <div class="email-field-row">
+        <label class="email-field-label">Session</label>
+        <div id="bulkSesRow" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
+          <label style="display:flex;align-items:center;gap:5px;font-size:12px;padding:5px 10px;border:1px solid var(--border2);border-radius:9999px;background:var(--bg2);cursor:pointer;user-select:none"><input type="checkbox" id="bulkAllSes" checked onchange="bulkAllToggle('Ses')">All Sessions</label>
+        </div>
+      </div>
+      <div class="email-field-row">
+        <label class="email-field-label">Status</label>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
+          <label style="display:flex;align-items:center;gap:5px;font-size:12px;padding:5px 10px;border:1px solid var(--border2);border-radius:9999px;background:var(--bg2);cursor:pointer;user-select:none"><input type="checkbox" id="bulkAllStat" checked onchange="bulkAllToggle('Stat')">All Statuses</label>
+          <label style="display:flex;align-items:center;gap:5px;font-size:12px;padding:5px 10px;border:1px solid var(--border2);border-radius:9999px;background:var(--bg2);cursor:pointer;user-select:none;opacity:0.45"><input type="checkbox" class="bulkStatItem" value="Enrolled" disabled onchange="bulkItemToggle('Stat')">Enrolled</label>
+          <label style="display:flex;align-items:center;gap:5px;font-size:12px;padding:5px 10px;border:1px solid var(--border2);border-radius:9999px;background:var(--bg2);cursor:pointer;user-select:none;opacity:0.45"><input type="checkbox" class="bulkStatItem" value="Completed" disabled onchange="bulkItemToggle('Stat')">Completed</label>
+          <label style="display:flex;align-items:center;gap:5px;font-size:12px;padding:5px 10px;border:1px solid var(--border2);border-radius:9999px;background:var(--bg2);cursor:pointer;user-select:none;opacity:0.45"><input type="checkbox" class="bulkStatItem" value="Left" disabled onchange="bulkItemToggle('Stat')">Left</label>
+          <label style="display:flex;align-items:center;gap:5px;font-size:12px;padding:5px 10px;border:1px solid var(--border2);border-radius:9999px;background:var(--bg2);cursor:pointer;user-select:none;opacity:0.45"><input type="checkbox" class="bulkStatItem" value="Semester Leave" disabled onchange="bulkItemToggle('Stat')">Semester Leave</label>
+        </div>
+      </div>
+      <div id="bulkEmailCount" style="font-size:13px;color:var(--text2);background:var(--bg2);border:1px solid var(--border);border-radius:var(--rm);padding:8px 12px;margin-top:6px"></div>
+    </div>
+    <div class="email-modal-footer">
+      <button class="btn-cancel" onclick="closeBulkEmailModal()">Cancel</button>
+      <button class="btn-send-email" onclick="composeBulkEmail()"><i class="ti ti-mail-forward"></i>Load Recipients &amp; Compose</button>
     </div>
   </div>
 </div>
@@ -6452,30 +6489,103 @@ function closeEmailModal(){
   document.getElementById('emailModal').classList.remove('open');
 }
 
-// ─── Batch Email (send one email to an entire degree batch, e.g. all MSEE / PhDEE) ──
-function composeBatchEmail(degree){
-  const sessionVal = (document.getElementById('fSession')?.value || '').trim();
-  const list = STUDENTS.filter(s =>
-    (degree === 'ALL' || s.degree === degree) &&
-    (!sessionVal || s.session === sessionVal) &&
-    s.status === 'Enrolled' &&
-    s.email && s.email.trim()
-  );
-  const degreeLabel = degree === 'ALL' ? 'All Degrees' : degree;
-  const label = sessionVal ? `${degreeLabel} · ${sessionVal}` : degreeLabel;
+// ─── Bulk Email (filter recipients by Degree / Session / Status, any combo) ──
+function openBulkEmailModal(){
+  // Reset Degree + Status back to "All" and disable their item checkboxes
+  document.getElementById('bulkAllDeg').checked = true;
+  document.querySelectorAll('.bulkDegItem').forEach(cb=>{
+    cb.checked = false; cb.disabled = true; cb.closest('label').style.opacity = '0.45';
+  });
+  document.getElementById('bulkAllStat').checked = true;
+  document.querySelectorAll('.bulkStatItem').forEach(cb=>{
+    cb.checked = false; cb.disabled = true; cb.closest('label').style.opacity = '0.45';
+  });
 
+  // Rebuild Session chips fresh from current STUDENTS data (so new sessions show up)
+  const sessions = [...new Set(STUDENTS.map(s => s.session).filter(Boolean))].sort();
+  const row = document.getElementById('bulkSesRow');
+  row.innerHTML = '<label style="display:flex;align-items:center;gap:5px;font-size:12px;padding:5px 10px;border:1px solid var(--border2);border-radius:9999px;background:var(--bg2);cursor:pointer;user-select:none"><input type="checkbox" id="bulkAllSes" checked onchange="bulkAllToggle(\'Ses\')">All Sessions</label>';
+  sessions.forEach(ses=>{
+    const lbl = document.createElement('label');
+    lbl.style.cssText = 'display:flex;align-items:center;gap:5px;font-size:12px;padding:5px 10px;border:1px solid var(--border2);border-radius:9999px;background:var(--bg2);cursor:pointer;user-select:none;opacity:0.45';
+    lbl.innerHTML = `<input type="checkbox" class="bulkSesItem" value="${ses}" disabled onchange="bulkItemToggle('Ses')">${ses}`;
+    row.appendChild(lbl);
+  });
+
+  updateBulkEmailCount();
+  document.getElementById('bulkEmailModal').classList.add('open');
+}
+
+function closeBulkEmailModal(){
+  document.getElementById('bulkEmailModal').classList.remove('open');
+}
+
+// group = 'Deg' | 'Ses' | 'Stat'. Checking "All" clears + disables the specific items in that group.
+function bulkAllToggle(group){
+  const allCb = document.getElementById('bulkAll'+group);
+  document.querySelectorAll('.bulk'+group+'Item').forEach(cb=>{
+    if(allCb.checked) cb.checked = false;
+    cb.disabled = allCb.checked;
+    cb.closest('label').style.opacity = allCb.checked ? '0.45' : '1';
+  });
+  updateBulkEmailCount();
+}
+
+// Picking a specific item automatically switches that group off "All".
+function bulkItemToggle(group){
+  document.getElementById('bulkAll'+group).checked = false;
+  updateBulkEmailCount();
+}
+
+// Returns null (= no restriction / all values) or an array of the specifically-checked values.
+function getBulkSelection(group){
+  const allCb = document.getElementById('bulkAll'+group);
+  if(allCb.checked) return null;
+  return [...document.querySelectorAll('.bulk'+group+'Item:checked')].map(cb=>cb.value);
+}
+
+function getBulkEmailRecipients(){
+  const degSel  = getBulkSelection('Deg');
+  const sesSel  = getBulkSelection('Ses');
+  const statSel = getBulkSelection('Stat');
+  return STUDENTS.filter(s=>{
+    if(degSel  && !degSel.includes(s.degree))   return false;
+    if(sesSel  && !sesSel.includes(s.session))  return false;
+    if(statSel && !statSel.includes(s.status))  return false;
+    return s.email && s.email.trim();
+  });
+}
+
+function updateBulkEmailCount(){
+  const box = document.getElementById('bulkEmailCount');
+  if(!box) return;
+  const list = getBulkEmailRecipients();
+  box.innerHTML = list.length
+    ? `<i class="ti ti-mail" style="margin-right:4px"></i><strong>${list.length}</strong> recipient${list.length>1?'s':''} match this filter (students with a saved email address)`
+    : `<i class="ti ti-alert-circle" style="margin-right:4px;color:var(--red)"></i>No students with an email address match this filter`;
+}
+
+function composeBulkEmail(){
+  const list = getBulkEmailRecipients();
   if(!list.length){
-    showToast(`No enrolled students with an email address found for ${label}`, 'error');
+    showToast('No students with an email address match this filter', 'error');
     return;
   }
+  const degSel  = getBulkSelection('Deg');
+  const sesSel  = getBulkSelection('Ses');
+  const statSel = getBulkSelection('Stat');
+  const label = [
+    degSel  ? degSel.join(', ')  : 'All Degrees',
+    sesSel  ? sesSel.join(', ')  : 'All Sessions',
+    statSel ? statSel.join(', ') : 'All Statuses'
+  ].join(' · ');
 
   const emails = list.map(s => s.email.trim()).join(', ');
 
   document.getElementById('emailModalHeader').className = 'email-modal-header pde-header';
   document.getElementById('emailModalTitle').innerHTML =
-    `<i class="ti ti-users"></i>Batch Email — ${label}`;
-  document.getElementById('emailModalSub').textContent =
-    `${list.length} recipient${list.length > 1 ? 's' : ''} · Enrolled ${label}`;
+    `<i class="ti ti-users"></i>Bulk Email — ${list.length} recipient${list.length > 1 ? 's' : ''}`;
+  document.getElementById('emailModalSub').textContent = label;
 
   document.getElementById('emailTo').value = emails;
   document.getElementById('emailCc').value = '';
@@ -6490,8 +6600,9 @@ Department of Electrical Engineering and Department of Computer & Software Engin
 Air University, Islamabad
 Email: nauman.aman@au.edu.pk`;
 
+  closeBulkEmailModal();
   document.getElementById('emailModal').classList.add('open');
-  showToast(`Loaded ${list.length} recipient${list.length > 1 ? 's' : ''} for ${label}`);
+  showToast(`Loaded ${list.length} recipient${list.length > 1 ? 's' : ''}`);
 }
 
 function openMailClient(){
