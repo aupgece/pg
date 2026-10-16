@@ -20,6 +20,54 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
 .pde-alert-meta{font-size:11px;color:var(--text3);margin-top:2px}
 .pde-sem-chip{font-size:11px;font-weight:600;padding:3px 9px;border-radius:9999px;white-space:nowrap}
 .pde-alert-footer{padding:10px 14px;border-top:1px solid var(--border);background:#f8f9fb;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;font-size:12px;color:var(--text2)}
+
+/* ── Students table: friendly horizontal scrolling ── */
+#tab-students .table-wrap{position:relative}
+#tab-students .table-scroll{scrollbar-width:auto;scrollbar-color:#b8a46a #efe9d8;cursor:grab;overscroll-behavior-x:contain;outline:none}
+#tab-students .table-scroll.dragging{cursor:grabbing;user-select:none;scroll-behavior:auto}
+#tab-students .table-scroll::-webkit-scrollbar{height:12px;width:12px}
+#tab-students .table-scroll::-webkit-scrollbar-track{background:#efe9d8}
+#tab-students .table-scroll::-webkit-scrollbar-thumb{background:#b8a46a;border-radius:9999px;border:2px solid #efe9d8}
+#tab-students .table-scroll::-webkit-scrollbar-thumb:hover{background:#9a8545}
+#tab-students .table-scroll table{min-width:2300px;width:max-content}
+#tab-students thead th{white-space:nowrap;padding-left:12px;padding-right:12px}
+#tab-students tbody td{white-space:nowrap}
+#tab-students tbody td .remarks-display,#tab-students tbody td .remarks-edit-wrap{white-space:pre-wrap;min-width:220px}
+#tab-students tbody td[style*="max-width:220px"]{min-width:280px;white-space:normal}
+/* sticky Actions column on the right, Name column on the left */
+#tab-students thead th:last-child,#tab-students tbody td:last-child{position:sticky;right:0}
+#tab-students thead th:last-child{z-index:7}
+#tab-students tbody td:last-child{z-index:2;background:#fff;box-shadow:-1px 0 0 #efe9d8}
+#tab-students tbody tr:hover td:first-child,#tab-students tbody tr:hover td:last-child{background:#fbf3d9}
+/* edge shadows show there is more to scroll */
+#tab-students .table-wrap.can-left .table-scroll thead th:first-child,#tab-students .table-wrap.can-left .table-scroll tbody td:first-child{box-shadow:6px 0 8px -4px rgba(20,33,61,.18)}
+#tab-students .table-wrap.can-right .table-scroll thead th:last-child,#tab-students .table-wrap.can-right .table-scroll tbody td:last-child{box-shadow:-6px 0 8px -4px rgba(20,33,61,.18)}
+/* top mirrored scrollbar */
+.table-top-scroll{overflow-x:auto;overflow-y:hidden;height:16px;background:#efe9d8;border-bottom:1px solid var(--border);scrollbar-width:auto;scrollbar-color:#b8a46a #efe9d8}
+.table-top-scroll::-webkit-scrollbar{height:12px}
+.table-top-scroll::-webkit-scrollbar-track{background:#efe9d8}
+.table-top-scroll::-webkit-scrollbar-thumb{background:#b8a46a;border-radius:9999px;border:2px solid #efe9d8}
+.table-top-scroll div{height:1px}
+/* floating arrows */
+.hs-btn{position:absolute;top:50%;z-index:20;width:38px;height:38px;border-radius:50%;border:none;background:#14213d;color:#fff;font-size:20px;display:none;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 14px rgba(20,33,61,.35);opacity:.88;transition:opacity .15s,transform .15s}
+.hs-btn:hover{opacity:1;transform:scale(1.08)}
+.hs-btn.left{left:150px}
+.hs-btn.right{right:200px}
+.table-wrap.can-left .hs-btn.left,.table-wrap.can-right .hs-btn.right{display:flex}
+.col-jump{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0 10px}
+.col-jump-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.4px;margin-right:2px}
+.col-chip{border:1px solid var(--border2);background:#fff;color:var(--text2);font-size:12px;font-weight:500;padding:4px 11px;border-radius:9999px;cursor:pointer;font-family:inherit;transition:all .12s}
+.col-chip:hover{background:#14213d;color:#fff;border-color:#14213d;transform:translateY(-1px)}
+.col-chip.active{background:#c9a227;border-color:#c9a227;color:#14213d;font-weight:700}
+.col-chip.edge{background:#eef1f6;font-weight:600}
+.hs-btn:active{transform:scale(.94)}
+.hs-hint{font-size:11px;color:var(--text3);margin-top:6px;display:flex;align-items:center;gap:5px}
+@media (max-width:760px){
+  #tab-students thead th:first-child,#tab-students tbody td:first-child{position:sticky}
+  #tab-students tbody td:last-child,#tab-students thead th:last-child{position:static}
+  .hs-btn{display:none!important}
+  #tab-students .table-scroll{-webkit-overflow-scrolling:touch}
+}
 </style><style>body {transition: opacity ease-in 0.2s; } 
 body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
 </style><style>body {transition: opacity ease-in 0.2s; } 
@@ -910,9 +958,14 @@ body.is-admin .export-admin{display:inline-flex !important;align-items:center}
       <div class="count-info" id="countBar">Showing 6 of 53 students — click a row or use action buttons</div>
     </div>
 
-    <div class="table-wrap">
-      <div class="table-scroll">
-        <table>
+    <div class="hs-hint"><i class="ti ti-arrows-horizontal"></i>Quick scroll: drag the table (it glides), hold the arrow buttons, tap a column below to jump to it, or use Shift + wheel, &larr; &rarr; and Home / End keys.</div>
+    <div class="col-jump" id="colJump"></div>
+    <div class="table-wrap" id="studentsWrap">
+      <div class="table-top-scroll" id="studentsTopScroll"><div id="studentsTopInner"></div></div>
+      <button class="hs-btn left" id="hsLeft" title="Scroll left"><i class="ti ti-chevron-left"></i></button>
+      <button class="hs-btn right" id="hsRight" title="Scroll right"><i class="ti ti-chevron-right"></i></button>
+      <div class="table-scroll" id="studentsScroll" tabindex="0">
+        <table id="studentsTable">
           <thead>
             <tr>
               <th>Name &amp; ID</th>
@@ -7624,6 +7677,177 @@ function showPdeAlert(){
 }
 function closePdeAlert(){document.getElementById("pdeAlertOverlay").classList.remove("open");}
 
+
+// ─── Students table: horizontal scroll helpers ────────────────────────────────
+function hScrollBy(dir){
+  const sc=document.getElementById("studentsScroll");
+  if(!sc) return;
+  const t=sc.scrollLeft+dir*Math.max(300,sc.clientWidth*0.7);
+  if(sc._animateTo) sc._animateTo(t); else sc.scrollTo({left:t,behavior:"smooth"});
+}
+function initHScroll(){
+  const sc=document.getElementById("studentsScroll");
+  const top=document.getElementById("studentsTopScroll");
+  const inner=document.getElementById("studentsTopInner");
+  const wrap=document.getElementById("studentsWrap");
+  const tbl=document.getElementById("studentsTable");
+  const jump=document.getElementById("colJump");
+  if(!sc||!top||!wrap||!tbl) return;
+
+  let raf=null; // current momentum / hold animation
+  const stopAnim=()=>{ if(raf){cancelAnimationFrame(raf);raf=null;} };
+
+  // ── Column jump bar (built from the real headers, so it always matches) ──
+  const ths=[...tbl.querySelectorAll("thead th")];
+  const stickyW=()=>ths[0]?ths[0].offsetWidth:0;
+  // Own easing animation (more reliable than native smooth scrolling, which other scroll events can cancel)
+  const animateTo=target=>{
+    stopAnim();
+    const max=sc.scrollWidth-sc.clientWidth;
+    target=Math.max(0,Math.min(max,target));
+    const from=sc.scrollLeft,dist=target-from,dur=Math.min(700,250+Math.abs(dist)*0.25),t0=performance.now();
+    if(Math.abs(dist)<2){sc.scrollLeft=target;return;}
+    const step=now=>{
+      const t=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-t,3);
+      sc.scrollLeft=from+dist*e;
+      raf=t<1?requestAnimationFrame(step):null;
+    };
+    raf=requestAnimationFrame(step);
+  };
+  sc._animateTo=animateTo;
+  const colLeft=i=>ths[i].getBoundingClientRect().left-sc.getBoundingClientRect().left+sc.scrollLeft;
+  const scrollToCol=i=>animateTo(colLeft(i)-stickyW()-8);
+  if(jump){
+    let chips='<span class="col-jump-label">Jump to</span><button class="col-chip edge" data-edge="start">&#8676; Start</button>';
+    ths.forEach((th,i)=>{
+      if(i===0||i===ths.length-1) return;
+      chips+=`<button class="col-chip" data-col="${i}">${th.textContent.replace(/\(.*?\)/g,"").trim()}</button>`;
+    });
+    chips+='<button class="col-chip edge" data-edge="end">End &#8677;</button>';
+    jump.innerHTML=chips;
+    jump.addEventListener("click",e=>{
+      const c=e.target.closest(".col-chip"); if(!c) return;
+      stopAnim();
+      if(c.dataset.edge==="start") animateTo(0);
+      else if(c.dataset.edge==="end") animateTo(sc.scrollWidth);
+      else scrollToCol(+c.dataset.col);
+    });
+  }
+  const markActive=()=>{
+    if(!jump) return;
+    const left=sc.scrollLeft+stickyW()+20;
+    let cur=0;
+    ths.forEach((th,i)=>{ if(colLeft(i)<=left) cur=i; });
+    jump.querySelectorAll(".col-chip[data-col]").forEach(c=>c.classList.toggle("active",+c.dataset.col===cur));
+  };
+
+  const update=()=>{
+    inner.style.width=sc.scrollWidth+"px";
+    top.style.display=sc.scrollWidth>sc.clientWidth+2?"":"none";
+    wrap.classList.toggle("can-left",sc.scrollLeft>4);
+    wrap.classList.toggle("can-right",sc.scrollLeft+sc.clientWidth<sc.scrollWidth-4);
+    markActive();
+  };
+
+  // ── Keep top and main scrollbars in sync ──
+  // The top bar only drives the table while the user is actually using it; otherwise the two
+  // would echo each other and cancel smooth jumps / glides half-way.
+  let topHover=false,topPressed=false;
+  top.addEventListener("mouseenter",()=>topHover=true);
+  top.addEventListener("mouseleave",()=>topHover=false);
+  top.addEventListener("pointerdown",()=>{topPressed=true;stopAnim();});
+  top.addEventListener("touchstart",()=>{topPressed=true;stopAnim();},{passive:true});
+  window.addEventListener("pointerup",()=>topPressed=false);
+  window.addEventListener("touchend",()=>topPressed=false);
+  sc.addEventListener("scroll",()=>{
+    if(!(topHover||topPressed) && Math.abs(top.scrollLeft-sc.scrollLeft)>1) top.scrollLeft=sc.scrollLeft;
+    update();
+  },{passive:true});
+  top.addEventListener("scroll",()=>{
+    if((topHover||topPressed) && Math.abs(sc.scrollLeft-top.scrollLeft)>1) sc.scrollLeft=top.scrollLeft;
+  },{passive:true});
+
+  // ── Faster wheel / trackpad sideways scrolling (Shift+wheel or deltaX) ──
+  sc.addEventListener("wheel",e=>{
+    const horiz=e.shiftKey||Math.abs(e.deltaX)>Math.abs(e.deltaY);
+    if(!horiz) return; // plain wheel keeps scrolling vertically
+    e.preventDefault(); stopAnim();
+    const d=(e.shiftKey&&!e.deltaX?e.deltaY:e.deltaX)*2.5;
+    sc.scrollLeft+=d;
+  },{passive:false});
+
+  // ── Drag to pan, with momentum when released ──
+  let down=false,moved=false,sx=0,sy=0,sl=0,st=0,lastX=0,lastT=0,vx=0;
+  sc.addEventListener("mousedown",e=>{
+    if(e.button!==0||e.target.closest("input,textarea,select,button,a,label")) return;
+    stopAnim();
+    down=true;moved=false;sx=lastX=e.clientX;sy=e.clientY;sl=sc.scrollLeft;st=sc.scrollTop;lastT=performance.now();vx=0;
+  });
+  window.addEventListener("mousemove",e=>{
+    if(!down) return;
+    const dx=e.clientX-sx,dy=e.clientY-sy;
+    if(!moved&&Math.abs(dx)+Math.abs(dy)>5){moved=true;sc.classList.add("dragging");}
+    if(moved){
+      sc.scrollLeft=sl-dx*1.4;       // 1.4x: a short drag travels further
+      sc.scrollTop=st-dy;
+      const now=performance.now(),dt=Math.max(1,now-lastT);
+      vx=0.8*vx+0.2*((lastX-e.clientX)*1.4/dt*16); // px per frame
+      lastX=e.clientX;lastT=now;
+    }
+  });
+  window.addEventListener("mouseup",()=>{
+    if(!down) return;
+    down=false;sc.classList.remove("dragging");
+    if(moved&&Math.abs(vx)>1){
+      const glide=()=>{
+        sc.scrollLeft+=vx; vx*=0.94;
+        raf=Math.abs(vx)>0.4?requestAnimationFrame(glide):null;
+      };
+      raf=requestAnimationFrame(glide);
+    }
+  });
+  sc.addEventListener("click",e=>{ if(moved){e.stopPropagation();e.preventDefault();moved=false;} },true);
+
+  // ── Arrow buttons: tap = page jump, press & hold = continuous, speeds up ──
+  [["hsLeft",-1],["hsRight",1]].forEach(([id,dir])=>{
+    const btn=document.getElementById(id); if(!btn) return;
+    let holdTimer=null,holding=false;
+    const startHold=()=>{
+      let speed=10;
+      const step=()=>{ sc.scrollLeft+=dir*speed; speed=Math.min(70,speed+0.6); raf=requestAnimationFrame(step); };
+      holding=true; stopAnim(); step();
+    };
+    btn.addEventListener("pointerdown",e=>{
+      e.preventDefault(); holding=false;
+      holdTimer=setTimeout(startHold,220);
+    });
+    const end=()=>{
+      clearTimeout(holdTimer);
+      if(holding){ stopAnim(); holding=false; }
+      else if(holdTimer){ hScrollBy(dir); }
+      holdTimer=null;
+    };
+    btn.addEventListener("pointerup",end);
+    btn.addEventListener("pointerleave",()=>{ if(holding||holdTimer){ clearTimeout(holdTimer); if(holding){stopAnim();holding=false;} holdTimer=null; } });
+  });
+
+  // ── Keyboard: ←/→ fast, Shift+←/→ page, Home/End to edges ──
+  sc.addEventListener("keydown",e=>{
+    if(e.target.closest("input,textarea,select")) return;
+    const page=Math.max(300,sc.clientWidth*0.8);
+    if(e.key==="ArrowRight"){e.preventDefault();animateTo(sc.scrollLeft+(e.shiftKey?page:160));}
+    else if(e.key==="ArrowLeft"){e.preventDefault();animateTo(sc.scrollLeft-(e.shiftKey?page:160));}
+    else if(e.key==="Home"){e.preventDefault();animateTo(0);}
+    else if(e.key==="End"){e.preventDefault();animateTo(sc.scrollWidth);}
+  });
+
+  // ── Recalculate when rows / filters / window change ──
+  if(window.ResizeObserver){ new ResizeObserver(update).observe(tbl); new ResizeObserver(update).observe(sc); }
+  new MutationObserver(update).observe(document.getElementById("tBody"),{childList:true});
+  window.addEventListener("resize",update);
+  update();
+}
+
 (async function init(){
   // ── Render immediately from embedded data so UI is fully interactive at once ──
   populateFilters();
@@ -7631,6 +7855,7 @@ function closePdeAlert(){document.getElementById("pdeAlertOverlay").classList.re
   renderTable(STUDENTS);
   buildSupervisors();
   initSchedBadge();
+  initHScroll();
 
   // Backup binding for the supervisor/FM search box (in addition to its inline oninput attribute)
   const supSearchEl = document.getElementById("supSearch");
