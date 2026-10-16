@@ -2,6 +2,24 @@
 <!-- saved from url=(0029)https://aupgece.github.io/pg/ -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>body {transition: opacity ease-in 0.2s; } 
 body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
+
+/* ── PDE Pending Alert (4th semester+) ── */
+.pde-alert-overlay{display:none;position:fixed;inset:0;background:rgba(10,12,26,0.6);z-index:1060;align-items:center;justify-content:center;padding:1rem}
+.pde-alert-overlay.open{display:flex}
+.pde-alert{background:#fff;border-radius:var(--rl);width:min(640px,100%);max-height:82vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.3);overflow:hidden}
+.pde-alert-header{background:linear-gradient(135deg,#534AB7,#3C3489);padding:1rem 1.25rem;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.pde-alert-title{color:#fff;font-size:15px;font-weight:700;flex:1}
+.pde-alert-sub{color:rgba(255,255,255,0.75);font-size:12px;font-weight:400;display:block;margin-top:2px}
+.pde-alert-close{background:rgba(255,255,255,0.15);border:none;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:15px}
+.pde-alert-close:hover{background:rgba(255,255,255,0.28)}
+.pde-alert-body{overflow-y:auto;flex:1}
+.pde-alert-item{display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid var(--border)}
+.pde-alert-item:last-child{border-bottom:none}
+.pde-alert-info{flex:1;min-width:0}
+.pde-alert-name{font-size:13px;font-weight:600;color:var(--text)}
+.pde-alert-meta{font-size:11px;color:var(--text3);margin-top:2px}
+.pde-sem-chip{font-size:11px;font-weight:600;padding:3px 9px;border-radius:9999px;white-space:nowrap}
+.pde-alert-footer{padding:10px 14px;border-top:1px solid var(--border);background:#f8f9fb;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;font-size:12px;color:var(--text2)}
 </style><style>body {transition: opacity ease-in 0.2s; } 
 body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
 </style><style>body {transition: opacity ease-in 0.2s; } 
@@ -3255,6 +3273,22 @@ SL-F-23</div>
         <button class="btn-cancel" onclick="closeTmplModal()">Cancel</button>
         <button class="btn-tmpl-save" onclick="saveTmpl()"><i class="ti ti-device-floppy"></i>Save Template</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- PDE Pending Alert Popup -->
+<div class="pde-alert-overlay" id="pdeAlertOverlay" onclick="if(event.target===this)closePdeAlert()">
+  <div class="pde-alert">
+    <div class="pde-alert-header">
+      <i class="ti ti-alert-triangle" style="color:#fff;font-size:20px"></i>
+      <div class="pde-alert-title">Pending PDE &mdash; Action Required<span class="pde-alert-sub">Students in or beyond their 4th semester who haven&#39;t completed PDE</span></div>
+      <button class="pde-alert-close" onclick="closePdeAlert()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="pde-alert-body" id="pdeAlertBody"></div>
+    <div class="pde-alert-footer">
+      <span id="pdeAlertCount"></span>
+      <button class="btn-save" onclick="closePdeAlert()">Dismiss</button>
     </div>
   </div>
 </div>
@@ -7552,6 +7586,44 @@ function switchTab(name, btn){
   }
 }
 
+
+// ─── PDE Pending Alert (in / beyond 4th semester) ─────────────────────────────
+function getPdePendingStudents(){
+  const out=[];
+  STUDENTS.forEach((s,idx)=>{
+    if((s.pde||"").trim().toLowerCase()!=="pending") return;
+    const st=(s.status||"").toLowerCase();
+    if(st.includes("completed")||(st.includes("left")&&!st.includes("semester"))) return;
+    const cs=computeCurrentStatus(s);
+    if(!cs||cs.activeSemesters<4) return;
+    out.push({idx,student:s,sem:cs.activeSemesters});
+  });
+  return out.sort((a,b)=>b.sem-a.sem);
+}
+function showPdeAlert(){
+  const list=getPdePendingStudents();
+  if(!list.length) return false;
+  const ord=n=>n+(n===1?"st":n===2?"nd":n===3?"rd":"th");
+  document.getElementById("pdeAlertBody").innerHTML=list.map(e=>{
+    const s=e.student;
+    const col=e.sem>=8?["var(--red-l)","var(--red-d)"]:e.sem>=6?["var(--amber-l)","var(--amber-d)"]:["var(--purple-l)","var(--purple-d)"];
+    const sched=s.scheduledPdeDate?` &middot; <span style="color:var(--teal-d)">PDE scheduled ${esc(s.scheduledPdeDate)}</span>`:"";
+    const act=isAdmin?`<button class="act-btn btn-pde" onclick="closePdeAlert();openEmailDraft(${e.idx},'pde')"><i class="ti ti-calendar-event"></i>Arrange PDE</button>`:"";
+    return `<div class="pde-alert-item">
+      <div class="pde-alert-info">
+        <div class="pde-alert-name">${esc(s.name)}</div>
+        <div class="pde-alert-meta">${esc(s.id)} &middot; ${esc(s.degree)} &middot; ${esc(s.session)}${s.sup?" &middot; "+esc(s.sup):""}${sched}</div>
+      </div>
+      <span class="pde-sem-chip" style="background:${col[0]};color:${col[1]}">${ord(e.sem)} semester</span>
+      ${act}
+    </div>`;
+  }).join("");
+  document.getElementById("pdeAlertCount").textContent=list.length+" student"+(list.length>1?"s":"")+" with pending PDE";
+  document.getElementById("pdeAlertOverlay").classList.add("open");
+  return true;
+}
+function closePdeAlert(){document.getElementById("pdeAlertOverlay").classList.remove("open");}
+
 (async function init(){
   // ── Render immediately from embedded data so UI is fully interactive at once ──
   populateFilters();
@@ -7613,6 +7685,9 @@ function switchTab(name, btn){
       }, 800);
     }
   }
+
+  // Pending-PDE alert (4th semester+) — shown after data (embedded or Firebase) is ready
+  setTimeout(showPdeAlert, 1000);
 
   // Load publications
   try { await loadPublications(); } catch(e){}
