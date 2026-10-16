@@ -68,6 +68,34 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
   .hs-btn{display:none!important}
   #tab-students .table-scroll{-webkit-overflow-scrolling:touch}
 }
+
+/* ── Editable page text ── */
+.edit-text-btn{display:none!important}
+body.is-admin .edit-text-btn{display:inline-flex!important;align-items:center}
+.pt-overlay{display:none;position:fixed;inset:0;background:rgba(15,15,30,0.6);z-index:1300;align-items:center;justify-content:center;padding:1rem}
+.pt-overlay.open{display:flex}
+.pt-box{background:#fff;border-radius:var(--rl);width:min(620px,100%);max-height:92vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.3);overflow:hidden}
+.pt-head{background:linear-gradient(135deg,#1a1a2e,#0f3460);color:#fff;padding:1rem 1.25rem;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
+.pt-body{padding:1rem 1.25rem;overflow-y:auto;display:grid;gap:12px}
+.pt-body label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--text3);display:block;margin-bottom:4px}
+.pt-body input,.pt-body textarea{width:100%;padding:8px 10px;border:1px solid var(--border2);border-radius:var(--rm);font-size:13px;font-family:inherit;color:var(--text);outline:none}
+.pt-body input:focus,.pt-body textarea:focus{border-color:var(--blue)}
+.pt-body textarea{min-height:64px;resize:vertical}
+.pt-row3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pt-foot{padding:10px 14px;border-top:1px solid var(--border);background:#f8f9fb;display:flex;gap:8px;justify-content:space-between;align-items:center}
+.pt-foot .grp{display:flex;gap:8px}
+@media (max-width:640px){.pt-row3{grid-template-columns:1fr}}
+
+.keep-case{text-transform:none!important;letter-spacing:0}
+.pt-cards-head{border-top:1px solid var(--border);padding-top:12px;display:grid;gap:8px}
+.pt-check{display:flex!important;align-items:center;gap:6px;text-transform:none!important;letter-spacing:0!important;font-weight:500!important;font-size:12px!important;color:var(--text2)!important;margin:0!important}
+.pt-check input{width:auto!important}
+.pt-sec{margin-top:10px}
+.pt-sec-title{background:#eef1f6;border-radius:var(--rm);padding:6px 8px}
+.pt-sec-title label{margin-bottom:3px}
+.pt-card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.pt-card-grid label{font-size:10px;text-transform:none;letter-spacing:0}
+@media (max-width:640px){.pt-card-grid{grid-template-columns:repeat(2,1fr)}}
 </style><style>body {transition: opacity ease-in 0.2s; } 
 body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
 </style><style>body {transition: opacity ease-in 0.2s; } 
@@ -805,13 +833,14 @@ body.is-admin .export-admin{display:inline-flex !important;align-items:center}
 <div class="top-bar">
   <div class="top-inner">
     <div>
-      <div class="top-title"><i class="ti ti-school" style="margin-right:8px"></i>Graduate Students &amp; Research Database</div>
-      <div class="top-sub">Department of Electrical Engineering and Department of Computer & Software Engineering - Air University Islamabad </div>
+      <div class="top-title"><i class="ti ti-school" style="margin-right:8px"></i><span id="ptTitle">Graduate Students &amp; Research Database</span></div>
+      <div class="top-sub" id="ptSub">Department of Electrical Engineering and Department of Computer & Software Engineering - Air University Islamabad </div>
     </div>
     <div class="top-badges">
       <span id="syncStatus" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgb(74, 222, 128); border-radius: 9999px; color: rgb(74, 222, 128); font-size: 12px; padding: 4px 12px; display: inline-flex; align-items: center; gap: 5px;"><i class="ti ti-cloud-check"></i>Synced</span>
       <span class="top-badge" id="topBadge"><i class="ti ti-users" style="margin-right:4px"></i><span id="badgeCount">53</span> Students · <span id="supCount">14</span> Supervisors</span>
       <span class="admin-badge" id="adminBadge" style="display:none;"><i class="ti ti-shield-check"></i>Admin</span>
+      <button class="btn-export edit-text-btn" id="editTextBtn" onclick="openPageTextEditor()" title="Edit page title, heading and text"><i class="ti ti-edit" style="margin-right:4px"></i>Edit Page Text</button>
       <button class="btn-export" id="reloadBtn" onclick="forceReload()" title="Pull latest data from Firebase" fdprocessedid="bf2a8"><i class="ti ti-cloud-download" style="margin-right:4px"></i>Reload</button>
       <button class="btn-export export-admin" onclick="exportExcel()" style="background:rgba(74,222,128,0.15);border-color:rgba(74,222,128,0.35)" fdprocessedid="ikrgks"><i class="ti ti-table-export" style="margin-right:4px"></i>Export Excel</button>
       <button class="btn-logout" id="logoutBtn" style="display:none;" onclick="adminLogout()"><i class="ti ti-logout"></i>Sign out</button>
@@ -823,9 +852,9 @@ body.is-admin .export-admin{display:inline-flex !important;align-items:center}
 
 <div class="main">
   <div class="tab-row">
-    <button class="tab-btn active" onclick="switchTab(&#39;students&#39;,this)" fdprocessedid="em7i5d"><i class="ti ti-users" style="margin-right:6px"></i>Students</button>
-    <button class="tab-btn" onclick="switchTab(&#39;supervisors&#39;,this)" fdprocessedid="vnpngo"><i class="ti ti-user-check" style="margin-right:6px"></i>Supervisors</button>
-    <button class="tab-btn" onclick="window.location.href=&#39;publications.html&#39;" fdprocessedid="acgcxv"><i class="ti ti-book" style="margin-right:6px"></i>FM Research Publications</button>
+    <button class="tab-btn active" onclick="switchTab(&#39;students&#39;,this)" fdprocessedid="em7i5d"><i class="ti ti-users" style="margin-right:6px"></i><span id="ptTabStudents">Students</span></button>
+    <button class="tab-btn" onclick="switchTab(&#39;supervisors&#39;,this)" fdprocessedid="vnpngo"><i class="ti ti-user-check" style="margin-right:6px"></i><span id="ptTabSupervisors">Supervisors</span></button>
+    <button class="tab-btn" onclick="window.location.href=&#39;publications.html&#39;" fdprocessedid="acgcxv"><i class="ti ti-book" style="margin-right:6px"></i><span id="ptTabPubs">FM Research Publications</span></button>
   </div>
 
   <!-- Students Tab -->
@@ -3325,6 +3354,36 @@ SL-F-23</div>
       <div style="display:flex;gap:8px;">
         <button class="btn-cancel" onclick="closeTmplModal()">Cancel</button>
         <button class="btn-tmpl-save" onclick="saveTmpl()"><i class="ti ti-device-floppy"></i>Save Template</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Page Text Modal -->
+<div class="pt-overlay" id="ptOverlay" onclick="if(event.target===this)closePageTextEditor()">
+  <div class="pt-box">
+    <div class="pt-head"><i class="ti ti-edit"></i>Edit page title, heading &amp; text</div>
+    <div class="pt-body">
+      <div><label>Browser tab title</label><input id="pt-docTitle"></div>
+      <div><label>Main heading</label><input id="pt-title"></div>
+      <div><label>Subtitle / description</label><textarea id="pt-sub"></textarea></div>
+      <div class="pt-row3">
+        <div><label>Tab 1 label</label><input id="pt-tab1"></div>
+        <div><label>Tab 2 label</label><input id="pt-tab2"></div>
+        <div><label>Tab 3 label</label><input id="pt-tab3"></div>
+      </div>
+      <div class="pt-cards-head">
+        <div style="font-size:13px;font-weight:700;color:var(--text)"><i class="ti ti-layout-cards" style="margin-right:6px"></i>Cards &amp; section titles</div>
+        <input id="pt-cardSearch" placeholder="Filter cards (e.g. PhDCE, Left, FDE)..." oninput="ptFilterCards()">
+        <label class="pt-check"><input type="checkbox" id="pt-applyAll" checked> Apply a renamed card to every card with the same original name</label>
+      </div>
+      <div id="ptCardsList"></div>
+    </div>
+    <div class="pt-foot">
+      <button class="btn-cancel" onclick="resetPageText()"><i class="ti ti-restore" style="margin-right:4px"></i>Reset to default</button>
+      <div class="grp">
+        <button class="btn-cancel" onclick="closePageTextEditor()">Cancel</button>
+        <button class="btn-save" onclick="savePageText()"><i class="ti ti-device-floppy" style="margin-right:4px"></i>Save</button>
       </div>
     </div>
   </div>
@@ -5897,6 +5956,13 @@ function _doDownloadBulkTemplate(){
   showToast("Template downloaded");
 }
 
+// Always show PhD degrees as "PhDEE" / "PhDCE" (lower-case h), whatever case the stored data uses
+function normDegreeLabel(d){
+  const k=(d||"").toString().trim().toUpperCase().replace(/\s+/g,"");
+  return k==="PHDEE"?"PhDEE":k==="PHDCE"?"PhDCE":d;
+}
+function normalizeStudentDegrees(arr){ (arr||[]).forEach(s=>{ if(s) s.degree=normDegreeLabel(s.degree); }); return arr; }
+
 function normBulkDegree(v){
   const key = (v||'').toString().trim().toUpperCase().replace(/\s+/g,'');
   return BULK_VALID_DEGREES[key] || null;
@@ -7229,7 +7295,7 @@ async function loadFromStorage(){
     if(rsStudents.ok){
       const d = await rsStudents.json();
       const arr = (d.fields?.list?.arrayValue?.values||[]).map(v=>fsMapToObj(v.mapValue?.fields||{}));
-      STUDENTS = arr; // always override, even if empty — Firestore is source of truth
+      STUDENTS = normalizeStudentDegrees(arr); // always override, even if empty — Firestore is source of truth
     }
     if(rsSupervisors.ok){
       const d = await rsSupervisors.json();
@@ -7848,7 +7914,164 @@ function initHScroll(){
   update();
 }
 
+
+// ─── Editable page text + cards (admin) ───────────────────────────────────────
+const PT_FIELDS=[
+  {k:"docTitle",get:()=>document.title,set:v=>{document.title=v;},input:"pt-docTitle"},
+  {k:"title",el:"ptTitle",input:"pt-title"},
+  {k:"sub",el:"ptSub",input:"pt-sub"},
+  {k:"tab1",el:"ptTabStudents",input:"pt-tab1"},
+  {k:"tab2",el:"ptTabSupervisors",input:"pt-tab2"},
+  {k:"tab3",el:"ptTabPubs",input:"pt-tab3"}
+];
+let PT_DEFAULTS=null;
+let PT_CARDS={};   // { "Section||Label": "New", "*||Label": "New (all cards)", "sec||Section": "New", "sup||Label": "New" }
+function ptGet(f){return f.get?f.get():document.getElementById(f.el).textContent;}
+function ptSet(f,v){ if(f.set) f.set(v); else document.getElementById(f.el).textContent=v; }
+function ptCaptureDefaults(){ if(PT_DEFAULTS) return; PT_DEFAULTS={}; PT_FIELDS.forEach(f=>PT_DEFAULTS[f.k]=ptGet(f).trim()); }
+
+// Remember each card/section's original text, then show any custom text
+function ptOrig(el){ if(el.dataset.orig===undefined) el.dataset.orig=el.textContent.trim(); return el.dataset.orig; }
+// Cards are shown in capitals by CSS; keep "PhD", "PhDEE", "PhDCE" with a lower-case h
+function ptSetCardText(el,text){
+  const esc=String(text).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  el.innerHTML=esc.replace(/\bPh[dD](EE|CE)?(?![A-Za-z])/gi,(m,s)=>'<span class="keep-case">PhD'+(s?s.toUpperCase():"")+'</span>');
+}
+function applyCardLabels(){
+  document.querySelectorAll("#statsGrid .stats-section-label").forEach(sec=>{
+    const so=ptOrig(sec);
+    const ov=PT_CARDS["sec||"+so];
+    ptSetCardText(sec,ov||so);
+    let g=sec.nextElementSibling;
+    if(g&&g.classList.contains("stats-grid")){
+      g.querySelectorAll(".stat-label").forEach(l=>{
+        const lo=ptOrig(l);
+        const v=PT_CARDS[so+"||"+lo]||PT_CARDS["*||"+lo];
+        ptSetCardText(l,v||lo);
+      });
+    }
+  });
+  document.querySelectorAll(".sup-stat-l").forEach(l=>{
+    const lo=ptOrig(l);
+    ptSetCardText(l,PT_CARDS["sup||"+lo]||lo);
+  });
+}
+(function hookCardRefresh(){
+  ["buildStats","buildSupervisors"].forEach(n=>{
+    const orig=window[n];
+    if(typeof orig!=="function") return;
+    window[n]=function(){ const r=orig.apply(this,arguments); try{applyCardLabels();}catch(e){} return r; };
+  });
+})();
+
+function ptParseCards(o){ try{ return o&&o.cardsJson?JSON.parse(o.cardsJson)||{}:{}; }catch(e){ return {}; } }
+function applyPageText(o){
+  ptCaptureDefaults();
+  PT_FIELDS.forEach(f=>{ const v=o&&typeof o[f.k]==="string"?o[f.k]:""; if(v.trim()) ptSet(f,v); });
+  PT_CARDS=ptParseCards(o);
+  applyCardLabels();
+}
+async function loadPageText(){
+  ptCaptureDefaults();
+  try{ const c=localStorage.getItem("pageText"); if(c) applyPageText(JSON.parse(c)); }catch(e){}
+  try{
+    const r=await fetch(FS_BASE+"/appdata/pagetext");
+    if(r.ok){
+      const d=await r.json();
+      const o=fsMapToObj(d.fields||{});
+      if(Object.keys(o).length){ applyPageText(o); try{localStorage.setItem("pageText",JSON.stringify(o));}catch(e){} }
+    }
+  }catch(e){}
+}
+
+// ── editor ──
+function ptInput(id,key,orig,val,isArea){
+  const e=s=>String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
+  return `<input class="pt-card-in" data-key="${e(key)}" data-orig="${e(orig)}" data-init="${e(val)}" value="${e(val)}" placeholder="${e(orig)}">`;
+}
+function ptBuildCardsEditor(){
+  applyCardLabels(); // make sure data-orig is set on everything rendered
+  let html="";
+  document.querySelectorAll("#statsGrid .stats-section-label").forEach(sec=>{
+    const so=sec.dataset.orig; const g=sec.nextElementSibling;
+    html+=`<div class="pt-sec"><div class="pt-sec-title"><label>Section title</label>${ptInput("","sec||"+so,so,sec.textContent.trim())}</div><div class="pt-card-grid">`;
+    if(g) g.querySelectorAll(".stat-label").forEach(l=>{
+      html+=`<div class="pt-card" data-search="${(so+" "+l.dataset.orig+" "+l.textContent).toLowerCase().replace(/"/g,"")}"><label>${l.dataset.orig}</label>${ptInput("",so+"||"+l.dataset.orig,l.dataset.orig,l.textContent.trim())}</div>`;
+    });
+    html+=`</div></div>`;
+  });
+  const seen={};
+  let sup="";
+  document.querySelectorAll(".sup-stat-l").forEach(l=>{
+    const o=l.dataset.orig; if(seen[o]) return; seen[o]=1;
+    sup+=`<div class="pt-card" data-search="supervisor ${o.toLowerCase()}"><label>${o}</label>${ptInput("","sup||"+o,o,l.textContent.trim())}</div>`;
+  });
+  if(sup) html+=`<div class="pt-sec"><div class="pt-sec-title"><label>Supervisor cards</label></div><div class="pt-card-grid">${sup}</div></div>`;
+  document.getElementById("ptCardsList").innerHTML=html;
+  document.getElementById("pt-cardSearch").value="";
+}
+function ptFilterCards(){
+  const q=document.getElementById("pt-cardSearch").value.trim().toLowerCase();
+  document.querySelectorAll("#ptCardsList .pt-card").forEach(c=>{ c.style.display=(!q||c.dataset.search.includes(q))?"":"none"; });
+  document.querySelectorAll("#ptCardsList .pt-sec").forEach(s=>{
+    const any=[...s.querySelectorAll(".pt-card")].some(c=>c.style.display!=="none");
+    s.style.display=(!q||any)?"":"none";
+  });
+}
+function openPageTextEditor(){
+  if(!isAdmin){showToast("Admin access required","error");return;}
+  ptCaptureDefaults();
+  PT_FIELDS.forEach(f=>{ document.getElementById(f.input).value=ptGet(f).trim(); });
+  ptBuildCardsEditor();
+  document.getElementById("ptOverlay").classList.add("open");
+}
+function closePageTextEditor(){document.getElementById("ptOverlay").classList.remove("open");}
+async function ptPersist(o){
+  try{ localStorage.setItem("pageText",JSON.stringify(o)); }catch(e){}
+  try{
+    setSyncStatus("saving");
+    await fetch(FS_BASE+"/appdata/pagetext",{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({fields:objToFsFields(o)})});
+    setSyncStatus("saved");
+  }catch(e){ setSyncStatus("error",e.message); showToast("Save failed: "+e.message,"error"); }
+}
+async function savePageText(){
+  if(!isAdmin){showToast("Admin access required","error");return;}
+  const o={};
+  PT_FIELDS.forEach(f=>{ const v=document.getElementById(f.input).value.trim(); o[f.k]=v||PT_DEFAULTS[f.k]; });
+  PT_FIELDS.forEach(f=>ptSet(f,o[f.k]));
+
+  const applyAll=document.getElementById("pt-applyAll").checked;
+  const cards=Object.assign({},PT_CARDS);
+  document.querySelectorAll("#ptCardsList .pt-card-in").forEach(inp=>{
+    const val=inp.value.trim(), init=inp.dataset.init, orig=inp.dataset.orig, key=inp.dataset.key;
+    if(val===init) return;                       // untouched
+    if(!val||val===orig){ delete cards[key]; }   // cleared / back to original
+    else{
+      cards[key]=val;
+      if(applyAll&&key.indexOf("||")>0&&!key.startsWith("sec||")&&!key.startsWith("sup||")) cards["*||"+orig]=val;
+    }
+  });
+  PT_CARDS=cards;
+  o.cardsJson=JSON.stringify(cards);
+  applyCardLabels();
+  closePageTextEditor();
+  await ptPersist(o);
+  showToast("Page text and cards updated");
+}
+async function resetPageText(){
+  if(!isAdmin) return;
+  if(!confirm("Reset the page text AND all card names to their original wording?")) return;
+  PT_FIELDS.forEach(f=>ptSet(f,PT_DEFAULTS[f.k]));
+  PT_CARDS={};
+  applyCardLabels();
+  const o=Object.assign({},PT_DEFAULTS,{cardsJson:"{}"});
+  closePageTextEditor();
+  await ptPersist(o);
+  showToast("Reset to default");
+}
+
 (async function init(){
+  normalizeStudentDegrees(STUDENTS);
   // ── Render immediately from embedded data so UI is fully interactive at once ──
   populateFilters();
   buildStats(STUDENTS);
@@ -7856,6 +8079,7 @@ function initHScroll(){
   buildSupervisors();
   initSchedBadge();
   initHScroll();
+  loadPageText();
 
   // Backup binding for the supervisor/FM search box (in addition to its inline oninput attribute)
   const supSearchEl = document.getElementById("supSearch");
@@ -7872,7 +8096,7 @@ function initHScroll(){
     if(rsStudents.ok){
       const d = await rsStudents.json();
       const arr = (d.fields?.list?.arrayValue?.values||[]).map(v=>fsMapToObj(v.mapValue?.fields||{}));
-      if(arr.length > 0){ STUDENTS = arr; updated = true; }
+      if(arr.length > 0){ STUDENTS = normalizeStudentDegrees(arr); updated = true; }
     }
     if(rsSupervisors.ok){
       const d = await rsSupervisors.json();
