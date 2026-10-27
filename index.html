@@ -1194,11 +1194,23 @@ SL-F-23</div>
           <i class="ti ti-search"></i>
           <input type="text" id="supSearch" placeholder="Search supervisor or FM name… (also matches GEC Internal/External members)" oninput="filterSupervisors()">
         </div>
+        <select id="supStatusFilter" onchange="buildSupervisors()" title="Filter supervisors by status">
+          <option value="active" selected>Active supervisors</option>
+          <option value="inactive">Not active</option>
+          <option value="all">All supervisors</option>
+        </select>
+        <select id="supDeptFilter" onchange="buildSupervisors()" title="Filter supervisors by department">
+          <option value="">All departments</option>
+          <option value="EE">EE</option>
+          <option value="C&amp;SE">C&amp;SE</option>
+          <option value="__none">No department set</option>
+        </select>
         <select id="supSearchSelect" onchange="if(this.value){document.getElementById('supSearch').value=this.value;} else {document.getElementById('supSearch').value='';} filterSupervisors();">
           <option value="">— Pick supervisor / FM —</option>
         </select>
         <button class="add-btn" id="supSearchClearBtn" style="display:none;background:var(--bg2);color:var(--text2);border:1px solid var(--border)" onclick="document.getElementById('supSearch').value='';document.getElementById('supSearchSelect').value='';filterSupervisors();"><i class="ti ti-x"></i>Clear</button>
       </div>
+      <div class="count-info" id="supListInfo" style="font-weight:600"></div>
       <div class="count-info" id="supSearchCount"></div>
     </div>
     <div class="table-wrap" id="supSearchResultsWrap" style="display:none;margin-bottom:1.25rem">
@@ -3506,13 +3518,26 @@ function toggleSchedPopup(){
 }
 function closeSchedPopup(){document.getElementById("schedPopupOverlay").classList.remove("open");}
 
+// An exam is "done" once its status is Done / CW Done (anything other than Pending/empty)
+function isExamDone(s,type){
+  const v=((type==="pde"?s.pde:s.fde)||"").trim().toLowerCase();
+  return v==="done"||v==="cw done"||v==="completed";
+}
+// An exam is "elapsed" once its scheduled date is before today
+function isExamElapsed(dateStr){
+  const d=new Date(dateStr+"T00:00:00");
+  if(isNaN(d)) return false;
+  const t=new Date(); t.setHours(0,0,0,0);
+  return d<t;
+}
+// Returns ONLY active schedules: date not yet passed AND exam not yet done
 function getScheduledExams(){
   const all=[];
   STUDENTS.forEach((s,idx)=>{
-    if(s.scheduledPdeDate){
+    if(s.scheduledPdeDate && !isExamDone(s,"pde") && !isExamElapsed(s.scheduledPdeDate)){
       all.push({idx,student:s,type:"pde",date:s.scheduledPdeDate,time:s.scheduledPdeTime||"",venue:s.scheduledPdeVenue||""});
     }
-    if(s.scheduledFdeDate){
+    if(s.scheduledFdeDate && !isExamDone(s,"fde") && !isExamElapsed(s.scheduledFdeDate)){
       all.push({idx,student:s,type:"fde",date:s.scheduledFdeDate,time:s.scheduledFdeTime||"",venue:s.scheduledFdeVenue||""});
     }
   });
@@ -3546,10 +3571,6 @@ function renderSchedPopup(){
   if(upcomingExams.length){
     html+=`<div class="sched-section-header"><span class="sched-upcoming-dot"></span>Upcoming</div>`;
     html+=upcomingExams.map(e=>schedItemHTML(e,false)).join("");
-  }
-  if(pastExams.length){
-    html+=`<div class="sched-section-header" style="opacity:0.6">Past</div>`;
-    html+=pastExams.map(e=>schedItemHTML(e,false,true)).join("");
   }
 
   body.innerHTML=html;
@@ -6075,23 +6096,23 @@ function confirmBulkImport(){
 // ─── Delete ───────────────────────────────────────────────────────────────────
 let pendingDeleteIdx=null, pendingDeleteType=null;
 function confirmDelete(idx,type="student"){
+  if(!isAdmin){showToast("Admin access required","error");return;}
   pendingDeleteIdx=idx; pendingDeleteType=type;
   const name=type==="student"?STUDENTS[idx].name:SUPERVISORS[idx].name;
-  document.getElementById("confirmText").textContent=`Are you sure you want to delete "${name}"? This cannot be undone.`;
+  let extra="";
+  if(type!=="student"){
+    const n=STUDENTS.filter(s=>s.sup===name||s.cosup===name).length;
+    if(n) extra=` ${n} student${n>1?"s are":" is"} currently linked to this supervisor; their records will stay, but the supervisor name on them will no longer match any supervisor card.`;
+  }
+  document.getElementById("confirmText").textContent=`Are you sure you want to delete "${name}"? This cannot be undone.${extra}`;
   document.getElementById("confirmDelBtn").onclick=()=>executeDelete();
   document.getElementById("confirmModal").classList.add("open");
 }
 function closeConfirm(){document.getElementById("confirmModal").classList.remove("open");pendingDeleteIdx=null;}
 function executeDelete(){
+  if(!isAdmin){showToast("Admin access required","error");closeConfirm();return;}
   if(pendingDeleteType==="student"){STUDENTS.splice(pendingDeleteIdx,1);populateFilters();applyFilters();persistData();showToast("Student deleted");}
   else{
-    const supName = SUPERVISORS[pendingDeleteIdx].name;
-    const linkedStudents = STUDENTS.filter(s=>s.sup===supName || s.cosup===supName);
-    if(linkedStudents.length){
-      showToast("Cannot delete supervisor with assigned students","error");
-      closeConfirm();
-      return;
-    }
     SUPERVISORS.splice(pendingDeleteIdx,1);
     buildSupervisors();
     persistData();
@@ -6104,6 +6125,15 @@ function closeModal(){document.getElementById("modal").classList.remove("open");
 document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();closeConfirm();}});
 
 // ─── Supervisors ──────────────────────────────────────────────────────────────
+function supMatchesFilters(s){
+  const mode=(document.getElementById("supStatusFilter")||{}).value||"active";
+  const dept=(document.getElementById("supDeptFilter")||{}).value||"";
+  if(!(mode==="all"||(mode==="active"?isSupActive(s):!isSupActive(s)))) return false;
+  if(dept==="__none") return !s.dept;
+  if(dept) return s.dept===dept;
+  return true;
+}
+function isSupActive(s){return (s.active||"").toLowerCase()!=="inactive";}
 function buildSupervisors(){
   const MS_DEGS=['MSEE','MSCE'], phd_DEGS=['PhDEE','PhDCE'];
   const totalFMS=SUPERVISORS.reduce((a,s)=>{
@@ -6122,7 +6152,13 @@ function buildSupervisors(){
   },0);
   document.getElementById("totalFMS").textContent=totalFMS;
   document.getElementById("totalFPhD").textContent=totalFPhD;
+  const supMode=(document.getElementById("supStatusFilter")||{}).value||"active";
+  const supDept=(document.getElementById("supDeptFilter")||{}).value||"";
+  const supShown=SUPERVISORS.filter(supMatchesFilters).length;
+  const supInfo=document.getElementById("supListInfo");
+  if(supInfo) supInfo.textContent=supShown+" "+(supMode==="all"?"supervisor":supMode==="active"?"active supervisor":"inactive supervisor")+(supShown===1?"":"s")+(supDept&&supDept!=="__none"?" in "+supDept:supDept?" without department":"");
   document.getElementById("supGrid").innerHTML=SUPERVISORS.map((s,i)=>{
+    if(!supMatchesFilters(s)) return "";
     const sc=s.status==="HEC Approved"?"hec-approved":s.status==="Applied"?"hec-applied":s.status?"hec-not":"";
     // Students under this supervisor (primary or co)
     const myStudents=STUDENTS.filter(st=>st.sup===s.name||st.cosup===s.name);
@@ -6157,7 +6193,7 @@ function buildSupervisors(){
           ${s.degrees&&s.degrees.length?`<div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:4px">${s.degrees.map(d=>`<span style="background:var(--blue-l);color:var(--blue-d);font-size:10px;font-weight:600;padding:2px 7px;border-radius:9999px">${d}</span>`).join('')}</div>`:``}
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-          ${s.active==='Inactive'?`<span class="hec-badge" style="background:#fee2e2;color:#991b1b">Not Active</span>`:`<span class="hec-badge" style="background:#dcfce7;color:#166534">Active</span>`}
+          ${s.active==='Inactive'?`<span class="hec-badge" style="background:#fee2e2;color:#991b1b">Not Active</span>`:`<span class="hec-badge" style="background:#dcfce7;color:#166534">Active</span>`}${s.dept?`<span class="hec-badge" style="background:#e0e7ff;color:#3730a3">${esc(s.dept)}</span>`:''}
           ${s.status?`<span class="hec-badge ${sc}">${s.status}</span>`:""}
           ${isAdmin?`<div style="display:flex;gap:6px">
             <button class="act-btn btn-edit" onclick="openEditSupervisor(${i})"><i class="ti ti-pencil"></i>Edit</button>
@@ -6224,13 +6260,14 @@ function populateSupSearchOptions(){
   const sel=document.getElementById("supSearchSelect");
   if(!sel) return;
   const prev=sel.value;
-  const supNames=new Set(SUPERVISORS.map(s=>s.name).filter(Boolean));
+  const supNames=new Set(SUPERVISORS.filter(isSupActive).map(s=>s.name).filter(Boolean));
   // Split multi-name GEC strings like "Dr. A Dr. B" into individual names, same approach used by the GEC filters above
   const gecNames=new Set(
     STUDENTS.flatMap(s=>[...(s.gecInternal||"").split(/\s+(?=Dr\.)/),...(s.gecExternal||"").split(/\s+(?=Dr\.)/)])
       .map(n=>n.trim()).filter(Boolean)
   );
-  const gecOnly=[...gecNames].filter(n=>!supNames.has(n)).sort();
+  const allSupNames=new Set(SUPERVISORS.map(s=>s.name).filter(Boolean));
+  const gecOnly=[...gecNames].filter(n=>!allSupNames.has(n)).sort();
   const supSorted=[...supNames].sort();
   sel.innerHTML='<option value="">— Pick supervisor / FM —</option>'
     +(supSorted.length?`<optgroup label="Supervisors">${supSorted.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join("")}</optgroup>`:"")
@@ -6341,7 +6378,16 @@ function supervisorForm(s){
         <div class="form-row"><label>Designation</label><input id="sf-desg" value="${s?esc(s.desg||''):''}" placeholder="e.g. Assistant Professor"></div>
       </div>
       <div class="form-2col">
+        <div class="form-row"><label>Department</label>
+          <select id="sf-dept">
+            <option value=""${!s||!s.dept?' selected':''}>— Select —</option>
+            <option value="EE"${s&&s.dept==='EE'?' selected':''}>EE</option>
+            <option value="C&amp;SE"${s&&s.dept==='C&SE'?' selected':''}>C&amp;SE</option>
+          </select>
+        </div>
         <div class="form-row"><label>PhD Year</label><input id="sf-PhD" value="${s?esc(s.PhD||''):''}" placeholder="e.g. 2020"></div>
+      </div>
+      <div class="form-2col">
         <div class="form-row"><label>HEC Status</label>
           <select id="sf-status">
             <option value=""${s&&!s.status?' selected':''}>—</option>
@@ -6397,6 +6443,7 @@ function getSupervisorForm(){
   return{
     name:document.getElementById("sf-name").value.trim(),
     desg:document.getElementById("sf-desg").value.trim(),
+    dept:document.getElementById("sf-dept").value,
     PhD:document.getElementById("sf-PhD").value.trim(),
     status:document.getElementById("sf-status").value,
     area:document.getElementById("sf-area").value.trim(),
